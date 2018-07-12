@@ -688,6 +688,9 @@ msgstr "已连接"
 msgid "Connection Limit"
 msgstr "连接数限制"
 
+msgid "Connection attempt failed"
+msgstr "尝试连接失败"
+
 msgid "Connection to server fails when TLS cannot be used"
 msgstr "当 TLS 不可用时，与服务器连接失败"
 
@@ -1293,6 +1296,9 @@ msgstr "仅 GPRS"
 msgid "Gateway"
 msgstr "网关"
 
+msgid "Gateway address is invalid"
+msgstr "网关地址无效"
+
 msgid "Gateway ports"
 msgstr "网关端口"
 
@@ -1404,6 +1410,12 @@ msgstr "IP 地址"
 
 msgid "IP address"
 msgstr "IP 地址"
+
+msgid "IP address in invalid"
+msgstr "IP 地址无效"
+
+msgid "IP address is missing"
+msgstr "IP 地址缺失"
 
 msgid "IPv4"
 msgstr "IPv4"
@@ -1821,6 +1833,9 @@ msgstr "平均负载"
 msgid "Loading"
 msgstr "加载中"
 
+msgid "Local IP address is invalid"
+msgstr "本地 IP 地址无效"
+
 msgid "CPU Used"
 msgstr "CPU使用率"
 
@@ -2081,6 +2096,9 @@ msgstr "网络工具"
 
 msgid "Network boot image"
 msgstr "网络启动镜像"
+
+msgid "Network device is not present"
+msgstr "网络设备不存在"
 
 msgid "Network without interfaces."
 msgstr "无接口的网络。"
@@ -2343,6 +2361,9 @@ msgstr "PID"
 msgid "PIN"
 msgstr "PIN"
 
+msgid "PIN code rejected"
+msgstr "PIN 码被拒绝"
+
 msgid "PMK R1 Push"
 msgstr "R1 推送 PMK"
 
@@ -2429,6 +2450,9 @@ msgstr "峰值："
 
 msgid "Peer IP address to assign"
 msgstr "要分配的 Peer IP 地址"
+
+msgid "Peer address is missing"
+msgstr "Peer 地址缺失"
 
 msgid "Peers"
 msgstr "Peers"
@@ -3455,8 +3479,20 @@ msgstr "USB 接口"
 msgid "UUID"
 msgstr "UUID"
 
+msgid "Unable to determine device name"
+msgstr "无法确认设备名称"
+
+msgid "Unable to determine external IP address"
+msgstr "无法确认外部 IP 地址"
+
+msgid "Unable to determine upstream interface"
+msgstr "无法确认上游接口"
+
 msgid "Unable to dispatch"
 msgstr "无法调度"
+
+msgid "Unable to resolve peer host name"
+msgstr "无法解析 Pear 主机名"
 
 msgid "Unavailable Seconds (UAS)"
 msgstr "不可用秒数（UAS）"
@@ -3624,6 +3660,9 @@ msgstr "验证"
 
 msgid "Version"
 msgstr "版本"
+
+msgid "Virtual dynamic interface"
+msgstr "虚拟动态接口"
 
 msgid "WDS"
 msgstr "WDS"
