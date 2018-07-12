@@ -12,10 +12,19 @@
 	local netlist = { }
 	for _, net in ipairs(ntm:get_networks()) do
 		if net:name() ~= "loopback" then
-			local z = fwm:get_zone_by_network(net:name())
+			local zn = net:zonename()
+			local z = zn and fwm:get_zone(zn) or fwm:get_zone_by_network(net:name())
+
+			local w = 1
+			if net:is_alias() then
+				w = 2
+			elseif net:is_dynamic() then
+				w = 3
+			end
+
 			ifaces[#ifaces+1] = net:name()
 			netlist[#netlist+1] = {
-				net:name(), z and z:name() or "-", z
+				net:name(), z and z:name() or "-", z, net, w
 			}
 		end
 	end
@@ -24,6 +33,8 @@
 		function(a, b)
 			if a[2] ~= b[2] then
 				return a[2] < b[2]
+			elseif a[5] ~= b[5] then
+				return a[5] < b[5]
 			else
 				return a[1] < b[1]
 			end
@@ -235,6 +246,7 @@
 					local z = net[3]
 					local c = z and z:get_color() or "#EEEEEE"
 					local t = z and translate("Part of zone %q" % z:name()) or translate("No zone assigned")
+					local dynamic = net[4]:is_dynamic()
 			%>
 				<tr class="cbi-section-table-row cbi-rowstyle-<%=i % 2 + 1%>">
 					<td class="cbi-value-field" style="padding:3px">
@@ -252,10 +264,10 @@
 						<em><%:Collecting data...%></em>
 					</td>
 					<td style="width:420px">
-						<input type="button" class="cbi-button cbi-button-reload" style="width:100px" onclick="iface_shutdown('<%=net[1]%>', true)" title="<%:Reconnect this interface%>" value="<%:Connect%>" />
-						<input type="button" class="cbi-button cbi-button-reset" style="width:100px" onclick="iface_shutdown('<%=net[1]%>', false)" title="<%:Shutdown this interface%>" value="<%:Stop%>" />
-						<input type="button" class="cbi-button cbi-button-edit" style="width:100px" onclick="location.href='<%=url("admin/network/network", net[1])%>'" title="<%:Edit this interface%>" value="<%:Edit%>" id="<%=net[1]%>-ifc-edit" />
-						<input type="button" class="cbi-button cbi-button-remove" style="width:100px" onclick="iface_delete('<%=net[1]%>')" value="<%:Delete%>" />
+						<input type="button" class="cbi-button cbi-button-reload" style="width:100px" onclick="iface_shutdown('<%=net[1]%>', true)" title="<%:Reconnect this interface%>" value="<%:Connect%>"<%=ifattr(disabled or dynamic, "disabled", "disabled")%> />
+						<input type="button" class="cbi-button cbi-button-reset" style="width:100px" onclick="iface_shutdown('<%=net[1]%>', false)" title="<%:Shutdown this interface%>" value="<%:Stop%>"<%=ifattr(disabled or dynamic, "disabled", "disabled")%> />
+						<input type="button" class="cbi-button cbi-button-edit" style="width:100px" onclick="location.href='<%=url("admin/network/network", net[1])%>'" title="<%:Edit this interface%>" value="<%:Edit%>" id="<%=net[1]%>-ifc-edit"<%=ifattr(disabled or dynamic, "disabled", "disabled")%> />
+						<input type="button" class="cbi-button cbi-button-remove" style="width:100px" onclick="iface_delete('<%=net[1]%>')" value="<%:Delete%>"<%=ifattr(disabled or dynamic, "disabled", "disabled")%> />
 					</td>
 				</tr>
 			<% end %>

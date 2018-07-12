@@ -25,6 +25,22 @@ IFACE_PATTERNS_VIRTUAL  = { }
 IFACE_PATTERNS_IGNORE   = { "^wmaster%d", "^wifi%d", "^hwsim%d", "^imq%d", "^ifb%d", "^mon%.wlan%d", "^sit%d", "^gre%d", "^gretap%d", "^ip6gre%d", "^ip6tnl%d", "^tunl%d", "^lo$" }
 IFACE_PATTERNS_WIRELESS = { "^wlan%d", "^wl%d", "^ath%d", "^rausb%d", "^rai%d", "^ra%d", "^wdsi%d", "^wds%d", "^apclii%d", "^apcli%d", "^apcliusb%d", "^%w+%.network%d" }
 
+IFACE_ERRORS = {
+	CONNECT_FAILED			= lng.translate("Connection attempt failed"),
+	INVALID_ADDRESS			= lng.translate("IP address in invalid"),
+	INVALID_GATEWAY			= lng.translate("Gateway address is invalid"),
+	INVALID_LOCAL_ADDRESS	= lng.translate("Local IP address is invalid"),
+	MISSING_ADDRESS			= lng.translate("IP address is missing"),
+	MISSING_PEER_ADDRESS	= lng.translate("Peer address is missing"),
+	NO_DEVICE				= lng.translate("Network device is not present"),
+	NO_IFACE				= lng.translate("Unable to determine device name"),
+	NO_IFNAME				= lng.translate("Unable to determine device name"),
+	NO_WAN_ADDRESS			= lng.translate("Unable to determine external IP address"),
+	NO_WAN_LINK				= lng.translate("Unable to determine upstream interface"),
+	PEER_RESOLVE_FAIL		= lng.translate("Unable to resolve peer host name"),
+	PIN_FAILED				= lng.translate("PIN code rejected")
+}
+
 
 protocol = utl.class()
 
@@ -393,6 +409,17 @@ function register_pattern_virtual(self, pat)
 	IFACE_PATTERNS_VIRTUAL[#IFACE_PATTERNS_VIRTUAL+1] = pat
 end
 
+function register_error_code(self, code, message)
+	if type(code) == "string" and
+	   type(message) == "string" and
+	   not IFACE_ERRORS[code]
+	then
+		IFACE_ERRORS[code] = message
+		return true
+	end
+
+	return false
+end
 
 function has_ipv6(self)
 	return nfs.access("/proc/net/ipv6_route")
@@ -418,6 +445,13 @@ end
 function get_network(self, n)
 	if n and _uci:get("network", n) == "interface" then
 		return network(n)
+	elseif n then
+		local stat = utl.ubus("network.interface", "status", { interface = n })
+		if type(stat) == "table" and
+		   type(stat.proto) == "string"
+		then
+			return network(n, stat.proto)
+		end
 	end
 end
 
@@ -429,6 +463,23 @@ function get_networks(self)
 		function(s)
 			nls[s['.name']] = network(s['.name'])
 		end)
+
+	local dump = utl.ubus("network.interface", "dump", { })
+	if type(dump) == "table" and
+	   type(dump.interface) == "table"
+	then
+		local _, net
+		for _, net in ipairs(dump.interface) do
+			if type(net) == "table" and
+			   type(net.proto) == "string" and
+			   type(net.interface) == "string"
+			then
+				if not nls[net.interface] then
+					nls[net.interface] = network(net.interface, net.proto)
+				end
+			end
+		end
+	end
 
 	local n
 	for n in utl.kspairs(nls) do
@@ -851,6 +902,16 @@ function protocol.metric(self)
 	return self:_ubus("metric") or 0
 end
 
+function protocol.zonename(self)
+	local d = self:_ubus("data")
+
+	if type(d) == "table" and type(d.zone) == "string" then
+		return d.zone
+	end
+
+	return nil
+end
+
 function protocol.ipaddr(self)
 	local addrs = self:_ubus("ipv4-address")
 	return addrs and #addrs > 0 and addrs[1].address
@@ -962,6 +1023,22 @@ function protocol.ip6prefix(self)
 	end
 end
 
+function protocol.errors(self)
+	local _, err, rv
+	local errors = self:_ubus("errors")
+	if type(errors) == "table" then
+		for _, err in ipairs(errors) do
+			if type(err) == "table" and
+			   type(err.code) == "string"
+			then
+				rv = rv or { }
+				rv[#rv+1] = IFACE_ERRORS[err.code] or lng.translatef("Unknown error (%s)", err.code)
+			end
+		end
+	end
+	return rv
+end
+
 function protocol.is_bridge(self)
 	return (not self:is_virtual() and self:type() == "bridge")
 end
@@ -1025,6 +1102,10 @@ function protocol.is_empty(self)
 	end
 end
 
+function protocol.is_up(self)
+	return (self:_ubus("up") == true)
+end
+
 function protocol.add_interface(self, ifname)
 	ifname = _M:ifnameof(ifname)
 	if ifname and not self:is_floating() then
@@ -1060,8 +1141,11 @@ function protocol.get_interface(self)
 		_bridge["br-" .. self.sid] = true
 		return interface("br-" .. self.sid, self)
 	else
-		local ifn = nil
-		local num = { }
+		local ifn = self:_ubus("l3_device") or self:_ubus("device")
+		if ifn then
+			return interface(ifn, self)
+		end
+
 		for ifn in utl.imatch(_uci:get("network", self.sid, "ifname")) do
 			ifn = ifn:match("^[^:/]+")
 			return ifn and interface(ifn, self)
@@ -1555,8 +1639,8 @@ end
 
 function wifinet.ifname(self)
 	local ifname = self:ubus("net", "ifname") or self.iwinfo.ifname
-	if not ifname or ifname:match("^wifi%d") or ifname:match("^radio%d") or ifname:match("^ra") or ifname:match("^rai")  then
-		ifname = self.wdev
+	if not ifname or ifname:match("^wifi%d") or ifname:match("^radio%d") then
+		ifname = self.netid
 	end
 	return ifname
 end
