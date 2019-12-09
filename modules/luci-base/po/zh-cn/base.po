@@ -1767,6 +1767,21 @@ msgstr "语言"
 msgid "Language and Style"
 msgstr "语言和界面"
 
+msgid "Saves application box time Settings"
+msgstr "保存应用提示框设置"
+
+msgid "rollback time"
+msgstr "回滚保留时间"
+
+msgid "holdoff time"
+msgstr "拖延保留时间"
+
+msgid "timeout time"
+msgstr "超时保留时间"
+
+msgid "display time"
+msgstr "保存应用后保留时间"
+
 msgid "Latency"
 msgstr "延迟"
 
@@ -1873,6 +1888,9 @@ msgstr "负载"
 
 msgid "Load Average"
 msgstr "平均负载"
+
+msgid "Temperature"
+msgstr "温度"
 
 msgid "Loading"
 msgstr "加载中"
@@ -3746,6 +3764,9 @@ msgstr "正在应用更改…"
 
 msgid "Waiting for command to complete..."
 msgstr "等待命令执行完成…"
+
+msgid "Waiting for configuration to be applied…"
+msgstr "等待应用配置…"
 
 msgid "Waiting for configuration to be applied… %ds"
 msgstr "等待应用配置… %d 秒"

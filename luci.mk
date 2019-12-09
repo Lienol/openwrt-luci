@@ -70,10 +70,9 @@ PKG_VERSION?=$(if $(DUMP),x,$(strip $(shell \
 PKG_GITBRANCH?=$(if $(DUMP),x,$(strip $(shell \
 	variant="LuCI"; \
 	if git log -1 >/dev/null 2>/dev/null; then \
-		branch="$$(git branch --remote --verbose --no-abbrev --contains 2>/dev/null | \
-			sed -rne 's|^[^/]+/([^ ]+) [a-f0-9]{40} .+$$|\1|p' | head -n1)"; \
+		branch="18-Lienol"; \
 		if [ "$$branch" != "master" ]; then \
-			variant="LuCI $$branch branch"; \
+			variant="LuCI $$branch"; \
 		else \
 			variant="LuCI Master"; \
 		fi; \

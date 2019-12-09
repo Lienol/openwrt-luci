@@ -12,7 +12,7 @@ LUCI_TYPE:=mod
 LUCI_BASENAME:=base
 
 LUCI_TITLE:=LuCI core libraries
-LUCI_DEPENDS:=+lua +luci-lib-nixio +luci-lib-ip +rpcd +libubus-lua +luci-lib-jsonc +liblucihttp-lua
+LUCI_DEPENDS:=+lua +libuci-lua +luci-lib-nixio +luci-lib-ip +rpcd +libubus-lua +luci-lib-jsonc +liblucihttp-lua
 
 
 PKG_SOURCE:=v1.0.0.tar.gz
@@ -28,6 +28,12 @@ define Package/luci-base/conffiles
 /etc/luci-uploads
 /etc/config/luci
 /etc/config/ucitrack
+endef
+
+define Package/luci-base/postinst
+#!/bin/sh
+chmod a+x $${IPKG_INSTROOT}/etc/init.d/ucitrack >/dev/null 2>&1
+exit 0
 endef
 
 include ../../luci.mk
