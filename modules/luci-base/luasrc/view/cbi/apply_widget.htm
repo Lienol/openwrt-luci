@@ -2,24 +2,25 @@
 <style type="text/css">
 	#cbi_apply_overlay {
 		position: absolute;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		background: rgba(0, 0, 0, 0.7);
+		top: 50%;
+		left: 50%;
+		bottom: unset;
+		background: unset;
+		width: auto;
+		transform: translate(-50%, -50%);
+		overflow-y: unset;
 		display: none;
 		z-index: 20000;
 	}
 
 	#cbi_apply_overlay .alert-message {
-		position: relative;
-		top: 10%;
-		width: 60%;
-		margin: auto;
 		display: flex;
 		flex-wrap: wrap;
-		min-height: 32px;
 		align-items: center;
+		/* width: 100%; */
+		height: 2rem;
+		margin: 0 auto;
+		overflow-y: hidden !important;
 	}
 
 	#cbi_apply_overlay .alert-message > h4,
@@ -47,13 +48,24 @@
 <script type="text/javascript">//<![CDATA[
 	var xhr = new XHR(),
 	    uci_apply_auth = { sid: '<%=luci.dispatcher.context.authsession%>', token: '<%=token%>' },
-	    uci_apply_rollback = <%=math.max(luci.config and luci.config.apply and luci.config.apply.rollback or 30, 30)%>,
-	    uci_apply_holdoff = <%=math.max(luci.config and luci.config.apply and luci.config.apply.holdoff or 4, 1)%>,
-	    uci_apply_timeout = <%=math.max(luci.config and luci.config.apply and luci.config.apply.timeout or 5, 1)%>,
-	    uci_apply_display = <%=math.max(luci.config and luci.config.apply and luci.config.apply.display or 1.5, 1)%>,
+	    uci_apply_rollback = <%=luci.config and luci.config.apply and luci.config.apply.rollback%>,
+	    uci_apply_holdoff = <%=luci.config and luci.config.apply and luci.config.apply.holdoff%>,
+	    uci_apply_timeout = <%=luci.config and luci.config.apply and luci.config.apply.timeout%>,
+	    uci_apply_display = <%=luci.config and luci.config.apply and luci.config.apply.display%>,
 	    uci_confirm_auth = <% if rollback_token then %>{ token: '<%=rollback_token%>' }<% else %>null<% end %>,
 	    was_xhr_poll_running = false;
-
+		
+	var config_doms = document.getElementsByClassName("cbi-map");
+	if (config_doms.length == 1) {
+		var config_dom = config_doms[0];
+		var config_id = config_dom.id;
+		if (config_id != null) {
+			config_id = config_id.replace("cbi-", "");
+			uci_apply_auth = { sid: '<%=luci.dispatcher.context.authsession%>', token: '<%=token%>', config: config_id };
+		}
+	}
+	
+	
 	function uci_status_message(type, content) {
 		var overlay = document.getElementById('cbi_apply_overlay') || document.body.appendChild(E('<div id="cbi_apply_overlay"><div class="alert-message"></div></div>')),
 		    message = overlay.querySelector('.alert-message');
@@ -158,7 +170,7 @@
 
 			uci_status_message('notice',
 				'<img src="<%=resource%>/icons/loading.gif" alt="" style="vertical-align:middle" /> ' +
-				'<%:Waiting for configuration to be applied… %ds%>'.format(Math.max(Math.floor((deadline - Date.now()) / 1000), 0)));
+				'<%:Waiting for configuration to be applied…%>');
 
 			if (now >= deadline)
 				return;
@@ -174,6 +186,7 @@
 	}
 
 	function uci_apply(checked) {
+		checked = false;
 		uci_status_message('notice',
 			'<img src="<%=resource%>/icons/loading.gif" alt="" style="vertical-align:middle" /> ' +
 			'<%:Starting configuration apply…%>');

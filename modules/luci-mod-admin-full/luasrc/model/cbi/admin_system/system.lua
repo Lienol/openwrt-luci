@@ -21,6 +21,7 @@ s.addremove = false
 s:tab("general",  translate("General Settings"))
 s:tab("logging",  translate("Logging"))
 s:tab("language", translate("Language and Style"))
+s:tab("box", translate("Saves application box time Settings"))
 
 
 --
@@ -144,6 +145,49 @@ function o.write(self, section, value)
 	m.uci:set("luci", "main", "mediaurlbase", value)
 end
 
+o = s:taboption("box", Value, "rollback", translate("rollback time"))
+o.datatype="uinteger"
+
+function o.cfgvalue(...)
+	return m.uci:get("luci", "apply", "rollback")
+end
+
+function o.write(self, section, value)
+	m.uci:set("luci", "apply", "rollback", value)
+end
+
+o = s:taboption("box", Value, "holdoff", translate("holdoff time"))
+o.datatype="uinteger"
+
+function o.cfgvalue(...)
+	return m.uci:get("luci", "apply", "holdoff")
+end
+
+function o.write(self, section, value)
+	m.uci:set("luci", "apply", "holdoff", value)
+end
+
+o = s:taboption("box", Value, "timeout", translate("timeout time"))
+o.datatype="uinteger"
+
+function o.cfgvalue(...)
+	return m.uci:get("luci", "apply", "timeout")
+end
+
+function o.write(self, section, value)
+	m.uci:set("luci", "apply", "timeout", value)
+end
+
+o = s:taboption("box", Value, "display", translate("display time"))
+o.datatype="uinteger"
+
+function o.cfgvalue(...)
+	return m.uci:get("luci", "apply", "display")
+end
+
+function o.write(self, section, value)
+	m.uci:set("luci", "apply", "display", value)
+end
 
 --
 -- NTP
