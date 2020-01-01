@@ -293,6 +293,9 @@ msgstr ""
 msgid "Drop invalid packets"
 msgstr "丢弃无效数据包"
 
+msgid "Enable FullCone-NAT"
+msgstr "启用 FullCone-NAT"
+
 #: applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/forwards.js:181
 #: applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/rules.js:235
 #: applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/snats.js:164
