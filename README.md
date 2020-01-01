@@ -2,6 +2,12 @@
 
 [![Translation status](https://hosted.weblate.org/widgets/openwrt/-/svg-badge.svg)](https://hosted.weblate.org/engage/openwrt/?utm_source=widget)
 
+## Modify Content
+The rollback mechanism is killed by default.
+
+## 修改内容
+默认情况下，回滚机制将被禁用。
+
 ## Description
 
 This is the OpenWrt "luci"-feed containing LuCI - OpenWrt Configuration Interface.
@@ -10,7 +16,7 @@ This is the OpenWrt "luci"-feed containing LuCI - OpenWrt Configuration Interfac
 
 This feed is enabled by default. Your feeds.conf.default (or feeds.conf) should contain a line like:
 ```
-src-git luci https://github.com/openwrt/luci.git
+src-git luci https://github.com/Lienol/luci.git;21.02
 ```
 
 To install all its package definitions, run:
