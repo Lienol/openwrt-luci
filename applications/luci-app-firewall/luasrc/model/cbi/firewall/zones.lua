@@ -33,6 +33,8 @@ for i, v in ipairs(p) do
 	v:value("ACCEPT", translate("accept"))
 end
 
+s:option(Flag, "fullcone", translate("Enable FullCone-NAT"))
+
 -- Netfilter flow offload support
 
 local offload = fs.access("/sys/module/xt_FLOWOFFLOAD/refcnt")
