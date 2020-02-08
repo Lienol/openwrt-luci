@@ -296,6 +296,9 @@ msgstr "丢弃无效数据包"
 #: applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/forwards.js:181
 #: applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/rules.js:235
 #: applications/luci-app-firewall/htdocs/luci-static/resources/view/firewall/snats.js:164
+msgid "Enable FullCone-NAT"
+msgstr "启用 FullCone-NAT"
+
 msgid "Enable"
 msgstr "启用"
 
