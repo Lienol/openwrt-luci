@@ -227,6 +227,13 @@ cs.optional = true
 cs.datatype = "range(0,10000)"
 cs.placeholder = 150
 
+minittl = s:taboption("advanced", Value, "mini_ttl",
+	translate("Minimum TTL to send to clients"),
+	translate("Modify DNS entries minimum TTL (max is 86400, 0 is no modify)"))
+minittl.optional = true
+minittl.datatype = "range(0,86400)"
+minittl.placeholder = 0
+
 s:taboption("tftp", Flag, "enable_tftp",
 	translate("Enable TFTP server")).optional = true
 
