@@ -198,6 +198,11 @@ return view.extend({
 
 		s.taboption('files', form.DynamicList, 'addnhosts',
 			_('Additional Hosts files')).optional = true;
+			
+		o = s.taboption('advanced', form.Flag, 'filter_aaaa',
+			_('Disable IPv6 DNS forwards'),
+			_('Filter IPv6(AAAA) DNS Query Name Resolve'));
+		o.optional = true;
 
 		o = s.taboption('advanced', form.Flag, 'quietdhcp',
 			_('Suppress logging'),
