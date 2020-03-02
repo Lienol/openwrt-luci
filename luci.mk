@@ -59,7 +59,7 @@ PKG_VERSION?=$(if $(DUMP),x,$(strip $(shell \
 			set -- $$(git log -1 --format="%ct %h" --abbrev=7); \
 			secs="$$(($$1 % 86400))"; \
 			yday="$$(date --utc --date="@$$1" "+%y.%j")"; \
-			revision="$$(printf 'git-%s.%05d-%s' "$$yday" "$$secs" "$$2")"; \
+			revision="$$(printf 'git-%s' "$$2")"; \
 		fi; \
 	else \
 		revision="unknown"; \
@@ -70,10 +70,9 @@ PKG_VERSION?=$(if $(DUMP),x,$(strip $(shell \
 PKG_GITBRANCH?=$(if $(DUMP),x,$(strip $(shell \
 	variant="LuCI"; \
 	if git log -1 >/dev/null 2>/dev/null; then \
-		branch="$$(git branch --remote --verbose --no-abbrev --contains 2>/dev/null | \
-			sed -rne 's|^[^/]+/([^ ]+) [a-f0-9]{40} .+$$|\1|p' | head -n1)"; \
+		branch="17.01 Lienol"; \
 		if [ "$$branch" != "master" ]; then \
-			variant="LuCI $$branch branch"; \
+			variant="LuCI $$branch"; \
 		else \
 			variant="LuCI Master"; \
 		fi; \

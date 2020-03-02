@@ -10,13 +10,12 @@ local string = require "string"
 local coroutine = require "coroutine"
 local tparser = require "luci.template.parser"
 local json = require "luci.jsonc"
-local lhttp = require "lucihttp"
 
 local _ubus = require "ubus"
 local _ubus_connection = nil
 
 local getmetatable, setmetatable = getmetatable, setmetatable
-local rawget, rawset, unpack, select = rawget, rawset, unpack, select
+local rawget, rawset, unpack = rawget, rawset, unpack
 local tostring, type, assert, error = tostring, type, assert, error
 local ipairs, pairs, next, loadstring = ipairs, pairs, next, loadstring
 local require, pcall, xpcall = require, pcall, xpcall
@@ -100,8 +99,6 @@ end
 -- Scope manipulation routines
 --
 
-coxpt = setmetatable({}, { __mode = "kv" })
-
 local tl_meta = {
 	__mode = "k",
 
@@ -161,25 +158,6 @@ end
 
 function pcdata(value)
 	return value and tparser.pcdata(tostring(value))
-end
-
-function urlencode(value)
-	if value ~= nil then
-		local str = tostring(value)
-		return lhttp.urlencode(str, lhttp.ENCODE_IF_NEEDED + lhttp.ENCODE_FULL)
-			or str
-	end
-	return nil
-end
-
-function urldecode(value, decode_plus)
-	if value ~= nil then
-		local flag = decode_plus and lhttp.DECODE_PLUS or 0
-		local str = tostring(value)
-		return lhttp.urldecode(str, lhttp.DECODE_IF_NEEDED + flag)
-			or str
-	end
-	return nil
 end
 
 function striptags(value)
@@ -409,6 +387,16 @@ function clone(object, deep)
 end
 
 
+function dtable()
+        return setmetatable({}, { __index =
+                function(tbl, key)
+                        return rawget(tbl, key)
+                         or rawget(rawset(tbl, key, dtable()), key)
+                end
+        })
+end
+
+
 -- Serialize the contents of a table value.
 function _serialize_table(t, seen)
 	assert(not seen[t], "Recursion detected.")
@@ -633,31 +621,6 @@ function execl(command)
 	return data
 end
 
-
-local ubus_codes = {
-	"INVALID_COMMAND",
-	"INVALID_ARGUMENT",
-	"METHOD_NOT_FOUND",
-	"NOT_FOUND",
-	"NO_DATA",
-	"PERMISSION_DENIED",
-	"TIMEOUT",
-	"NOT_SUPPORTED",
-	"UNKNOWN_ERROR",
-	"CONNECTION_FAILED"
-}
-
-local function ubus_return(...)
-	if select('#', ...) == 2 then
-		local rv, err = select(1, ...), select(2, ...)
-		if rv == nil and type(err) == "number" then
-			return nil, err, ubus_codes[err]
-		end
-	end
-
-	return ...
-end
-
 function ubus(object, method, data)
 	if not _ubus_connection then
 		_ubus_connection = _ubus.connect()
@@ -668,7 +631,7 @@ function ubus(object, method, data)
 		if type(data) ~= "table" then
 			data = { }
 		end
-		return ubus_return(_ubus_connection:call(object, method, data))
+		return _ubus_connection:call(object, method, data)
 	elseif object then
 		return _ubus_connection:signatures(object)
 	else
@@ -693,11 +656,10 @@ end
 function checklib(fullpathexe, wantedlib)
 	local fs = require "nixio.fs"
 	local haveldd = fs.access('/usr/bin/ldd')
-	local haveexe = fs.access(fullpathexe)
-	if not haveldd or not haveexe then
+	if not haveldd then
 		return false
 	end
-	local libs = exec(string.format("/usr/bin/ldd %s", shellquote(fullpathexe)))
+	local libs = exec("/usr/bin/ldd " .. fullpathexe)
 	if not libs then
 		return false
 	end
@@ -709,69 +671,73 @@ function checklib(fullpathexe, wantedlib)
 	return false
 end
 
--------------------------------------------------------------------------------
--- Coroutine safe xpcall and pcall versions
 --
--- Encapsulates the protected calls with a coroutine based loop, so errors can
--- be dealed without the usual Lua 5.x pcall/xpcall issues with coroutines
--- yielding inside the call to pcall or xpcall.
+-- Coroutine safe xpcall and pcall versions modified for Luci
+-- original version:
+-- coxpcall 1.13 - Copyright 2005 - Kepler Project (www.keplerproject.org)
 --
--- Authors: Roberto Ierusalimschy and Andre Carregal
--- Contributors: Thomas Harning Jr., Ignacio Burgueño, Fabio Mascarenhas
+-- Copyright © 2005 Kepler Project.
+-- Permission is hereby granted, free of charge, to any person obtaining a
+-- copy of this software and associated documentation files (the "Software"),
+-- to deal in the Software without restriction, including without limitation
+-- the rights to use, copy, modify, merge, publish, distribute, sublicense,
+-- and/or sell copies of the Software, and to permit persons to whom the
+-- Software is furnished to do so, subject to the following conditions:
 --
--- Copyright 2005 - Kepler Project
+-- The above copyright notice and this permission notice shall be
+-- included in all copies or substantial portions of the Software.
 --
--- $Id: coxpcall.lua,v 1.13 2008/05/19 19:20:02 mascarenhas Exp $
--------------------------------------------------------------------------------
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+-- EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+-- OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+-- IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+-- DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+-- TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+-- OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
--------------------------------------------------------------------------------
--- Implements xpcall with coroutines
--------------------------------------------------------------------------------
-local coromap = setmetatable({}, { __mode = "k" })
+local performResume, handleReturnValue
+local oldpcall, oldxpcall = pcall, xpcall
+coxpt = {}
+setmetatable(coxpt, {__mode = "kv"})
 
-local function handleReturnValue(err, co, status, ...)
+-- Identity function for copcall
+local function copcall_id(trace, ...)
+  return ...
+end
+
+--				values of either the function or the error handler
+function coxpcall(f, err, ...)
+	local res, co = oldpcall(coroutine.create, f)
+	if not res then
+		local params = {...}
+		local newf = function() return f(unpack(params)) end
+		co = coroutine.create(newf)
+	end
+	local c = coroutine.running()
+	coxpt[co] = coxpt[c] or c or 0
+
+	return performResume(err, co, ...)
+end
+
+--				values of the function or the error object
+function copcall(f, ...)
+	return coxpcall(f, copcall_id, ...)
+end
+
+-- Handle return value of protected call
+function handleReturnValue(err, co, status, ...)
 	if not status then
 		return false, err(debug.traceback(co, (...)), ...)
 	end
-	if coroutine.status(co) == 'suspended' then
-		return performResume(err, co, coroutine.yield(...))
-	else
+
+	if coroutine.status(co) ~= 'suspended' then
 		return true, ...
 	end
+
+	return performResume(err, co, coroutine.yield(...))
 end
 
+-- Resume execution of protected function call
 function performResume(err, co, ...)
 	return handleReturnValue(err, co, coroutine.resume(co, ...))
-end
-
-local function id(trace, ...)
-	return trace
-end
-
-function coxpcall(f, err, ...)
-	local current = coroutine.running()
-	if not current then
-		if err == id then
-			return pcall(f, ...)
-		else
-			if select("#", ...) > 0 then
-				local oldf, params = f, { ... }
-				f = function() return oldf(unpack(params)) end
-			end
-			return xpcall(f, err)
-		end
-	else
-		local res, co = pcall(coroutine.create, f)
-		if not res then
-			local newf = function(...) return f(...) end
-			co = coroutine.create(newf)
-		end
-		coromap[co] = current
-		coxpt[co] = coxpt[current] or current or 0
-		return performResume(err, co, ...)
-	end
-end
-
-function copcall(f, ...)
-	return coxpcall(f, id, ...)
 end

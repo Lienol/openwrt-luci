@@ -49,7 +49,3 @@ function proto.contains_interface(self, ifc)
 end
 
 netmod:register_pattern_virtual("^qmi%-%w")
-
-netmod:register_error_code("CALL_FAILED",	luci.i18n.translate("Call failed"))
-netmod:register_error_code("NO_CID",		luci.i18n.translate("Unable to obtain client ID"))
-netmod:register_error_code("PLMN_FAILED",	luci.i18n.translate("Setting PLMN failed"))

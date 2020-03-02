@@ -2,7 +2,6 @@
 -- Licensed to the public under the Apache License 2.0.
 
 local ipc = require "luci.ip"
-local sys = require "luci.sys"
 local o
 require "luci.util"
 
@@ -58,6 +57,11 @@ s:taboption("files", Flag, "nohosts",
 
 s:taboption("files", DynamicList, "addnhosts",
 	translate("Additional Hosts files")).optional = true
+	
+aaaa = s:taboption("advanced", Flag, "filter_aaaa",
+	translate("Disable IPv6 DNS forwards"),
+	translate("Filter IPv6(AAAA) DNS Query Name Resolve"))
+aaaa.optional = true
 
 qu = s:taboption("advanced", Flag, "quietdhcp",
 	translate("Suppress logging"),
@@ -112,26 +116,26 @@ s:taboption("advanced", Flag, "nonegcache",
 	translate("No negative cache"),
 	translate("Do not cache negative replies, e.g. for not existing domains"))
 
+s:taboption("advanced", Flag, "allservers",
+	translate("Use all servers"),
+	translate("Setting this flag forces dnsmasq to send all queries to all available servers. The reply from the server which answers first will be returned to the original requester."))
+
 s:taboption("advanced", Value, "serversfile",
 	translate("Additional servers file"),
 	translate("This file may contain lines like 'server=/domain/1.2.3.4' or 'server=1.2.3.4' for"..
-		"domain-specific or full upstream <abbr title=\"Domain Name System\">DNS</abbr> servers."))
+	        "domain-specific or full upstream <abbr title=\"Domain Name System\">DNS</abbr> servers."))
 
 s:taboption("advanced", Flag, "strictorder",
 	translate("Strict order"),
 	translate("<abbr title=\"Domain Name System\">DNS</abbr> servers will be queried in the " ..
 		"order of the resolvfile")).optional = true
 
-s:taboption("advanced", Flag, "allservers",
-	translate("All Servers"),
-	translate("Query all available upstream <abbr title=\"Domain Name System\">DNS</abbr> servers")).optional = true
 
 bn = s:taboption("advanced", DynamicList, "bogusnxdomain", translate("Bogus NX Domain Override"),
 	translate("List of hosts that supply bogus NX domain results"))
 
 bn.optional = true
 bn.placeholder = "67.215.65.132"
-
 
 s:taboption("general", Flag, "logqueries",
 	translate("Log queries"),
@@ -222,6 +226,13 @@ cs.optional = true
 cs.datatype = "range(0,10000)"
 cs.placeholder = 150
 
+minittl = s:taboption("advanced", Value, "mini_ttl",
+	translate("Minimum TTL to send to clients"),
+	translate("Modify DNS entries minimum TTL (max is 86400, 0 is no modify)"))
+minittl.optional = true
+minittl.datatype = "range(0,86400)"
+minittl.placeholder = 0
+
 s:taboption("tftp", Flag, "enable_tftp",
 	translate("Enable TFTP server")).optional = true
 
@@ -283,7 +294,7 @@ s.anonymous = true
 s.template = "cbi/tblsection"
 
 name = s:option(Value, "name", translate("Hostname"))
-name.datatype = "hostname('strict')"
+name.datatype = "hostname"
 name.rmempty  = true
 
 function name.write(self, section, value)
@@ -300,36 +311,18 @@ mac = s:option(Value, "mac", translate("<abbr title=\"Media Access Control\">MAC
 mac.datatype = "list(macaddr)"
 mac.rmempty  = true
 
-function mac.cfgvalue(self, section)
-	local val = Value.cfgvalue(self, section)
-	return ipc.checkmac(val) or val
-end
-
 ip = s:option(Value, "ip", translate("<abbr title=\"Internet Protocol Version 4\">IPv4</abbr>-Address"))
 ip.datatype = "or(ip4addr,'ignore')"
 
 time = s:option(Value, "leasetime", translate("Lease time"))
 time.rmempty = true
 
-duid = s:option(Value, "duid", translate("<abbr title=\"The DHCP Unique Identifier\">DUID</abbr>"))
-duid.datatype = "and(rangelength(20,36),hexstring)"
-fp = io.open("/var/hosts/odhcpd")
-if fp then
-	for line in fp:lines() do
-		local net_val, duid_val = string.match(line, "# (%S+)%s+(%S+)")
-		if duid_val then
-			duid:value(duid_val, duid_val)
-		end
-	end
-	fp:close()
-end
-
 hostid = s:option(Value, "hostid", translate("<abbr title=\"Internet Protocol Version 6\">IPv6</abbr>-Suffix (hex)"))
 
-sys.net.host_hints(function(m, v4, v6, name)
-	if m and v4 then
-		ip:value(v4)
-		mac:value(m, "%s (%s)" %{ m, name or v4 })
+ipc.neighbors({ family = 4 }, function(n)
+	if n.mac and n.dest then
+		ip:value(n.dest:string())
+		mac:value(n.mac, "%s (%s)" %{ n.mac, n.dest:string() })
 	end
 end)
 
@@ -342,5 +335,21 @@ function ip.validate(self, value, section)
 	return Value.validate(self, value, section)
 end
 
+d = m:section(TypedSection, "domain", translate("Custom domain"),
+	translate("Define a custom domain name and the corresponding PTR record"))
+
+d.addremove = true
+d.anonymous = true
+d.template = "cbi/tblsection"
+
+dns_name = d:option(Value, "name", translate("Domain name"))
+dns_name.datatype = "hostname"
+dns_name.rmempty  = true
+
+dns_ip = d:option(Value, "ip", translate("<abbr title=\"Internet Protocol Version 4\">IPv4</abbr>-Address"))
+dns_ip.datatype = "or(ip4addr,'ignore')"
+
+dns_comments = d:option(Value, "comments", translate("Comments"))
+dns_comments.rmempty  = true
 
 return m

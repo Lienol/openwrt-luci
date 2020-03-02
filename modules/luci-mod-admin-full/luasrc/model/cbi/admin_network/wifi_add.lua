@@ -6,7 +6,6 @@ local nw   = require "luci.model.network"
 local fw   = require "luci.model.firewall"
 local uci  = require "luci.model.uci".cursor()
 local http = require "luci.http"
-local util = require "luci.util"
 
 local iw = luci.sys.wifi.getiwinfo(http.formvalue("device"))
 
@@ -17,7 +16,7 @@ if not iw then
 	return
 end
 
-m = SimpleForm("network", translatef("Joining Network: %q", util.pcdata(http.formvalue("join"))))
+m = SimpleForm("network", translatef("Joining Network: %q", http.formvalue("join")))
 m.cancel = translate("Back to scan results")
 m.reset = false
 
@@ -95,9 +94,14 @@ function newnet.parse(self, section)
 	local net, zone
 
 	if has_firewall then
-		local value = fwzone:formvalue(section)
-		if value and #value > 0 then
-			zone = fw:get_zone(value) or fw:add_zone(value)
+		local zval  = fwzone:formvalue(section)
+		zone = fw:get_zone(zval)
+
+		if not zone and zval == '-' then
+			zval = m:formvalue(fwzone:cbid(section) .. ".newzone")
+			if zval and #zval > 0 then
+				zone = fw:add_zone(zval)
+			end
 		end
 	end
 

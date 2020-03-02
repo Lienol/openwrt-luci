@@ -8,7 +8,7 @@ This is the OpenWrt "luci"-feed containing LuCI - OpenWrt Configuration Interfac
 
 This feed is enabled by default. Your feeds.conf.default (or feeds.conf) should contain a line like:
 ```
-src-git luci https://github.com/openwrt/luci.git
+src-git luci https://github.com/Lienol/luci.git;dev-17.01
 ```
 
 To install all its package definitions, run:
