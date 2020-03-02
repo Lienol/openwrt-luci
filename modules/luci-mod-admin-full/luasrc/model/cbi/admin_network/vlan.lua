@@ -5,7 +5,6 @@
 m = Map("network", translate("Switch"), translate("The network ports on this device can be combined to several <abbr title=\"Virtual Local Area Network\">VLAN</abbr>s in which computers can communicate directly with each other. <abbr title=\"Virtual Local Area Network\">VLAN</abbr>s are often used to separate different network segments. Often there is by default one Uplink port for a connection to the next greater network like the internet and other ports for a local network."))
 
 local fs = require "nixio.fs"
-local ut = require "luci.util"
 local nw = require "luci.model.network"
 local switches = { }
 
@@ -42,8 +41,6 @@ local update_interfaces = function(old_ifname, new_ifname)
 	end
 end
 
-local vlan_already_created
-
 m.uci:foreach("network", "switch",
 	function(x)
 		local sid         = x['.name']
@@ -77,7 +74,7 @@ m.uci:foreach("network", "switch",
 		end
 
 		-- Parse some common switch properties from swconfig help output.
-		local swc = io.popen("swconfig dev %s help 2>/dev/null" % ut.shellquote(switch_name))
+		local swc = io.popen("swconfig dev %q help 2>/dev/null" % switch_name)
 		if swc then
 
 			local is_port_attr = false
@@ -202,29 +199,8 @@ m.uci:foreach("network", "switch",
 
 		-- When creating a new vlan, preset it with the highest found vid + 1.
 		s.create = function(self, section, origin)
-			-- VLAN has already been created for another switch
-			if vlan_already_created then
-				return
-
-			-- VLAN add button was pressed in an empty VLAN section so only
-			-- accept the create event if our switch is without existing VLANs
-			elseif origin == "" then
-				local is_empty_switch = true
-
-				m.uci:foreach("network", "switch_vlan",
-					function(s)
-						if s.device == switch_name then
-							is_empty_switch = false
-							return false
-						end
-					end)
-
-				if not is_empty_switch then
-					return
-				end
-
-			-- VLAN was created for another switch
-			elseif m:get(origin, "device") ~= switch_name then
+			-- Filter by switch
+			if m:get(origin, "device") ~= switch_name then
 				return
 			end
 
@@ -249,8 +225,6 @@ m.uci:foreach("network", "switch",
 			if has_vlan4k then
 				m:set(sid, has_vlan4k, max_id + 1)
 			end
-
-			vlan_already_created = true
 
 			return sid
 		end
@@ -285,7 +259,7 @@ m.uci:foreach("network", "switch",
 		end
 
 
-		local vid = s:option(Value, has_vlan4k or "vlan", "VLAN ID")
+		local vid = s:option(Value, has_vlan4k or "vlan", "VLAN ID", "<div id='portstatus-%s'></div>" % switch_name)
 		local mx_vid = has_vlan4k and 4094 or (num_vlans - 1)
 
 		vid.rmempty = false
@@ -358,7 +332,7 @@ m.uci:foreach("network", "switch",
 
 		local _, pt
 		for _, pt in ipairs(topo.ports) do
-			local po = s:option(ListValue, tostring(pt.num), pt.label)
+			local po = s:option(ListValue, tostring(pt.num), pt.label, '<div id="portstatus-%s-%d"></div>' %{ switch_name, pt.num })
 
 			po:value("",  translate("off"))
 

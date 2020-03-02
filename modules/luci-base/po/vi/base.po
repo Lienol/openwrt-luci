@@ -18,7 +18,7 @@ msgid "%.1f dB"
 msgstr ""
 
 msgid "%s is untagged in multiple VLANs!"
-msgstr "%s không được kết nối với nhiều VLANs!"
+msgstr ""
 
 msgid "(%d minute window, %d second interval)"
 msgstr ""
@@ -28,16 +28,16 @@ msgid "(%s available)"
 msgstr "(%s available)"
 
 msgid "(empty)"
-msgstr "(Rỗng)"
+msgstr ""
 
 msgid "(no interfaces attached)"
-msgstr "(chưa được kết nối với giao diện mạng)"
+msgstr ""
 
 msgid "-- Additional Field --"
 msgstr "---Mục bổ sung---"
 
 msgid "-- Please choose --"
-msgstr "-- Hãy chọn --"
+msgstr "--Hãy chọn--"
 
 msgid "-- custom --"
 msgstr "--tùy chỉnh--"
@@ -46,131 +46,115 @@ msgid "-- match by device --"
 msgstr ""
 
 msgid "-- match by label --"
-msgstr "-- giống với nhãn --"
+msgstr ""
 
 msgid "-- match by uuid --"
-msgstr "-- giống với UUID --"
-
-msgid "-- please select --"
-msgstr "-- xin hãy chọn --"
+msgstr ""
 
 msgid "1 Minute Load:"
-msgstr "tải 1 phút:"
+msgstr ""
 
 msgid "15 Minute Load:"
-msgstr "tải 15 phút:"
+msgstr ""
 
 msgid "4-character hexadecimal ID"
-msgstr "4 ký tự ID thập lục phân"
+msgstr ""
 
-#, fuzzy
 msgid "464XLAT (CLAT)"
-msgstr "464XLAT (CLAT)"
+msgstr ""
 
 msgid "5 Minute Load:"
-msgstr "tải 5 phút:"
+msgstr ""
 
 msgid "6-octet identifier as a hex string - no colons"
-msgstr "Định danh bằng 6 số bát phân dạng chuỗi thập lục phân - không phẩy"
+msgstr ""
 
 msgid "802.11r Fast Transition"
-msgstr "802.11r truyền nhanh"
+msgstr ""
 
 msgid "802.11w Association SA Query maximum timeout"
-msgstr "thời gian chờ truy vấn SA tối đa chuẩn 802.11w"
+msgstr ""
 
 msgid "802.11w Association SA Query retry timeout"
-msgstr "thời gian chờ thử lại truy vấn SA chuẩn 802.11w"
+msgstr ""
 
 msgid "802.11w Management Frame Protection"
-msgstr "Bảo vệ khung quản lý (MFP) 802.11w"
+msgstr ""
 
 msgid "802.11w maximum timeout"
-msgstr "thời gian chờ tối đa chuẩn 802.11w"
+msgstr ""
 
 msgid "802.11w retry timeout"
-msgstr "thời gian thử lại chuẩn 802.11w"
+msgstr ""
 
 msgid "<abbr title=\"Basic Service Set Identifier\">BSSID</abbr>"
 msgstr "<abbr title=\"Dịch vụ căn bản đặt Identifier\">BSSID</abbr>"
 
 msgid "<abbr title=\"Domain Name System\">DNS</abbr> query port"
-msgstr "<abbr title=\"Hệ thống phân giải tên miền\">DNS</abbr> query port"
+msgstr ""
 
 msgid "<abbr title=\"Domain Name System\">DNS</abbr> server port"
 msgstr ""
-"<abbr title=\"Hệ thống phân giải tên miền (Domain Name System)\">DNS</abbr> "
-"server port"
 
 msgid ""
 "<abbr title=\"Domain Name System\">DNS</abbr> servers will be queried in the "
 "order of the resolvfile"
 msgstr ""
-"<abbr title=\"Hệ thống phân giải tên miền\">DNS</abbr> máy chủ sẽ được truy "
-"vấn theo thứ tự của resolvfile"
 
 msgid "<abbr title=\"Extended Service Set Identifier\">ESSID</abbr>"
-msgstr "<abbr title=\"Tên mạng WiFi (ESSID)\">ESSID</abbr>"
+msgstr "<abbr title=\"Mở rộng dịch vụ đặt Identifier\">ESSID</abbr>"
 
 msgid "<abbr title=\"Internet Protocol Version 4\">IPv4</abbr>-Address"
-msgstr "<abbr title=\"giao thức internet phiên bản 4\">IPv4</abbr>-Address"
+msgstr "<abbr title=\"Internet Protocol Version 4\">IPv4</abbr>-Address"
 
 msgid "<abbr title=\"Internet Protocol Version 4\">IPv4</abbr>-Gateway"
-msgstr "<abbr title=\"giao thức internet phiên bản 4\">IPv4</abbr>-Gateway"
+msgstr "<abbr title=\"Internet Protocol Version 4\">IPv4</abbr>-Gateway"
 
 msgid "<abbr title=\"Internet Protocol Version 4\">IPv4</abbr>-Netmask"
-msgstr "<abbr title=\"giao thức internet phiên bản 4\">IPv4</abbr>-Netmask"
+msgstr "<abbr title=\"Internet Protocol Version 4\">IPv4</abbr>-Netmask"
 
 msgid ""
 "<abbr title=\"Internet Protocol Version 6\">IPv6</abbr>-Address or Network "
 "(CIDR)"
 msgstr ""
-"<abbr title=\"giao thức internet phiên bản 6\">IPv6</abbr>-Address or "
-"Network (CIDR)"
+"<abbr title=\"Internet Protocol Version 6\">IPv6</abbr>-Address or Network "
+"(CIDR)"
 
 msgid "<abbr title=\"Internet Protocol Version 6\">IPv6</abbr>-Gateway"
-msgstr "<abbr title=\"giao thức internet phiên bản 6\">IPv6</abbr>-Gateway"
+msgstr "<abbr title=\"Internet Protocol Version 6\">IPv6</abbr>-Gateway"
 
 msgid "<abbr title=\"Internet Protocol Version 6\">IPv6</abbr>-Suffix (hex)"
 msgstr ""
-"<abbr title=\"giao thức internet phiên bản 6\">IPv6</abbr>-Suffix (hex)"
 
 msgid "<abbr title=\"Light Emitting Diode\">LED</abbr> Configuration"
-msgstr "<abbr title=\"đèn LEDLED\">LED</abbr> Configuration"
+msgstr "<abbr title=\"Light Emitting Diode\">LED</abbr> Configuration"
 
 msgid "<abbr title=\"Light Emitting Diode\">LED</abbr> Name"
-msgstr "<abbr title=\"Light Emitting Diode\">LED</abbr> Name"
+msgstr ""
 
 msgid "<abbr title=\"Media Access Control\">MAC</abbr>-Address"
-msgstr ""
-"<abbr title=\"Kiểm soát kết nối phương tiện truyền thông\">MAC</abbr>-Address"
-
-msgid "<abbr title=\"The DHCP Unique Identifier\">DUID</abbr>"
-msgstr "<abbr title=\"Định danh độc nhất cho DHCP\">DUID</abbr>"
+msgstr "<abbr title=\"Media Access Control\">MAC</abbr>-Address"
 
 msgid ""
 "<abbr title=\"maximal\">Max.</abbr> <abbr title=\"Dynamic Host Configuration "
 "Protocol\">DHCP</abbr> leases"
 msgstr ""
-"<abbr title=\"Tối đa\">Max.</abbr> <abbr title=\"Giao thức cấu hình máy chủ "
-"động\">DHCP</abbr> leases"
 
 msgid ""
 "<abbr title=\"maximal\">Max.</abbr> <abbr title=\"Extension Mechanisms for "
 "Domain Name System\">EDNS0</abbr> packet size"
 msgstr ""
-"<abbr title=\"maximal\">Max.</abbr> <abbr title=\"Cơ chế mở rộng hệ thống  "
-"phân giải tên miền\">EDNS0</abbr> packet size"
 
 msgid "<abbr title=\"maximal\">Max.</abbr> concurrent queries"
-msgstr "<abbr title=\"Tối đa\">Max.</abbr> concurrent queries"
+msgstr ""
+
+msgid "<abbr title='Pairwise: %s / Group: %s'>%s - %s</abbr>"
+msgstr ""
 
 msgid ""
 "<br/>Note: you need to manually restart the cron service if the crontab file "
 "was empty before editing."
 msgstr ""
-"<br/>Note: bạn cần tự khởi động lại dich vụ cron nếu file crontab rỗng trước "
-"khi được chỉnh sửa."
 
 msgid "A43C + J43 + A43"
 msgstr ""
@@ -179,71 +163,76 @@ msgid "A43C + J43 + A43 + V43"
 msgstr ""
 
 msgid "ADSL"
-msgstr "ADSL"
+msgstr ""
+
+msgid "AICCU (SIXXS)"
+msgstr ""
 
 msgid "ANSI T1.413"
-msgstr "ANSI T1.413"
+msgstr ""
 
 msgid "APN"
-msgstr "APN"
+msgstr ""
 
 msgid "ARP retry threshold"
 msgstr ""
 
 msgid "ATM (Asynchronous Transfer Mode)"
-msgstr "Chế độ truyền đồng bộ(ATM)"
+msgstr ""
 
 msgid "ATM Bridges"
 msgstr ""
 
 msgid "ATM Virtual Channel Identifier (VCI)"
-msgstr "Kênh định danh ảo chế độ ATM (VCI)"
+msgstr ""
 
 msgid "ATM Virtual Path Identifier (VPI)"
-msgstr "Đường dẫn định danh ảo chế độ ATM (VPI)"
+msgstr ""
 
 msgid ""
 "ATM bridges expose encapsulated ethernet in AAL5 connections as virtual "
 "Linux network interfaces which can be used in conjunction with DHCP or PPP "
 "to dial into the provider network."
 msgstr ""
-"cầu ATM đưa ra đóng gói của ethernet trong kết nối AAL5 dưới dạng dao "
-"diệnmạng Linux ảo, có thể kết nối với DHCP hoặc PPP để liên lại nhà cung cấp "
-"mạng"
 
 msgid "ATM device number"
-msgstr "Số hiệu thiết bị ATM"
+msgstr ""
 
 msgid "ATU-C System Vendor ID"
-msgstr "Hệ thống cung cấp ID ATU-C"
+msgstr ""
+
+msgid "AYIYA"
+msgstr ""
 
 msgid "Access Concentrator"
-msgstr "Truy cập tập trung"
+msgstr ""
 
 msgid "Access Point"
 msgstr "Điểm truy cập"
 
+msgid "Action"
+msgstr "Action"
+
 msgid "Actions"
 msgstr "Hành động"
 
-msgid "Active <abbr title=\"Internet Protocol Version 4\">IPv4</abbr>-Routes"
+msgid "Activate this network"
 msgstr ""
-"Active <abbr title=\"giao thức kết nối internet phiên bản 4\">IPv4</abbr>-"
-"Routes"
+
+msgid "Active <abbr title=\"Internet Protocol Version 4\">IPv4</abbr>-Routes"
+msgstr "Active <abbr title=\"Internet Protocol Version 4\">IPv4</abbr>-Routes"
 
 msgid "Active <abbr title=\"Internet Protocol Version 6\">IPv6</abbr>-Routes"
-msgstr ""
-"Active <abbr title=\"giao thức kết nối internet phiên bản 6\">IPv6</abbr>-"
-"Routes"
+msgstr "Active <abbr title=\"Internet Protocol Version 6\">IPv6</abbr>-Routes"
 
 msgid "Active Connections"
 msgstr "kết nối đang hoạt động"
 
 msgid "Active DHCP Leases"
-msgstr "Khởi động xin id từ DHCP"
+msgstr ""
 
 msgid "Active DHCPv6 Leases"
-msgstr "Khởi động xin id từ DHCPv6"
+msgstr ""
 
 msgid "Ad-Hoc"
 msgstr "Ad-Hoc"
@@ -252,22 +241,22 @@ msgid "Add"
 msgstr "Thêm vào"
 
 msgid "Add local domain suffix to names served from hosts files"
-msgstr "Thêm hậu tố tên miền cục bộ vào tên được phân phát từ tệp máy chủ"
+msgstr ""
 
 msgid "Add new interface..."
-msgstr "Thêm giao diện mới..."
+msgstr ""
 
 msgid "Additional Hosts files"
-msgstr "Tập tin máy chủ(host) bổ sung"
+msgstr ""
 
 msgid "Additional servers file"
-msgstr "Tập tin máy chủ(server) bổ sung"
+msgstr ""
 
 msgid "Address"
-msgstr "Địa chỉ"
+msgstr ""
 
 msgid "Address to access local relay bridge"
-msgstr "Địa chỉ truy cập cầu chuyển tiếp địa phương"
+msgstr ""
 
 msgid "Administration"
 msgstr "Quản trị"
@@ -279,68 +268,51 @@ msgid "Aggregate Transmit Power(ACTATP)"
 msgstr ""
 
 msgid "Alert"
-msgstr "Cảnh báo"
-
-msgid "Alias Interface"
-msgstr "Giao diện bí danh"
-
-msgid "Alias of \"%s\""
-msgstr "bí danh của \"%s\""
-
-msgid "All Servers"
-msgstr "Tất cả máy chủ"
+msgstr ""
 
 msgid ""
 "Allocate IP addresses sequentially, starting from the lowest available "
 "address"
-msgstr "Phân bổ địa chỉ IP theo tuần tự, bắt đầu từ địa chỉ có sẵn thấp nhất"
+msgstr ""
 
 msgid "Allocate IP sequentially"
-msgstr "Phân bổ tuần tự địa chủ IP"
+msgstr ""
 
 msgid "Allow <abbr title=\"Secure Shell\">SSH</abbr> password authentication"
 msgstr "Cho phép <abbr title=\"Secure Shell\">SSH</abbr> xác thực mật mã"
 
-msgid "Allow AP mode to disconnect STAs based on low ACK condition"
-msgstr "Cho phép chế độ AP ngắt kết nối dựa theo điều khiện ACK thấp"
-
 msgid "Allow all except listed"
 msgstr "Cho phép tất cả trừ danh sách liệt kê"
-
-msgid "Allow legacy 802.11b rates"
-msgstr "Cho phép kế thừ tốc độ 802.11b"
 
 msgid "Allow listed only"
 msgstr "Chỉ cho phép danh sách liệt kê"
 
 msgid "Allow localhost"
-msgstr "Cho phép máy chủ cục bộ"
+msgstr ""
 
 msgid "Allow remote hosts to connect to local SSH forwarded ports"
-msgstr "Cho phép máy chủ từ xa kết nối với các cổng chuyển tiếp SSH cục bộ"
+msgstr ""
 
 msgid "Allow root logins with password"
-msgstr "Cho phép root đăng nhập với mật khẩu"
+msgstr ""
 
 msgid "Allow the <em>root</em> user to login with password"
-msgstr "Cho phép người dùng <em>root</em> đăng nhập với mật khẩu"
+msgstr ""
 
 msgid ""
 "Allow upstream responses in the 127.0.0.0/8 range, e.g. for RBL services"
-msgstr "Cho phép phản hồi ngược trong dải IP 127.0.0.0/8 cho dịch vụ RBL"
+msgstr ""
 
 msgid "Allowed IPs"
-msgstr "cho phép IPs"
-
-msgid "Always announce default router"
-msgstr "Luôn thông báo bộ định tuyến mặc định"
+msgstr ""
 
 msgid ""
-"Always use 40MHz channels even if the secondary channel overlaps. Using this "
-"option does not comply with IEEE 802.11n-2009!"
+"Also see <a href=\"https://www.sixxs.net/faq/connectivity/?faq=comparison"
+"\">Tunneling Comparison</a> on SIXXS"
 msgstr ""
-"Luôn sử dụng các kênh 40 MHz ngay cả khi kênh thứ cấp chồng lấp. Sử dụng tùy "
-"chọn  này không tuân thủ theo chuẩn 802.11n-2009"
+
+msgid "Always announce default router"
+msgstr ""
 
 msgid "Annex"
 msgstr ""
@@ -389,17 +361,15 @@ msgstr ""
 
 msgid "Announce as default router even if no public prefix is available."
 msgstr ""
-"Thông báo là bộ định tuyến mặc định ngay cả khi không có tiền tố công khai "
-"nào"
 
 msgid "Announced DNS domains"
-msgstr "Thông báo tên miền DNS"
+msgstr ""
 
 msgid "Announced DNS servers"
-msgstr "Thông báo máy chủ DNS"
+msgstr ""
 
 msgid "Anonymous Identity"
-msgstr "Ẩn danh tính"
+msgstr ""
 
 msgid "Anonymous Mount"
 msgstr ""
@@ -419,74 +389,64 @@ msgstr ""
 msgid "Any zone"
 msgstr ""
 
-msgid "Apply request failed with status <code>%h</code>"
-msgstr "Áp dụng yêu cầu không thành công với trạng thái <code>%h</code>"
+msgid "Apply"
+msgstr "Áp dụng"
 
-msgid "Apply unchecked"
-msgstr "Áp dụng không kiểm tra"
-
-msgid "Architecture"
-msgstr "Kiến trúc"
+msgid "Applying changes"
+msgstr "Tiến hành thay đổi"
 
 msgid ""
 "Assign a part of given length of every public IPv6-prefix to this interface"
 msgstr ""
-"Chỉ định một phần độ dài nhất định của mỗi tiền tố  địa chỉ IPv6 công khai "
-"cho giao diện này"
 
 msgid "Assign interfaces..."
-msgstr "Chỉ định giao diện"
+msgstr ""
 
 msgid ""
 "Assign prefix parts using this hexadecimal subprefix ID for this interface."
 msgstr ""
-"Chỉ định các phần tiền tố bằng tiền tố thức cấp ID dạng thập lục phân cho "
-"giao diện này"
 
 msgid "Associated Stations"
-msgstr "Trạm liên kết"
-
-msgid "Associations"
-msgstr "Liên kết"
+msgstr ""
 
 msgid "Auth Group"
-msgstr "Nhóm xác thực"
+msgstr ""
 
 msgid "Authentication"
 msgstr "Xác thực"
 
 msgid "Authentication Type"
-msgstr "Kiểu xác thực"
+msgstr ""
 
 msgid "Authoritative"
-msgstr "Xác thực"
+msgstr "Authoritative"
 
 msgid "Authorization Required"
 msgstr "Yêu cầu ủy quyền"
 
 msgid "Auto Refresh"
-msgstr "Tự động làm mới"
+msgstr ""
 
 msgid "Automatic"
-msgstr "Thự động"
+msgstr ""
 
 msgid "Automatic Homenet (HNCP)"
 msgstr ""
 
 msgid "Automatically check filesystem for errors before mounting"
-msgstr "Tự động kiểm tra lỗi hệ thống tập tin trước khi cài đặt"
+msgstr ""
 
 msgid "Automatically mount filesystems on hotplug"
-msgstr "Tự động gắn hệ thống tập tin lập tức khi có kết nối"
+msgstr ""
 
 msgid "Automatically mount swap on hotplug"
-msgstr "Tự động gắn kết phân vùng swap khi có kết nối"
+msgstr ""
 
 msgid "Automount Filesystem"
-msgstr "Tự động gắn kết tập tin hệ thống"
+msgstr ""
 
 msgid "Automount Swap"
-msgstr "Tự động gắn kết phân vùng Swao"
+msgstr ""
 
 msgid "Available"
 msgstr "Sẵn có"
@@ -498,25 +458,25 @@ msgid "Average:"
 msgstr ""
 
 msgid "B43 + B43C"
-msgstr "B43 + B43C"
+msgstr ""
 
 msgid "B43 + B43C + V43"
-msgstr "B43 + B43C + V43"
+msgstr ""
 
 msgid "BR / DMR / AFTR"
-msgstr "BR / DMR / AFTR"
+msgstr ""
 
 msgid "BSSID"
-msgstr "BSSID"
+msgstr ""
 
 msgid "Back"
 msgstr ""
 
 msgid "Back to Overview"
-msgstr "Quay lại phần tổng quan"
+msgstr ""
 
 msgid "Back to configuration"
-msgstr "Quay lại phần cài đặt"
+msgstr ""
 
 msgid "Back to overview"
 msgstr ""
@@ -524,59 +484,56 @@ msgstr ""
 msgid "Back to scan results"
 msgstr ""
 
-msgid "Backup"
-msgstr "Sao lưu"
-
 msgid "Backup / Flash Firmware"
-msgstr "Sao lưu / cập nhật phần mềm"
+msgstr ""
+
+msgid "Backup / Restore"
+msgstr "Backup/ Restore"
 
 msgid "Backup file list"
-msgstr "Danh sách tập tin sau lưu"
+msgstr ""
 
 msgid "Bad address specified!"
-msgstr "Địa chỉ không đạt yêu cầu"
+msgstr ""
 
 msgid "Band"
-msgstr "Cấm"
+msgstr ""
 
-msgid "Beacon Interval"
-msgstr "Chu kỳ Beacon"
+msgid "Behind NAT"
+msgstr ""
 
 msgid ""
 "Below is the determined list of files to backup. It consists of changed "
 "configuration files marked by opkg, essential base files and the user "
 "defined backup patterns."
 msgstr ""
-"Dưới đây là danh sách xác định các tập tin để sao lưu. Nó bao gồm các thay "
-"đổi tập tin cấu hình được đánh dấu bởi opkg, tập tin cơ sở thiết yếu và các "
-"mẫu sao lưu của người dùng đá được xác định"
 
 msgid "Bind interface"
-msgstr "Liên kết với giao diện"
+msgstr ""
 
 msgid "Bind only to specific interfaces rather than wildcard address."
 msgstr ""
 
 msgid "Bind the tunnel to this interface (optional)."
-msgstr "Liên kết đường hầm dữ liệu với giao diện này (tùy chọn)."
+msgstr ""
 
 msgid "Bitrate"
-msgstr "tốc độ (bit)"
+msgstr ""
 
 msgid "Bogus NX Domain Override"
-msgstr "Ghi đè tên miền Bogus NX"
+msgstr ""
 
 msgid "Bridge"
-msgstr "Cầu nối"
+msgstr ""
 
 msgid "Bridge interfaces"
 msgstr "Giao diện cầu nối"
 
 msgid "Bridge unit number"
-msgstr "Số cầu nối"
+msgstr ""
 
 msgid "Bring up on boot"
-msgstr "Áp dụng khi khởi động"
+msgstr ""
 
 msgid "Broadcom 802.11%s Wireless Controller"
 msgstr ""
@@ -585,27 +542,27 @@ msgid "Broadcom BCM%04x 802.11 Wireless Controller"
 msgstr ""
 
 msgid "Buffered"
-msgstr "Đệm"
+msgstr ""
 
 msgid ""
 "Build/distribution specific feed definitions. This file will NOT be "
 "preserved in any sysupgrade."
 msgstr ""
 
+msgid "Buttons"
+msgstr ""
+
 msgid "CA certificate; if empty it will be saved after the first connection."
-msgstr "Chứng chỉ CA; nếu trống sẽ được lưu sau kết nối đầu tiên"
+msgstr ""
 
 msgid "CPU usage (%)"
-msgstr "Sử dụng CPU (%)"
-
-msgid "Call failed"
-msgstr "Liên lạc thất bại"
+msgstr "CPU usage (%)"
 
 msgid "Cancel"
-msgstr "Hủy bỏ"
+msgstr "Bỏ qua"
 
 msgid "Category"
-msgstr "Đề mục"
+msgstr ""
 
 msgid "Chain"
 msgstr "chuỗi"
@@ -616,28 +573,20 @@ msgstr "Thay đổi"
 msgid "Changes applied."
 msgstr "Thay đổi đã áp dụng"
 
-msgid "Changes have been reverted."
-msgstr "Những thay đổi đã được phục hồi"
-
 msgid "Changes the administrator password for accessing the device"
-msgstr "Thay đổi mật khẩu quản trị viên truy cập thiết bị"
+msgstr ""
 
 msgid "Channel"
 msgstr "Kênh"
 
-msgid ""
-"Channel %d is not available in the %s regulatory domain and has been auto-"
-"adjusted to %d."
-msgstr ""
-
 msgid "Check"
 msgstr ""
 
-msgid "Check filesystems before mount"
-msgstr "Kiểm tra hệ thống tập tin trước khi gắn kết"
+msgid "Check fileystems before mount"
+msgstr ""
 
 msgid "Check this option to delete the existing networks from this radio."
-msgstr "Kiểm tra tùy chọn này để xóa các mạng hiện có khỏi đài này"
+msgstr ""
 
 msgid "Checksum"
 msgstr "Checksum"
@@ -655,34 +604,33 @@ msgid ""
 msgstr ""
 
 msgid "Cipher"
-msgstr "Mật mã"
+msgstr ""
 
 msgid "Cisco UDP encapsulation"
-msgstr "Đóng gói dạng Cisco UDP"
+msgstr ""
 
 msgid ""
 "Click \"Generate archive\" to download a tar archive of the current "
-"configuration files."
-msgstr "Nhấn \"Tạo bản lưu trữ\" Để tải xuống tập tin cấu hình hiện giờ "
+"configuration files. To reset the firmware to its initial state, click "
+"\"Perform reset\" (only possible with squashfs images)."
+msgstr ""
 
 msgid "Client"
-msgstr "Khách hàng"
+msgstr "Client"
 
 msgid "Client ID to send when requesting DHCP"
-msgstr "ID máy khách gửi khi yêu cầu DHCP"
+msgstr ""
 
 msgid ""
 "Close inactive connection after the given amount of seconds, use 0 to "
 "persist connection"
 msgstr ""
-"Đóng kết nối không hoạt động sau lượng thời gian đã cho, sử dụng 0 để luôn "
-"duy trì kết nối"
 
 msgid "Close list..."
-msgstr "Danh sách đã đóng ..."
+msgstr ""
 
 msgid "Collecting data..."
-msgstr "Đang lấy dữ liệu..."
+msgstr ""
 
 msgid "Command"
 msgstr "Lệnh"
@@ -690,30 +638,13 @@ msgstr "Lệnh"
 msgid "Common Configuration"
 msgstr ""
 
-msgid ""
-"Complicates key reinstallation attacks on the client side by disabling "
-"retransmission of EAPOL-Key frames that are used to install keys. This "
-"workaround might cause interoperability issues and reduced robustness of key "
-"negotiation especially in environments with heavy traffic load."
-msgstr ""
-"Biến đổi các cuộc tấn công cài đặt lại khóa ở phía máy khách bằng cách vô "
-"hiệu hóa việc truyền lại các khung EAPOL-Key đã được sử dụng để cài đặt "
-"khóa. Cách khắc phục này có thể gây ra các vấn đề về khả năng tương tác và "
-"giảm độ mạnh của khóa, đặc biệt là trong các môi trường có lưu lượng tải lớn."
-
 msgid "Configuration"
 msgstr "Cấu hình"
 
-msgid "Configuration failed"
-msgstr "Cấu hình thất bại"
+msgid "Configuration applied."
+msgstr ""
 
 msgid "Configuration files will be kept."
-msgstr ""
-
-msgid "Configuration has been applied."
-msgstr ""
-
-msgid "Configuration has been rolled back!"
 msgstr ""
 
 msgid "Confirmation"
@@ -723,28 +654,19 @@ msgid "Connect"
 msgstr ""
 
 msgid "Connected"
-msgstr "Đã kết nối"
+msgstr ""
 
 msgid "Connection Limit"
 msgstr "Giới hạn kết nối"
 
-msgid "Connection attempt failed"
-msgstr "Kết nối thất bại"
+msgid "Connection to server fails when TLS cannot be used"
+msgstr ""
 
 msgid "Connections"
-msgstr "Kết nối"
-
-msgid ""
-"Could not regain access to the device after applying the configuration "
-"changes. You might need to reconnect if you modified network related "
-"settings such as the IP address or wireless security credentials."
 msgstr ""
-"Không thể lấy lại quyền truy cập vào thiết bị sau khi áp dụng các thay đổi "
-"cấu hình. Bạn có thể cần kết nối lại nếu bạn đã sửa đổi các cài đặt liên "
-"quan đến mạng như địa chỉ IP hoặc thông tin bảo mật không dây."
 
 msgid "Country"
-msgstr "Quốc gia"
+msgstr ""
 
 msgid "Country Code"
 msgstr "Mã quốc gia"
@@ -765,16 +687,16 @@ msgid "Create a bridge over multiple interfaces"
 msgstr ""
 
 msgid "Critical"
-msgstr "Quan trọng"
+msgstr ""
 
 msgid "Cron Log Level"
-msgstr "Cấp độ lưu nhật ký Cron"
+msgstr ""
 
 msgid "Custom Interface"
-msgstr "Giao diện kết nối tùy chỉnh"
+msgstr ""
 
 msgid "Custom delegated IPv6-prefix"
-msgstr "Tùy chỉnh IPv6-prefix"
+msgstr ""
 
 msgid ""
 "Custom feed definitions, e.g. private feeds. This file can be preserved in a "
@@ -785,39 +707,38 @@ msgid "Custom feeds"
 msgstr ""
 
 msgid ""
-"Custom files (certificates, scripts) may remain on the system. To prevent "
-"this, perform a factory-reset first."
-msgstr ""
-"Các tệp tùy chỉnh (chứng chỉ, tập lệnh) có thể vẫn còn trên hệ thống. Để "
-"ngăn chặn điều này, trước tiên hãy thực hiện khôi phục cài đặt gốc."
-
-msgid ""
 "Customizes the behaviour of the device <abbr title=\"Light Emitting Diode"
 "\">LED</abbr>s if possible."
 msgstr ""
 "Tùy chỉnh chế độ của thiết bị <abbr title=\"Light Emitting Diode\">LED</"
 "abbr>s nếu có thể."
 
+msgid "DHCP Leases"
+msgstr ""
+
 msgid "DHCP Server"
-msgstr "Máy chủ DHCP"
+msgstr ""
 
 msgid "DHCP and DNS"
-msgstr "DHCP và DNS"
+msgstr ""
 
 msgid "DHCP client"
-msgstr "Máy khách DHCP"
+msgstr ""
 
 msgid "DHCP-Options"
 msgstr "Tùy chọn DHCP"
 
+msgid "DHCPv6 Leases"
+msgstr ""
+
 msgid "DHCPv6 client"
-msgstr "Máy khách DHCP"
+msgstr ""
 
 msgid "DHCPv6-Mode"
-msgstr "Chế độ HDCP-v6"
+msgstr ""
 
 msgid "DHCPv6-Service"
-msgstr "Dịch vụ DHCPv6"
+msgstr ""
 
 msgid "DNS"
 msgstr ""
@@ -832,52 +753,49 @@ msgid "DNSSEC"
 msgstr ""
 
 msgid "DNSSEC check unsigned"
-msgstr "kiểm tra không dấu DNSSEC"
+msgstr ""
 
 msgid "DPD Idle Timeout"
-msgstr "Thời gian chờ rỗi DPD"
+msgstr ""
 
 msgid "DS-Lite AFTR address"
-msgstr "Địa chỉ DS_-Lite AFTR"
+msgstr ""
 
 msgid "DSL"
-msgstr "DSL"
+msgstr ""
 
 msgid "DSL Status"
-msgstr "Trạng thái DSL"
+msgstr ""
 
 msgid "DSL line mode"
-msgstr "Chế độ DSL Line"
-
-msgid "DTIM Interval"
-msgstr "Chu kỳ DTIM"
+msgstr ""
 
 msgid "DUID"
-msgstr "DUID"
+msgstr ""
 
 msgid "Data Rate"
-msgstr "Tốc độ dữ liệu"
+msgstr ""
 
 msgid "Debug"
-msgstr "Kiểm lỗi"
+msgstr ""
 
 msgid "Default %d"
-msgstr "Mặc định %d"
-
-msgid "Default Route"
-msgstr "Tuyến đường mặc định"
+msgstr ""
 
 msgid "Default gateway"
-msgstr "Cổng chuyển mặc định (default gateway)"
+msgstr ""
 
 msgid "Default is stateless + stateful"
-msgstr "Trạng thái và không gian trạng thái mặc định"
+msgstr ""
+
+msgid "Default route"
+msgstr ""
 
 msgid "Default state"
-msgstr "Trạng thái mặc định"
+msgstr ""
 
 msgid "Define a name for this network."
-msgstr "Định tên cho mạng này"
+msgstr ""
 
 msgid ""
 "Define additional DHCP options, for example "
@@ -889,10 +807,7 @@ msgid "Delete"
 msgstr "Xóa"
 
 msgid "Delete this network"
-msgstr "Xóa mạng này"
-
-msgid "Delivery Traffic Indication Message Interval"
-msgstr "Chu kỳ thông báo chỉ thị lưu thông"
+msgstr ""
 
 msgid "Description"
 msgstr "Mô tả"
@@ -907,62 +822,45 @@ msgid "Device"
 msgstr "Công cụ"
 
 msgid "Device Configuration"
-msgstr "Cài đặt thiết bị"
+msgstr ""
 
 msgid "Device is rebooting..."
 msgstr ""
 
-msgid "Device unreachable!"
-msgstr "Thiết bị không thể truy cập! "
-
-msgid "Device unreachable! Still waiting for device..."
-msgstr "Thiết bị không thể truy cập! Chờ thiết bị..."
+msgid "Device unreachable"
+msgstr ""
 
 msgid "Diagnostics"
-msgstr "Phân tích"
+msgstr ""
 
 msgid "Dial number"
-msgstr "Quay số"
+msgstr ""
 
 msgid "Directory"
-msgstr "Danh mục"
+msgstr ""
 
 msgid "Disable"
-msgstr "Vô hiệu hóa"
+msgstr ""
 
 msgid ""
 "Disable <abbr title=\"Dynamic Host Configuration Protocol\">DHCP</abbr> for "
 "this interface."
 msgstr ""
-"Vô hiệu hóa <abbr title=\"Dynamic Host Configuration Protocol\">DHCP</abbr> "
-"cho giao diện kết nối này."
 
 msgid "Disable DNS setup"
 msgstr ""
 
 msgid "Disable Encryption"
-msgstr "Vô hiệu hóa mã hóa"
-
-msgid "Disable this network"
-msgstr "Vô hiệu hóa mạng này"
+msgstr ""
 
 msgid "Disabled"
-msgstr "Vô hiệu hóa"
+msgstr ""
 
 msgid "Disabled (default)"
 msgstr ""
 
-msgid "Disassociate On Low Acknowledgement"
-msgstr "Hủy liên kết với xác nhận mức thấp"
-
 msgid "Discard upstream RFC1918 responses"
-msgstr "Hủy phản hồi ngược RFC1918"
-
-msgid "Disconnection attempt failed"
-msgstr "Kết nối thất bại"
-
-msgid "Dismiss"
-msgstr "Bỏ qua"
+msgstr ""
 
 msgid "Displaying only packages containing"
 msgstr ""
@@ -992,22 +890,21 @@ msgstr ""
 
 msgid "Do not cache negative replies, e.g. for not existing domains"
 msgstr ""
-"Không lưu trữ các phản hồi tiêu cực (ví dụ: các tên miền không tồn tại)"
 
 msgid "Do not forward requests that cannot be answered by public name servers"
-msgstr "Không chuyển tiếp yêu cầu mà máy chủ tên công cộng không thể trả lời"
+msgstr ""
 
 msgid "Do not forward reverse lookups for local networks"
-msgstr "Không chuyển tiếp tra cứu ngược cho các mạng cục bộ"
+msgstr ""
 
 msgid "Domain required"
-msgstr "Tên miền yêu cầu"
+msgstr "Domain yêu cầu"
 
 msgid "Domain whitelist"
-msgstr "Danh sách tên miền được chấp nhận"
+msgstr ""
 
 msgid "Don't Fragment"
-msgstr "Không phân mảnh"
+msgstr ""
 
 msgid ""
 "Don't forward <abbr title=\"Domain Name System\">DNS</abbr>-Requests without "
@@ -1016,16 +913,10 @@ msgstr ""
 "Don&amp;#39;t chuyển tiếp <abbr title=\"Hệ thống tên miền\">DNS</abbr>-Yêu "
 "cầu không cần <abbr title=\"Hệ thống tên miền\">DNS</abbr>-Tên"
 
-msgid "Down"
-msgstr "Xuống"
-
 msgid "Download and install package"
 msgstr "Tải và cài đặt gói"
 
 msgid "Download backup"
-msgstr "Tải xuống bản sao lưu"
-
-msgid "Downstream SNR offset"
 msgstr ""
 
 msgid "Dropbear Instance"
@@ -1046,17 +937,15 @@ msgstr ""
 "Dynamic <abbr title=\"Dynamic Host Configuration Protocol\">DHCP</abbr>"
 
 msgid "Dynamic tunnel"
-msgstr "Đường hầm động"
+msgstr ""
 
 msgid ""
 "Dynamically allocate DHCP addresses for clients. If disabled, only clients "
 "having static leases will be served."
 msgstr ""
-"Tự động phân bổ địa chỉ DHCP cho máy khách. Nếu bị vô hiệu hóa, chỉ những "
-"máy khách có xin địa chỉ IP tĩnh sẽ được phục vụ"
 
 msgid "EA-bits length"
-msgstr "Độ dài EA-bits"
+msgstr ""
 
 msgid "EAP-Method"
 msgstr "EAP-Method"
@@ -1068,78 +957,63 @@ msgid ""
 "Edit the raw configuration data above to fix any error and hit \"Save\" to "
 "reload the page."
 msgstr ""
-"Chỉnh sửa dữ liệu cấu hình thô ở trên để khắc phục mọi lỗi và nhấn \" Lưu "
-"\"để tải lại trang."
 
 msgid "Edit this interface"
 msgstr ""
 
 msgid "Edit this network"
-msgstr "Chỉnh sửa mạng này"
+msgstr ""
 
 msgid "Emergency"
-msgstr "Khẩn cấp"
+msgstr ""
 
 msgid "Enable"
-msgstr "Kích hoạt"
-
-msgid ""
-"Enable <abbr title=\"Internet Group Management Protocol\">IGMP</abbr> "
-"snooping"
 msgstr ""
-"Kích hoạt <abbr title=\"Giao thức quản lý nhóm mạng internet\">IGMP</abbr> "
-"được phép quan sát"
 
 msgid "Enable <abbr title=\"Spanning Tree Protocol\">STP</abbr>"
 msgstr "Kích hoạt <abbr title=\"Spanning Tree Protocol\">STP</abbr>"
 
 msgid "Enable HE.net dynamic endpoint update"
-msgstr "Kích hoạt cập nhật động những trang có đuôi HE.net"
+msgstr ""
 
 msgid "Enable IPv6 negotiation"
-msgstr "Kích hoạt IPv6"
+msgstr ""
 
 msgid "Enable IPv6 negotiation on the PPP link"
-msgstr "Kích hoạt IPv6 cho kết nối PPP"
+msgstr ""
 
 msgid "Enable Jumbo Frame passthrough"
-msgstr "Cho phép khung Jumbo Frame qua"
+msgstr ""
 
 msgid "Enable NTP client"
-msgstr "Kích hoạt máy chủ NTP"
+msgstr ""
 
 msgid "Enable Single DES"
-msgstr "Kích hoạt DES đơn"
+msgstr ""
 
 msgid "Enable TFTP server"
-msgstr "Kích hoạt máy chủ TFTP"
+msgstr ""
 
 msgid "Enable VLAN functionality"
-msgstr "Kích hoạt chức năng VLAN"
+msgstr ""
 
 msgid "Enable WPS pushbutton, requires WPA(2)-PSK"
 msgstr ""
 
-msgid "Enable key reinstallation (KRACK) countermeasures"
-msgstr "Kích hoạt các biện pháp đối phó cài đặt lại khóa (KRACK)"
-
 msgid "Enable learning and aging"
-msgstr "Kích hoạt học tập và quên đi"
+msgstr ""
 
 msgid "Enable mirroring of incoming packets"
-msgstr "Kích hoạt phản chiếu các gói tin đến"
+msgstr ""
 
 msgid "Enable mirroring of outgoing packets"
-msgstr "Kích hoạt phản chiếu các gói tin đi"
+msgstr ""
 
 msgid "Enable the DF (Don't Fragment) flag of the encapsulating packets."
-msgstr "Kích hoạt cờ không phân mảnh cho các gói tin đã được đóng gói"
+msgstr ""
 
 msgid "Enable this mount"
 msgstr ""
-
-msgid "Enable this network"
-msgstr "Kích hoạt mạng này"
 
 msgid "Enable this swap"
 msgstr ""
@@ -1148,25 +1022,21 @@ msgid "Enable/Disable"
 msgstr "Cho kích hoạt/ Vô hiệu hóa"
 
 msgid "Enabled"
-msgstr "Kích hoạt"
-
-msgid "Enables IGMP snooping on this bridge"
-msgstr "Cho phép IGMP theo dõi cầu tin này"
+msgstr ""
 
 msgid ""
 "Enables fast roaming among access points that belong to the same Mobility "
 "Domain"
 msgstr ""
-"Cho phép chuyển vùng nhanh giữa các điểm truy cập thuộc cùng một miền di động"
 
 msgid "Enables the Spanning Tree Protocol on this bridge"
 msgstr "Kích hoạt Spanning Tree Protocol trên cầu nối này"
 
 msgid "Encapsulation mode"
-msgstr "Chế độ đóng gói"
+msgstr ""
 
 msgid "Encryption"
-msgstr "Mã hóa"
+msgstr "Encryption"
 
 msgid "Endpoint Host"
 msgstr ""
@@ -1174,14 +1044,8 @@ msgstr ""
 msgid "Endpoint Port"
 msgstr ""
 
-msgid "Enter custom value"
-msgstr "Nhập giá trị tùy chỉnh"
-
-msgid "Enter custom values"
-msgstr "Nhập nhiều giá trị tùy chỉnh"
-
 msgid "Erasing..."
-msgstr "Xóa..."
+msgstr ""
 
 msgid "Error"
 msgstr "Lỗi"
@@ -1199,53 +1063,41 @@ msgid "Exclude interfaces"
 msgstr ""
 
 msgid "Expand hosts"
-msgstr "Mở rộng máy chủ"
+msgstr ""
 
 msgid "Expires"
-msgstr "Hết hạn"
+msgstr ""
 
 msgid ""
 "Expiry time of leased addresses, minimum is 2 minutes (<code>2m</code>)."
-msgstr "Thời gian mượn địa chỉ sắp hết, tối đa 2 phút nữa (<code>2m</code>)"
-
-msgid "External"
-msgstr "Bên ngoài"
-
-msgid "External R0 Key Holder List"
-msgstr "Danh sách chủ sở hữu khóa R0 bên ngoài"
-
-msgid "External R1 Key Holder List"
-msgstr "Danh sách chủ sở hữu khóa R1 bên ngoài"
-
-msgid "External system log server"
-msgstr "Máy chủ ghi nhận nhật ký hệ thống bên ngoài"
-
-msgid "External system log server port"
-msgstr "Cổng ghi nhận nhật ký hệ thống bên ngoài"
-
-msgid "External system log server protocol"
-msgstr "Giao thức ghi nhận nhật ký hệ thống bên ngoài"
-
-msgid "Extra SSH command options"
-msgstr "Tùy chỉnh lệnh SSH bổ sung"
-
-msgid "FT over DS"
-msgstr "FT qua DS"
-
-msgid "FT over the Air"
 msgstr ""
 
-msgid "FT protocol"
-msgstr "Giao thức FT"
+msgid "External"
+msgstr ""
 
-msgid "Failed to confirm apply within %ds, waiting for rollback…"
-msgstr "Thất bại khi xác thực áp dụng %ds, đợi làm lại..."
+msgid "External R0 Key Holder List"
+msgstr ""
+
+msgid "External R1 Key Holder List"
+msgstr ""
+
+msgid "External system log server"
+msgstr ""
+
+msgid "External system log server port"
+msgstr ""
+
+msgid "External system log server protocol"
+msgstr ""
+
+msgid "Extra SSH command options"
+msgstr ""
 
 msgid "File"
-msgstr "Tệp tin"
+msgstr ""
 
 msgid "Filename of the boot image advertised to clients"
-msgstr "Tên tệp của tập tin ảnh khởi động được thông báo cho máy khách"
+msgstr ""
 
 msgid "Filesystem"
 msgstr "Tập tin hệ thống"
@@ -1259,103 +1111,91 @@ msgstr "Filter private"
 msgid "Filter useless"
 msgstr "Lọc không hữu dụng"
 
-msgid "Finalizing failed"
-msgstr "Cố gắng hoàn thành thất bại"
-
 msgid ""
 "Find all currently attached filesystems and swap and replace configuration "
 "with defaults based on what was detected"
 msgstr ""
-"Tìm tất cả các tập tin hệ thống hiện được đính kèm và trao đổi và thay thế "
-"cấu hình bằng mặc định dựa trên những gì được phát hiện"
 
 msgid "Find and join network"
-msgstr "Tìm và hòa mạng"
+msgstr ""
 
 msgid "Find package"
 msgstr "Tìm gói"
 
 msgid "Finish"
-msgstr "Kết thúc"
+msgstr ""
 
 msgid "Firewall"
-msgstr "Tường lửa"
+msgstr "Firewall"
 
 msgid "Firewall Mark"
-msgstr "Dấu tường lửa"
+msgstr ""
 
 msgid "Firewall Settings"
-msgstr "Cấu hình tường lửa"
+msgstr ""
 
 msgid "Firewall Status"
-msgstr "Trạng thái tường lửa"
+msgstr ""
 
 msgid "Firmware File"
-msgstr "Tập tin phần mềm"
+msgstr ""
 
 msgid "Firmware Version"
-msgstr "Phiên bản phần mềm"
+msgstr ""
 
 msgid "Fixed source port for outbound DNS queries"
-msgstr "Đã sửa cổng nguồn cho các truy vấn DNS"
+msgstr ""
 
 msgid "Flash Firmware"
 msgstr "Phần cứng flash"
 
 msgid "Flash image..."
-msgstr "Nạp phần mềm..."
+msgstr ""
 
 msgid "Flash new firmware image"
-msgstr "Nạp ảnh phần mềm mới"
+msgstr ""
 
 msgid "Flash operations"
-msgstr "Hoạt động nạp phần mềm"
+msgstr ""
 
 msgid "Flashing..."
 msgstr ""
 
 msgid "Force"
-msgstr "Bắt buộc"
-
-msgid "Force 40MHz mode"
-msgstr "Bắt buộc áp dụng chế độ 40MHZ"
+msgstr "Force"
 
 msgid "Force CCMP (AES)"
-msgstr "Bắt buộc chế độ CCMP (AES)"
+msgstr ""
 
 msgid "Force DHCP on this network even if another server is detected."
 msgstr ""
-"Buộc sử dụng DHCP trên mạng này ngay cả khi máy chủ khác được phát hiện"
 
 msgid "Force TKIP"
-msgstr "Buộc TKIP"
+msgstr ""
 
 msgid "Force TKIP and CCMP (AES)"
-msgstr "Buộc TKIP và CCMP (AES)"
+msgstr ""
 
 msgid "Force link"
-msgstr "Buộc liên kết"
+msgstr ""
 
 msgid "Force use of NAT-T"
-msgstr "Buộc dùng NAT-T"
+msgstr ""
 
 msgid "Form token mismatch"
-msgstr "Mẫu mã thông báo không khớp"
+msgstr ""
 
 msgid "Forward DHCP traffic"
-msgstr "Chuyển tiếp lưu lượng DHCP"
+msgstr ""
 
 msgid "Forward Error Correction Seconds (FECS)"
 msgstr ""
 
 msgid "Forward broadcast traffic"
-msgstr "Chuyển tiếp phát sóng"
-
-msgid "Forward mesh peer traffic"
-msgstr "Chuyển tiếp lưu lượng mạng (mesh) ngang hàng"
+msgstr ""
 
 msgid "Forwarding mode"
-msgstr "Chế độ chuyển tếp"
+msgstr ""
 
 msgid "Fragmentation Threshold"
 msgstr "Ngưỡng cửa Phân đoạn"
@@ -1364,72 +1204,66 @@ msgid "Frame Bursting"
 msgstr "Khung nổ"
 
 msgid "Free"
-msgstr "rỗi"
+msgstr ""
 
 msgid "Free space"
 msgstr ""
 
 msgid ""
 "Further information about WireGuard interfaces and peers at <a href=\"http://"
-"wireguard.com\">wireguard.com</a>."
+"wireguard.io\">wireguard.io</a>."
 msgstr ""
 
 msgid "GHz"
-msgstr "GHz"
+msgstr ""
 
 msgid "GPRS only"
-msgstr "Chỉ dùng GPRS"
+msgstr ""
 
 msgid "Gateway"
 msgstr ""
-
-msgid "Gateway address is invalid"
-msgstr "Địa chỉ Gateway không hợp lệ"
 
 msgid "Gateway ports"
 msgstr ""
 
 msgid "General Settings"
-msgstr "Tùy chỉnh chung"
+msgstr ""
 
 msgid "General Setup"
-msgstr "Cài đặt chung"
+msgstr ""
 
 msgid "General options for opkg"
 msgstr ""
 
 msgid "Generate Config"
-msgstr "Cấu hình chung"
-
-msgid "Generate PMK locally"
-msgstr "Tạo PMK cục bộ"
+msgstr ""
 
 msgid "Generate archive"
-msgstr "Tạo bản lưu trữ"
+msgstr ""
 
 msgid "Generic 802.11%s Wireless Controller"
 msgstr ""
 
 msgid "Given password confirmation did not match, password not changed!"
-msgstr "Phát hiện mật khẩu không khớp, mật khẩu không thay đổi!"
+msgstr ""
 
 msgid "Global Settings"
-msgstr "Cài đặt toàn cục"
+msgstr ""
 
 msgid "Global network options"
-msgstr "Tùy chọn mạng toàn cầu"
+msgstr ""
 
 msgid "Go to password configuration..."
-msgstr "Tới trang cài đặt mật khẩu..."
+msgstr ""
 
 msgid "Go to relevant configuration page"
 msgstr "Đi tới trang cấu hình thích hợp"
 
 msgid "Group Password"
-msgstr "Mật khẩu nhóm"
+msgstr ""
 
 msgid "Guest"
-msgstr "Máy khách"
+msgstr ""
 
 msgid "HE.net password"
 msgstr ""
@@ -1440,11 +1274,17 @@ msgstr ""
 msgid "HT mode (802.11n)"
 msgstr ""
 
+msgid "Handler"
+msgstr ""
+
 msgid "Hang Up"
 msgstr "Hang Up"
 
 msgid "Header Error Code Errors (HEC)"
-msgstr "Lỗi mã tiêu đề (HEC)"
+msgstr ""
+
+msgid "Heartbeat"
+msgstr ""
 
 msgid ""
 "Here you can configure the basic aspects of your device like its hostname or "
@@ -1458,11 +1298,14 @@ msgid ""
 "authentication."
 msgstr ""
 
+msgid "Hermes 802.11b Wireless Controller"
+msgstr ""
+
 msgid "Hide <abbr title=\"Extended Service Set Identifier\">ESSID</abbr>"
 msgstr "Giấu <abbr title=\"Chế độ mở rộng đặt Identifier\">ESSID</abbr>"
 
 msgid "Host"
-msgstr "Máy chủ"
+msgstr ""
 
 msgid "Host entries"
 msgstr "Host entries"
@@ -1473,59 +1316,47 @@ msgstr ""
 msgid "Host-<abbr title=\"Internet Protocol Address\">IP</abbr> or Network"
 msgstr "Host-<abbr title=\"Internet Protocol Address\">IP</abbr> or Network"
 
-msgid "Host-Uniq tag content"
-msgstr "Nội dung thẻ Host-Uniq"
-
 msgid "Hostname"
 msgstr "Tên host"
 
 msgid "Hostname to send when requesting DHCP"
-msgstr "Tên máy chủ khi yêu cầu DHCP"
+msgstr ""
 
 msgid "Hostnames"
-msgstr "Tên máy chủ"
+msgstr "Tên host"
 
 msgid "Hybrid"
-msgstr "Chế độ lai"
+msgstr ""
 
 msgid "IKE DH Group"
-msgstr "Nhóm IKE DH"
+msgstr ""
 
 msgid "IP Addresses"
-msgstr "Địa chỉ IP"
-
-msgid "IP Protocol"
-msgstr "Giao thức IP"
+msgstr ""
 
 msgid "IP address"
 msgstr "Địa chỉ IP"
 
-msgid "IP address in invalid"
+msgid "IPv4"
 msgstr ""
 
-msgid "IP address is missing"
-msgstr "Mất địa chỉ IP"
-
-msgid "IPv4"
-msgstr "IPv4"
-
 msgid "IPv4 Firewall"
-msgstr "Tường lửa địa chỉ IPv4"
+msgstr ""
 
-msgid "IPv4 Upstream"
+msgid "IPv4 WAN Status"
 msgstr ""
 
 msgid "IPv4 address"
-msgstr "Địa chỉ IPv4"
+msgstr ""
 
 msgid "IPv4 and IPv6"
 msgstr ""
 
 msgid "IPv4 assignment length"
-msgstr "Độ dài gắn IPv4"
+msgstr ""
 
 msgid "IPv4 broadcast"
-msgstr "Quảng bá IPv4"
+msgstr ""
 
 msgid "IPv4 gateway"
 msgstr ""
@@ -1542,11 +1373,8 @@ msgstr ""
 msgid "IPv4 prefix length"
 msgstr ""
 
-msgid "IPv4+IPv6"
-msgstr ""
-
 msgid "IPv4-Address"
-msgstr "Địa chỉ IPv4"
+msgstr ""
 
 msgid "IPv4-in-IPv4 (RFC2003)"
 msgstr ""
@@ -1555,28 +1383,31 @@ msgid "IPv6"
 msgstr "IPv6"
 
 msgid "IPv6 Firewall"
-msgstr "Tường lửa IPv6"
+msgstr ""
 
 msgid "IPv6 Neighbours"
 msgstr ""
 
 msgid "IPv6 Settings"
-msgstr "Cài đặt IPv6"
+msgstr ""
 
 msgid "IPv6 ULA-Prefix"
 msgstr ""
 
-msgid "IPv6 Upstream"
+msgid "IPv6 WAN Status"
 msgstr ""
 
 msgid "IPv6 address"
-msgstr "Địa chỉ IPv6"
+msgstr ""
+
+msgid "IPv6 address delegated to the local tunnel endpoint (optional)"
+msgstr ""
 
 msgid "IPv6 assignment hint"
-msgstr "Gơi ý gán IPv6"
+msgstr ""
 
 msgid "IPv6 assignment length"
-msgstr "Độ dài gán IPv6"
+msgstr ""
 
 msgid "IPv6 gateway"
 msgstr ""
@@ -1588,7 +1419,7 @@ msgid "IPv6 prefix"
 msgstr ""
 
 msgid "IPv6 prefix length"
-msgstr "Độ dài IPv6 prefix"
+msgstr ""
 
 msgid "IPv6 routed prefix"
 msgstr ""
@@ -1614,30 +1445,26 @@ msgstr ""
 msgid "Identity"
 msgstr "Nhận dạng"
 
-msgid "If checked, 1DES is enabled"
-msgstr "Nếu chọn, kích hoạt 1DES"
+msgid "If checked, 1DES is enaled"
+msgstr ""
 
 msgid "If checked, encryption is disabled"
-msgstr "Nếu chọn, vô hiệu hóa chế độ mã hóa"
+msgstr ""
 
 msgid ""
 "If specified, mount the device by its UUID instead of a fixed device node"
 msgstr ""
-"Nếu được chỉ định, gắn thiết bị bằng UUID của thiết bị thay vì nốt cố định"
 
 msgid ""
 "If specified, mount the device by the partition label instead of a fixed "
 "device node"
 msgstr ""
-"Nếu được chỉ định, gắn thiết bị theo nhãn phân vùng thay vì nốt cố định"
 
 msgid "If unchecked, no default route is configured"
 msgstr ""
-"Nếu không được chỉ định, không có tuyến mạng mặc định nào được cấu hình"
 
 msgid "If unchecked, the advertised DNS server addresses are ignored"
 msgstr ""
-"Nếu không được chỉ định, các địa chỉ máy chủ DNS được quảng bá sẽ bị bỏ qua"
 
 msgid ""
 "If your physical memory is insufficient unused data can be temporarily "
@@ -1662,7 +1489,7 @@ msgid "Ignore resolve file"
 msgstr "Lờ đi tập tin resolve"
 
 msgid "Image"
-msgstr "tập tin ảnh"
+msgstr ""
 
 msgid "In"
 msgstr "Trong"
@@ -1671,38 +1498,33 @@ msgid ""
 "In order to prevent unauthorized access to the system, your request has been "
 "blocked. Click \"Continue »\" below to return to the previous page."
 msgstr ""
-"Để ngăn chặn truy cập trái phép vào hệ thống, yêu cầu của bạn đã bị chặn. "
-"Nhấp vào \" Tiếp tục »\" bên dưới để quay lại trang trước."
 
 msgid "Inactivity timeout"
-msgstr "Vô hiệu hóa đếm ngược"
+msgstr ""
 
 msgid "Inbound:"
 msgstr ""
 
 msgid "Info"
-msgstr "Thông tin"
-
-msgid "Initialization failure"
-msgstr "Khởi tạo thất bại"
+msgstr ""
 
 msgid "Initscript"
-msgstr "Kịch bản khởi tạo"
+msgstr "Initscript"
 
 msgid "Initscripts"
-msgstr "Nhiều kịch bản khởi tạo"
+msgstr "Initscripts"
 
 msgid "Install"
 msgstr "Cài đặt "
 
 msgid "Install iputils-traceroute6 for IPv6 traceroute"
-msgstr "Cài đặt iputils-traceroute6 cho IPv6 traceroute"
+msgstr ""
 
 msgid "Install package %q"
 msgstr ""
 
 msgid "Install protocol extensions..."
-msgstr "Đang cài đặt bản mở rộng cho giao thức..."
+msgstr ""
 
 msgid "Installed packages"
 msgstr ""
@@ -1711,48 +1533,55 @@ msgid "Interface"
 msgstr "Giao diện "
 
 msgid "Interface %q device auto-migrated from %q to %q."
-msgstr "Giao diện %q thiết bị tự động di chuyển từ %q sang %q."
+msgstr ""
 
 msgid "Interface Configuration"
-msgstr "Cấu hình giao diện mạng"
+msgstr ""
 
 msgid "Interface Overview"
 msgstr ""
 
 msgid "Interface is reconnecting..."
-msgstr "Giao diện mạng đang được kết nối lại..."
+msgstr ""
+
+msgid "Interface is shutting down..."
+msgstr ""
 
 msgid "Interface name"
-msgstr "Tên giao diện mạng"
+msgstr ""
 
 msgid "Interface not present or not connected yet."
-msgstr "Giao diện mạng chưa có hoặc chưa được kết nối"
+msgstr ""
+
+msgid "Interface reconnected"
+msgstr ""
+
+msgid "Interface shut down"
+msgstr ""
 
 msgid "Interfaces"
-msgstr "Giao diện"
+msgstr "Giao diện "
 
 msgid "Internal"
-msgstr "Nội"
+msgstr ""
 
 msgid "Internal Server Error"
-msgstr "Lỗi máy chủ nội"
+msgstr ""
 
 msgid "Invalid"
 msgstr "Giá trị nhập vào không hợp lí"
 
 msgid "Invalid VLAN ID given! Only IDs between %d and %d are allowed."
-msgstr "Địa chỉ ID Vlan không hợp lệ ! Chỉ cho phép ID giữa %d và %d"
+msgstr ""
 
 msgid "Invalid VLAN ID given! Only unique IDs are allowed"
 msgstr ""
-"Địa chỉ ID Vlan không hợp lệ được cung cấp! Chỉ những ID duy nhất mới được "
-"phép"
 
 msgid "Invalid username and/or password! Please try again."
 msgstr "Tên và mật mã không đúng. Xin thử lại "
 
 msgid "Isolate Clients"
-msgstr "Cô lập máy khách"
+msgstr ""
 
 #, fuzzy
 msgid ""
@@ -1763,34 +1592,34 @@ msgstr ""
 "vui lòng xác minh các tập tin hình ảnh!"
 
 msgid "JavaScript required!"
-msgstr "Yêu cầu JavaScript"
+msgstr ""
 
 msgid "Join Network"
-msgstr "Hòa mạng"
+msgstr ""
 
 msgid "Join Network: Wireless Scan"
-msgstr "Hòa mạng: Quét mạng wifi"
+msgstr ""
 
 msgid "Joining Network: %q"
-msgstr "Hòa mạng: %q"
+msgstr ""
 
 msgid "Keep settings"
 msgstr ""
 
 msgid "Kernel Log"
-msgstr "Nhật ký lõi"
+msgstr "Kernel Log"
 
 msgid "Kernel Version"
-msgstr "Phiên bản lõi"
+msgstr ""
 
 msgid "Key"
 msgstr "Phím "
 
 msgid "Key #%d"
-msgstr "Phím %d"
+msgstr ""
 
 msgid "Kill"
-msgstr "Hủy"
+msgstr "Kill"
 
 msgid "L2TP"
 msgstr ""
@@ -1799,31 +1628,31 @@ msgid "L2TP Server"
 msgstr ""
 
 msgid "LCP echo failure threshold"
-msgstr "Lấy ngưỡng LCP thất bại"
+msgstr ""
 
 msgid "LCP echo interval"
-msgstr "Chu kỳ lấy LCP"
+msgstr ""
 
 msgid "LLC"
 msgstr ""
 
 msgid "Label"
-msgstr "Nhãn"
+msgstr ""
 
 msgid "Language"
 msgstr "Ngôn ngữ"
 
 msgid "Language and Style"
-msgstr "Ngôn ngữ và phong cách"
+msgstr ""
 
 msgid "Latency"
-msgstr "Độ trễ"
+msgstr ""
 
 msgid "Leaf"
 msgstr ""
 
 msgid "Lease time"
-msgstr "Thời gian được cấp một địa chỉ IP"
+msgstr ""
 
 msgid "Lease validity time"
 msgstr ""
@@ -1835,10 +1664,10 @@ msgid "Leasetime remaining"
 msgstr "Leasetime còn lại"
 
 msgid "Leave empty to autodetect"
-msgstr "Để trống để tự động phát hiện"
+msgstr ""
 
 msgid "Leave empty to use the current WAN address"
-msgstr "Để trống để sử dụng địa chỉ WAN hiện tại"
+msgstr ""
 
 msgid "Legend:"
 msgstr ""
@@ -1848,8 +1677,6 @@ msgstr "Giới hạn "
 
 msgid "Limit DNS service to subnets interfaces on which we are serving DNS."
 msgstr ""
-"Giới hạn dịch vụ DNS đối với các giao diện mạng con mà chúng tôi đang phục "
-"vụ DNS."
 
 msgid "Limit listening to these interfaces, and loopback."
 msgstr ""
@@ -1881,11 +1708,6 @@ msgid ""
 "from the R0KH that the STA used during the Initial Mobility Domain "
 "Association."
 msgstr ""
-"Danh sách các R0KH trong cùng một tên miền di động. <br /> Định dạng: Địa "
-"chỉ MAC, Mã định danh NAS, khóa 128 bit dưới dạng chuỗi hex. <br /> Danh "
-"sách này được sử dụng để ánh xạ R0KH-ID (Định danh NAS) một địa chỉ MAC đích "
-"khi yêu cầu khóa PMK-R1 từ R0KH mà STA đã sử dụng trong Hiệp hội tên miền di "
-"động ban đầu. "
 
 msgid ""
 "List of R1KHs in the same Mobility Domain. <br />Format: MAC-address,R1KH-ID "
@@ -1894,84 +1716,73 @@ msgid ""
 "R0KH. This is also the list of authorized R1KHs in the MD that can request "
 "PMK-R1 keys."
 msgstr ""
-"Danh sách các R1KH trong cùng một tên miền di động. <br /> Định dạng: Địa "
-"chỉ MAC, R1KH-ID là 6 số bát phân với dấu hai chấm, khóa 128 bit dưới dạng "
-"chuỗi thập lục phân. <br /> Danh sách này được sử dụng để ánh xạ R1KH-ID đến "
-"địa chỉ MAC đích khi gửi khóa PMK-R1 từ R0KH. Đây cũng là danh sách các R1KH "
-"được ủy quyền trong MD có thể yêu cầu các khóa PMK-R1. "
 
 msgid "List of SSH key files for auth"
-msgstr "Danh sách tập tin khóa SSH để xác thực"
+msgstr ""
 
 msgid "List of domains to allow RFC1918 responses for"
-msgstr "Danh sách tên miền chấp nhận phản hồi RFC1918"
+msgstr ""
 
 msgid "List of hosts that supply bogus NX domain results"
-msgstr "Danh sách các máy chủ cung cấp kết quả tên miền NX không có thật"
+msgstr ""
 
 msgid "Listen Interfaces"
-msgstr "Lắng nghe giao diện mạng"
+msgstr ""
 
 msgid "Listen Port"
-msgstr "Lắng nghe cổng"
+msgstr ""
 
 msgid "Listen only on the given interface or, if unspecified, on all"
-msgstr "Chỉ nghe giao diện mạng đã cho (nếu không xác định sẽ nghe tất cả)"
+msgstr ""
 
 msgid "Listening port for inbound DNS queries"
-msgstr "Cổng để nghe cho các truy vấn DNS gửi đến"
+msgstr ""
 
 msgid "Load"
 msgstr "Tải "
 
 msgid "Load Average"
-msgstr "Tải trung bình"
+msgstr ""
 
 msgid "Loading"
-msgstr "Đang tải"
-
-msgid "Local IP address is invalid"
-msgstr "Địa chỉ IP cục bộ không hợp lệ"
+msgstr ""
 
 msgid "Local IP address to assign"
-msgstr "Địa chỉ IP cục bộ để gán"
+msgstr ""
 
 msgid "Local IPv4 address"
-msgstr "Địa chỉ IPv4 cục bộ"
+msgstr ""
 
 msgid "Local IPv6 address"
-msgstr "Địa chỉ IPv6 cục bộ"
+msgstr ""
 
 msgid "Local Service Only"
-msgstr "Chỉ dùng dịch vụ cục bộ"
+msgstr ""
 
 msgid "Local Startup"
-msgstr "Khởi động cục bộ với hệ thống"
+msgstr ""
 
 msgid "Local Time"
 msgstr "Giờ địa phương"
 
 msgid "Local domain"
-msgstr "Tên miền cục bộ"
+msgstr ""
 
 msgid ""
 "Local domain specification. Names matching this domain are never forwarded "
 "and are resolved from DHCP or hosts files only"
 msgstr ""
-"Đặc tả miền cục bộ. Tên phù hợp với miền này không bao giờ được chuyển tiếp "
-"và chỉ được giải quyết từ DHCP hoặc tập tin từ máy chủ"
 
 msgid "Local domain suffix appended to DHCP names and hosts file entries"
-msgstr "Hậu tố tên miền cục bộ gắn vào tên DHCP và các mục tập tin từ máy chủ"
+msgstr ""
 
 msgid "Local server"
-msgstr "máy chủ cục bộ"
+msgstr ""
 
 msgid ""
 "Localise hostname depending on the requesting subnet if multiple IPs are "
 "available"
 msgstr ""
-"Cục bộ hóa tên máy chủ tùy thuộc vào mạng con yêu cầu nếu có sẵn nhiều IP"
 
 msgid "Localise queries"
 msgstr "Tra vấn địa phương"
@@ -1980,13 +1791,13 @@ msgid "Locked to channel %s used by: %s"
 msgstr ""
 
 msgid "Log output level"
-msgstr "Cấp độ lưu nhật ký cho đầu ra"
+msgstr ""
 
 msgid "Log queries"
 msgstr "Bản ghi tra vấn"
 
 msgid "Logging"
-msgstr "Lưu nhật ký"
+msgstr ""
 
 msgid "Login"
 msgstr "Đăng nhập "
@@ -1995,16 +1806,13 @@ msgid "Logout"
 msgstr "Thoát ra"
 
 msgid "Loss of Signal Seconds (LOSS)"
-msgstr "Mất tín hiệu (LOSS)"
+msgstr ""
 
 msgid "Lowest leased address as offset from the network address."
-msgstr "Địa chỉ thuê thấp nhất dưới dạng bù từ địa chỉ mạng"
-
-msgid "MAC"
-msgstr "MAC"
+msgstr ""
 
 msgid "MAC-Address"
-msgstr "Địa chỉ MAC"
+msgstr ""
 
 msgid "MAC-Address Filter"
 msgstr "Lọc địa chỉ MAC"
@@ -2018,45 +1826,43 @@ msgstr "Danh sách MAC"
 msgid "MAP / LW4over6"
 msgstr ""
 
-msgid "MAP rule is invalid"
-msgstr "Luật MAP không hợp lệ"
-
 msgid "MB/s"
 msgstr ""
 
 msgid "MD5"
-msgstr "MD5"
+msgstr ""
 
 msgid "MHz"
-msgstr "MHz"
+msgstr ""
 
 msgid "MTU"
-msgstr "MTU"
+msgstr ""
 
 msgid ""
 "Make sure to clone the root filesystem using something like the commands "
 "below:"
 msgstr ""
-"Đảm bảo sao chép hệ thống tập tin gốc bằng cách sử dụng một số cách như các "
-"lệnh bên dưới"
 
 msgid "Manual"
-msgstr "Bằng tay"
+msgstr ""
 
 msgid "Max. Attainable Data Rate (ATTNDR)"
-msgstr "Tối đa tốc độ dữ liệu đạt được (ATTNDR)"
+msgstr ""
 
 msgid "Maximum allowed number of active DHCP leases"
-msgstr "Số lượng tối đa máy mượn địa chỉ từ DHCP đang hoạt động"
+msgstr ""
 
 msgid "Maximum allowed number of concurrent DNS queries"
-msgstr "Số lượng truy vấn DNS đồng thời tối đa được phép"
+msgstr ""
 
 msgid "Maximum allowed size of EDNS.0 UDP packets"
-msgstr "Kích thước tối đa được phép của gói UDP EDNS.0"
+msgstr ""
 
 msgid "Maximum amount of seconds to wait for the modem to become ready"
-msgstr "Thời gian (giây) tối đa để chờ modem sẵn sàng"
+msgstr ""
+
+msgid "Maximum hold time"
+msgstr "Mức cao nhất"
 
 msgid ""
 "Maximum length of the name is 15 characters including the automatic protocol/"
@@ -2064,7 +1870,7 @@ msgid ""
 msgstr ""
 
 msgid "Maximum number of leased addresses."
-msgstr "Số lượng máy xin địa chỉ IP truy cập tối đa"
+msgstr ""
 
 msgid "Mbit/s"
 msgstr ""
@@ -2073,43 +1879,37 @@ msgid "Memory"
 msgstr "Bộ nhớ"
 
 msgid "Memory usage (%)"
-msgstr "Bộ nhớ sử dụng (%)"
-
-msgid "Mesh Id"
-msgstr ""
+msgstr "Memory usage (%)"
 
 msgid "Metric"
 msgstr "Metric"
 
+msgid "Minimum hold time"
+msgstr "Mức thấp nhất"
+
 msgid "Mirror monitor port"
-msgstr "Nhân bản cổng màn hình quan sát (monitor)"
+msgstr ""
 
 msgid "Mirror source port"
-msgstr "Nhân bản cổng nguồn"
+msgstr ""
 
 msgid "Missing protocol extension for proto %q"
 msgstr ""
 
 msgid "Mobility Domain"
-msgstr "Tên miền di động"
+msgstr ""
 
 msgid "Mode"
 msgstr "Chế độ"
 
 msgid "Model"
-msgstr "Mô hình"
-
-msgid "Modem default"
-msgstr "Mô hình mặc định"
+msgstr ""
 
 msgid "Modem device"
 msgstr "Thiết bị modem"
 
-msgid "Modem information query failed"
-msgstr "Truy vấn thông tin modem không thành công"
-
 msgid "Modem init timeout"
-msgstr "Hết thời gian khởi động modem"
+msgstr ""
 
 msgid "Monitor"
 msgstr "Monitor"
@@ -2124,10 +1924,10 @@ msgid "Mount Points"
 msgstr "Lắp điểm"
 
 msgid "Mount Points - Mount Entry"
-msgstr "Lắp điểm - lắp vùng"
+msgstr ""
 
 msgid "Mount Points - Swap Entry"
-msgstr "Lắp điểm - chuyển vùng"
+msgstr ""
 
 msgid ""
 "Mount Points define at which point a memory device will be attached to the "
@@ -2170,7 +1970,7 @@ msgid "NAT64 Prefix"
 msgstr ""
 
 msgid "NCM"
-msgstr "NCM"
+msgstr ""
 
 msgid "NDP-Proxy"
 msgstr ""
@@ -2179,6 +1979,9 @@ msgid "NT Domain"
 msgstr ""
 
 msgid "NTP server candidates"
+msgstr ""
+
+msgid "NTP sync time-out"
 msgstr ""
 
 msgid "Name"
@@ -2191,52 +1994,43 @@ msgid "Name of the new network"
 msgstr ""
 
 msgid "Navigation"
-msgstr "Điều hướng"
+msgstr "Sự điều hướng"
 
 msgid "Netmask"
 msgstr ""
 
 msgid "Network"
-msgstr "Mạng "
+msgstr "mạng lưới "
 
 msgid "Network Utilities"
-msgstr "Tiện ích mạng"
+msgstr ""
 
 msgid "Network boot image"
-msgstr "Tập tin ảnh khởi động mạng"
-
-msgid "Network device is not present"
-msgstr "Thiết bị mạng không có"
+msgstr ""
 
 msgid "Network without interfaces."
-msgstr "Mạng không có giao diện mạng"
+msgstr ""
 
 msgid "Next »"
-msgstr "Tiếp »"
-
-msgid "No"
-msgstr "Không"
+msgstr ""
 
 msgid "No DHCP Server configured for this interface"
-msgstr "Không có máy chủ DHCP nào được cấu hình cho giao diện mạng này"
+msgstr ""
 
 msgid "No NAT-T"
-msgstr "Không NAT-T"
+msgstr ""
 
 msgid "No chains in this table"
 msgstr "Không có chuỗi trong bảng này"
 
 msgid "No files found"
-msgstr "Không tìm thấy tập tin"
+msgstr ""
 
 msgid "No information available"
-msgstr "Không có thông tin"
-
-msgid "No matching prefix delegation"
-msgstr "Không có tiền tố ủy quyền phù hợp"
+msgstr ""
 
 msgid "No negative cache"
-msgstr "Không có bộ đệm âm"
+msgstr ""
 
 msgid "No network configured on this device"
 msgstr ""
@@ -2248,25 +2042,22 @@ msgid "No package lists available"
 msgstr ""
 
 msgid "No password set!"
-msgstr "Chưa được cài đặt mật khẩu!"
+msgstr ""
 
 msgid "No rules in this chain"
 msgstr "Không có quy luật trong chuỗi này"
 
-msgid "No scan results available yet..."
+msgid "No zone assigned"
 msgstr ""
 
-msgid "No zone assigned"
-msgstr "Không có  vùng nào được gán"
-
 msgid "Noise"
-msgstr "Nhiễu"
+msgstr ""
 
 msgid "Noise Margin (SNR)"
-msgstr "Tỉ lệ cường độ nhiễu (SRN)"
+msgstr ""
 
 msgid "Noise:"
-msgstr "Nhiễu:"
+msgstr ""
 
 msgid "Non Pre-emtive CRC errors (CRC_P)"
 msgstr ""
@@ -2275,19 +2066,19 @@ msgid "Non-wildcard"
 msgstr ""
 
 msgid "None"
-msgstr "Không"
+msgstr ""
 
 msgid "Normal"
-msgstr "Thường"
+msgstr ""
 
 msgid "Not Found"
-msgstr "Không tìm thấy"
+msgstr ""
 
 msgid "Not associated"
 msgstr ""
 
 msgid "Not connected"
-msgstr "Chưa được kết nối"
+msgstr ""
 
 msgid "Note: Configuration files will be erased."
 msgstr ""
@@ -2296,15 +2087,10 @@ msgid "Note: interface name length"
 msgstr ""
 
 msgid "Notice"
-msgstr "Chú ý"
+msgstr ""
 
 msgid "Nslookup"
 msgstr ""
-
-msgid "Number of cached DNS entries (max is 10000, 0 is no caching)"
-msgstr ""
-"Số lượng mục DNS được lưu trong bộ nhớ cache (tối đa là 10000, 0 là không "
-"lưu trong bộ nhớ cache)"
 
 msgid "OK"
 msgstr "OK "
@@ -2313,13 +2099,10 @@ msgid "OPKG-Configuration"
 msgstr "Cấu hình OPKG-"
 
 msgid "Obfuscated Group Password"
-msgstr "Mật khẩu nhóm bị xáo trộn"
+msgstr ""
 
 msgid "Obfuscated Password"
-msgstr "Mật khẩu bị xáo trộn"
-
-msgid "Obtain IPv6-Address"
-msgstr "Nhận được địa chỉ IPv6"
+msgstr ""
 
 msgid "Off-State Delay"
 msgstr ""
@@ -2343,41 +2126,45 @@ msgid "On-State Delay"
 msgstr ""
 
 msgid "One of hostname or mac address must be specified!"
-msgstr "Một trong những tên máy chủ hoặc địa chỉ mac phải được chỉ định"
+msgstr ""
 
 msgid "One or more fields contain invalid values!"
-msgstr "Một hoặc nhiều trường chứa giá trị không hợp lệ!"
+msgstr ""
 
 msgid "One or more invalid/required values on tab"
-msgstr "Một hoặc nhiều giá trị không hợp lệ/bắt buộc trên tab"
+msgstr ""
 
 msgid "One or more required fields have no value!"
-msgstr "Một hoặc nhiều trường bắt buộc không có giá trị!"
+msgstr ""
 
 msgid "Open list..."
-msgstr "Đang mở danh sách ..."
+msgstr ""
 
 msgid "OpenConnect (CISCO AnyConnect)"
 msgstr ""
 
 msgid "Operating frequency"
-msgstr "Tần số hoạt động"
+msgstr ""
 
 msgid "Option changed"
-msgstr "Thay đổi tùy chỉnh"
+msgstr ""
 
 msgid "Option removed"
-msgstr "Xóa tùy chỉnh"
+msgstr ""
 
 msgid "Optional"
-msgstr "Tùy chỉnh"
+msgstr ""
+
+msgid "Optional, specify to override default server (tic.sixxs.net)"
+msgstr ""
+
+msgid "Optional, use when the SIXXS account has more than one tunnel"
+msgstr ""
 
 msgid ""
 "Optional. 32-bit mark for outgoing encrypted packets. Enter value in hex, "
 "starting with <code>0x</code>."
 msgstr ""
-"Không bắt buộc. Đánh dấu 32 bit cho các gói được mã hóa đi. Nhập giá trị ở "
-"dạng hex, bắt đầu bằng <code>0x</code>."
 
 msgid ""
 "Optional. Allowed values: 'eui64', 'random', fixed value like '::1' or "
@@ -2385,102 +2172,86 @@ msgid ""
 "server, use the suffix (like '::1') to form the IPv6 address ('a:b:c:d::1') "
 "for the interface."
 msgstr ""
-"Không bắt buộc. Các giá trị được phép: 'eui64', 'ngẫu nhiên', giá trị cố "
-"định như '::1' hoặc '::1:2'. Khi nhận được tiền tố IPv6 (như 'a:b:c:d::') từ "
-"một máy chủ ủy nhiệm, sử dụng hậu tố (như '::1') để tạo địa chỉ IPv6 ('a:b:c:"
-"d::1') cho giao diện. "
 
 msgid ""
 "Optional. Base64-encoded preshared key. Adds in an additional layer of "
 "symmetric-key cryptography for post-quantum resistance."
 msgstr ""
-"Không bắt buộc. Khóa mã hóa Base64 được chia sẻ từ trước. Thêm vào một lớp "
-"mã hóa khóa đối xứng bổ sung cho tính kháng sau khi được lượng tử."
 
 msgid "Optional. Create routes for Allowed IPs for this peer."
 msgstr ""
-"Không bắt buộc. Tạo tuyến đường cho \"IP được phép\" cho mạng ngang hàng này"
-
-msgid "Optional. Description of peer."
-msgstr "Không bắt buộc. Mô tả mạng ngang hàng"
 
 msgid ""
 "Optional. Host of peer. Names are resolved prior to bringing up the "
 "interface."
 msgstr ""
-"Không bắt buộc. Máy chủ của mạng ngang hàng. Tên được giải quyết trước khi "
-"đưa lên giao diện mạng. "
 
 msgid "Optional. Maximum Transmission Unit of tunnel interface."
-msgstr "Không bắt buộc. Đơn vị truyền tối đa của giao diện đường hầm mạng."
+msgstr ""
 
 msgid "Optional. Port of peer."
-msgstr "Không bắt buộc. Cổng sử dụng cho mạng ngang hàng"
+msgstr ""
 
 msgid ""
 "Optional. Seconds between keep alive messages. Default is 0 (disabled). "
 "Recommended value if this device is behind a NAT is 25."
 msgstr ""
-"Không bắt buộc. Thời gian (giây) giữa các tin nhắn còn sống. Mặc định là 0 "
-"(tắt). Nếu thiết bị này sử dụng NAT, nên để giá trị là 25."
 
 msgid "Optional. UDP port used for outgoing and incoming packets."
-msgstr "Không bắt buộc. Cổng UDP được sử dụng cho các gói đi và đến"
+msgstr ""
 
 msgid "Options"
 msgstr "Lựa chọn "
 
 msgid "Other:"
-msgstr "Khác:"
+msgstr ""
 
 msgid "Out"
 msgstr "Ra khỏi"
 
 msgid "Outbound:"
-msgstr "Ngoài ràng buộc:"
+msgstr ""
 
 msgid "Output Interface"
-msgstr "Giao diện đầu ra"
+msgstr ""
 
 msgid "Override MAC address"
-msgstr "Ghi đè địa chỉ MAC"
+msgstr ""
 
 msgid "Override MTU"
-msgstr "Ghi đè MTU"
+msgstr ""
 
 msgid "Override TOS"
-msgstr "Ghi đè TOS"
+msgstr ""
 
 msgid "Override TTL"
-msgstr "Ghi đè TTL"
+msgstr ""
 
 msgid "Override default interface name"
-msgstr "Ghi đè tên giao diện mạng mặc định"
+msgstr ""
 
 msgid "Override the gateway in DHCP responses"
-msgstr "Ghi đè cổng khi phản hồi DHCP"
+msgstr ""
 
 msgid ""
 "Override the netmask sent to clients. Normally it is calculated from the "
 "subnet that is served."
 msgstr ""
-"Ghi đè mặt nạ mạng (netmask) gửi cho máy khách. Thông thường, nó được tính "
-"từmạng con được phục vụ."
 
 msgid "Override the table used for internal routes"
-msgstr "Ghi đè bảng được sử dụng cho định tuyến nội bộ"
+msgstr ""
 
 msgid "Overview"
-msgstr "Tổng quan"
+msgstr "Nhìn chung"
 
 msgid "Owner"
-msgstr "Chủ sở hữu"
+msgstr "Owner"
 
 msgid "PAP/CHAP password"
-msgstr "Mật khẩu PAP/CHAP"
+msgstr ""
 
 msgid "PAP/CHAP username"
-msgstr "Tên đăng nhập PAP?CHAP"
+msgstr ""
 
 msgid "PID"
 msgstr "PID"
@@ -2488,38 +2259,35 @@ msgstr "PID"
 msgid "PIN"
 msgstr ""
 
-msgid "PIN code rejected"
-msgstr "Mã PIN bị từ chối "
-
 msgid "PMK R1 Push"
-msgstr "Đẩy PMK R1"
+msgstr ""
 
 msgid "PPP"
-msgstr "PPP"
+msgstr ""
 
 msgid "PPPoA Encapsulation"
-msgstr "Encapsulation PPPoA"
+msgstr "PPPoA Encapsulation"
 
 msgid "PPPoATM"
-msgstr "PPPoATM"
+msgstr ""
 
 msgid "PPPoE"
-msgstr "PPPoE"
+msgstr ""
 
 msgid "PPPoSSH"
-msgstr "PPPoSSH"
+msgstr ""
 
 msgid "PPtP"
 msgstr ""
 
 msgid "PSID offset"
-msgstr "Bù PSID"
+msgstr ""
 
 msgid "PSID-bits length"
-msgstr "Độ dài(bit) PSID"
+msgstr ""
 
 msgid "PTM/EFM (Packet Transfer Mode)"
-msgstr "PTM/EFM (Chế độ chuyển gói)"
+msgstr ""
 
 msgid "Package libiwinfo required!"
 msgstr ""
@@ -2534,7 +2302,7 @@ msgid "Packets"
 msgstr "Gói tin"
 
 msgid "Part of zone %q"
-msgstr "Phần của vùng %q"
+msgstr ""
 
 msgid "Password"
 msgstr "Mật mã"
@@ -2543,61 +2311,61 @@ msgid "Password authentication"
 msgstr "Xác thực mật mã"
 
 msgid "Password of Private Key"
-msgstr "Mật mã của Khóa riêng tư"
+msgstr "Mật mã của private key"
 
 msgid "Password of inner Private Key"
-msgstr "Mật mã của khóa riêng tư bên trong"
+msgstr ""
 
 msgid "Password successfully changed!"
 msgstr ""
 
 msgid "Password2"
-msgstr "Mật mã 2"
+msgstr ""
 
 msgid "Path to CA-Certificate"
-msgstr "Đường dẫn tới nhà cung cấp chứng chỉ(CA)"
+msgstr "Đường dẫn tới CA-Certificate"
 
 msgid "Path to Client-Certificate"
-msgstr "Đường dẫn tới chứng chỉ của máy khách"
+msgstr ""
 
 msgid "Path to Private Key"
-msgstr "Đường dẫn tới khoá riêng tư"
+msgstr "Đường dẫn tới private key"
+
+msgid "Path to executable which handles the button event"
+msgstr ""
 
 msgid "Path to inner CA-Certificate"
-msgstr "Đường dẫn tới nhà cung cấp chứng chỉ nội bộ"
+msgstr ""
 
 msgid "Path to inner Client-Certificate"
-msgstr "Đường dẫn tới chứng chỉ nội bộ của máy khách"
+msgstr ""
 
 msgid "Path to inner Private Key"
-msgstr "Đường dẫn tới khoá riêng tư nội bộ"
+msgstr ""
 
 msgid "Peak:"
-msgstr "Đỉnh"
+msgstr ""
 
 msgid "Peer IP address to assign"
-msgstr "Địa chỉ IP thiết bị mạng ngang hàng để gắn kết"
-
-msgid "Peer address is missing"
-msgstr "Địa chỉ thiết bị mạng ngang hàng bị mất"
+msgstr ""
 
 msgid "Peers"
-msgstr "Thiết bị mạng ngang hàng"
+msgstr ""
 
 msgid "Perfect Forward Secrecy"
-msgstr "Bí mật chuyển tiếp hoàn hảo"
+msgstr ""
 
 msgid "Perform reboot"
-msgstr "Tiến hành khởi động lại"
+msgstr "Tiến hành reboot"
 
 msgid "Perform reset"
-msgstr "Thực hiện khởi động lại"
+msgstr ""
 
 msgid "Persistent Keep Alive"
-msgstr "Giữ liên tục"
+msgstr ""
 
 msgid "Phy Rate:"
-msgstr "Tốc độ Phy"
+msgstr ""
 
 msgid "Physical Settings"
 msgstr "Cài đặt căn bản"
@@ -2618,56 +2386,57 @@ msgid "Port"
 msgstr "Cửa "
 
 msgid "Port status:"
-msgstr "Trạng thái cổng:"
+msgstr ""
 
 msgid "Power Management Mode"
-msgstr "Chế độ kiểm soát năng lượng"
+msgstr ""
 
 msgid "Pre-emtive CRC errors (CRCP_P)"
 msgstr ""
 
 msgid "Prefer LTE"
-msgstr "Ưu tiên LTE"
+msgstr ""
 
 msgid "Prefer UMTS"
-msgstr "Ưu tiên UMTS"
+msgstr ""
 
 msgid "Prefix Delegated"
-msgstr "Tiền tố được ủy quyền"
+msgstr ""
 
 msgid "Preshared Key"
-msgstr "Khóa đã được chia sẻ"
+msgstr ""
 
 msgid ""
 "Presume peer to be dead after given amount of LCP echo failures, use 0 to "
 "ignore failures"
 msgstr ""
-"Coi như thiết bị mạng ngang hàng mất kết nối sau số lần kiểm tra lỗi bằng "
-"phương pháp LCP, sử dụng 0 để bỏ qua"
 
 msgid "Prevent listening on these interfaces."
-msgstr "Ngăn thực hiện nghe tại giao diện mạng này"
+msgstr ""
 
 msgid "Prevents client-to-client communication"
 msgstr "Ngăn chặn giao tiếp giữa client-và-client"
 
+msgid "Prism2/2.5/3 802.11b Wireless Controller"
+msgstr ""
+
 msgid "Private Key"
-msgstr "Khóa riêng tư"
+msgstr ""
 
 msgid "Proceed"
 msgstr "Proceed"
 
 msgid "Processes"
-msgstr "Tiến trình"
+msgstr "Processes"
 
 msgid "Profile"
-msgstr "Hồ sơ"
+msgstr ""
 
 msgid "Prot."
-msgstr "Giao thức"
+msgstr "Prot."
 
 msgid "Protocol"
-msgstr "Giao thức"
+msgstr "Protocol"
 
 msgid "Protocol family"
 msgstr ""
@@ -2679,51 +2448,46 @@ msgid "Protocol support is not installed"
 msgstr ""
 
 msgid "Provide NTP server"
-msgstr "Cung cấp máy chủ NTP"
+msgstr ""
 
 msgid "Provide new network"
-msgstr "Cung cấp mạng mới"
+msgstr ""
 
 msgid "Pseudo Ad-Hoc (ahdemo)"
-msgstr "Mạng Ad-Hoc giả (ahdemo)"
+msgstr "Pseudo Ad-Hoc (ahdemo)"
 
 msgid "Public Key"
-msgstr "Khóa công khai"
+msgstr ""
 
 msgid "Public prefix routed to this device for distribution to clients."
 msgstr ""
-"Tiền tố công khai được chuyển đến thiết bị này để phân phối cho máy khách"
 
 msgid "QMI Cellular"
 msgstr ""
 
 msgid "Quality"
-msgstr "Chất lượng"
-
-msgid ""
-"Query all available upstream <abbr title=\"Domain Name System\">DNS</abbr> "
-"servers"
 msgstr ""
-"Truy vấn tất cả dòng dữ liệu có thể có qua máy chủ <abbr title=\"hệ thống "
-"phân giải tên miền\">DNS</abbr>"
 
 msgid "R0 Key Lifetime"
-msgstr "Thời hạn khóa R0"
+msgstr ""
 
 msgid "R1 Key Holder"
-msgstr "Thiết bị giữ khóa R1"
+msgstr ""
 
 msgid "RFC3947 NAT-T mode"
-msgstr "Chế độ RFC3947 NAT-T"
+msgstr ""
 
 msgid "RTS/CTS Threshold"
-msgstr "Ngưỡng RTS/CTS"
+msgstr "RTS/CTS Threshold"
 
 msgid "RX"
 msgstr "RX"
 
 msgid "RX Rate"
-msgstr "Tốc độ dữ liệu nhận"
+msgstr ""
+
+msgid "RaLink 802.11%s Wireless Controller"
+msgstr ""
 
 msgid "Radius-Accounting-Port"
 msgstr ""
@@ -2743,11 +2507,6 @@ msgstr ""
 msgid "Radius-Authentication-Server"
 msgstr ""
 
-msgid "Raw hex-encoded bytes. Leave empty unless your ISP require this"
-msgstr ""
-"Dữ liệu thô được mã hóa thập lục phân (byte). Để trống trừ khi ISP của bạn "
-"yêu cầu điều này"
-
 msgid ""
 "Read <code>/etc/ethers</code> to configure the <abbr title=\"Dynamic Host "
 "Configuration Protocol\">DHCP</abbr>-Server"
@@ -2756,86 +2515,96 @@ msgstr ""
 "Configuration Protocol\">DHCP</abbr>-Server"
 
 msgid ""
-"Really delete this interface? The deletion cannot be undone! You might lose "
-"access to this device if you are connected via this interface"
+"Really delete this interface? The deletion cannot be undone!\\nYou might "
+"lose access to this device if you are connected via this interface."
 msgstr ""
-"Bạn thực sự muốn xóa giao diện mạng này? Việc xóa không thể được hoàn tác! "
-"Bạn có thể mất quyền truy cập vào thiết bị này nếu bạn được kết nối qua giao "
-"diện này"
 
 msgid ""
-"Really delete this wireless network? The deletion cannot be undone! You "
+"Really delete this wireless network? The deletion cannot be undone!\\nYou "
 "might lose access to this device if you are connected via this network."
 msgstr ""
 
 msgid "Really reset all changes?"
 msgstr ""
 
+msgid ""
+"Really shut down network?\\nYou might lose access to this device if you are "
+"connected via this interface."
+msgstr ""
+
+msgid ""
+"Really shutdown interface \"%s\" ?\\nYou might lose access to this device if "
+"you are connected via this interface."
+msgstr ""
+
 msgid "Really switch protocol?"
-msgstr "Bạn thật sự muốn đổi giao thức?"
+msgstr ""
 
 msgid "Realtime Connections"
-msgstr "Kết nối thời gian thực"
+msgstr ""
 
 msgid "Realtime Graphs"
-msgstr "Biểu đồ thời gian thực"
+msgstr ""
 
 msgid "Realtime Load"
-msgstr "Tải thời gian thực"
+msgstr ""
 
 msgid "Realtime Traffic"
-msgstr "Lưu thông thời gian thực"
+msgstr ""
 
 msgid "Realtime Wireless"
-msgstr "Mạng không dây thời gian thực"
+msgstr ""
 
 msgid "Reassociation Deadline"
-msgstr "Hạn chót tái tổ chức"
+msgstr ""
 
 msgid "Rebind protection"
-msgstr "Bảo vệ tái kết nối"
+msgstr ""
 
 msgid "Reboot"
-msgstr "Khởi động lại"
+msgstr "Reboot"
 
 msgid "Rebooting..."
 msgstr ""
 
 msgid "Reboots the operating system of your device"
-msgstr "Khởi động lại hệ điều hành của công cụ"
+msgstr "Reboots hệ điều hành của công cụ"
 
 msgid "Receive"
-msgstr "Nhận"
+msgstr "Receive"
 
 msgid "Receiver Antenna"
 msgstr "Máy thu Antenna"
 
 msgid "Recommended. IP addresses of the WireGuard interface."
-msgstr "Khuyến khích. Địa chỉ IP của giao diện mạng WireGuard"
+msgstr ""
 
 msgid "Reconnect this interface"
-msgstr "Tái kết nối giao diện mạng này"
+msgstr ""
+
+msgid "Reconnecting interface"
+msgstr ""
 
 msgid "References"
-msgstr "Tham khảo"
+msgstr "Tham chiếu"
 
 msgid "Relay"
-msgstr "Phục thuộc"
+msgstr ""
 
 msgid "Relay Bridge"
-msgstr "Cầu nối phụ thuộc"
+msgstr ""
 
 msgid "Relay between networks"
-msgstr "Phụ thuộc giữa hai kết nối"
+msgstr ""
 
 msgid "Relay bridge"
-msgstr "Cầu nối phụ thuộc"
+msgstr ""
 
 msgid "Remote IPv4 address"
-msgstr "Địa chỉ IPv4 từ xa"
+msgstr ""
 
 msgid "Remote IPv4 address or FQDN"
-msgstr "Địa chỉ IPv4 từ xa hoặc FQDN"
+msgstr ""
 
 msgid "Remove"
 msgstr "Loại bỏ"
@@ -2847,36 +2616,34 @@ msgid "Replace entry"
 msgstr "thay đổi nội dung"
 
 msgid "Replace wireless configuration"
-msgstr "Thay thế cấu hình mạng không dây"
+msgstr ""
 
 msgid "Request IPv6-address"
-msgstr "Yêu cầu địa chỉ mạng IPv6"
+msgstr ""
 
 msgid "Request IPv6-prefix of length"
-msgstr "Yêu cầu tiền tố IPv6 có độ dài"
+msgstr ""
+
+msgid "Require TLS"
+msgstr ""
 
 msgid "Required"
-msgstr "Bắt buộc"
+msgstr ""
 
 msgid "Required for certain ISPs, e.g. Charter with DOCSIS 3"
-msgstr "Cần thiết cho một số ISP nhất định, ví dụ: Điều lệ với DOCSIS 3"
+msgstr ""
 
 msgid "Required. Base64-encoded private key for this interface."
-msgstr "Bắt buộc. Khóa riêng tư được mã hóa Base64 cho giao diện này"
+msgstr ""
 
 msgid "Required. Base64-encoded public key of peer."
 msgstr ""
-"Bắt buộc. Khóa công khai được mã hóa Base64 của thiết bị mạng ngang hàng"
 
 msgid ""
 "Required. IP addresses and prefixes that this peer is allowed to use inside "
 "the tunnel. Usually the peer's tunnel IP addresses and the networks the peer "
 "routes through the tunnel."
 msgstr ""
-"Bắt buộc. Địa chỉ IP và tiền tố mà thiết bị mạng ngang hàng này được phép sử "
-"dụng bên trong đường hầm dữ liệu. Thông thường, địa chỉ IP của đường hầm dữ "
-"liệu ngang hàng và các mạng mà thiết bị mạng ngang hàng định tuyến qua đường "
-"hầm dữ liệu này."
 
 msgid ""
 "Requires the 'full' version of wpad/hostapd and support from the wifi driver "
@@ -2887,77 +2654,63 @@ msgid ""
 "Requires upstream supports DNSSEC; verify unsigned domain responses really "
 "come from unsigned domains"
 msgstr ""
-"Yêu cầu upstream hỗ trợ DNSSEC; xác minh phản hồi tên miền chưa được ký thực "
-"sự đến từ nó"
 
 msgid "Reset"
-msgstr "Khởi động lại"
+msgstr "Reset"
 
 msgid "Reset Counters"
-msgstr "Khởi động lại bộ đếm"
+msgstr "Reset bộ đếm"
 
 msgid "Reset to defaults"
-msgstr "Phục hồi về mặc định"
+msgstr ""
 
 msgid "Resolv and Hosts Files"
-msgstr "Tập tin Resolv và Hosts"
+msgstr ""
 
 msgid "Resolve file"
-msgstr "Tập tin Resolv"
+msgstr ""
 
 msgid "Restart"
-msgstr "Khởi động lại"
+msgstr ""
 
 msgid "Restart Firewall"
-msgstr "Khởi động lại tường lửa"
-
-msgid "Restart radio interface"
-msgstr "Khởi động lại giao diện mạng không dây"
-
-msgid "Restore"
-msgstr "Phục hồi"
+msgstr "Khởi động lại Firewall"
 
 msgid "Restore backup"
 msgstr "Phục hồi backup"
 
 msgid "Reveal/hide password"
-msgstr "Hiển thị/ẩn mật khẩu"
+msgstr ""
 
 msgid "Revert"
-msgstr "Hoàn nguyên"
-
-msgid "Revert changes"
-msgstr "Hoàn nguyên thay đổi"
-
-msgid "Revert request failed with status <code>%h</code>"
-msgstr "Yêu cầu hoàn nguyên không thành công với trạng thái <code>%h</code>"
-
-msgid "Reverting configuration…"
-msgstr "Đang hoàn nguyên cấu hình .."
+msgstr "Revert"
 
 msgid "Root"
 msgstr ""
 
 msgid "Root directory for files served via TFTP"
-msgstr "Thư mục gốc cho các tệp được lấy qua TFTP"
+msgstr ""
 
 msgid "Root preparation"
 msgstr ""
 
 msgid "Route Allowed IPs"
-msgstr "Định tuyến cho các IP được cho phép"
+msgstr ""
 
 msgid "Route type"
-msgstr "Kiểu định tuyến"
+msgstr ""
+
+msgid "Routed IPv6 prefix for downstream interfaces"
+msgstr ""
 
 msgid "Router Advertisement-Service"
-msgstr "Dịch vụ quảng bá bộ định tuyến"
+msgstr ""
 
 msgid "Router Password"
-msgstr "Mật khẩu bộ định tuyến"
+msgstr ""
 
 msgid "Routes"
-msgstr "Định tuyến"
+msgstr "Routes"
 
 msgid ""
 "Routes specify over which interface and gateway a certain host or network "
@@ -2967,28 +2720,36 @@ msgstr ""
 "tiếp cận."
 
 msgid "Run a filesystem check before mounting the device"
-msgstr "Chạy kiểm tra hệ thống tập tin trước khi gắn thiết bị"
+msgstr ""
 
 msgid "Run filesystem check"
-msgstr "Tiến hành kiểm tra thư mục hệ thống"
+msgstr ""
 
 msgid "SHA256"
+msgstr ""
+
+msgid ""
+"SIXXS supports TIC only, for static tunnels using IP protocol 41 (RFC4213) "
+"use 6in4 instead"
+msgstr ""
+
+msgid "SIXXS-handle[/Tunnel-ID]"
 msgstr ""
 
 msgid "SNR"
 msgstr ""
 
 msgid "SSH Access"
-msgstr "Kết nối SSH"
+msgstr ""
 
 msgid "SSH server address"
-msgstr "Địa chỉ máy chủ SSH"
+msgstr ""
 
 msgid "SSH server port"
-msgstr "Cổng máy chủ SSH"
+msgstr ""
 
 msgid "SSH username"
-msgstr "Tên người dùng SSH"
+msgstr ""
 
 msgid "SSH-Keys"
 msgstr ""
@@ -3002,23 +2763,23 @@ msgstr "Lưu"
 msgid "Save & Apply"
 msgstr "Lưu & áp dụng "
 
-msgid "Scan"
-msgstr "quét"
-
-msgid "Scan request failed"
+msgid "Save &#38; Apply"
 msgstr ""
 
+msgid "Scan"
+msgstr "Scan"
+
 msgid "Scheduled Tasks"
-msgstr "Nhiệm vụ theo lịch trình"
+msgstr "Scheduled Tasks"
 
 msgid "Section added"
-msgstr "Thêm mục"
+msgstr ""
 
 msgid "Section removed"
-msgstr "Xóa mục"
+msgstr ""
 
 msgid "See \"mount\" manpage for details"
-msgstr "Xem hướng dẫn \"lắp\" để biết chi tiết"
+msgstr ""
 
 msgid ""
 "Send LCP echo requests at the given interval in seconds, only effective in "
@@ -3029,39 +2790,38 @@ msgid "Separate Clients"
 msgstr "Cô lập đối tượng"
 
 msgid "Server Settings"
-msgstr "Cấu hình máy chủ"
+msgstr ""
+
+msgid "Server password"
+msgstr ""
+
+msgid ""
+"Server password, enter the specific password of the tunnel when the username "
+"contains the tunnel ID"
+msgstr ""
+
+msgid "Server username"
+msgstr ""
 
 msgid "Service Name"
-msgstr "Tên dịch vụ"
+msgstr ""
 
 msgid "Service Type"
-msgstr "Kiểu dịch vụ"
+msgstr ""
 
 msgid "Services"
 msgstr "Dịch vụ "
-
-msgid "Set VPN as Default Route"
-msgstr "Chọn VPN là cách định tuyến mặc đinh"
 
 msgid ""
 "Set interface properties regardless of the link carrier (If set, carrier "
 "sense events do not invoke hotplug handlers)."
 msgstr ""
-"Đặt thuộc tính giao diện mạng bất kể nhà cung cấp liên kết (Nếu được chọn, "
-"các sự kiện cảm nhận của nhà cung cấp không gọi trình xử lý khi lắp nóng cho "
-"thiết bị)."
 
 msgid "Set up Time Synchronization"
 msgstr ""
 
-msgid "Setting PLMN failed"
-msgstr "Cài đặt PLMN không thành công"
-
-msgid "Setting operation mode failed"
-msgstr "Cài đặt chế độ hoạt động không thành công"
-
 msgid "Setup DHCP Server"
-msgstr "Cài đặt máy chủ DHCP"
+msgstr ""
 
 msgid "Severely Errored Seconds (SES)"
 msgstr ""
@@ -3069,23 +2829,23 @@ msgstr ""
 msgid "Short GI"
 msgstr ""
 
-msgid "Short Preamble"
+msgid "Show current backup file list"
 msgstr ""
 
-msgid "Show current backup file list"
-msgstr "Hiển thị danh sách tập tin lưu trữ"
-
 msgid "Shutdown this interface"
-msgstr "Tắt giao diện mạng này"
+msgstr ""
+
+msgid "Shutdown this network"
+msgstr ""
 
 msgid "Signal"
-msgstr "Tín hiệu"
+msgstr ""
 
 msgid "Signal Attenuation (SATN)"
-msgstr "Độ suy hao tín hiệu (SATN)"
+msgstr ""
 
 msgid "Signal:"
-msgstr "Tín hiệu:"
+msgstr ""
 
 msgid "Size"
 msgstr "Dung lượng "
@@ -3093,11 +2853,8 @@ msgstr "Dung lượng "
 msgid "Size (.ipk)"
 msgstr ""
 
-msgid "Size of DNS query cache"
-msgstr "Dung lượng của bộ nhớ tạm truy vấn DNS"
-
 msgid "Skip"
-msgstr "Chuyển"
+msgstr ""
 
 msgid "Skip to content"
 msgstr "Nhảy tới nội dung"
@@ -3112,31 +2869,37 @@ msgid "Software"
 msgstr "Phần mềm"
 
 msgid "Software VLAN"
-msgstr "VLAN phần mềm"
+msgstr ""
 
 msgid "Some fields are invalid, cannot save values!"
-msgstr "Có trường không hợp lệ, không thể lưu giá trị!"
+msgstr ""
 
 msgid "Sorry, the object you requested was not found."
-msgstr "Xin lỗi, không thể tìm được đối tượng bạn yêu cầu"
+msgstr ""
 
 msgid "Sorry, the server encountered an unexpected error."
-msgstr "Xin lỗi, máy chủ đã gặp lỗi không mong muốn"
+msgstr ""
 
 msgid ""
 "Sorry, there is no sysupgrade support present; a new firmware image must be "
 "flashed manually. Please refer to the wiki for device specific install "
 "instructions."
 msgstr ""
-"Xin lỗi, hệ thống hỗ trợ nầng cấp hiện tại không thể thực hiện được; ảnh "
-"phần mềm mới phải được nạp thủ công. Vui lòng tham khảo wiki để biết hướng "
-"dẫn cài đặt cụ thể của thiết bị."
+
+msgid "Sort"
+msgstr ""
 
 msgid "Source"
 msgstr "Nguồn"
 
+msgid "Source routing"
+msgstr ""
+
+msgid "Specifies the button state to handle"
+msgstr ""
+
 msgid "Specifies the directory the device is attached to"
-msgstr "Chỉ định thư mục mà thiết bị được đính kèm"
+msgstr ""
 
 msgid "Specifies the listening port of this <em>Dropbear</em> instance"
 msgstr ""
@@ -3145,31 +2908,27 @@ msgid ""
 "Specifies the maximum amount of failed ARP requests until hosts are presumed "
 "to be dead"
 msgstr ""
-"Chỉ định số lượng yêu cầu ARP tối đa cho đến khi máy chủ được coi là đã "
-"không hoạt động"
 
 msgid ""
 "Specifies the maximum amount of seconds after which hosts are presumed to be "
 "dead"
 msgstr ""
-"Chỉ định thời gian(giây) tối đa mà sau đó máy chủ được cho là đã không hoạt "
-"động"
 
 msgid "Specify a TOS (Type of Service)."
-msgstr "Chỉ định một TOS (kiểu dịch vụ)."
+msgstr ""
 
 msgid ""
 "Specify a TTL (Time to Live) for the encapsulating packet other than the "
 "default (64)."
-msgstr "Chỉ định một Thời gian sống(TTL) cho gói tin khác với mặc định(64). "
+msgstr ""
 
 msgid ""
 "Specify an MTU (Maximum Transmission Unit) other than the default (1280 "
 "bytes)."
-msgstr "Chỉ định một đơn vị truyền tối đa(MTU) khác với mặc định (1280 byte)"
+msgstr ""
 
 msgid "Specify the secret encryption key here."
-msgstr "Chỉ định khóa mã hóa bí mật ở đây"
+msgstr ""
 
 msgid "Start"
 msgstr "Bắt đầu "
@@ -3177,45 +2936,35 @@ msgstr "Bắt đầu "
 msgid "Start priority"
 msgstr "Bắt đầu ưu tiên"
 
-msgid "Starting configuration apply…"
-msgstr "Đang áp dụng cáu hình ..."
-
-msgid "Starting wireless scan..."
-msgstr "Bắt đầu quét mạng ..."
-
 msgid "Startup"
-msgstr "Khởi động"
+msgstr ""
 
 msgid "Static IPv4 Routes"
-msgstr "Định tuyến tĩnh IPv4"
+msgstr "Static IPv4 Routes"
 
 msgid "Static IPv6 Routes"
-msgstr "Định tuyến tĩnh IPv6"
+msgstr "Static IPv6 Routes"
 
 msgid "Static Leases"
-msgstr "Thống kê địa chỉ đã cấp phát"
+msgstr "Thống kê leases"
 
 msgid "Static Routes"
-msgstr "Định tuyến tĩnh"
+msgstr "Static Routes"
 
 msgid "Static address"
-msgstr "Địa chỉ tĩnh"
+msgstr ""
 
 msgid ""
 "Static leases are used to assign fixed IP addresses and symbolic hostnames "
 "to DHCP clients. They are also required for non-dynamic interface "
 "configurations where only hosts with a corresponding lease are served."
 msgstr ""
-"Địa chỉ cấp phát tĩnh được sử dụng để gán địa chỉ IP cố định và tên máy chủ "
-"tượng trưng cho các máy khách của dịch vụ DHCP. Chúng cũng được yêu cầu cho "
-"các cấu hình giao diện mạng không động trong đó chỉ các máy chủ được chỉ "
-"định cấp phát tương ứng được phục vụ."
 
 msgid "Status"
-msgstr "Trạng thái"
+msgstr "Tình trạng"
 
 msgid "Stop"
-msgstr "Dừng"
+msgstr ""
 
 msgid "Strict order"
 msgstr "Yêu cầu nghiêm ngặt"
@@ -3224,10 +2973,10 @@ msgid "Submit"
 msgstr "Trình "
 
 msgid "Suppress logging"
-msgstr "Dừng lưu nhật ký"
+msgstr ""
 
 msgid "Suppress logging of the routine operation of these protocols"
-msgstr "Bỏ lưu nhật ký hoạt động định tuyến của các giao thức này"
+msgstr ""
 
 msgid "Swap"
 msgstr ""
@@ -3236,10 +2985,10 @@ msgid "Swap Entry"
 msgstr ""
 
 msgid "Switch"
-msgstr "Chuyển đổi"
+msgstr "chuyển đổi"
 
 msgid "Switch %q"
-msgstr "Chuyển đổi %q"
+msgstr ""
 
 msgid "Switch %q (%s)"
 msgstr ""
@@ -3247,20 +2996,15 @@ msgstr ""
 msgid ""
 "Switch %q has an unknown topology - the VLAN settings might not be accurate."
 msgstr ""
-"chuyển đổi %q có cấu trúc liên kết không xác định - cài đặt Vlan có thể "
-"không chính xác "
-
-msgid "Switch Port Mask"
-msgstr "Chuyển đổi mặt nạ cổng"
 
 msgid "Switch VLAN"
-msgstr "Đổi VLAN"
+msgstr ""
 
 msgid "Switch protocol"
-msgstr "Đổi giao thức"
+msgstr ""
 
 msgid "Sync with browser"
-msgstr "Đồng bộ với trình duyệt web"
+msgstr ""
 
 msgid "Synchronizing..."
 msgstr ""
@@ -3269,40 +3013,40 @@ msgid "System"
 msgstr "Hệ thống"
 
 msgid "System Log"
-msgstr "Nhật ký hệ thống"
+msgstr "System Log"
 
 msgid "System Properties"
-msgstr "Thuộc tính hệ thống"
+msgstr ""
 
 msgid "System log buffer size"
-msgstr "Kích cỡ bộ đệm nhật ký hệ thống"
+msgstr ""
 
 msgid "TCP:"
 msgstr ""
 
 msgid "TFTP Settings"
-msgstr "Cài đặt TFTP"
+msgstr ""
 
 msgid "TFTP server root"
-msgstr "Máy chủ gốc TFTP"
+msgstr ""
 
 msgid "TX"
 msgstr "TX"
 
 msgid "TX Rate"
-msgstr "Tốc độ truyền"
+msgstr ""
 
 msgid "Table"
 msgstr "Bảng"
 
 msgid "Target"
-msgstr "Mục tiêu"
+msgstr "Đích"
 
 msgid "Target network"
-msgstr "Mạng đích"
+msgstr ""
 
 msgid "Terminate"
-msgstr "Kết thúc"
+msgstr "Terminate"
 
 msgid ""
 "The <em>Device Configuration</em> section covers physical settings of the "
@@ -3321,12 +3065,10 @@ msgid ""
 "The HE.net endpoint update configuration changed, you must now use the plain "
 "username instead of the user ID!"
 msgstr ""
-"Cấu hình cập nhật điểm cuối HE.net đã thay đổi, bây giờ bạn có thể sử dụng "
-"tên người dùng đơn giản thay vì ID người dùng"
 
 msgid ""
 "The IPv4 address or the fully-qualified domain name of the remote tunnel end."
-msgstr "Địa chỉ IPv4 hoặc tên miền đủ điều kiện của đầu kia đường hầm dữ liệu."
+msgstr ""
 
 msgid ""
 "The IPv6 prefix assigned to the provider, usually ends with <code>::</code>"
@@ -3337,20 +3079,7 @@ msgid ""
 "code> and <code>_</code>"
 msgstr ""
 
-msgid "The backup archive does not appear to be a valid gzip file."
-msgstr ""
-
 msgid "The configuration file could not be loaded due to the following error:"
-msgstr ""
-
-msgid ""
-"The device could not be reached within %d seconds after applying the pending "
-"changes, which caused the configuration to be rolled back for safety "
-"reasons. If you believe that the configuration changes are correct "
-"nonetheless, perform an unchecked configuration apply. Alternatively, you "
-"can dismiss this warning and edit changes before attempting to apply again, "
-"or revert all pending changes to keep the currently working configuration "
-"state."
 msgstr ""
 
 msgid ""
@@ -3374,11 +3103,14 @@ msgid ""
 "\"Proceed\" below to start the flash procedure."
 msgstr ""
 
+msgid "The following changes have been committed"
+msgstr ""
+
 msgid "The following changes have been reverted"
 msgstr "Những thay đối sau đây đã được để trở về tình trạng cũ. "
 
 msgid "The following rules are currently active on this system."
-msgstr "Các quy tắc sau hiện đang hoạt động trên hệ thống"
+msgstr ""
 
 msgid "The given network name is not unique"
 msgstr ""
@@ -3392,16 +3124,13 @@ msgid ""
 "The length of the IPv4 prefix in bits, the remainder is used in the IPv6 "
 "addresses."
 msgstr ""
-"Độ dài của địa chỉ IPv4 prefix (bit), phần còn lại được sử dụng trong các "
-"địa chỉ IPv6"
 
 msgid "The length of the IPv6 prefix in bits"
-msgstr "Độ dài của địa chỉ IPv6 prefix (bit)"
+msgstr ""
 
 msgid "The local IPv4 address over which the tunnel is created (optional)."
-msgstr "Địa chỉ IPv4 cục bộ mà đường hầm dữ liệu được tạo (tùy chọn)"
+msgstr ""
 
-#, fuzzy
 msgid ""
 "The network ports on this device can be combined to several <abbr title="
 "\"Virtual Local Area Network\">VLAN</abbr>s in which computers can "
@@ -3410,25 +3139,17 @@ msgid ""
 "segments. Often there is by default one Uplink port for a connection to the "
 "next greater network like the internet and other ports for a local network."
 msgstr ""
-"Các cổng mạng trên thiết bị này có thể được kết hợp với một số <abbr title="
-"\" Mạng cục bộ ảo\"> Vlan</abbr>s trong đó các máy tính có thể giao tiếp "
-"trực tiếp với nhau. <Abbr title=\"Mạng cục bộ ảo\"> Vlan </abbr>s thường "
-"được sử dụng để phân tách các phân đoạn mạng khác nhau. Thường sẽ có một "
-"cổng Uplink mặc định để kết nối với mạng lớn hơn tiếp theo như internet và "
-"các cổng khác cho mạng cục bộ."
 
 msgid "The selected protocol needs a device assigned"
 msgstr ""
 
 msgid "The submitted security token is invalid or already expired!"
-msgstr "Mã thông báo bảo mật đã gửi không hợp lệ hoặc đã hết hạn!"
+msgstr ""
 
 msgid ""
 "The system is erasing the configuration partition now and will reboot itself "
 "when finished."
 msgstr ""
-"Hệ thống hiện đang xóa phân vùng cấu hình và sẽ tự khởi động lại khi hoàn "
-"tất."
 
 #, fuzzy
 msgid ""
@@ -3437,9 +3158,14 @@ msgid ""
 "address of your computer to reach the device again, depending on your "
 "settings."
 msgstr ""
-"Hệ thống bây giờ đang nạp.<br /> KHÔNG NGẮT NGUỒN THIẾT BỊ!<br /> Chờ một "
-"vài phút cho tới khi kết nối lại. Có thể cần phải làm mới địa chỉ của máy "
-"tính để kết nối tới thiết bị một lần nữa, phụ thuộc vào cài đặt của bạn. "
+"Hệ thống bây giờ đang flashing.<br /> DO NOT POWER OFF THE DEVICE!<br /> Chờ "
+"một vài phút cho tới khi kết nối lại. Có thể cần phải làm mới địa chỉ của "
+"máy tính để tiếp cận thiết bị một lần nữa, phụ thuộc vào cài đặt của bạn. "
+
+msgid ""
+"The tunnel end-point is behind NAT, defaults to disabled and only applies to "
+"AYIYA"
+msgstr ""
 
 msgid ""
 "The uploaded image file does not contain a supported format. Make sure that "
@@ -3451,7 +3177,7 @@ msgstr ""
 msgid "There are no active leases."
 msgstr ""
 
-msgid "There are no changes to apply."
+msgid "There are no pending changes to apply!"
 msgstr ""
 
 msgid "There are no pending changes to revert!"
@@ -3469,8 +3195,6 @@ msgid ""
 "There is no password set on this router. Please configure a root password to "
 "protect the web interface and enable SSH."
 msgstr ""
-"Không có mật khẩu nào được đặt trên thiết bị. Vui lòng định cấu hình mật "
-"khẩu gốc để bảo vệ giao diện web và bật SSH."
 
 msgid "This IPv4 address of the relay"
 msgstr ""
@@ -3486,30 +3210,21 @@ msgid ""
 "include during sysupgrade. Modified files in /etc/config/ and certain other "
 "configurations are automatically preserved."
 msgstr ""
-"Đây là danh sách các mẫu lệnh toàn cục cho các tệp và thư mục phù hợp để đưa "
-"vào trong quá trình nâng cấp hệ thống. Các tệp đã sửa đổi trong /etc/config/ "
-"và một số cấu hình khác được tự động giữ nguyên"
 
 msgid ""
 "This is either the \"Update Key\" configured for the tunnel or the account "
 "password if no update key has been configured"
 msgstr ""
-"Đây có thẻ là \"Khóa cập nhật\" được cấu hình cho đường hầm dữ liệu hoặc mật "
-"khẩu nếu không có khóa cập nhật nào được cấu hình"
 
 msgid ""
 "This is the content of /etc/rc.local. Insert your own commands here (in "
 "front of 'exit 0') to execute them at the end of the boot process."
 msgstr ""
-"Đây là nội dung của /etc/rc.local. Chèn các lệnh của riêng bạn vào đây "
-"(trước 'exit 0) để thực thi chúng ở cuối quá trình khởi động"
 
 msgid ""
 "This is the local endpoint address assigned by the tunnel broker, it usually "
-"ends with <code>...:2/64</code>"
+"ends with <code>:2</code>"
 msgstr ""
-"Đây là địa chỉ điểm cuối cục bộ được chỉ định bởi tunnel broker, nó thường "
-"kết thúc bằng <code>...:2/64</code>"
 
 msgid ""
 "This is the only <abbr title=\"Dynamic Host Configuration Protocol\">DHCP</"
@@ -3519,7 +3234,7 @@ msgstr ""
 "nhất trong mạng địa phương. "
 
 msgid "This is the plain username for logging into the account"
-msgstr "Đây là tên người dùng đơn giản để đăng nhập vào tài khoản"
+msgstr ""
 
 msgid ""
 "This is the prefix routed to you by the tunnel broker for use by clients"
@@ -3536,8 +3251,11 @@ msgid ""
 "This list gives an overview over currently running system processes and "
 "their status."
 msgstr ""
-"Danh sách này đưa ra một tầm nhìn tổng quát về tiến trình hệ thống đang chạy "
-"và tình trạng của chúng."
+"List này đưa ra một tầm nhìn tổng quát về xử lý hệ thống đang chạy và tình "
+"trạng của chúng."
+
+msgid "This page allows the configuration of custom button actions"
+msgstr ""
 
 msgid "This page gives an overview over currently active network connections."
 msgstr ""
@@ -3547,7 +3265,7 @@ msgid "This section contains no values yet"
 msgstr "Phần này chưa có giá trị nào"
 
 msgid "Time Synchronization"
-msgstr "Đồng bộ thời gian"
+msgstr ""
 
 msgid "Time Synchronization is not configured yet."
 msgstr ""
@@ -3557,22 +3275,17 @@ msgstr "Múi giờ "
 
 msgid ""
 "To restore configuration files, you can upload a previously generated backup "
-"archive here. To reset the firmware to its initial state, click \"Perform "
-"reset\" (only possible with squashfs images)."
+"archive here."
 msgstr ""
-"Để khôi phục các tệp cấu hình, bạn có thể tải lên một bản sao lưu đã được "
-"tạo trước đó tại đây. Để đặt lại chương trình cơ sở về trạng thái ban đầu, "
-"nhấp vào \"Thực hiện đặt lại\" (chỉ có thể thực hiện với tập tin ảnh kiểu "
-"squashfs)."
 
 msgid "Tone"
 msgstr ""
 
 msgid "Total Available"
-msgstr "Tất cả có sẵn"
+msgstr ""
 
 msgid "Traceroute"
-msgstr "Theo dấu định tuyến"
+msgstr ""
 
 msgid "Traffic"
 msgstr ""
@@ -3593,22 +3306,31 @@ msgid "Transmitter Antenna"
 msgstr "Máy phát Antenna"
 
 msgid "Trigger"
-msgstr "Kích"
+msgstr ""
 
 msgid "Trigger Mode"
-msgstr "Chế độ kích"
+msgstr ""
 
 msgid "Tunnel ID"
-msgstr "ID đường hầm dữ liệu"
+msgstr ""
 
 msgid "Tunnel Interface"
-msgstr "Giao diện đường hầm dữ liệu"
+msgstr ""
 
 msgid "Tunnel Link"
-msgstr "Liên kết đường hầm dữ liệu"
+msgstr ""
+
+msgid "Tunnel broker protocol"
+msgstr ""
+
+msgid "Tunnel setup server"
+msgstr ""
+
+msgid "Tunnel type"
+msgstr ""
 
 msgid "Tx-Power"
-msgstr "Năng lượng truyền"
+msgstr ""
 
 msgid "Type"
 msgstr "Loại "
@@ -3617,73 +3339,43 @@ msgid "UDP:"
 msgstr ""
 
 msgid "UMTS only"
-msgstr "Chỉ UMTS"
+msgstr ""
 
 msgid "UMTS/GPRS/EV-DO"
 msgstr ""
 
 msgid "USB Device"
-msgstr "Thiết bị USB"
+msgstr ""
 
 msgid "USB Ports"
-msgstr "Cổng USB"
+msgstr ""
 
 msgid "UUID"
 msgstr ""
 
-msgid "Unable to determine device name"
-msgstr "Không thể xác định tên thiết bị"
-
-msgid "Unable to determine external IP address"
-msgstr "Không thể xác định địa chỉ IP ngoại"
-
-msgid "Unable to determine upstream interface"
-msgstr "Không thể xác định dòng dữ liệu giao diện mạng"
-
 msgid "Unable to dispatch"
-msgstr "Không thể gửi"
-
-msgid "Unable to obtain client ID"
-msgstr "Không thể có được ID máy khách"
-
-msgid "Unable to resolve AFTR host name"
-msgstr "Không thể giải quyết tên máy chủ AFTR"
-
-msgid "Unable to resolve peer host name"
-msgstr "Không thể giải quyết tên máy chủ ngang hàng"
+msgstr ""
 
 msgid "Unavailable Seconds (UAS)"
 msgstr ""
 
 msgid "Unknown"
-msgstr "Không xác định"
+msgstr ""
 
 msgid "Unknown Error, password not changed!"
 msgstr ""
 
-msgid "Unknown error (%s)"
-msgstr "Lỗi không xác định (%s"
-
 msgid "Unmanaged"
-msgstr "Hủy quản lý"
+msgstr ""
 
 msgid "Unmount"
-msgstr "Hủy gắn kết"
+msgstr ""
 
 msgid "Unsaved Changes"
 msgstr "Thay đổi không lưu"
 
-msgid "Unsupported MAP type"
-msgstr "Không hỗ trợ giao thức MAP"
-
-msgid "Unsupported modem"
-msgstr "Thiết bị không được hỗ trợ"
-
 msgid "Unsupported protocol type."
-msgstr "Giao thức này không được hỗ trợ"
-
-msgid "Up"
-msgstr "Lên"
+msgstr ""
 
 msgid "Update lists"
 msgstr ""
@@ -3695,7 +3387,7 @@ msgid ""
 msgstr ""
 
 msgid "Upload archive..."
-msgstr "Tải dữ liệu lên ..."
+msgstr ""
 
 msgid "Uploaded File"
 msgstr "Tập tin đã tải lên"
@@ -3707,75 +3399,68 @@ msgid "Use <code>/etc/ethers</code>"
 msgstr "Dùng <code>/etc/ethers</code>"
 
 msgid "Use DHCP gateway"
-msgstr "Dùng DHCP gateway"
+msgstr ""
 
 msgid "Use DNS servers advertised by peer"
-msgstr "Sử dụng máy chủ DNS được quảng cáo bởi máy ngang cấp"
+msgstr ""
 
 msgid "Use ISO/IEC 3166 alpha2 country codes."
-msgstr "Sử dụng mã quốc gia ISO / IEC 3166 alpha2"
+msgstr ""
 
 msgid "Use MTU on tunnel interface"
-msgstr "Sử dụng MTU trên giao diện đường hầm dữ liệu"
+msgstr ""
 
 msgid "Use TTL on tunnel interface"
-msgstr "Sử dụng TTL trên giao diện đường hầm dữ liệu"
+msgstr ""
 
 msgid "Use as external overlay (/overlay)"
-msgstr "Sử dụng như overlay ngoại (/overlay)"
+msgstr ""
 
 msgid "Use as root filesystem (/)"
-msgstr "Sử dụng như thư mục hệ thống gốc"
+msgstr ""
 
 msgid "Use broadcast flag"
-msgstr "Sử dụng cờ quảng bá"
+msgstr ""
 
 msgid "Use builtin IPv6-management"
-msgstr "Sử dụng trình quản lý IPv6 đã được tích hợp và hệ thống"
+msgstr ""
 
 msgid "Use custom DNS servers"
-msgstr "Sử dụng máy chủ DNS tự tạo"
+msgstr ""
 
 msgid "Use default gateway"
 msgstr ""
 
 msgid "Use gateway metric"
-msgstr "Sử dụng gateway metric"
+msgstr ""
 
 msgid "Use routing table"
-msgstr "Sử dụng bảng định tuyến"
+msgstr ""
 
 msgid ""
 "Use the <em>Add</em> Button to add a new lease entry. The <em>MAC-Address</"
-"em> identifies the host, the <em>IPv4-Address</em> specifies the fixed "
-"address to use, and the <em>Hostname</em> is assigned as a symbolic name to "
-"the requesting host. The optional <em>Lease time</em> can be used to set non-"
+"em> indentifies the host, the <em>IPv4-Address</em> specifies to the fixed "
+"address to use and the <em>Hostname</em> is assigned as symbolic name to the "
+"requesting host. The optional <em>Lease time</em> can be used to set non-"
 "standard host-specific lease time, e.g. 12h, 3d or infinite."
 msgstr ""
-"Sử dụng nút <em>Thêm</em> để thêm mục cho cấp phát IP mới. <em>Địa chỉ MAC</"
-"em> xác định máy chủ, <em>Địa chỉ IPv4</em> chỉ định địa chỉ cố định và "
-"<em>Tên máy chủ</em> được chỉ định làm tên tượng trưng khi máy chủ yêu cầu. "
-"<em>Thời gian cấp phát IP</em> tùy chọn có thể được sử dụng để đặt thời gian "
-"thuê máy chủ không theo tiêu chuẩn, ví dụ: 12h , 3d hoặc vô hạn."
 
 msgid "Used"
 msgstr "Đã sử dụng"
 
 msgid "Used Key Slot"
-msgstr "Khay khóa đã được sử dụng"
+msgstr ""
 
 msgid ""
 "Used for two different purposes: RADIUS NAS ID and 802.11r R0KH-ID. Not "
 "needed with normal WPA(2)-PSK."
 msgstr ""
-"Được sử dụng cho hai mục đích khác nhau: RADIUS NAS ID và 802.11r R0KH-ID. "
-"Không cần thiết với mật khẩu WPA(2)-PSK thường"
 
 msgid "User certificate (PEM encoded)"
-msgstr "Chứng chỉ người dùng (mã hóa PEM)"
+msgstr ""
 
 msgid "User key (PEM encoded)"
-msgstr "Khóa người dùng (mã hóa PEM)"
+msgstr ""
 
 msgid "Username"
 msgstr "Tên người dùng "
@@ -3793,28 +3478,34 @@ msgid "VLANs on %q (%s)"
 msgstr ""
 
 msgid "VPN Local address"
-msgstr "Địa chỉ cục bộ VPN"
+msgstr ""
 
 msgid "VPN Local port"
-msgstr "Cổng cục bộ VPN"
+msgstr ""
 
 msgid "VPN Server"
-msgstr "Máy chủ VPN"
+msgstr ""
 
 msgid "VPN Server port"
-msgstr "Cổng máy chủ VPM"
+msgstr ""
 
 msgid "VPN Server's certificate SHA1 hash"
-msgstr "Chứng chỉ của máy chủ VPN được băm theo thuật toán SHA1"
+msgstr ""
 
 msgid "VPNC (CISCO 3000 (and others) VPN)"
-msgstr "VPNC (CISCO 3000 (và một số khác) VPN)"
+msgstr ""
 
 msgid "Vendor"
-msgstr "Máy cung cấp"
+msgstr ""
 
 msgid "Vendor Class to send when requesting DHCP"
-msgstr "Lớp máy cung cấp để gửi khi yêu cầu DHCP"
+msgstr ""
+
+msgid "Verbose"
+msgstr ""
+
+msgid "Verbose logging by aiccu daemon"
+msgstr ""
 
 msgid "Verify"
 msgstr ""
@@ -3822,121 +3513,112 @@ msgstr ""
 msgid "Version"
 msgstr "Phiên bản"
 
-msgid "Virtual dynamic interface"
-msgstr "Giao diện mạng ảo động"
-
 msgid "WDS"
 msgstr "WDS"
 
 msgid "WEP Open System"
-msgstr "Hệ thống mở WEP"
+msgstr ""
 
 msgid "WEP Shared Key"
-msgstr "Khóa dùng chung WEP"
+msgstr ""
 
 msgid "WEP passphrase"
-msgstr "Mật khẩu WEP"
+msgstr ""
 
 msgid "WMM Mode"
-msgstr "Chế độ WMM"
+msgstr "WMM Mode"
 
 msgid "WPA passphrase"
-msgstr "Mật khẩu WPA"
+msgstr ""
 
 msgid ""
 "WPA-Encryption requires wpa_supplicant (for client mode) or hostapd (for AP "
 "and ad-hoc mode) to be installed."
 msgstr ""
-"Mã hóa WPA yêu cầu phải cài đặt wpa_supplicant (đối với chế độ máy khách) "
-"hoặc hostapd (đối với chế độ AP và ad-hoc)."
+
+msgid ""
+"Wait for NTP sync that many seconds, seting to 0 disables waiting (optional)"
+msgstr ""
 
 msgid "Waiting for changes to be applied..."
 msgstr ""
 
 msgid "Waiting for command to complete..."
-msgstr "Vui lòng chờ đến khi lệnh được thực thi hoàn thành..."
-
-msgid "Waiting for configuration to be applied… %ds"
 msgstr ""
 
 msgid "Waiting for device..."
-msgstr "Đợi thiết bị..."
+msgstr ""
 
 msgid "Warning"
-msgstr "Cảnh báo"
+msgstr ""
 
 msgid "Warning: There are unsaved changes that will get lost on reboot!"
-msgstr "Cảnh báo: Những thay đổi chưa được lưu sẽ bị xóa khi khởi động lại!"
-
-msgid ""
-"When using a PSK, the PMK can be automatically generated. When enabled, the "
-"R0/R1 key options below are not applied. Disable this to use the R0 and R1 "
-"key options."
 msgstr ""
-"Khi sử dụng PSK, PMK có thể được tạo tự động. Khi được bật, các tùy chọn "
-"phím R0/R1 bên dưới không được áp dụng. Vô hiệu hóa để sử dụng các tùy chọn "
-"phím R0 và R1"
+
+msgid "Whether to create an IPv6 default route over the tunnel"
+msgstr ""
+
+msgid "Whether to route only packets from delegated prefixes"
+msgstr ""
 
 msgid "Width"
-msgstr "Độ dài"
+msgstr ""
 
 msgid "WireGuard VPN"
 msgstr ""
 
 msgid "Wireless"
-msgstr "Không dây"
+msgstr ""
 
 msgid "Wireless Adapter"
 msgstr "Bộ tương hợp không dây"
 
 msgid "Wireless Network"
-msgstr "Mạng không dây"
+msgstr ""
 
 msgid "Wireless Overview"
-msgstr "Tổng quan không dây"
+msgstr ""
 
 msgid "Wireless Security"
-msgstr "Bảo mật không dây"
+msgstr ""
 
-msgid "Wireless is disabled"
-msgstr "Thiết bị không dây đang bị vô hiệu hóa"
-
-msgid "Wireless is not associated"
-msgstr "Chưa được gắn với thiết bị không dây"
+msgid "Wireless is disabled or not associated"
+msgstr ""
 
 msgid "Wireless is restarting..."
 msgstr ""
 
 msgid "Wireless network is disabled"
-msgstr "Mạng không dây bị vô hiệu hóa"
+msgstr ""
 
 msgid "Wireless network is enabled"
-msgstr "Mạng không dây được kích hoạt"
+msgstr ""
+
+msgid "Wireless restarted"
+msgstr ""
+
+msgid "Wireless shut down"
+msgstr ""
 
 msgid "Write received DNS requests to syslog"
-msgstr "Viết yêu cầu DNS nhận được vào nhật ký hệ thống"
+msgstr ""
 
 msgid "Write system log to file"
-msgstr "Viết nhật ký hệ thống vào một tệp"
-
-msgid "Yes"
-msgstr "Có"
+msgstr ""
 
 msgid ""
 "You can enable or disable installed init scripts here. Changes will applied "
 "after a device reboot.<br /><strong>Warning: If you disable essential init "
 "scripts like \"network\", your device might become inaccessible!</strong>"
 msgstr ""
-"Bạn có thể bật hoặc tắt cài đặt kịch bản khởi động tại đây. Thay đổi này sẽ "
-"được áp dụng sau khi một thiết bị khởi động lại.<br /><strong>Cảnh báo: Nếu "
-"bạn vô hiệu hoá kịch bản khởi động thiết yếu như &amp;quot;network&amp;"
-"quot;, công cụ của bạn chó thể trở nên không truy cập được</strong>"
+"Bạn có thể bật hoặc tắt cài đặt init script tại đây. Thay đổi này sẽ được áp "
+"dụng sau khi một thiết bị khởi động lại.<br /><strong>Cảnh báo: Nếu bạn vô "
+"hiệu hoá init script thiết yếu như &amp;quot;network&amp;quot;, công cụ của "
+"bạn chó thể trở nên không truy cập được</strong>"
 
 msgid ""
 "You must enable JavaScript in your browser or LuCI will not work properly."
 msgstr ""
-"Bạn phải kích hoạt JavaScript ở trình duyệt của bạn hoặc LuCI sẽ không hoạt "
-"động tốt."
 
 msgid ""
 "Your Internet Explorer is too old to display this page correctly. Please "
@@ -3945,7 +3627,7 @@ msgid ""
 msgstr ""
 
 msgid "any"
-msgstr "Bất kể"
+msgstr ""
 
 msgid "auto"
 msgstr "tự động"
@@ -3956,11 +3638,8 @@ msgstr ""
 msgid "bridged"
 msgstr ""
 
-msgid "create"
-msgstr "Tạo"
-
 msgid "create:"
-msgstr "Tạo:"
+msgstr ""
 
 msgid "creates a bridge over specified interface(s)"
 msgstr "tạo một cầu nối trên một giao diện được chỉ định"
@@ -3969,16 +3648,16 @@ msgid "dB"
 msgstr ""
 
 msgid "dBm"
-msgstr "dBm"
+msgstr ""
 
 msgid "disable"
 msgstr "Vô hiệu hóa"
 
 msgid "disabled"
-msgstr "Vô hiệu hóa"
+msgstr ""
 
 msgid "expired"
-msgstr "Hết hạn"
+msgstr ""
 
 msgid ""
 "file where given <abbr title=\"Dynamic Host Configuration Protocol\">DHCP</"
@@ -3988,7 +3667,7 @@ msgstr ""
 "abbr>-leases sẽ được lưu trữ"
 
 msgid "forward"
-msgstr "Chuyển tiếp"
+msgstr ""
 
 msgid "full-duplex"
 msgstr ""
@@ -3996,11 +3675,14 @@ msgstr ""
 msgid "half-duplex"
 msgstr ""
 
+msgid "help"
+msgstr ""
+
 msgid "hidden"
 msgstr ""
 
 msgid "hybrid mode"
-msgstr "Chế độ lai"
+msgstr ""
 
 msgid "if target is a network"
 msgstr "Nếu mục tiêu là một network"
@@ -4018,52 +3700,46 @@ msgid "kbit/s"
 msgstr ""
 
 msgid "local <abbr title=\"Domain Name System\">DNS</abbr> file"
-msgstr "Tập tin <abbr title=\"Hệ thống tên miền\">DNS</abbr> địa phương"
+msgstr "Tập tin <abbr title=\"Domain Name System\">DNS</abbr> địa phương"
+
+msgid "minimum 1280, maximum 1480"
+msgstr ""
 
 msgid "minutes"
-msgstr "Phút"
-
-msgid "mixed WPA/WPA2"
 msgstr ""
 
 msgid "no"
-msgstr "Không"
-
-msgid "no link"
-msgstr "Không có liên kết"
-
-msgid "none"
-msgstr "không"
-
-msgid "not present"
-msgstr "Không có sẵn"
-
-msgid "off"
-msgstr "Tắt"
-
-msgid "on"
-msgstr "Bật"
-
-msgid "open"
 msgstr ""
 
-msgid "output"
+msgid "no link"
+msgstr ""
+
+msgid "none"
+msgstr "không "
+
+msgid "not present"
+msgstr ""
+
+msgid "off"
+msgstr ""
+
+msgid "on"
+msgstr ""
+
+msgid "open"
 msgstr ""
 
 msgid "overlay"
 msgstr ""
 
-msgid "random"
-msgstr "Ngẫu nhiên"
-
 msgid "relay mode"
 msgstr ""
 
 msgid "routed"
-msgstr "Định tuyến"
+msgstr ""
 
 msgid "server mode"
-msgstr "Chế độ máy chủ"
+msgstr ""
 
 msgid "stateful-only"
 msgstr ""
@@ -4075,28 +3751,77 @@ msgid "stateless + stateful"
 msgstr ""
 
 msgid "tagged"
-msgstr "Đã được gắn thẻ"
+msgstr ""
 
 msgid "time units (TUs / 1.024 ms) [1000-65535]"
-msgstr "đơn bị thời gian (TÚ / 1.024 ms) [1000-65535]"
+msgstr ""
 
 msgid "unknown"
-msgstr "Không xác định"
+msgstr ""
 
 msgid "unlimited"
-msgstr "Không giới hạn"
+msgstr ""
 
 msgid "unspecified"
-msgstr "Không được phân loại"
+msgstr ""
 
 msgid "unspecified -or- create:"
-msgstr "Chưa được phân loại hoặc tạo"
+msgstr ""
 
 msgid "untagged"
-msgstr "Chưa được gắn thẻ"
+msgstr ""
 
 msgid "yes"
-msgstr "Có"
+msgstr ""
 
 msgid "« Back"
-msgstr "« Quay lại"
+msgstr ""
+
+#~ msgid "Leasetime"
+#~ msgstr "Leasetime"
+
+#, fuzzy
+#~ msgid "automatic"
+#~ msgstr "thống kê"
+
+#~ msgid "AR Support"
+#~ msgstr "Hỗ trợ AR"
+
+#~ msgid "Background Scan"
+#~ msgstr "Background Scan"
+
+#~ msgid "Compression"
+#~ msgstr "Sức nén"
+
+#~ msgid "Disable HW-Beacon timer"
+#~ msgstr "Vô hiệu hóa bộ chỉnh giờ HW-Beacon"
+
+#~ msgid "Do not send probe responses"
+#~ msgstr "Không gửi nhắc hồi đáp"
+
+#~ msgid "Fast Frames"
+#~ msgstr "Khung nhanh"
+
+#~ msgid "Maximum Rate"
+#~ msgstr "Mức cao nhất"
+
+#~ msgid "Minimum Rate"
+#~ msgstr "Mức thấp nhất"
+
+#~ msgid "Multicast Rate"
+#~ msgstr "Multicast Rate"
+
+#~ msgid "Outdoor Channels"
+#~ msgstr "Kênh ngoại mạng"
+
+#~ msgid "Regulatory Domain"
+#~ msgstr "Miền điều chỉnh"
+
+#~ msgid "Separate WDS"
+#~ msgstr "Phân tách WDS"
+
+#~ msgid "Turbo Mode"
+#~ msgstr "Turbo Mode"
+
+#~ msgid "XR Support"
+#~ msgstr "Hỗ trợ XR"

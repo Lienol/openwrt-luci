@@ -9,7 +9,7 @@
 	local dev
 	local devices = { }
 	for _, dev in luci.util.vspairs(luci.sys.net.devices()) do
-		if dev:match("^wlan%d") or dev:match("^ath%d") or dev:match("^wl%d") then
+		if dev:match("^wlan%d") or dev:match("^ath%d") or dev:match("^wl%d") or dev:match("^host%d") or dev:match("^rausb%d") or dev:match("^rai%d") or dev:match("^ra%d") or dev:match("^apclii%d") or dev:match("^apcli%d") then
 			devices[#devices+1] = dev
 		end
 	end
@@ -19,6 +19,7 @@
 
 <%+header%>
 
+<script type="text/javascript" src="<%=resource%>/cbi.js"></script>
 <script type="text/javascript">//<![CDATA[
 	var bwxhr = new XHR();
 
@@ -140,7 +141,7 @@
 					var text = G.createElementNS('http://www.w3.org/2000/svg', 'text');
 						text.setAttribute('x', i + 5);
 						text.setAttribute('y', 15);
-						text.setAttribute('style', 'fill:#eee; font-size:9pt; font-family:sans-serif; text-shadow:1px 1px 1px #000');
+						text.setAttribute('style', 'fill:#999999; font-size:9pt');
 						text.appendChild(G.createTextNode(Math.round((width - i) / step / 60) + 'm'));
 
 					label_25.parentNode.appendChild(line);
@@ -157,7 +158,7 @@
 					var text2 = G2.createElementNS('http://www.w3.org/2000/svg', 'text');
 						text2.setAttribute('x', i + 5);
 						text2.setAttribute('y', 15);
-						text2.setAttribute('style', 'fill:#eee; font-size:9pt; font-family:sans-serif; text-shadow:1px 1px 1px #000');
+						text2.setAttribute('style', 'fill:#999999; font-size:9pt');
 						text2.appendChild(G.createTextNode(Math.round((width - i) / step / 60) + 'm'));
 
 					label_25_2.parentNode.appendChild(line2);
@@ -275,7 +276,7 @@
 						function wireless_label(dbm, noise)
 						{
 							if (noise)
-								return String.format("%d <%:dBm%> (SNR %d <%:dB%>)", noise_floor + dbm - 255, dbm - noise);
+								return String.format("%d <%:dBm%> (SNR %d <%:dBm%>)", noise_floor + dbm - 255, dbm - noise);
 							else
 								return String.format("%d <%:dBm%>", noise_floor + dbm - 255);
 						}
@@ -307,8 +308,6 @@
 						label_rate_peak.innerHTML = rate_label(data_rate_peak);
 					}
 				);
-
-				XHR.run();
 			}
 		}, 1000
 	);
@@ -326,28 +325,28 @@
 <div style="text-align:right"><small id="scale">-</small></div>
 <br />
 
-<div class="table" style="width:100%; table-layout:fixed" cellspacing="5">
-	<div class="tr">
-		<div class="td" style="text-align:right; vertical-align:top"><strong style="border-bottom:2px solid blue"><%:Signal:%></strong></div>
-		<div class="td" id="rssi_bw_cur">0 <%:dBm%></div>
+<table style="width:100%; table-layout:fixed" cellspacing="5">
+	<tr>
+		<td style="text-align:right; vertical-align:top"><strong style="border-bottom:2px solid blue"><%:Signal:%></strong></td>
+		<td id="rssi_bw_cur">0 <%:dBm%></td>
 
-		<div class="td" style="text-align:right; vertical-align:top"><strong><%:Average:%></strong></div>
-		<div class="td" id="rssi_bw_avg">0 <%:dBm%></div>
+		<td style="text-align:right; vertical-align:top"><strong><%:Average:%></strong></td>
+		<td id="rssi_bw_avg">0 <%:dBm%></td>
 
-		<div class="td" style="text-align:right; vertical-align:top"><strong><%:Peak:%></strong></div>
-		<div class="td" id="rssi_bw_peak">0 <%:dBm%></div>
-	</div>
-	<div class="tr">
-		<div class="td" style="text-align:right; vertical-align:top"><strong style="border-bottom:2px solid red"><%:Noise:%></strong></div>
-		<div class="td" id="noise_bw_cur">0 <%:dBm%></div>
+		<td style="text-align:right; vertical-align:top"><strong><%:Peak:%></strong></td>
+		<td id="rssi_bw_peak">0 <%:dBm%></td>
+	</tr>
+	<tr>
+		<td style="text-align:right; vertical-align:top"><strong style="border-bottom:2px solid red"><%:Noise:%></strong></td>
+		<td id="noise_bw_cur">0 <%:dBm%></td>
 
-		<div class="td" style="text-align:right; vertical-align:top"><strong><%:Average:%></strong></div>
-		<div class="td" id="noise_bw_avg">0 <%:dBm%></div>
+		<td style="text-align:right; vertical-align:top"><strong><%:Average:%></strong></td>
+		<td id="noise_bw_avg">0 <%:dBm%></td>
 
-		<div class="td" style="text-align:right; vertical-align:top"><strong><%:Peak:%></strong></div>
-		<div class="td" id="noise_bw_peak">0 <%:dBm%></div>
-	</div>
-</div>
+		<td style="text-align:right; vertical-align:top"><strong><%:Peak:%></strong></td>
+		<td id="noise_bw_peak">0 <%:dBm%></td>
+	</tr>
+</table>
 
 <br />
 
@@ -355,17 +354,17 @@
 <div style="text-align:right"><small id="scale2">-</small></div>
 <br />
 
-<div class="table" style="width:100%; table-layout:fixed" cellspacing="5">
-	<div class="tr">
-		<div class="td" style="text-align:right; vertical-align:top"><strong style="border-bottom:2px solid green"><%:Phy Rate:%></strong></div>
-		<div class="td" id="rate_bw_cur">0 MBit/s</div>
+<table style="width:100%; table-layout:fixed" cellspacing="5">
+	<tr>
+		<td style="text-align:right; vertical-align:top"><strong style="border-bottom:2px solid green"><%:Phy Rate:%></strong></td>
+		<td id="rate_bw_cur">0 MBit/s</td>
 
-		<div class="td" style="text-align:right; vertical-align:top"><strong><%:Average:%></strong></div>
-		<div class="td" id="rate_bw_avg">0 MBit/s</div>
+		<td style="text-align:right; vertical-align:top"><strong><%:Average:%></strong></td>
+		<td id="rate_bw_avg">0 MBit/s</td>
 
-		<div class="td" style="text-align:right; vertical-align:top"><strong><%:Peak:%></strong></div>
-		<div class="td" id="rate_bw_peak">0 MBit/s</div>
-	</div>
-</div>
+		<td style="text-align:right; vertical-align:top"><strong><%:Peak:%></strong></td>
+		<td id="rate_bw_peak">0 MBit/s</td>
+	</tr>
+</table>
 
 <%+footer%>

@@ -39,11 +39,10 @@ XHR = function()
 			this._xmlHttp.abort();
 	}
 
-	this.get = function(url,data,callback,timeout)
+	this.get = function(url,data,callback)
 	{
 		this.reinit();
 
-		var ts   = Date.now();
 		var xhr  = this._xmlHttp;
 		var code = this._encode(data);
 
@@ -57,51 +56,40 @@ XHR = function()
 
 		xhr.open('GET', url, true);
 
-		if (!isNaN(timeout))
-			xhr.timeout = timeout;
-
 		xhr.onreadystatechange = function()
 		{
 			if (xhr.readyState == 4) {
 				var json = null;
 				if (xhr.getResponseHeader("Content-Type") == "application/json") {
-					try { json = JSON.parse(xhr.responseText); }
-					catch(e) { json = null; }
+					try {
+						json = eval('(' + xhr.responseText + ')');
+					}
+					catch(e) {
+						json = null;
+					}
 				}
 
-				callback(xhr, json, Date.now() - ts);
+				callback(xhr, json);
 			}
 		}
 
 		xhr.send(null);
 	}
 
-	this.post = function(url,data,callback,timeout)
+	this.post = function(url,data,callback)
 	{
 		this.reinit();
 
-		var ts   = Date.now();
 		var xhr  = this._xmlHttp;
 		var code = this._encode(data);
 
 		xhr.onreadystatechange = function()
 		{
-			if (xhr.readyState == 4) {
-				var json = null;
-				if (/^application\/json\b/.test(xhr.getResponseHeader("Content-Type"))) {
-					try { json = JSON.parse(xhr.responseText); }
-					catch(e) { json = null; }
-				}
-
-				callback(xhr, json, Date.now() - ts);
-			}
+			if (xhr.readyState == 4)
+				callback(xhr);
 		}
 
 		xhr.open('POST', url, true);
-
-		if (!isNaN(timeout))
-			xhr.timeout = timeout;
-
 		xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhr.send(code);
 	}
@@ -180,7 +168,7 @@ XHR.get = function(url, data, callback)
 	(new XHR()).get(url, data, callback);
 }
 
-XHR.poll = function(interval, url, data, callback, post)
+XHR.poll = function(interval, url, data, callback)
 {
 	if (isNaN(interval) || interval < 1)
 		interval = 5;
@@ -193,37 +181,22 @@ XHR.poll = function(interval, url, data, callback, post)
 			for (var i = 0, e = XHR._q[0]; i < XHR._q.length; e = XHR._q[++i])
 			{
 				if (!(XHR._t % e.interval) && !e.xhr.busy())
-					e.xhr[post ? 'post' : 'get'](e.url, e.data, e.callback, e.interval * 1000 * 5 - 5);
+					e.xhr.get(e.url, e.data, e.callback);
 			}
 
 			XHR._t++;
 		};
 	}
 
-	var e = {
+	XHR._q.push({
 		interval: interval,
 		callback: callback,
 		url:      url,
 		data:     data,
 		xhr:      new XHR()
-	};
+	});
 
-	XHR._q.push(e);
-
-	return e;
-}
-
-XHR.stop = function(e)
-{
-	for (var i = 0; XHR._q && XHR._q[i]; i++) {
-		if (XHR._q[i] === e) {
-			e.xhr.cancel();
-			XHR._q.splice(i, 1);
-			return true;
-		}
-	}
-
-	return false;
+	XHR.run();
 }
 
 XHR.halt = function()
@@ -264,5 +237,3 @@ XHR.running = function()
 {
 	return !!(XHR._r && XHR._i);
 }
-
-document.addEventListener('DOMContentLoaded', XHR.run);

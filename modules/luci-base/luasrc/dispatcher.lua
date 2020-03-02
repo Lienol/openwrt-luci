@@ -75,16 +75,11 @@ function error404(message)
 	http.status(404, "Not Found")
 	message = message or "Not Found"
 
-	local function render()
-		local template = require "luci.template"
-		template.render("error404")
-	end
-
-	if not util.copcall(render) then
+	require("luci.template")
+	if not util.copcall(luci.template.render, "error404") then
 		http.prepare_content("text/plain")
 		http.write(message)
 	end
-
 	return false
 end
 
@@ -118,8 +113,7 @@ function httpdispatch(request, prefix)
 		end
 	end
 
-	local node
-	for node in pathinfo:gmatch("[^/%z]+") do
+	for node in pathinfo:gmatch("[^/]+") do
 		r[#r+1] = node
 	end
 
@@ -132,11 +126,7 @@ function httpdispatch(request, prefix)
 	--context._disable_memtrace()
 end
 
-local function require_post_security(target, args)
-	if type(target) == "table" and target.type == "arcombine" and type(target.targets) == "table" then
-		return require_post_security((type(args) == "table" and #args > 0) and target.targets[2] or target.targets[1], args)
-	end
-
+local function require_post_security(target)
 	if type(target) == "table" then
 		if type(target.post) == "table" then
 			local param_name, required_val, request_val
@@ -146,7 +136,8 @@ local function require_post_security(target, args)
 
 				if (type(required_val) == "string" and
 				    request_val ~= required_val) or
-				   (required_val == true and request_val == nil)
+				   (required_val == true and
+				    (request_val == nil or request_val == ""))
 				then
 					return false
 				end
@@ -186,7 +177,6 @@ local function session_retrieve(sid, allowed_users)
 	   (not allowed_users or
 	    util.contains(allowed_users, sdat.values.username))
 	then
-		uci:set_session_id(sid)
 		return sid, sdat.values
 	end
 
@@ -201,9 +191,6 @@ local function session_setup(user, pass, allowed_users)
 			timeout  = tonumber(luci.config.sauth.sessiontime)
 		})
 
-		local rp = context.requestpath
-			and table.concat(context.requestpath, "/") or ""
-
 		if type(login) == "table" and
 		   type(login.ubus_rpc_session) == "string"
 		then
@@ -212,14 +199,8 @@ local function session_setup(user, pass, allowed_users)
 				values = { token = sys.uniqueid(16) }
 			})
 
-			io.stderr:write("luci: accepted login on /%s for %s from %s\n"
-				%{ rp, user, http.getenv("REMOTE_ADDR") or "?" })
-
 			return session_retrieve(login.ubus_rpc_session)
 		end
-
-		io.stderr:write("luci: failed login on /%s for %s from %s\n"
-			%{ rp, user, http.getenv("REMOTE_ADDR") or "?" })
 	end
 
 	return nil, nil
@@ -238,19 +219,10 @@ function dispatch(request)
 	local lang = conf.main.lang or "auto"
 	if lang == "auto" then
 		local aclang = http.getenv("HTTP_ACCEPT_LANGUAGE") or ""
-		for aclang in aclang:gmatch("[%w_-]+") do
-			local country, culture = aclang:match("^([a-z][a-z])[_-]([a-zA-Z][a-zA-Z])$")
-			if country and culture then
-				local cc = "%s_%s" %{ country, culture:lower() }
-				if conf.languages[cc] then
-					lang = cc
-					break
-				elseif conf.languages[country] then
-					lang = country
-					break
-				end
-			elseif conf.languages[aclang] then
-				lang = aclang
+		for lpat in aclang:gmatch("[%w-]+") do
+			lpat = lpat and lpat:gsub("-", "_")
+			if conf.languages[lpat] then
+				lang = lpat
 				break
 			end
 		end
@@ -319,7 +291,7 @@ function dispatch(request)
 			assert(media, "No valid theme found")
 		end
 
-		local function _ifattr(cond, key, val, noescape)
+		local function _ifattr(cond, key, val)
 			if cond then
 				local env = getfenv(3)
 				local scope = (type(env.self) == "table") and env.self
@@ -330,16 +302,13 @@ function dispatch(request)
 						val = util.serialize_json(val)
 					end
 				end
-
-				val = tostring(val or
-					(type(env[key]) ~= "function" and env[key]) or
-					(scope and type(scope[key]) ~= "function" and scope[key]) or "")
-
-				if noescape ~= true then
-					val = util.pcdata(val)
-				end
-
-				return string.format(' %s="%s"', tostring(key), val)
+				return string.format(
+					' %s="%s"', tostring(key),
+					util.pcdata(tostring( val
+					 or (type(env[key]) ~= "function" and env[key])
+					 or (scope and type(scope[key]) ~= "function" and scope[key])
+					 or "" ))
+				)
 			else
 				return ''
 			end
@@ -359,23 +328,15 @@ function dispatch(request)
 		   ifattr      = function(...) return _ifattr(...) end;
 		   attr        = function(...) return _ifattr(true, ...) end;
 		   url         = build_url;
-		}, {__index=function(tbl, key)
+		}, {__index=function(table, key)
 			if key == "controller" then
 				return build_url()
 			elseif key == "REQUEST_URI" then
 				return build_url(unpack(ctx.requestpath))
-			elseif key == "FULL_REQUEST_URI" then
-				local url = { http.getenv("SCRIPT_NAME") or "", http.getenv("PATH_INFO") }
-				local query = http.getenv("QUERY_STRING")
-				if query and #query > 0 then
-					url[#url+1] = "?"
-					url[#url+1] = query
-				end
-				return table.concat(url, "")
 			elseif key == "token" then
 				return ctx.authtoken
 			else
-				return rawget(tbl, key) or _G[key]
+				return rawget(table, key) or _G[key]
 			end
 		end})
 	end
@@ -388,7 +349,7 @@ function dispatch(request)
 		"https://github.com/openwrt/luci/issues"
 	)
 
-	if track.sysauth and not ctx.authsession then
+	if track.sysauth then
 		local authen = track.sysauth_authenticator
 		local _, sid, sdat, default_user, allowed_users
 
@@ -436,9 +397,7 @@ function dispatch(request)
 				return
 			end
 
-			http.header("Set-Cookie", 'sysauth=%s; path=%s; HttpOnly%s' %{
-				sid, build_url(), http.getenv("HTTPS") == "on" and "; secure" or ""
-			})
+			http.header("Set-Cookie", 'sysauth=%s; path=%s' %{ sid, build_url() })
 			http.redirect(build_url(unpack(ctx.requestpath)))
 		end
 
@@ -452,14 +411,7 @@ function dispatch(request)
 		ctx.authuser = sdat.username
 	end
 
-	if track.cors and http.getenv("REQUEST_METHOD") == "OPTIONS" then
-		luci.http.status(200, "OK")
-		luci.http.header("Access-Control-Allow-Origin", http.getenv("HTTP_ORIGIN") or "*")
-		luci.http.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-		return
-	end
-
-	if c and require_post_security(c.target, args) then
+	if c and require_post_security(c.target) then
 		if not test_post_security(c) then
 			return
 		end
@@ -514,11 +466,10 @@ function dispatch(request)
 		else
 			ok, err = util.copcall(target, unpack(args))
 		end
-		if not ok then
-			error500("Failed to execute " .. (type(c.target) == "function" and "function" or c.target.type or "unknown") ..
-			         " dispatcher target for entry '/" .. table.concat(request, "/") .. "'.\n" ..
-			         "The called action terminated with an exception:\n" .. tostring(err or "(unknown)"))
-		end
+		assert(ok,
+		       "Failed to execute " .. (type(c.target) == "function" and "function" or c.target.type or "unknown") ..
+		       " dispatcher target for entry '/" .. table.concat(request, "/") .. "'.\n" ..
+		       "The called action terminated with an exception:\n" .. tostring(err or "(unknown)"))
 	else
 		local root = node()
 		if not root or not root.target then
@@ -681,23 +632,6 @@ function node(...)
 	return c
 end
 
-function lookup(...)
-	local i, path = nil, {}
-	for i = 1, select('#', ...) do
-		local name, arg = nil, tostring(select(i, ...))
-		for name in arg:gmatch("[^/]+") do
-			path[#path+1] = name
-		end
-	end
-
-	for i = #path, 1, -1 do
-		local node = context.treecache[table.concat(path, ".", 1, i)]
-		if node and (i == #path or node.leaf) then
-			return node, build_url(unpack(path))
-		end
-	end
-end
-
 function _create_node(path)
 	if #path == 0 then
 		return context.tree
@@ -710,22 +644,15 @@ function _create_node(path)
 		local last = table.remove(path)
 		local parent = _create_node(path)
 
-		c = {nodes={}, auto=true, inreq=true}
-
-		local _, n
-		for _, n in ipairs(path) do
-			if context.path[_] ~= n then
-				c.inreq = false
-				break
-			end
+		c = {nodes={}, auto=true}
+		-- the node is "in request" if the request path matches
+		-- at least up to the length of the node path
+		if parent.inreq and context.path[#path+1] == last then
+		  c.inreq = true
 		end
-
-		c.inreq = c.inreq and (context.path[#path + 1] == last)
-
 		parent.nodes[last] = c
 		context.treecache[name] = c
 	end
-
 	return c
 end
 
@@ -846,16 +773,7 @@ local function _cbi(self, ...)
 
 	local state = nil
 
-	local i, res
 	for i, res in ipairs(maps) do
-		if util.instanceof(res, cbi.SimpleForm) then
-			io.stderr:write("Model %s returns SimpleForm but is dispatched via cbi(),\n"
-				% self.model)
-
-			io.stderr:write("please change %s to use the form() action instead.\n"
-				% table.concat(context.request, "/"))
-		end
-
 		res.flow = config
 		local cstate = res:parse()
 		if cstate and (not state or cstate < state) then
@@ -926,6 +844,7 @@ local function _cbi(self, ...)
 	for i, res in ipairs(maps) do
 		res:render({
 			firstmap   = (i == 1),
+			applymap   = applymap,
 			redirect   = redirect,
 			messages   = messages,
 			pageaction = pageaction,
@@ -935,12 +854,11 @@ local function _cbi(self, ...)
 
 	if not config.nofooter then
 		tpl.render("cbi/footer", {
-			flow          = config,
-			pageaction    = pageaction,
-			redirect      = redirect,
-			state         = state,
-			autoapply     = config.autoapply,
-			trigger_apply = applymap
+			flow       = config,
+			pageaction = pageaction,
+			redirect   = redirect,
+			state      = state,
+			autoapply  = config.autoapply
 		})
 	end
 end
@@ -948,7 +866,7 @@ end
 function cbi(model, config)
 	return {
 		type = "cbi",
-		post = { ["cbi.submit"] = true },
+		post = { ["cbi.submit"] = "1" },
 		config = config,
 		model = model,
 		target = _cbi
@@ -976,7 +894,6 @@ local function _form(self, ...)
 	local maps = luci.cbi.load(self.model, ...)
 	local state = nil
 
-	local i, res
 	for i, res in ipairs(maps) do
 		local cstate = res:parse()
 		if cstate and (not state or cstate < state) then
@@ -995,7 +912,7 @@ end
 function form(model)
 	return {
 		type = "cbi",
-		post = { ["cbi.submit"] = true },
+		post = { ["cbi.submit"] = "1" },
 		model = model,
 		target = _form
 	}

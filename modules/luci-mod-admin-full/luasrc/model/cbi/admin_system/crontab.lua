@@ -11,7 +11,6 @@ f = SimpleForm("crontab", translate("Scheduled Tasks"),
 		"crontab file was empty before editing."))
 
 t = f:field(TextValue, "crons")
-f.forcewrite = true
 t.rmempty = true
 t.rows = 10
 function t.cfgvalue()
