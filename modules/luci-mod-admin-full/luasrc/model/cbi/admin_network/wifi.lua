@@ -642,10 +642,18 @@ if hwtype == "mac80211" or hwtype == "prism2" then
 	local has_ap_eap  = (os.execute("hostapd -veap >/dev/null 2>/dev/null") == 0)
 	local has_sta_eap = (os.execute("wpa_supplicant -veap >/dev/null 2>/dev/null") == 0)
 
+	-- Probe SAE support
+	local has_ap_sae  = (os.execute("hostapd -vsae >/dev/null 2>/dev/null") == 0)
+	local has_sta_sae = (os.execute("wpa_supplicant -vsae >/dev/null 2>/dev/null") == 0)
+
 	if hostapd and supplicant then
 		encr:value("psk", "WPA-PSK", {mode="ap"}, {mode="sta"}, {mode="ap-wds"}, {mode="sta-wds"}, {mode="adhoc"})
 		encr:value("psk2", "WPA2-PSK", {mode="ap"}, {mode="sta"}, {mode="ap-wds"}, {mode="sta-wds"}, {mode="adhoc"})
 		encr:value("psk-mixed", "WPA-PSK/WPA2-PSK Mixed Mode", {mode="ap"}, {mode="sta"}, {mode="ap-wds"}, {mode="sta-wds"}, {mode="adhoc"})
+		if has_ap_sae and has_sta_sae then
+			encr:value("sae", "WPA3-SAE", {mode="ap"}, {mode="sta"}, {mode="ap-wds"}, {mode="sta-wds"}, {mode="adhoc"}, {mode="mesh"})
+			encr:value("sae-mixed", "WPA2-PSK/WPA3-SAE Mixed Mode", {mode="ap"}, {mode="sta"}, {mode="ap-wds"}, {mode="sta-wds"}, {mode="adhoc"})
+		end
 		if has_ap_eap and has_sta_eap then
 			encr:value("wpa", "WPA-EAP", {mode="ap"}, {mode="sta"}, {mode="ap-wds"}, {mode="sta-wds"})
 			encr:value("wpa2", "WPA2-EAP", {mode="ap"}, {mode="sta"}, {mode="ap-wds"}, {mode="sta-wds"})
@@ -654,6 +662,10 @@ if hwtype == "mac80211" or hwtype == "prism2" then
 		encr:value("psk", "WPA-PSK", {mode="ap"}, {mode="ap-wds"})
 		encr:value("psk2", "WPA2-PSK", {mode="ap"}, {mode="ap-wds"})
 		encr:value("psk-mixed", "WPA-PSK/WPA2-PSK Mixed Mode", {mode="ap"}, {mode="ap-wds"})
+		if has_ap_sae then
+			encr:value("sae", "WPA3-SAE", {mode="ap"}, {mode="ap-wds"})
+			encr:value("sae-mixed", "WPA2-PSK/WPA3-SAE Mixed Mode", {mode="ap"}, {mode="ap-wds"})
+		end
 		if has_ap_eap then
 			encr:value("wpa", "WPA-EAP", {mode="ap"}, {mode="ap-wds"})
 			encr:value("wpa2", "WPA2-EAP", {mode="ap"}, {mode="ap-wds"})
@@ -666,6 +678,10 @@ if hwtype == "mac80211" or hwtype == "prism2" then
 		encr:value("psk", "WPA-PSK", {mode="sta"}, {mode="sta-wds"}, {mode="adhoc"})
 		encr:value("psk2", "WPA2-PSK", {mode="sta"}, {mode="sta-wds"}, {mode="adhoc"})
 		encr:value("psk-mixed", "WPA-PSK/WPA2-PSK Mixed Mode", {mode="sta"}, {mode="sta-wds"}, {mode="adhoc"})
+		if has_sta_sae then
+			encr:value("sae", "WPA3-SAE", {mode="sta"}, {mode="sta-wds"}, {mode="mesh"})
+			encr:value("sae-mixed", "WPA2-PSK/WPA3-SAE Mixed Mode", {mode="sta"}, {mode="sta-wds"})
+		end
 		if has_sta_eap then
 			encr:value("wpa", "WPA-EAP", {mode="sta"}, {mode="sta-wds"})
 			encr:value("wpa2", "WPA2-EAP", {mode="sta"}, {mode="sta-wds"})
@@ -739,6 +755,8 @@ wpakey:depends("encryption", "psk")
 wpakey:depends("encryption", "psk2")
 wpakey:depends("encryption", "psk+psk2")
 wpakey:depends("encryption", "psk-mixed")
+wpakey:depends("encryption", "sae")
+wpakey:depends("encryption", "sae-mixed")
 wpakey.datatype = "wpakey"
 wpakey.rmempty = true
 wpakey.password = true
@@ -809,6 +827,10 @@ if hwtype == "mac80211" or hwtype == "prism2" then
 	ieee80211k:depends({mode="ap-wds", encryption="psk"})
 	ieee80211k:depends({mode="ap-wds", encryption="psk2"})
 	ieee80211k:depends({mode="ap-wds", encryption="psk-mixed"})
+	ieee80211k:depends({mode="ap", encryption="sae"})
+	ieee80211k:depends({mode="ap", encryption="sae-mixed"})
+	ieee80211k:depends({mode="ap-wds", encryption="sae"})
+	ieee80211k:depends({mode="ap-wds", encryption="sae-mixed"})
 	ieee80211k.rmempty = true
 
 	rrmneighborreport = s:taboption("encryption", Flag, "rrm_neighbor_report", translate("Enable neighbor report via radio measurements"))
@@ -834,6 +856,10 @@ if hwtype == "mac80211" or hwtype == "prism2" then
 	ieee80211v:depends({mode="ap-wds", encryption="psk"})
 	ieee80211v:depends({mode="ap-wds", encryption="psk2"})
 	ieee80211v:depends({mode="ap-wds", encryption="psk-mixed"})
+	ieee80211v:depends({mode="ap", encryption="sae"})
+	ieee80211v:depends({mode="ap", encryption="sae-mixed"})
+	ieee80211v:depends({mode="ap-wds", encryption="sae"})
+	ieee80211v:depends({mode="ap-wds", encryption="sae-mixed"})
 	ieee80211v.rmempty = true
 
 
@@ -871,6 +897,10 @@ if hwtype == "mac80211" or hwtype == "prism2" then
 	ieee80211r:depends({mode="ap", encryption="wpa2"})
 	ieee80211r:depends({mode="ap-wds", encryption="wpa"})
 	ieee80211r:depends({mode="ap-wds", encryption="wpa2"})
+	ieee80211r:depends({mode="ap", encryption="sae"})
+	ieee80211r:depends({mode="ap", encryption="sae-mixed"})
+	ieee80211r:depends({mode="ap-wds", encryption="sae"})
+	ieee80211r:depends({mode="ap-wds", encryption="sae-mixed"})
 	if has_80211r then
 		ieee80211r:depends({mode="ap", encryption="psk"})
 		ieee80211r:depends({mode="ap", encryption="psk2"})
@@ -878,6 +908,10 @@ if hwtype == "mac80211" or hwtype == "prism2" then
 		ieee80211r:depends({mode="ap-wds", encryption="psk"})
 		ieee80211r:depends({mode="ap-wds", encryption="psk2"})
 		ieee80211r:depends({mode="ap-wds", encryption="psk-mixed"})
+		ieee80211r:depends({mode="ap", encryption="sae"})
+		ieee80211r:depends({mode="ap", encryption="sae-mixed"})
+		ieee80211r:depends({mode="ap-wds", encryption="sae"})
+		ieee80211r:depends({mode="ap-wds", encryption="sae-mixed"})
 	end
 	ieee80211r.rmempty = true
 
@@ -1117,6 +1151,10 @@ if hwtype == "mac80211" then
 		ieee80211w:depends({mode="ap", encryption="psk-mixed"})
 		ieee80211w:depends({mode="ap-wds", encryption="psk2"})
 		ieee80211w:depends({mode="ap-wds", encryption="psk-mixed"})
+		ieee80211w:depends({mode="ap", encryption="sae"})
+		ieee80211w:depends({mode="ap", encryption="sae-mixed"})
+		ieee80211w:depends({mode="ap-wds", encryption="sae"})
+		ieee80211w:depends({mode="ap-wds", encryption="sae-mixed"})
 
 		max_timeout = s:taboption("encryption", Value, "ieee80211w_max_timeout",
 				translate("802.11w maximum timeout"),
@@ -1147,6 +1185,10 @@ if hwtype == "mac80211" then
 	key_retries:depends({mode="ap-wds", encryption="wpa2"})
 	key_retries:depends({mode="ap-wds", encryption="psk2"})
 	key_retries:depends({mode="ap-wds", encryption="psk-mixed"})
+	key_retries:depends({mode="ap", encryption="sae"})
+	key_retries:depends({mode="ap", encryption="sae-mixed"})
+	key_retries:depends({mode="ap-wds", encryption="sae"})
+	key_retries:depends({mode="ap-wds", encryption="sae-mixed"})
 end
 
 if hwtype == "mac80211" or hwtype == "prism2" then
