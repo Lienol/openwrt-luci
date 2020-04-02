@@ -9,6 +9,30 @@ local function readfile(path)
 end
 
 local methods = {
+	getCPUFree = {
+		call = function()
+			local sys = require "luci.sys"
+			local result = sys.exec("echo -n $(top -n 1 | grep CPU | grep -v grep | head -n 1 | awk '{print $8}' | sed 's/\\(.*\\)\\(.\\)$/\\1/')")
+			return { result = result }
+		end
+	},
+	
+	getCPUInfo = {
+		call = function()
+			local sys = require "luci.sys"
+			local result = sys.exec("cpuinfo 2>/dev/null")
+			return { result = result }
+		end
+	},
+	
+	getEthInfo = {
+		call = function()
+			local sys = require "luci.sys"
+			local result = sys.exec("ethinfo 2>/dev/null")
+			return { result = result }
+		end
+	},
+	
 	getInitList = {
 		args = { name = "name" },
 		call = function(args)

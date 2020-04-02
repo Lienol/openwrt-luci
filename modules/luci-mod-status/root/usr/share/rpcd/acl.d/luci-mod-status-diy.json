@@ -1,0 +1,10 @@
+{
+	"luci-mod-status-diy": {
+		"description": "Grant access to DIY status",
+		"read": {
+			"ubus": {
+				"luci": [ "getCPUFree", "getCPUInfo", "getEthInfo" ]
+			}
+		}
+	}
+}
