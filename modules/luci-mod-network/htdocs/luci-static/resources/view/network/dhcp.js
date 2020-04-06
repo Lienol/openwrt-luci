@@ -163,6 +163,26 @@ return view.extend({
 		s.tab('tftp', _('TFTP Settings'));
 		s.tab('advanced', _('Advanced Settings'));
 		s.tab('leases', _('Static Leases'));
+		s.tab('custom_domain', _('Custom domain'));
+		
+		o = s.taboption('custom_domain', form.SectionValue, 'domain', form.GridSection, 'domain', null,
+			_('Define a custom domain name and the corresponding PTR record'));
+
+		ss = o.subsection;
+
+		ss.addremove = true;
+		ss.anonymous = true;
+
+		so = ss.option(form.Value, 'name', _('Domain name'));
+		so.datatype = 'hostname';
+		so.rmempty  = true;
+		
+		so = ss.option(form.Value, 'ip', _('<abbr title=\"Internet Protocol Version 4\">IPv4</abbr>-Address'));
+		so.datatype = 'or(ip4addr,"ignore")';
+		so.rmempty  = true;
+		
+		so = ss.option(form.Value, 'comments', _('Comments'));
+		so.rmempty  = true;
 
 		s.taboption('general', form.Flag, 'domainneeded',
 			_('Domain required'),
