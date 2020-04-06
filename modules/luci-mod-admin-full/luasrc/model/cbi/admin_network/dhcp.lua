@@ -354,5 +354,21 @@ function ip.validate(self, value, section)
 	return Value.validate(self, value, section)
 end
 
+d = m:section(TypedSection, "domain", translate("Custom domain"),
+	translate("Define a custom domain name and the corresponding PTR record"))
+
+d.addremove = true
+d.anonymous = true
+d.template = "cbi/tblsection"
+
+dns_name = d:option(Value, "name", translate("Domain name"))
+dns_name.datatype = "hostname"
+dns_name.rmempty  = true
+
+dns_ip = d:option(Value, "ip", translate("<abbr title=\"Internet Protocol Version 4\">IPv4</abbr>-Address"))
+dns_ip.datatype = "or(ip4addr,'ignore')"
+
+dns_comments = d:option(Value, "comments", translate("Comments"))
+dns_comments.rmempty  = true
 
 return m
