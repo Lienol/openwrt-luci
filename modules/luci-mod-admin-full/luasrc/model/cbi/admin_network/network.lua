@@ -4,7 +4,7 @@
 
 local fs = require "nixio.fs"
 local tpl = require "luci.template"
-local ntm = require "luci.model.network".init()
+local ntm = require "luci.model.network"
 local fwm = require "luci.model.firewall".init()
 local json = require "luci.jsonc"
 
@@ -14,6 +14,7 @@ m:chain("firewall")
 m:chain("dhcp")
 m.pageaction = false
 
+ntm.init(m.uci)
 
 local tpl_networks = tpl.Template(nil, [[
 	<div class="cbi-section-node">

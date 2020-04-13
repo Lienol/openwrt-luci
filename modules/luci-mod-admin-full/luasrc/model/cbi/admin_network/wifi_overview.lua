@@ -208,6 +208,8 @@ for _, dev in ipairs(ntm:get_wifidevs()) do
 	end
 end
 
+ntm.init(m.uci)
+
 s = m:section(NamedSection, "__script__")
 s.template = "admin_network/wifi_overview_status"
 
