@@ -21,7 +21,7 @@ s.addremove = false
 s:tab("general",  translate("General Settings"))
 s:tab("logging",  translate("Logging"))
 s:tab("language", translate("Language and Style"))
-s:tab("box", translate("Saves application box time Settings"))
+--s:tab("box", translate("Saves application box time Settings"))
 
 
 --
@@ -145,6 +145,7 @@ function o.write(self, section, value)
 	m.uci:set("luci", "main", "mediaurlbase", value)
 end
 
+--[[
 o = s:taboption("box", Value, "rollback", translate("rollback time"))
 o.datatype="uinteger"
 
@@ -188,6 +189,7 @@ end
 function o.write(self, section, value)
 	m.uci:set("luci", "apply", "display", value)
 end
+]]--
 
 --
 -- NTP
