@@ -131,7 +131,11 @@
 			local ucic = 0
 			local i, j
 			for i, j in pairs(require("luci.model.uci").cursor():changes()) do
-				ucic = ucic + #j
+				for k, l in pairs(j) do
+					for m, n in pairs(l) do
+						ucic = ucic + 1;
+					end
+				end
 			end
 
 			if ucic > 0 then

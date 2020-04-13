@@ -17,10 +17,6 @@ function index()
 		return "root", luci.http.formvalue("sid")
 	end
 
-	node = entry({"admin", "uci", "apply_rollback"}, post("action_apply_rollback"), nil)
-	node.cors = true
-	node.sysauth_authenticator = authen
-
 	node = entry({"admin", "uci", "apply_unchecked"}, post("action_apply_unchecked"), nil)
 	node.cors = true
 	node.sysauth_authenticator = authen
@@ -32,7 +28,7 @@ end
 
 
 function action_changes()
-	local uci  = require "luci.model.uci"
+	local uci = luci.model.uci.cursor()
 	local changes = uci:changes()
 
 	luci.template.render("admin_uci/changes", {
@@ -43,13 +39,14 @@ function action_changes()
 end
 
 function action_revert()
-	local uci = require "luci.model.uci"
+	local uci = luci.model.uci.cursor()
 	local changes = uci:changes()
 
 	-- Collect files to be reverted
-	local r, tbl
 	for r, tbl in pairs(changes) do
+		uci:load(r)
 		uci:revert(r)
+		uci:unload(r)
 	end
 
 	luci.template.render("admin_uci/revert", {
@@ -84,27 +81,47 @@ local function ubus_state_to_http(errstr)
 	end
 end
 
-function action_apply_rollback()
-	local uci = require "luci.model.uci"
-	local token, errstr = uci:apply(true)
-	if token then
-		luci.http.prepare_content("application/json")
-		luci.http.write_json({ token = token })
+function action_apply_unchecked()
+	local path = luci.dispatcher.context.path
+	local uci = luci.model.uci.cursor()
+	local changes = uci:changes()
+	local reload = {}
+
+	local config = luci.http.formvalue("config")
+	if config then
+		string.gsub(config, '[^' .. "," .. ']+', function(w)
+			table.insert(reload, w)
+		end)
+	end
+
+	-- Collect files to be applied and commit changes
+	for r, tbl in pairs(changes) do
+		table.insert(reload, r)
+		
+		if path[#path] ~= "apply" then
+			uci:load(r)
+			uci:commit(r)
+			uci:unload(r)
+		end
+	end
+
+	local command = uci:apply(reload, true)
+	if nixio.fork() == 0 then
+		local i = nixio.open("/dev/null", "r")
+		local o = nixio.open("/dev/null", "w")
+
+		nixio.dup(i, nixio.stdin)
+		nixio.dup(o, nixio.stdout)
+
+		i:close()
+		o:close()
+
+		nixio.exec("/bin/sh", unpack(command))
 	else
-		ubus_state_to_http(errstr)
+		ubus_state_to_http("No data")
 	end
 end
 
-function action_apply_unchecked()
-	local uci = require "luci.model.uci"
-	local config = luci.http.formvalue("config")
-	local _, errstr = uci:apply(false, config)
-	ubus_state_to_http(errstr)
-end
-
 function action_confirm()
-	local uci = require "luci.model.uci"
-	local token = luci.http.formvalue("token")
-	local _, errstr = uci:confirm(token)
-	ubus_state_to_http(errstr)
+	ubus_state_to_http("No data")
 end
