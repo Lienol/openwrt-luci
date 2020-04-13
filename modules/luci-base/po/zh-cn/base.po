@@ -1815,6 +1815,9 @@ msgstr "平均负载"
 msgid "Loading"
 msgstr "加载中"
 
+msgid "CPU Used"
+msgstr "CPU使用率"
+
 msgid "Local IP address to assign"
 msgstr "要分配的本地 IP 地址"
 

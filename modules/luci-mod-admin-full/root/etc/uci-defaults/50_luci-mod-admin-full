@@ -19,4 +19,7 @@ if [ "$(uci -q get luci.diag)" != "internal" ]; then
 	EOF
 fi
 
+[ -n "$(command -v cpuinfo)" -a -n "$(command -v ethinfo)" -a -f /usr/lib/lua/luci/view/admin_status/index_x86.htm ] && mv /usr/lib/lua/luci/view/admin_status/index_x86.htm /usr/lib/lua/luci/view/admin_status/index.htm
+rm -rf /usr/lib/lua/luci/view/admin_status/index_x86.htm
+
 exit 0
