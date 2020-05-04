@@ -262,6 +262,10 @@ if hwtype == "mac80211" then
 	beacon_int.optional = true
 	beacon_int.placeholder = 100
 	beacon_int.datatype = "range(15,65535)"
+
+	vendor_vht = s:taboption("advanced", Flag, "vendor_vht", translate("Enable 256-QAM"),translate("802.11n 2.4Ghz Only"))
+	vendor_vht.default = vendor_vht.disabled
+	
 end
 
 
