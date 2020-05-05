@@ -414,33 +414,16 @@
 </div>
 
 <div class="cbi-section">
-	<h3><%:CPU%></h3>
+	<h3><%:Total Available%></h3>
 
 	<div class="table" width="100%">
-		<div class="tr"><div class="td left" width="33%"><%:Total Available%></div><div class="td left" id="cpu_free">-</div></div>
+		<div class="tr"><div class="td left" width="33%">CPU</div><div class="td left" id="cpu_free">-</div></div>
+		<div class="tr"><div class="td left" width="33%"><%:Memory%></div><div class="td left" id="memtotal">-</div></div>
+		<% if swapinfo.total > 0 then %>
+			<div class="tr"><div class="td left" width="33%"><%:Swap%></div><div class="td left" id="swaptotal">-</div></div>
+		<% end %>
 	</div>
 </div>
-
-<div class="cbi-section">
-	<h3><%:Memory%></h3>
-
-	<div class="table" width="100%">
-		<div class="tr"><div class="td left" width="33%"><%:Total Available%></div><div class="td left" id="memtotal">-</div></div>
-		<div class="tr"><div class="td left" width="33%"><%:Free%></div><div class="td left" id="memfree">-</div></div>
-		<div class="tr"><div class="td left" width="33%"><%:Buffered%></div><div class="td left" id="membuff">-</div></div>
-	</div>
-</div>
-
-<% if swapinfo.total > 0 then %>
-<div class="cbi-section">
-	<h3><%:Swap%></h3>
-
-	<div class="table" width="100%">
-		<div class="tr"><div class="td left" width="33%"><%:Total Available%></div><div class="td left" id="swaptotal">-</div></div>
-		<div class="tr"><div class="td left" width="33%"><%:Free%></div><div class="td left" id="swapfree">-</div></div>
-	</div>
-</div>
-<% end %>
 
 <div class="cbi-section">
 	<h3><%:Interfaces%></h3>
