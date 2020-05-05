@@ -1943,6 +1943,9 @@ msgstr "负载"
 msgid "Load Average"
 msgstr "平均负载"
 
+msgid "CPU Used"
+msgstr "CPU使用率"
+
 msgid "Temperature"
 msgstr "温度"
 
