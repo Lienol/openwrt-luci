@@ -107,6 +107,25 @@ end
 
 -%>
 
+<style>
+.td.cbi-section-actions > * {
+	display: unset;
+}
+.cbi-button-up, .cbi-input-up, .cbi-button-down, .cbi-input-down {
+    background-position: center;
+    background-repeat: no-repeat;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.cbi-button-up, .cbi-input-up {
+    background-image: url(<%=resource%>/cbi/up.gif), linear-gradient(#ffffff, #ffffff 50%, #e6e6e6);
+}
+.cbi-button-down, .cbi-input-down {
+    background-image: url(<%=resource%>/cbi/down.gif), linear-gradient(#ffffff, #ffffff 50%, #e6e6e6);
+}
+</style>
+
 <!-- tblsection -->
 <div class="cbi-section cbi-tblsection" id="cbi-<%=self.config%>-<%=self.sectiontype%>">
 	<% if self.title and #self.title > 0 then -%>
