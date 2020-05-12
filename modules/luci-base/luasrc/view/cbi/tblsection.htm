@@ -67,8 +67,12 @@ function render_titles()
 			%></div><%
 		end
 	end
+	
+	if self.sortable then
+		%><div class="th cbi-section-table-cell cbi-section-actions"></div><%
+	end
 
-	if self.sortable or self.extedit or self.addremove then
+	if self.extedit or self.addremove then
 		%><div class="th cbi-section-table-cell cbi-section-actions"></div><%
 	end
 
@@ -95,8 +99,12 @@ function render_descriptions()
 			%></div><%
 		end
 	end
+	
+	if self.sortable then
+		%><div class="th cbi-section-table-cell cbi-section-actions"></div><%
+	end
 
-	if self.sortable or self.extedit or self.addremove then
+	if self.extedit or self.addremove then
 		%><div class="th cbi-section-table-cell cbi-section-actions"></div><%
 	end
 
@@ -106,6 +114,25 @@ function render_descriptions()
 end
 
 -%>
+
+<style>
+.td.cbi-section-actions > * {
+	display: unset;
+}
+.cbi-button-up, .cbi-input-up, .cbi-button-down, .cbi-input-down {
+    background-position: center;
+    background-repeat: no-repeat;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.cbi-button-up, .cbi-input-up {
+    background-image: url(<%=resource%>/cbi/up.gif), linear-gradient(#ffffff, #ffffff 50%, #e6e6e6);
+}
+.cbi-button-down, .cbi-input-down {
+    background-image: url(<%=resource%>/cbi/down.gif), linear-gradient(#ffffff, #ffffff 50%, #e6e6e6);
+}
+</style>
 
 <!-- tblsection -->
 <div class="cbi-section cbi-tblsection" id="cbi-<%=self.config%>-<%=self.sectiontype%>">
@@ -143,14 +170,22 @@ end
 					end
 				end
 			-%>
-
-			<%- if self.sortable or self.extedit or self.addremove then -%>
+			
+			<%- if self.sortable then -%>
 				<div class="td cbi-section-table-cell nowrap cbi-section-actions">
 					<div>
 						<%- if self.sortable then -%>
 							<input class="cbi-button cbi-button-up" type="button" value=" " value1="<%:Up%>" onclick="return cbi_row_swap(this, true, 'cbi.sts.<%=self.config%>.<%=self.sectiontype%>')" title="<%:Move up%>" />
 							<input class="cbi-button cbi-button-down" type="button" value=" " value1="<%:Down%>" onclick="return cbi_row_swap(this, false, 'cbi.sts.<%=self.config%>.<%=self.sectiontype%>')" title="<%:Move down%>" />
-						<% end; if self.extedit then -%>
+						<% end; -%>
+					</div>
+				</div>
+			<%- end -%>
+
+			<%- if self.extedit or self.addremove then -%>
+				<div class="td cbi-section-table-cell nowrap cbi-section-actions">
+					<div>
+						<%- if self.extedit then -%>
 							<input class="cbi-button cbi-button-edit" type="button" value="<%:Edit%>"
 							<%- if type(self.extedit) == "string" then
 							%> onclick="location.href='<%=self.extedit:format(section)%>'"
