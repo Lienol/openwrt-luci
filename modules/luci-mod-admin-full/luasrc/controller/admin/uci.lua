@@ -89,7 +89,9 @@ function action_apply_unchecked()
 
 	local config = luci.http.formvalue("config")
 	if config then
-		table.insert(reload, config)
+		string.gsub(config, '[^' .. "," .. ']+', function(w)
+			table.insert(reload, w)
+		end)
 	end
 
 	-- Collect files to be applied and commit changes
