@@ -41,8 +41,10 @@
 </form>
 <script type="text/javascript">//<![CDATA[
 	var input = document.getElementsByName('luci_password')[0];
-	if (input)
+	if (input) {
+		document.body.classList.add('node-main-login');
 		input.focus();
+	}
 //]]></script>
 
 <%
