@@ -1,4 +1,21 @@
 <script type="text/javascript">//<![CDATA[
+	function disconnectClient(ifname, mac, deauth, reason, ban_time) {
+		if (reason == null || reason == 0)
+			reason = 1;
+			
+		XHR.get('<%=url('admin/network/wireless_disconnect_client')%>', {
+				ifname: ifname,
+				addr: mac,
+				deauth: deauth,
+				reason: reason,
+				ban_time: ban_time
+			},
+			function(x, st) {
+				
+			}
+		);
+	}
+	
 	function wifirate(bss, rx) {
 		var p = rx ? 'rx_' : 'tx_',
 		    s = '%.1f <%:Mbit/s%>, %d<%:MHz%>'
@@ -58,7 +75,13 @@
 							E('span', wifirate(bss, true)),
 							E('br'),
 							E('span', wifirate(bss, false))
-						])
+						]),
+						'<div class="cbi-button cbi-button-remove" onclick="disconnectClient(\'%s\',\'%s\',\'%s\',\'%s\',\'%s\')"><%:Disconnect%></div>'.format(
+							bss.ifname,
+							bss.bssid,
+							true,
+							5,
+							60000)
 					]);
 				});
 
@@ -75,6 +98,7 @@
 		<div class="th nowrap"><%:Host%></div>
 		<div class="th nowrap"><%:Signal%> / <%:Noise%></div>
 		<div class="th nowrap"><%:RX Rate%> / <%:TX Rate%></div>
+		<div class="th nowrap"><%:Disconnect%></div>
 	</div>
 	<div class="tr placeholder">
 		<div class="td"><em><%:Collecting data...%></em></div>
