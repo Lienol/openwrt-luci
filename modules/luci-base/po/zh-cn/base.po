@@ -4068,6 +4068,9 @@ msgstr "是"
 msgid "« Back"
 msgstr "« 后退"
 
+msgid "Disconnect"
+msgstr "断开连接"
+
 #~ msgid ""
 #~ "When using a PSK, the PMK can be generated locally without inter AP "
 #~ "communications"
