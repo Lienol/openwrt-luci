@@ -1832,6 +1832,7 @@ function DynamicList.formvalue(self, section)
 	return value
 end
 
+DropDown = DynamicList
 
 --[[
 TextValue - A multi-line value
