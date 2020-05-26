@@ -60,7 +60,7 @@
 			connmax    = conn_max,
 			conncount  = conn_count,
 			wifinets   = stat.wifi_networks(),
-			cpu_free   = tonumber(luci.sys.exec("echo `top -n 1 | grep CPU | grep -v grep | head -n 1 | awk '{print $8}' | sed 's/\\(.*\\)\\(.\\)$/\\1/'`")),
+			cpu_free   = tonumber(luci.sys.exec("top -n1 | grep -m1 -i 'cpu' | awk '{print $8}' | grep -Eo '[0-9.]+'")),
 		}
 
 		if wan then
