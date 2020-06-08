@@ -43,3 +43,9 @@ if luci.model.network:has_ipv6() then
     ipv6 = section:taboption("advanced", Flag, "ipv6", translate("Enable IPv6 negotiation"))
     ipv6.default = ipv6.disabled
 end
+
+pdptype = section:taboption('general', ListValue, 'pdptype', translate('PDP Type'))
+pdptype:value('ipv4v6', 'IPv4/IPv6')
+pdptype:value('ipv4', 'IPv4')
+pdptype:value('ipv6', 'IPv6')
+pdptype.default = 'ipv4v6'
