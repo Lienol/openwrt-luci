@@ -183,6 +183,10 @@ return view.extend({
 		
 		so = ss.option(form.Value, 'comments', _('Comments'));
 		so.rmempty  = true;
+		
+		s.taboption('general', form.Flag, 'dns_redirect',
+			_('DNS Redirect'),
+			_('Redirect client DNS to dnsmasq'));
 
 		s.taboption('general', form.Flag, 'domainneeded',
 			_('Domain required'),
