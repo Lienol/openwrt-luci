@@ -21,6 +21,8 @@ s:tab("files", translate("Resolv and Hosts Files"))
 s:tab("tftp", translate("TFTP Settings"))
 s:tab("advanced", translate("Advanced Settings"))
 
+s:taboption("general", Flag, "dns_redirect", translate("DNS Redirect"), translate("Redirect client DNS to dnsmasq"))
+
 s:taboption("general", Flag, "domainneeded",
 	translate("Domain required"),
 	translate("Don't forward <abbr title=\"Domain Name System\">DNS</abbr>-Requests without " ..
