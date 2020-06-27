@@ -1,0 +1,11 @@
+#!/bin/sh
+
+uci -q batch <<-EOF >/dev/null
+	delete ucitrack.@samba4[-1]
+	add ucitrack samba4
+	set ucitrack.@samba4[-1].init=samba4
+	commit ucitrack
+EOF
+
+rm -f /tmp/luci-indexcache
+exit 0
