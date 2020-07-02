@@ -58,7 +58,7 @@ function action_clock_status()
 	end
 
 	luci.http.prepare_content("application/json")
-	luci.http.write_json({ timestring = os.date("%c") })
+	luci.http.write_json({ timestring = os.date("%Y-%m-%d") .. " " .. os.date("%X") .. " " .. luci.i18n.translate(os.date("%A")) })
 end
 
 function action_packages()
