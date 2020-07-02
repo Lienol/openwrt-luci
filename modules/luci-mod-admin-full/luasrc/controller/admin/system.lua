@@ -151,10 +151,12 @@ function action_packages()
 		local list
 		for list in fs.dir("/var/opkg-lists/") do
 			no_lists = false
+			--[[
 			if (fs.stat("/var/opkg-lists/"..list, "mtime") or 0) < (os.time() - (24 * 60 * 60)) then
 				old_lists = true
 				break
 			end
+			]]--
 		end
 	end
 
