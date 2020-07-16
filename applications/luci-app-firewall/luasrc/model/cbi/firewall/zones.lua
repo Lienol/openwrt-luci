@@ -56,18 +56,12 @@ if offload then
 	o:depends( "flow_offloading", 1)
 end
 
--- Firewall zones
 
 s = m:section(TypedSection, "zone", translate("Zones"))
 s.template = "cbi/tblsection"
 s.anonymous = true
 s.addremove = true
 s.extedit   = ds.build_url("admin", "network", "firewall", "zones", "%s")
-
-function s.sectiontitle(self, sid)
-	local z = fw:get_zone(sid)
-	return z:name()
-end
 
 function s.create(self)
 	local z = fw:new_zone()
