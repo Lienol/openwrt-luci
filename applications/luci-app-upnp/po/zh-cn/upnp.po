@@ -75,6 +75,9 @@ msgstr "启用 IGDv1 模式"
 msgid "Enable NAT-PMP functionality"
 msgstr "启用 NAT-PMP 功能"
 
+msgid "Disable IPv6"
+msgstr "禁用IPv6"
+
 msgid "Enable UPnP functionality"
 msgstr "启用 UPnP 功能"
 
