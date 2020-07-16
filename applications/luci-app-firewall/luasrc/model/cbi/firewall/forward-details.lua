@@ -25,7 +25,7 @@ else
 	if not name or #name == 0 then
 		name = translate("(Unnamed Entry)")
 	end
-	m.title = "%s - %s" %{ translate("Firewall - Port Forwards"), luci.util.pcdata(name) }
+	m.title = "%s - %s" %{ translate("Firewall - Port Forwards"), name }
 end
 
 s = m:section(NamedSection, arg[1], "redirect", "")
@@ -55,7 +55,6 @@ o = s:option(Value, "src", translate("Source zone"))
 o.nocreate = true
 o.default = "wan"
 o.template = "cbi/firewall_zonelist"
-o.rmempty = false
 
 
 o = s:option(DynamicList, "src_mac",
@@ -68,6 +67,10 @@ o.placeholder = translate("any")
 luci.sys.net.mac_hints(function(mac, name)
 	o:value(mac, "%s (%s)" %{ mac, name })
 end)
+
+o:depends("proto", "tcp")
+o:depends("proto", "udp")
+o:depends("proto", "tcp udp")
 
 
 o = s:option(Value, "src_ip",
@@ -92,7 +95,6 @@ o.placeholder = translate("any")
 o:depends("proto", "tcp")
 o:depends("proto", "udp")
 o:depends("proto", "tcp udp")
-o:depends("proto", "tcpudp")
 
 o = s:option(Value, "src_dip",
 	translate("External IP address"),
@@ -116,7 +118,6 @@ o.datatype = "neg(portrange)"
 o:depends("proto", "tcp")
 o:depends("proto", "udp")
 o:depends("proto", "tcp udp")
-o:depends("proto", "tcpudp")
 
 o = s:option(Value, "dest", translate("Internal zone"))
 o.nocreate = true
@@ -144,7 +145,6 @@ o.datatype = "portrange"
 o:depends("proto", "tcp")
 o:depends("proto", "udp")
 o:depends("proto", "tcp udp")
-o:depends("proto", "tcpudp")
 
 o = s:option(Flag, "reflection", translate("Enable NAT Loopback"))
 o.rmempty = true
