@@ -31,6 +31,7 @@ end
 
 s:taboption("general", Flag, "enable_upnp", translate("Enable UPnP functionality")).default = "1"
 s:taboption("general", Flag, "enable_natpmp", translate("Enable NAT-PMP functionality")).default = "1"
+s:taboption("general", Flag, "ipv6_disable", translate("Disable IPv6")).default = "1"
 
 s:taboption("general", Flag, "secure_mode", translate("Enable secure mode"),
 	translate("Allow adding forwards only to requesting ip addresses")).default = "1"
