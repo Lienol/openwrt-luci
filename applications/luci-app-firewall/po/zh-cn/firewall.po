@@ -615,3 +615,15 @@ msgstr "类型"
 
 msgid "types"
 msgstr "类型"
+
+msgid "Loopback source IP"
+msgstr "环回源 IP"
+
+msgid "Specifies whether to use the external or the internal IP address for reflected traffic."
+msgstr "指定是使用外部 IP 地址还是内部 IP 地址来反映流量。"
+
+msgid "Use internal IP address"
+msgstr "使用内部 IP 地址"
+
+msgid "Use external IP address"
+msgstr "使用外部 IP 地址"
