@@ -41,6 +41,8 @@ LUCI_LANG.uk=Українська (Ukrainian)
 LUCI_LANG.vi=Tiếng Việt (Vietnamese)
 LUCI_LANG.zh_Hans=中文 (Chinese)
 LUCI_LANG.zh_Hant=臺灣華語 (Taiwanese)
+LUCI_LANG.zh-cn=$(LUCI_LANG.zh_Hans)
+LUCI_LANG.zh-tw=$(LUCI_LANG.zh_Hant)
 
 # Submenu titles
 LUCI_MENU.col=1. Collections
@@ -68,7 +70,7 @@ PKG_VERSION?=$(if $(DUMP),x,$(strip $(shell \
 			set -- $$(git log -1 --format="%ct %h" --abbrev=7); \
 			secs="$$(($$1 % 86400))"; \
 			yday="$$(date --utc --date="@$$1" "+%y.%j")"; \
-			revision="$$(printf 'git-%s.%05d-%s' "$$yday" "$$secs" "$$2")"; \
+			revision="$$(printf 'git-%s' "$$2")"; \
 		fi; \
 	else \
 		revision="unknown"; \
@@ -79,10 +81,9 @@ PKG_VERSION?=$(if $(DUMP),x,$(strip $(shell \
 PKG_GITBRANCH?=$(if $(DUMP),x,$(strip $(shell \
 	variant="LuCI"; \
 	if git log -1 >/dev/null 2>/dev/null; then \
-		branch="$$(git branch --remote --verbose --no-abbrev --contains 2>/dev/null | \
-			sed -rne 's|^[^/]+/([^ ]+) [a-f0-9]{40} .+$$|\1|p' | head -n1)"; \
+		branch="19.07 Mod by Lienol"; \
 		if [ "$$branch" != "master" ]; then \
-			variant="LuCI $$branch branch"; \
+			variant="LuCI $$branch"; \
 		else \
 			variant="LuCI Master"; \
 		fi; \
@@ -244,7 +245,13 @@ define LuciTranslation
     CATEGORY:=LuCI
     TITLE:=$(PKG_NAME) - $(1) translation
     HIDDEN:=1
-    DEFAULT:=LUCI_LANG_$(2)||(ALL&&m)
+	ifeq ($(2),zh-cn)
+		DEFAULT:=LUCI_LANG_zh_Hans||(ALL&&m)
+	else ifeq ($(2),zh-tw)
+		DEFAULT:=LUCI_LANG_zh_Hant||(ALL&&m)
+	else
+		DEFAULT:=LUCI_LANG_$(2)||(ALL&&m)
+	endif
     DEPENDS:=$(PKG_NAME)
     PKGARCH:=all
   endef
