@@ -45,7 +45,7 @@ local function check_fs_depends(spec)
 end
 
 local function check_uci_depends_options(conf, s, opts)
-	local uci = require "luci.model.uci"
+	local uci = require "luci.model.uci".cursor()
 
 	if type(opts) == "string" then
 		return (s[".type"] == opts)
@@ -85,7 +85,7 @@ local function check_uci_depends_options(conf, s, opts)
 end
 
 local function check_uci_depends_section(conf, sect)
-	local uci = require "luci.model.uci"
+	local uci = require "luci.model.uci".cursor()
 
 	for section, options in pairs(sect) do
 		local stype = section:match("^@([A-Za-z0-9_%-]+)$")
@@ -112,7 +112,7 @@ local function check_uci_depends_section(conf, sect)
 end
 
 local function check_uci_depends(conf)
-	local uci = require "luci.model.uci"
+	local uci = require "luci.model.uci".cursor()
 
 	for config, values in pairs(conf) do
 		if values == true then

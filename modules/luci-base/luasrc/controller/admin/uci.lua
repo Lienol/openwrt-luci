@@ -30,7 +30,7 @@ local function ubus_state_to_http(errstr)
 end
 
 function action_apply_rollback()
-	local uci = require "luci.model.uci"
+	local uci = luci.model.uci.cursor()
 	local token, errstr = uci:apply(true)
 	if token then
 		luci.http.prepare_content("application/json")
@@ -41,27 +41,52 @@ function action_apply_rollback()
 end
 
 function action_apply_unchecked()
-	local uci = require "luci.model.uci"
-	local config = luci.http.formvalue("config")
+	local path = luci.dispatcher.context.path
+	local uci = luci.model.uci.cursor()
+	local changes = uci:changes()
 	local reload = {}
+
+	local config = luci.http.formvalue("config")
 	if config then
 		string.gsub(config, '[^' .. "," .. ']+', function(w)
 			table.insert(reload, w)
 		end)
 	end
-	local _, errstr = uci:apply(false, reload)
-	ubus_state_to_http(errstr)
+
+	-- Collect files to be applied and commit changes
+	for r, tbl in pairs(changes) do
+		table.insert(reload, r)
+		
+		if path[#path] ~= "apply" then
+			uci:load(r)
+			uci:commit(r)
+			uci:unload(r)
+		end
+	end
+
+	local command = uci:apply(reload, true)
+	if nixio.fork() == 0 then
+		local i = nixio.open("/dev/null", "r")
+		local o = nixio.open("/dev/null", "w")
+
+		nixio.dup(i, nixio.stdin)
+		nixio.dup(o, nixio.stdout)
+
+		i:close()
+		o:close()
+
+		nixio.exec("/bin/sh", unpack(command))
+	else
+		ubus_state_to_http("No data")
+	end
 end
 
 function action_confirm()
-	local uci = require "luci.model.uci"
-	local token = luci.http.formvalue("token")
-	local _, errstr = uci:confirm(token)
-	ubus_state_to_http(errstr)
+	ubus_state_to_http("No data")
 end
 
 function action_revert()
-	local uci = require "luci.model.uci"
+	local uci = luci.model.uci.cursor()
 	local changes = uci:changes()
 
 	-- Collect files to be reverted
