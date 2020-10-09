@@ -202,6 +202,7 @@
 			<% if has_ipv6 then %>
 			var ifc6 = info.wan6 || {};
 
+			if (ifc6) {
 			us.appendChild(renderBox(
 				'<%:IPv6 Upstream%>',
 				(ifc6.ifname && ifc6.proto != 'none'),
@@ -219,6 +220,7 @@
 				'<%:DNS%> 4', (ifc6.dns) ? ifc6.dns[3] : null,
 				'<%:DNS%> 5', (ifc6.dns) ? ifc6.dns[4] : null,
 				'<%:Connected%>', (ifc6.uptime > 0) ? '%t'.format(ifc6.uptime) : null));
+			}
 			<% end %>
 
 			<% if has_dsl then %>
