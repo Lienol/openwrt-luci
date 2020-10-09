@@ -10,7 +10,7 @@
 	local stat = require "luci.tools.status"
 	local ver = require "luci.version"
 
-	local has_ipv6 = fs.access("/usr/sbin/ip6tables")
+	local has_ipv6 = fs.access("/proc/net/ipv6_route")
 	local has_dhcp = fs.access("/etc/config/dhcp")
 	local has_wifi = ((fs.stat("/etc/config/wireless", "size") or 0) > 0)
 
@@ -292,6 +292,7 @@
 			}
 			else
 			{
+				document.getElementById("ipv6_status").style.display="none";
 				si6.innerHTML = '<img draggable="false" src="<%=resource%>/icons/ethernet_disabled.png" /><br /><small>?</small>';
 				ss6.innerHTML = '<em><%:Not connected%></em>';
 			}
@@ -719,7 +720,7 @@
 			</tr></table>
 		</td></tr>
 		<% if has_ipv6 then %>
-		<tr><td width="33%" style="vertical-align:top"><%:IPv6 WAN Status%></td><td>
+		<tr id="ipv6_status"><td width="33%" style="vertical-align:top"><%:IPv6 WAN Status%></td><td>
 			<table><tr>
 				<td id="wan6_i" style="width:16px; text-align:center; padding:3px"><img draggable="false" src="<%=resource%>/icons/ethernet_disabled.png" /><br /><small>?</small></td>
 				<td id="wan6_s" style="vertical-align:middle; padding: 3px"><em><%:Collecting data...%></em></td>
