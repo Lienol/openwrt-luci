@@ -40,6 +40,8 @@ if has_ewk then
 	for _, e in ipairs(sys.net.devices()) do
 		if e ~= "lo" then iface:value(e) end
 	end
+
+	iface.default = "br-lan"
 end
 
 
