@@ -25,7 +25,7 @@ msgstr "ACL 指定哪些外部端口可以被重定向至哪些内部地址及�
 
 #: applications/luci-app-upnp/htdocs/luci-static/resources/view/upnp/upnp.js:202
 msgid "Action"
-msgstr "开始"
+msgstr "动作"
 
 #: applications/luci-app-upnp/htdocs/luci-static/resources/view/status/include/80_upnp.js:31
 #: applications/luci-app-upnp/htdocs/luci-static/resources/view/upnp/upnp.js:113
@@ -170,7 +170,7 @@ msgstr "协议"
 
 #: applications/luci-app-upnp/htdocs/luci-static/resources/view/upnp/upnp.js:134
 msgid "Puts extra debugging information into the system log"
-msgstr "将额外的调试信息打印至系统日志中"
+msgstr "将额外的调试信息输出至系统日志中"
 
 #: applications/luci-app-upnp/htdocs/luci-static/resources/view/upnp/upnp.js:146
 msgid "Report system instead of daemon uptime"
