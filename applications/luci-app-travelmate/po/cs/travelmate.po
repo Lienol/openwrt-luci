@@ -1,22 +1,22 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-02-16 18:10+0000\n"
-"Last-Translator: Jan Breuer <j123b567@jaybee.cz>\n"
+"PO-Revision-Date: 2021-05-07 11:32+0000\n"
+"Last-Translator: Adam Salač <adam@salac.me>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/openwrt/"
 "luciapplicationstravelmate/cs/>\n"
 "Language: cs\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.5\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 #: applications/luci-app-travelmate/htdocs/luci-static/resources/view/travelmate/overview.js:73
 msgid "-- AP Selection --"
-msgstr ""
+msgstr "-- výběr přístupového bodu --"
 
 #: applications/luci-app-travelmate/htdocs/luci-static/resources/view/travelmate/overview.js:261
 msgid "AP QR-Codes..."
-msgstr ""
+msgstr "QR kódy AP"
 
 #: applications/luci-app-travelmate/htdocs/luci-static/resources/view/travelmate/stations.js:823
 msgid "Add Uplink %q"
@@ -96,7 +96,7 @@ msgstr ""
 
 #: applications/luci-app-travelmate/htdocs/luci-static/resources/view/travelmate/stations.js:572
 msgid "Channel"
-msgstr ""
+msgstr "Kanál"
 
 #: applications/luci-app-travelmate/htdocs/luci-static/resources/view/travelmate/overview.js:297
 msgid ""
@@ -106,7 +106,7 @@ msgstr ""
 
 #: applications/luci-app-travelmate/htdocs/luci-static/resources/view/travelmate/overview.js:147
 msgid ""
-"Configuration of the travelmate package to to enable travel router "
+"Configuration of the travelmate package to enable travel router "
 "functionality. For further information <a href=\"https://github.com/openwrt/"
 "packages/blob/master/net/travelmate/files/README.md\" target=\"_blank\" rel="
 "\"noreferrer noopener\" >check the online documentation</a>. <br /> "
@@ -308,7 +308,7 @@ msgstr "Poslední spuštění"
 
 #: applications/luci-app-travelmate/root/usr/share/luci/menu.d/luci-app-travelmate.json:35
 msgid "Log View"
-msgstr ""
+msgstr "Zobrazení protokolu"
 
 #: applications/luci-app-travelmate/htdocs/luci-static/resources/view/travelmate/stations.js:363
 #: applications/luci-app-travelmate/htdocs/luci-static/resources/view/travelmate/stations.js:791

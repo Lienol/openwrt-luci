@@ -24,6 +24,15 @@ var callUpgradeStart = rpc.declare({
 	params: ["keep"]
 });
 
+function get_branch(version) {
+	// determine branch of a version
+	// SNAPSHOT -> SNAPSHOT
+	// 21.02-SNAPSHOT -> 21.02
+	// 21.02.0-rc1 -> 21.02
+	// 19.07.8 -> 19.07
+	return version.replace("-SNAPSHOT", "").split(".").slice(0, 2).join(".");
+}
+
 function install_sysupgrade(url, keep, sha256) {
 	displayStatus("notice spinning", E('p', _('Downloading firmware from server to browser')));
 	request.get(url, {
@@ -77,6 +86,7 @@ function request_sysupgrade(server_url, data) {
 	} else {
 		req = request.post(server_url + "/api/build", {
 			profile: data.board_name,
+			target: data.target,
 			version: data.version,
 			packages: data.packages,
 			diff_packages: true,
@@ -88,7 +98,6 @@ function request_sysupgrade(server_url, data) {
 			case 200:
 				var res = response.json()
 				var image;
-				console.log(res)
 				for (image of res.images) {
 					if (image.type == "sysupgrade") {
 						break;
@@ -213,10 +222,12 @@ function request_sysupgrade(server_url, data) {
 	});
 }
 
-function check_sysupgrade(server_url, current_version, board_name, packages) {
+function check_sysupgrade(server_url, current_version, target, board_name, packages) {
 	displayStatus("notice spinning", E('p', _('Searching for an available sysupgrade')));
-	var current_branch = current_version.split(".").slice(0, 2).join(".");
+	var current_branch = get_branch(current_version);
+	var advanced_mode = uci.get_first('attendedsysupgrade', 'client', 'advanced_mode') || 0;
 	var candidates = [];
+
 	fetch(server_url + "/api/latest")
 		.then(response => response.json())
 		.then(response => {
@@ -224,17 +235,17 @@ function check_sysupgrade(server_url, current_version, board_name, packages) {
 				candidates.push("SNAPSHOT");
 			} else {
 				for (let version of response["latest"]) {
-					var branch = version.split(".").slice(0, 2).join(".");
+					var branch = get_branch(version);
 
 					// already latest version installed
 					if (current_version == version) {
 						break;
 					}
 
-					// warn user that a new major release would be installed
-					//if (current_branch != branch) {
-					//	branch["warn_branch_jump"] = true;
-					//}
+					// skip branch upgrades outside the advanced mode
+					if (current_branch != branch && advanced_mode == 0) {
+						continue;
+					}
 
 					candidates.unshift(version);
 
@@ -246,13 +257,11 @@ function check_sysupgrade(server_url, current_version, board_name, packages) {
 			}
 			if (candidates) {
 				var m, s, o;
-				var advanced_mode = uci.get_first('attendedsysupgrade', 'client', 'advanced_mode') || 0;
-
-				console.log(candidates);
 
 				var mapdata = {
 					request: {
 						board_name: board_name,
+						target: target,
 						version: candidates[0],
 						packages: Object.keys(packages).sort(),
 					}
@@ -339,6 +348,7 @@ return view.extend({
 	render: function(res) {
 		var packages = res[0].packages;
 		var current_version = res[1].release.version;
+		var target = res[1].release.target;
 		var board_name = res[1].board_name;
 		var auto_search = uci.get_first('attendedsysupgrade', 'client', 'auto_search') || 1;
 		var server_url = uci.get_first('attendedsysupgrade', 'server', 'url');
@@ -350,13 +360,13 @@ return view.extend({
 		];
 
 		if (auto_search == 1) {
-			check_sysupgrade(server_url, current_version, board_name, packages)
+			check_sysupgrade(server_url, current_version, target, board_name, packages)
 		}
 
 		view.push(E('p', {
 			'class': 'btn cbi-button-positive',
 			'click': function() {
-				check_sysupgrade(server_url, current_version, board_name, packages)
+				check_sysupgrade(server_url, current_version, target, board_name, packages)
 			}
 		}, _('Search for sysupgrade')));
 
