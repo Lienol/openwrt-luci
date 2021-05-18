@@ -139,8 +139,12 @@
         var onclick = that.attr("onclick");
         if (onclick == undefined || onclick == "") {
             that.click(function () {
+                var target = that.attr("target");
                 var href = that.attr("href");
-                if (href.indexOf("#") == -1) {
+                if ((target == undefined || target == "" || target == "_self")
+                    && href != undefined
+                    && href.indexOf("#") != 0
+                    && href.indexOf("javascript:") != 0) {
                     $(".main > .loading").fadeIn("fast");
                     return true;
                 }
