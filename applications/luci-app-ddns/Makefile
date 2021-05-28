@@ -16,14 +16,14 @@ PKG_VERSION:=2.4.9
 
 # Release == build
 # increase on changes of translation files
-PKG_RELEASE:=3
+PKG_RELEASE:=4
 
 PKG_LICENSE:=Apache-2.0
 PKG_MAINTAINER:=Ansuel Smith <ansuelsmth@gmail.com>
 
 # LuCI specific settings
 LUCI_TITLE:=LuCI Support for Dynamic DNS Client (ddns-scripts)
-LUCI_DEPENDS:=+luci-mod-admin-full +ddns-scripts
+LUCI_DEPENDS:=+luci-mod-admin-full +ddns-scripts +luci-lib-jsonc
 # LUCI_PKGARCH:=all
 
 define Package/$(PKG_NAME)/config

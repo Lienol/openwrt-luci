@@ -56,8 +56,18 @@ function err_tab_timer(self)
 	return translate("Timer Settings") .. " - " .. self.title .. ": "
 end
 
--- read services/services_ipv6 files -- ########################################
 local services4 = { }		-- IPv4 --
+local services6 = { }		-- IPv6 --
+
+ddns_version = ""
+local f = io.open("/usr/lib/opkg/info/ddns-scripts.control", "r")
+if f then
+	local content = f:read("*a")
+	ddns_version = content:match("Version: ([^\n]+)")
+	f:close()
+end
+if ddns_version < "2.8.2" then
+-- read services/services_ipv6 files -- ########################################
 local fd4 = io.open("/etc/ddns/services", "r")
 if fd4 then
 	local ln, s, t
@@ -71,7 +81,6 @@ if fd4 then
 	fd4:close()
 end
 
-local services6 = { }		-- IPv6 --
 local fd6 = io.open("/etc/ddns/services_ipv6", "r")
 if fd6 then
 	local ln, s, t
@@ -83,6 +92,26 @@ if fd6 then
 		if t then services6[t[1]]=t[2] end
 	until not ln
 	fd6:close()
+end
+else
+	-- Copyright (C) 2021 Lienol <lawlienol@gmail.com>
+	local jsonc = require "luci.jsonc"
+	local ddns_path = "/usr/share/ddns/default"
+	local s = io.popen("ls " .. ddns_path)
+	local files_name = s:read("*all")
+	string.gsub(files_name, '[^' .. "\n" .. ']+', function(name)
+		local file = io.open(ddns_path .. "/" .. name, "r")
+		local t = jsonc.parse(file:read("*a"))
+		if t and t.name then
+			if t.ipv4 and t.ipv4.url then
+				services4[t.name] = t.ipv4.url
+			end
+			if t.ipv6 and t.ipv6.url then
+				services6[t.name] = t.ipv6.url
+			end
+		end
+		file:close()
+	end)
 end
 
 -- multi-used functions -- ####################################################
