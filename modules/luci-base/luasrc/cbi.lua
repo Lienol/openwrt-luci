@@ -55,6 +55,7 @@ function load(cbimap, ...)
 	local env = {
 		translate=i18n.translate,
 		translatef=i18n.translatef,
+		_ = i18n.translatef,
 	 	arg={...}
 	}
 
