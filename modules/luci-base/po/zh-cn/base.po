@@ -4789,3 +4789,307 @@ msgstr "资源记录编号"
 
 msgid "Raw Data"
 msgstr "原始数据"
+
+msgid "Devices"
+msgstr "设备"
+
+msgid "General device options"
+msgstr "常规设备选项"
+
+msgid "Advanced device options"
+msgstr "高级设备选项"
+
+msgid "Bridge port specific options"
+msgstr "网桥端口特定选项"
+
+msgid "Bridge VLAN filtering"
+msgstr "网桥 VLAN 过滤"
+
+msgid "Device type"
+msgstr "设备类型"
+
+msgid "Network device"
+msgstr "网络设备"
+
+msgid "Bridge device"
+msgstr "网桥设备"
+
+msgid "VLAN (802.1q)"
+msgstr "VLAN (802.1q)"
+
+msgid "VLAN (802.1ad)"
+msgstr "VLAN (802.1ad)"
+
+msgid "MAC VLAN"
+msgstr "MAC VLAN"
+
+msgid "Virtual Ethernet"
+msgstr "虚拟以太网"
+
+msgid "Existing device"
+msgstr "现有设备"
+
+msgid "Base device"
+msgstr "基设备"
+
+msgid "VLAN ID"
+msgstr "VLAN ID"
+
+msgid "Mode"
+msgstr "模式"
+
+msgctxt "MACVLAN mode"
+msgid "VEPA (Virtual Ethernet Port Aggregator)"
+msgstr "VEPA（虚拟以太网端口聚合器）"
+
+msgctxt "MACVLAN mode"
+msgid "Private (Prevent communication between MAC VLANs)"
+msgstr "专用（防止MAC VLAN之间的通信）"
+
+msgctxt "MACVLAN mode"
+msgid "Bridge (Support direct communication between MAC VLANs)"
+msgstr "桥 (支持 MAC VLANs 间的直连)"
+
+msgctxt "MACVLAN mode"
+msgid "Pass-through (Mirror physical device to single MAC VLAN)"
+msgstr "直通（将物理设备镜像到单个MAC VLAN）"
+
+msgid "Device name"
+msgstr "设备名"
+
+msgid "Ingress QoS mapping"
+msgstr "入口 QoS 映射"
+
+msgid ""
+"Defines a mapping of VLAN header priority to the Linux internal packet "
+"priority on incoming frames"
+msgstr "在传入帧上定义 VLAN 标头优先级到 Linux 内部数据包优先级的映射"
+
+msgid "Egress QoS mapping"
+msgstr "出口 QoS 映射"
+
+msgid ""
+"Defines a mapping of Linux internal packet priority to VLAN header priority "
+"but for outgoing frames"
+msgstr "定义 Linux 内部数据包优先级到 VLAN 标头优先级的映射但用于传出帧"
+
+msgid "Bridge ports"
+msgstr "网桥端口"
+
+msgid "Bring up empty bridge"
+msgstr "允许启动空网桥"
+
+msgid "Bring up the bridge interface even if no ports are attached"
+msgstr "即使没有接口附加到网桥，也启动它"
+
+msgid "Priority"
+msgstr "优先级"
+
+msgid "Ageing time"
+msgstr "老化时间"
+
+msgid "Timeout in seconds for learned MAC addresses in the forwarding database"
+msgstr "转发数据库中学习到的 MAC 地址的超时时间（以秒为单位）"
+
+msgid "Enable <abbr title=\"Spanning Tree Protocol\">STP</abbr>"
+msgstr "开启 <abbr title=\"生成树协议\">STP</abbr>"
+
+msgid "Enables the Spanning Tree Protocol on this bridge"
+msgstr "在此桥接上启用生成树协议"
+
+msgid "Hello interval"
+msgstr "Hello 间隔"
+
+msgid "Interval in seconds for STP hello packets"
+msgstr "STP hello 数据包的时间间隔（以秒为单位）"
+
+msgid "Forward delay"
+msgstr "转发延迟"
+
+msgid "Time in seconds to spend in listening and learning states"
+msgstr "花费在侦听和学习状态上的时间 （以秒为单位）"
+
+msgid "Maximum age"
+msgstr "最大年龄"
+
+msgid "Timeout in seconds until topology updates on link loss"
+msgstr "链接丢失拓扑更新前的超时时间 （以秒为单位）"
+
+msgid ""
+"Enable <abbr title=\"Internet Group Management Protocol\">IGMP</abbr> "
+"snooping"
+msgstr "启用 <abbr title=\"互联网组管理协议\">IGMP</abbr> 嗅探"
+
+msgid "Enables IGMP snooping on this bridge"
+msgstr "在此桥接上启用 IGMP 窥探"
+
+msgid "Maximum snooping table size"
+msgstr "最大侦听表大小"
+
+msgid "Enable multicast querier"
+msgstr "启用多播查询器"
+
+msgid "Robustness"
+msgstr "健壮性"
+
+msgid ""
+"The robustness value allows tuning for the expected packet loss on the "
+"network. If a network is expected to be lossy, the robustness value may be "
+"increased. IGMP is robust to (Robustness-1) packet losses"
+msgstr ""
+"健壮性值允许调整网络上预期的数据包丢失。 如果预期网络丢包率较高，可以增加健壮"
+"值。IGMP对于（Robustness-1）数据包丢失具有鲁棒性"
+
+msgid "Query interval"
+msgstr "查询间隔"
+
+msgid ""
+"Interval in centiseconds between multicast general queries. By varying the "
+"value, an administrator may tune the number of IGMP messages on the subnet; "
+"larger values cause IGMP Queries to be sent less often"
+msgstr ""
+"组播常规查询之间的时间间隔（以毫秒为单位）。通过更改该值，管理员可以调整子网"
+"中 IGMP 消息的数量。 数值越大，IGMP 查询的发送频率越低"
+
+msgid "Query response interval"
+msgstr "查询响应间隔"
+
+msgid ""
+"The max response time in centiseconds inserted into the periodic general "
+"queries. By varying the value, an administrator may tune the burstiness of "
+"IGMP messages on the subnet; larger values make the traffic less bursty, as "
+"host responses are spread out over a larger interval"
+msgstr ""
+"插入定期常规查询的最大响应时间（以厘秒为单位）。更改该值，管理员可以调整子网"
+"上 IGMP 消息的突发性； 较大的值可减少流量的突发性，因为主机响应会在较大的时间"
+"间隔内分布"
+
+msgid "Last member interval"
+msgstr "最后成员间隔"
+
+msgid ""
+"The max response time in centiseconds inserted into group-specific queries "
+"sent in response to leave group messages. It is also the amount of time "
+"between group-specific query messages. This value may be tuned to modify the "
+"\"leave latency\" of the network. A reduced value results in reduced time to "
+"detect the loss of the last member of a group"
+msgstr ""
+"插入为响应离组消息而发送的特定于组的查询中的最大响应时间（以厘秒为单位）。它"
+"也是特定于组的查询消息之间的时间量。 可以调整该值以修改网络的“离开等待时"
+"间”。 减小的值会降低检测组中最后一个成员丢失的时间"
+
+msgid "MTU"
+msgstr "MTU"
+
+msgid "MAC address"
+msgstr "MAC 地址"
+
+msgid "MAC Address"
+msgstr "MAC 地址"
+
+msgid "Peer device name"
+msgstr "对等设备名"
+
+msgid "Peer MAC address"
+msgstr "对等 MAC 地址"
+
+msgid "TX queue length"
+msgstr "TX 队列长度"
+
+msgid "Enable promiscuous mode"
+msgstr "启用混杂模式"
+
+msgid "Reverse path filter"
+msgstr "反转路径过滤器"
+
+msgid "Accept local"
+msgstr "接受本地连接"
+
+msgid "Accept packets with local source addresses"
+msgstr "接受具有本地源地址的数据包"
+
+msgid "Send ICMP redirects"
+msgstr "发送 ICMP 重定向"
+
+msgid "Neighbour cache validity"
+msgstr "邻近缓存有效性"
+
+msgid "Time in milliseconds"
+msgstr "时间（以毫秒为单位）"
+
+msgid "Stale neighbour cache timeout"
+msgstr "过时的邻近缓存超时"
+
+msgid "Timeout in seconds"
+msgstr "超时（以秒为单位）"
+
+msgid "Minimum ARP validity time"
+msgstr "最小 ARP 有效时间"
+
+msgid ""
+"Minimum required time in seconds before an ARP entry may be replaced. "
+"Prevents ARP cache thrashing."
+msgstr "替换 ARP 条目所需的最短时间（以秒为单位）。 防止ARP缓存崩溃。"
+
+msgid "Enable IPv6"
+msgstr "启用 IPv6"
+
+msgid "IPv6 MTU"
+msgstr "IPv6 MTU"
+
+msgid "DAD transmits"
+msgstr "DAD 传输"
+
+msgid "Amount of Duplicate Address Detection probes to send"
+msgstr "要发送的重复地址检测探针数量"
+
+msgid "Enable multicast support"
+msgstr "启用多播支持"
+
+msgid "Force IGMP version"
+msgstr "强制 IGMP 版本"
+
+msgid "No enforcement"
+msgstr "无强制"
+
+msgid "Enforce IGMPv1"
+msgstr "强制 IGMPv1"
+
+msgid "Enforce IGMPv2"
+msgstr "强制 IGMPv2"
+
+msgid "Enforce IGMPv3"
+msgstr "强制 IGMPv3"
+
+msgid "Force MLD version"
+msgstr "强制 MLD 版本"
+
+msgid "Enforce MLD version 1"
+msgstr "强制 MLD 版本 1"
+
+msgid "Enforce MLD version 2"
+msgstr "强制 MLD 版本 2"
+
+msgid "Enable VLAN filtering"
+msgstr "启用 VLAN 过滤"
+
+msgid "Local"
+msgstr "本地"
+
+msgid "Do not participate"
+msgstr "不参与"
+
+msgid "Egress untagged"
+msgstr "未标记的出口"
+
+msgid "Egress tagged"
+msgstr "已标记的出口"
+
+msgid "Primary VLAN ID"
+msgstr "主 VLAN ID"
+
+msgid "Must begin with 'br-'"
+msgstr "必须以 'br-' 开头"
+
+msgid "This VLAN ID already exists."
+msgstr "此 VLAN ID 已存在。"
