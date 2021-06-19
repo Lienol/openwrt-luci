@@ -48,6 +48,7 @@ function date_format(secs)
 	end
 end
 
+--[[
 function cbi_add_networks(field)
 	uci.cursor():foreach("network", "interface",
 		function (section)
@@ -56,6 +57,18 @@ function cbi_add_networks(field)
 			end
 		end
 	)
+	field.titleref = luci.dispatcher.build_url("admin", "network", "network")
+end
+]]--
+
+function cbi_add_networks(field)
+	local ntm = require "luci.model.network".init()
+	local net
+	for _, net in ipairs(ntm:get_networks()) do
+		if net:name() ~= "loopback" then
+			field:value(net:name())
+		end
+	end
 	field.titleref = luci.dispatcher.build_url("admin", "network", "network")
 end
 
@@ -83,6 +96,7 @@ function firewall_find_zone(name)
 end
 
 function iface_get_network(iface)
+	local network = require "luci.model.network"
 	local link = ip.link(tostring(iface))
 	if link.master then
 		iface = link.master
@@ -96,6 +110,9 @@ function iface_get_network(iface)
 			if net.l3_device == iface or net.device == iface then
 				-- cross check with uci to filter out @name style aliases
 				local uciname = cur:get("network", net.interface, "ifname")
+				if not uciname and network.new_netifd then
+					uciname = cur:get("network", net.interface, "device")
+				end
 				if type(uciname) == "string" and uciname:sub(1,1) ~= "@" or uciname then
 					return net.interface
 				end

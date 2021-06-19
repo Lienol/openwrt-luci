@@ -135,5 +135,70 @@ if network:has_ipv6() or packet_steering then
 	end
 end
 
+if network.new_netifd then
+	s = m:section(TypedSection, "device", translate("Devices"))
+	s.addremove = true
+	s.anonymous = true
+	s.template = "cbi/tblsection"
+	local extedit = luci.dispatcher.build_url("admin/network/device/%s")
+	function s.create(e, t)
+		local sid = TypedSection.create(e, t)
+		luci.http.redirect(extedit:format(sid))
+	end
+	s.extedit = extedit .. "/edit"
+	function s.remove(e, t)
+		local name = m:get(t, "name")
+		if name then
+			m.uci:foreach("network", "bridge-vlan", function(s)
+				if s.device and s.device == name then
+					m.uci:delete("network", s[".name"])
+				end
+			end)
+		end
+		s.map.proceed = true
+		s.map:del(t)
+	end
+
+	o = s:option(DummyValue, "name", translate("Device"))
+
+	o = s:option(DummyValue, "type", translate("Type"))
+	o.cfgvalue = function(t, n)
+		local v = Value.cfgvalue(t, n)
+		if v == "" then
+			return translate("Device not present")
+		elseif v == "8021q" then
+			return translate("VLAN (802.1q)")
+		elseif v == "8021ad" then
+			return translate("VLAN (802.1ad)")
+		elseif v == "bridge" then
+			return translate("Bridge device")
+		elseif v == "tunnel" then
+			return translate("Tunnel device")
+		elseif v == "macvlan" then
+			return translate("MAC VLAN")
+		elseif v == "veth" then
+			return translate("Virtual Ethernet")
+		else
+			return translate("Network device")
+		end
+	end
+
+	o = s:option(DummyValue, "macaddr", translate("MAC Address"))
+	o.cfgvalue = function(t, n)
+		local v = Value.cfgvalue(t, n)
+		if not v then
+			local e = m:get(n)
+			if e.name then
+				local eth = e.name
+				if e.ifname then
+					eth = e.ifname
+				end
+				v = utl.exec('cat /sys/class/net/%s/address 2>/dev/null' % eth)
+			end
+		end
+		return v
+	end
+end
+
 
 return m
