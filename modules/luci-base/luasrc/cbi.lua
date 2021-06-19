@@ -484,7 +484,7 @@ function Map.get(self, section, option)
 	if not section then
 		return self.uci:get_all(self.config)
 	elseif option then
-		return self.uci:get(self.config, section, option)
+		return self.uci:get(self.config, section, option) or nil
 	else
 		return self.uci:get_all(self.config, section)
 	end
