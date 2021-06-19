@@ -231,6 +231,36 @@ if not net:is_virtual() then
 	br = s:taboption("physical", Flag, "type", translate("Bridge interfaces"), translate("creates a bridge over specified interface(s)"))
 	br.enabled = "bridge"
 	br.rmempty = true
+
+	if nw.netifd_version > "2021-05-20" then
+		br.cfgvalue = function(self, section)
+			local type = ""
+			m.uci:foreach("network", "device", function(e)
+				if e.name == m:get(section, "device") then
+					type = e.type
+				end
+			end)
+			return type
+		end
+		br.write = function(self, section, value)
+			local flag = false
+			m.uci:foreach("network", "device", function(e)
+				if e.name == m:get(section, "device") then
+					flag = true
+					m.uci:set("network", e.name, "type", value)
+				end
+			end)
+			if flag == false then
+				if value == "bridge" then
+					local id = m.uci:add("network", "device")
+					m.uci:set("network", id, "name", "br-" .. section)
+					m.uci:set("network", id, "type", "bridge")
+					m.uci:set("network", section, "device", "br-" .. section)
+				end
+			end
+			return
+		end
+	end
 	br:depends("proto", "static")
 	br:depends("proto", "dhcp")
 	br:depends("proto", "none")
