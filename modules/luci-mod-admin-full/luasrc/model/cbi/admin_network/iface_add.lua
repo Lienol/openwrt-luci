@@ -26,31 +26,46 @@ advice = m:field(DummyValue, "d1", translate("Note: interface name length"),
 
 newproto = m:field(ListValue, "_netproto", translate("Protocol of the new interface"))
 
-netbridge = m:field(Flag, "_bridge", translate("Create a bridge over multiple interfaces"))
+if nw.new_netifd then
+	device = m:field(Value, "device", "<a style='color:red'>" .. translate("Device") .. "</a>")
+	uci:foreach("network", "device", function(e)
+		device:value(e.name)
+	end)
+	for _, iface in ipairs(nw:get_interfaces()) do
+		device:value(iface:name(), iface:get_i18n())
+	end
+	device:depends("_netproto", "static")
+	device:depends("_netproto", "dhcp")
+	device:depends("_netproto", "none")
+	device:depends("_netproto", "dhcpv6")
+	device:depends("_netproto", "pppoe")
+else
+	netbridge = m:field(Flag, "_bridge", translate("Create a bridge over multiple interfaces"))
 
+	sifname = m:field(Value, "_ifname", translate("Cover the following interface"))
 
-sifname = m:field(Value, "_ifname", translate("Cover the following interface"))
-
-sifname.widget = "radio"
-sifname.template  = "cbi/network_ifacelist"
-sifname.nobridges = true
-
-
-mifname = m:field(Value, "_ifnames", translate("Cover the following interfaces"))
-
-mifname.widget = "checkbox"
-mifname.template  = "cbi/network_ifacelist"
-mifname.nobridges = true
-
+	sifname.widget = "radio"
+	sifname.template  = "cbi/network_ifacelist"
+	sifname.nobridges = true
+	
+	
+	mifname = m:field(Value, "_ifnames", translate("Cover the following interfaces"))
+	
+	mifname.widget = "checkbox"
+	mifname.template  = "cbi/network_ifacelist"
+	mifname.nobridges = true
+end
 
 local _, p
 for _, p in ipairs(nw:get_protocols()) do
 	if p:is_installed() then
 		newproto:value(p:proto(), p:get_i18n())
-		if not p:is_virtual()  then netbridge:depends("_netproto", p:proto()) end
-		if not p:is_floating() then
-			sifname:depends({ _bridge = "",  _netproto = p:proto()})
-			mifname:depends({ _bridge = "1", _netproto = p:proto()})
+		if not nw.new_netifd then
+			if not p:is_virtual()  then netbridge:depends("_netproto", p:proto()) end
+			if not p:is_floating() then
+				sifname:depends({ _bridge = "",  _netproto = p:proto()})
+				mifname:depends({ _bridge = "1", _netproto = p:proto()})
+			end
 		end
 	end
 end
@@ -65,12 +80,14 @@ function newproto.validate(self, value, section)
 
 	local proto = nw:get_protocol(value)
 	if proto and not proto:is_floating() then
-		local br = (netbridge:formvalue(section) == "1")
-		local ifn = br and mifname:formvalue(section) or sifname:formvalue(section)
-		for ifn in utl.imatch(ifn) do
-			return value
+		if not nw.new_netifd then
+			local br = (netbridge:formvalue(section) == "1")
+			local ifn = br and mifname:formvalue(section) or sifname:formvalue(section)
+			for ifn in utl.imatch(ifn) do
+				return value
+			end
+			return nil, translate("The selected protocol needs a device assigned")
 		end
-		return nil, translate("The selected protocol needs a device assigned")
 	end
 	return value
 end
@@ -78,17 +95,25 @@ end
 function newproto.write(self, section, value)
 	local name = newnet:formvalue(section)
 	if name and #name > 0 then
-		local br = (netbridge:formvalue(section) == "1") and "bridge" or nil
-		local net = nw:add_network(name, { proto = value, type = br })
-		if net then
-			local ifn
-			for ifn in utl.imatch(
-				br and mifname:formvalue(section) or sifname:formvalue(section)
-			) do
-				net:add_interface(ifn)
+		if not nw.new_netifd then
+			local br = (netbridge:formvalue(section) == "1") and "bridge" or nil
+			local net = nw:add_network(name, { proto = value, type = br })
+			if net then
+				local ifn
+				for ifn in utl.imatch(
+					br and mifname:formvalue(section) or sifname:formvalue(section)
+				) do
+					net:add_interface(ifn)
+				end
+				nw:save("network")
+				nw:save("wireless")
 			end
-			nw:save("network")
-			nw:save("wireless")
+		else
+			local net = nw:add_network(name, { proto = value, device = device:formvalue(section) })
+			if net then
+				nw:save("network")
+				nw:save("wireless")
+			end
 		end
 		luci.http.redirect(luci.dispatcher.build_url("admin/network/network", name))
 	end
