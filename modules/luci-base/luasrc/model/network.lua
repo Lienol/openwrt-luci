@@ -18,6 +18,10 @@ local jsc = require "luci.jsonc"
 
 module "luci.model.network"
 
+local f = utl.exec("cat /usr/lib/opkg/info/netifd.control 2>/dev/null")
+netifd_version = f:match("Version: ([^\n]+)")
+local ifname_s = netifd_version > "2021-05-20" and "device" or "ifname"
+
 
 IFACE_PATTERNS_VIRTUAL  = { }
 IFACE_PATTERNS_IGNORE   = { "^wmaster%d", "^wifi%d", "^hwsim%d", "^imq%d", "^ifb%d", "^mon%.wlan%d", "^sit%d", "^gre%d", "^gretap%d", "^ip6gre%d", "^ip6tnl%d", "^tunl%d", "^lo$" }
@@ -693,9 +697,21 @@ function get_interfaces(self)
 	-- find normal interfaces
 	_uci:foreach("network", "interface",
 		function(s)
-			for iface in utl.imatch(s.ifname) do
-				if not _iface_ignore(iface) and not _iface_virtual(iface) and not _wifi_iface(iface) then
-					nfs[iface] = interface(iface)
+			if netifd_version > "2021-05-20" and s.device and s.device ~= "" then
+				_uci:foreach("network", "device", function(e)
+					if e.name == s.device and e.ports then
+						for k, iface in ipairs(e.ports) do
+							if not _iface_ignore(iface) and not _iface_virtual(iface) and not _wifi_iface(iface) then
+								nfs[iface] = interface(iface)
+							end
+						end
+					end
+				end)
+			else
+				for iface in utl.imatch(s.ifname) do
+					if not _iface_ignore(iface) and not _iface_virtual(iface) and not _wifi_iface(iface) then
+						nfs[iface] = interface(iface)
+					end
 				end
 			end
 		end)
@@ -959,7 +975,30 @@ function protocol.get_i18n(self)
 end
 
 function protocol.type(self)
-	return self:_get("type")
+	local type = self:_get("type")
+	if netifd_version > "2021-05-20" then
+		_uci:foreach("network", "device", function(e)
+			if e.name == _uci:get("network", self.sid, "device") then
+				type = e.type
+			end
+		end)
+	end
+	return type
+end
+
+function protocol.ports(self)
+	local ports = self:_get("device")
+	if netifd_version > "2021-05-20" then
+		_uci:foreach("network", "device", function(e)
+			if e.name == _uci:get("network", self.sid, "device") and e.ports then
+				ports = ""
+				for i, port in ipairs(e.ports) do
+					ports = ports .. port .. " "
+				end
+			end
+		end)
+	end
+	return ports
 end
 
 function protocol.name(self)
@@ -1154,8 +1193,11 @@ end
 
 function protocol.is_alias(self)
 	local ifn, parent = nil, nil
-
-	for ifn in utl.imatch(_uci:get("network", self.sid, "ifname")) do
+	local s = _uci:get("network", self.sid, "ifname")
+	if netifd_version > "2021-05-20" then
+		s = self:ports()
+	end
+	for ifn in utl.imatch(s) do
 		if #ifn > 1 and ifn:byte(1) == 64 then
 			parent = ifn:sub(2)
 		elseif parent ~= nil then
@@ -1172,7 +1214,7 @@ function protocol.is_empty(self)
 	else
 		local empty = true
 
-		if (self:_get("ifname") or ""):match("%S+") then
+		if (self:_get(ifname_s) or ""):match("%S+") then
 			empty = false
 		end
 
@@ -1198,7 +1240,18 @@ function protocol.add_interface(self, ifname)
 
 		-- add iface to our iface list
 		else
-			_append("network", self.sid, "ifname", ifname)
+			if netifd_version > "2021-05-20" then
+				if ifname then
+					_uci:foreach("network", "device", function(e)
+						if e.name == _uci:get("network", self.sid, "device") then
+							--_uci:add_list("network", e[".name"], "ports", ifname)
+							utl.exec('uci add_list network.' .. e[".name"] .. '.ports="' .. ifname .. '" && uci commit network')
+						end
+					end)
+				end
+			else
+				_append("network", self.sid, "ifname", ifname)
+			end
 		end
 	end
 end
@@ -1211,7 +1264,18 @@ function protocol.del_interface(self, ifname)
 		if wif then _filter("wireless", wif, "network", self.sid) end
 
 		-- remove the interface
-		_filter("network", self.sid, "ifname", ifname)
+		if netifd_version > "2021-05-20" then
+			if ifname then
+				_uci:foreach("network", "device", function(e)
+					if e.name == _uci:get("network", self.sid, "device") then
+						--_uci:del_list("network", e[".name"], "ports", ifname)
+						utl.exec('uci del_list network.' .. e[".name"] .. '.ports="' .. ifname .. '" && uci commit network')
+					end
+				end)
+			end
+		else
+			_filter("network", self.sid, "ifname", ifname)
+		end
 	end
 end
 
@@ -1228,7 +1292,7 @@ function protocol.get_interface(self)
 			return interface(ifn, self)
 		end
 
-		for ifn in utl.imatch(_uci:get("network", self.sid, "ifname")) do
+		for ifn in utl.imatch(_uci:get("network", self.sid, ifname_s)) do
 			ifn = ifn:match("^[^:/]+")
 			return ifn and interface(ifn, self)
 		end
@@ -1244,7 +1308,8 @@ function protocol.get_interfaces(self, ignore_bridge_state)
 
 		local ifn
 		local nfs = { }
-		for ifn in utl.imatch(self:get("ifname")) do
+		for ifn in utl.imatch(self:ports()) do
+			
 			ifn = ifn:match("^[^:/]+")
 			nfs[ifn] = interface(ifn, self)
 		end
@@ -1287,7 +1352,7 @@ function protocol.contains_interface(self, ifname)
 		return true
 	else
 		local ifn
-		for ifn in utl.imatch(self:get("ifname")) do
+		for ifn in utl.imatch(self:get(ifname_s)) do
 			ifn = ifn:match("[^:]+")
 			if ifn == ifname then
 				return true
