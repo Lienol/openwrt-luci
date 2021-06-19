@@ -1,0 +1,28 @@
+<script type="text/javascript">
+	//<![CDATA[
+	function go() {
+		var d = document.getElementById("container.network.<%=self.sid%>.bridgevlan");
+		if (d) {
+			var d2 = document.getElementById("cbi-network-bridge-vlan");
+			if (d2) {
+				d.innerHTML = d.innerHTML + "<div>" + d2.innerHTML  + "</div>";
+				d2.remove();
+			}
+		}
+	}
+	 
+	function addLoadEvent(func) {
+		var oldonload = window.onload;
+		if (typeof window.onload != 'function') {
+			window.onload = func;
+		} else {
+			window.onload = function () {
+				oldonload();
+				func();
+			}
+		}
+	}
+	addLoadEvent(go);
+
+	//]]>
+</script>
