@@ -22,12 +22,24 @@
 			checked[value] = true
 		end
 	else
+		if self.uciType and self.uciType == "device" then
+			local n = self.network and net:get_device(self.network)
+			if n then
+				local i
+				if n.ports then
+					for _, i in ipairs(n.ports) do
+						checked[i] = true
+					end
+				end
+			end
+		else
 		local n = self.network and net:get_network(self.network)
 		if n then
 			local i
 			for _, i in ipairs(n:get_interfaces() or { n:get_interface() }) do
 				checked[i:name()] = true
 			end
+		end
 		end
 	end
 -%>

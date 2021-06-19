@@ -405,7 +405,13 @@ function network.write(self, section, value)
 			value = m:formvalue(self:cbid(section) .. ".newnet")
 			if value and #value > 0 then
 				local n = nw:add_network(value, {proto="none"})
-				if n then n:add_interface(i) end
+				if n then
+					if nw.new_netifd then
+						self.map.uci:set("wireless", section, "network", n.sid)
+					else
+						n:add_interface(i)
+					end
+				end
 			else
 				local n = i:get_network()
 				if n then n:del_interface(i) end
@@ -418,10 +424,14 @@ function network.write(self, section, value)
 			for v in ut.imatch(value) do
 				local n = nw:get_network(v)
 				if n then
-					if not n:is_empty() then
+					if not nw.new_netifd and not n:is_empty() then
 						n:set("type", "bridge")
 					end
-					n:add_interface(i)
+					if nw.new_netifd then
+						self.map.uci:set("wireless", section, "network", n.sid)
+					else
+						n:add_interface(i)
+					end
 				end
 			end
 		end
