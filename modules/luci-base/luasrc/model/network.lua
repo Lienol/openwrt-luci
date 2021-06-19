@@ -419,6 +419,12 @@ function add_network(self, n, options)
 	end
 end
 
+function get_device(self, n)
+	if n and _uci:get("network", n) == "device" then
+		return device(n)
+	end
+end
+
 function get_network(self, n)
 	if n and _uci:get("network", n) == "interface" then
 		return network(n)
@@ -752,6 +758,12 @@ function get_switch_topologies(self)
 	return _swtopo
 end
 
+
+function device(name)
+	if name then
+		return _uci:get_all("network", name)
+	end
+end
 
 function network(name, proto)
 	if name then
