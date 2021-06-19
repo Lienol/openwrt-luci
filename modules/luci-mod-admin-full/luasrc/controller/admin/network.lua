@@ -116,6 +116,8 @@ function index()
 			end
 		end
 
+		page = entry({"admin", "network", "device"}, cbi("admin_network/device"), nil)
+		page.leaf = true
 
 		if nixio.fs.access("/etc/config/dhcp") then
 			page = node("admin", "network", "dhcp")
