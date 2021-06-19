@@ -418,7 +418,7 @@ function network.write(self, section, value)
 			for v in ut.imatch(value) do
 				local n = nw:get_network(v)
 				if n then
-					if not n:is_empty() then
+					if not nw.new_netifd and not n:is_empty() then
 						n:set("type", "bridge")
 					end
 					n:add_interface(i)
