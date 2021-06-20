@@ -40,9 +40,10 @@ s:option(Flag, "fullcone", translate("Enable FullCone-NAT"))
 local offload = fs.access("/sys/module/xt_FLOWOFFLOAD/refcnt")
 
 if offload then
-	s:option(DummyValue, "offload_advice",
+	o = s:option(DummyValue, "offload_advice",
 		translate("Routing/NAT Offloading"),
 		translate("Experimental feature. Not fully compatible with QoS/SQM."))
+	o.notbr = true
 
 	o = s:option(Flag, "flow_offloading",
 		translate("Software flow offloading"),
