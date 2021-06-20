@@ -808,6 +808,12 @@ select {
     line-height: 18px;
 }
 
+input[disabled], select[disabled], textarea[disabled], input[readonly], select[readonly], textarea[readonly] {
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    color: unset;
+}
+
 table.cbi-section-table input,
 table.cbi-section-table textarea,
 table.cbi-section-table select,
