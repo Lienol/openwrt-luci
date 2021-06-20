@@ -3704,6 +3704,9 @@ msgstr "无线安全"
 msgid "Wireless is disabled or not associated"
 msgstr "无线未开启或未关联"
 
+msgid "Wireless is closing..."
+msgstr "无线关闭中..."
+
 msgid "Wireless is restarting..."
 msgstr "无线重启中..."
 
