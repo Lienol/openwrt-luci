@@ -130,6 +130,18 @@
 					var d = document.getElementById(ifc.id + '-ifc-description');
 					if (d && ifc.proto && ifc.ifname)
 					{
+						var desc = null;
+
+						if (ifc.is_dynamic)
+							desc = '<%:Virtual dynamic interface%>';
+						else if (ifc.is_alias)
+							desc = '<%:Alias Interface%>';
+
+						if (ifc.desc)
+							desc = desc ? '%s (%s)'.format(desc, ifc.desc) : ifc.desc;
+
+						html += String.format('<strong><%:Protocol%>:</strong> %h<br />', desc || '?');
+
 						if (ifc.is_up)
 						{
 							html += String.format('<strong><%:Uptime%>:</strong> %t<br />', ifc.uptime);
