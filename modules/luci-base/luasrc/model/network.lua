@@ -982,6 +982,24 @@ function protocol.is_floating(self)
 	return false
 end
 
+function protocol.is_dynamic(self)
+	return (self:_ubus("dynamic") == true)
+end
+
+function protocol.is_alias(self)
+	local ifn, parent = nil, nil
+
+	for ifn in utl.imatch(_uci:get("network", self.sid, "ifname")) do
+		if #ifn > 1 and ifn:byte(1) == 64 then
+			parent = ifn:sub(2)
+		elseif parent ~= nil then
+			parent = nil
+		end
+	end
+
+	return parent
+end
+
 function protocol.is_empty(self)
 	if self:is_floating() then
 		return false
