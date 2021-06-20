@@ -102,14 +102,18 @@ function index()
 		page.subindex = true
 
 		if page.inreq then
+			local ifcs = {}
 			uci:foreach("network", "interface",
 				function (section)
 					local ifc = section[".name"]
 					if ifc ~= "loopback" then
-						entry({"admin", "network", "network", ifc},
-						true, ifc:upper())
+						ifcs[ifc] = ifc:upper()
 					end
 				end)
+			for k, v in pairs(ifcs) do
+				entry({"admin", "network", "network", k},
+				true, v)
+			end
 		end
 
 
