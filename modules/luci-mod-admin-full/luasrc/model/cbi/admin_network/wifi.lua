@@ -194,6 +194,11 @@ else
 
 	function ch.write(self, section, value)
 		m:set(section, "hwmode", value[1])
+		if value[1] == "11g" then
+			m:set(section, "band", "2g")
+		elseif value[1] == "11a" then
+			m:set(section, "band", "5g")
+		end
 		m:set(section, "channel", value[2])
 		m:set(section, "htmode", value[3])
 	end
