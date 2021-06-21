@@ -173,26 +173,55 @@ else
 	ch.hwmodes = hw_modes
 	ch.htmodes = iw.htmodelist
 	ch.freqlist = iw.freqlist
+	local has_band = ut.exec("cat /lib/wifi/mac80211.sh 2>/dev/null | grep 'get_band_defaults'")
+	ch.has_band = (has_band and has_band ~= "") and true or false
 	ch.template = "cbi/wireless_modefreq"
 
 	function ch.cfgvalue(self, section)
+		local band = "hwmode"
+		if self.has_band then
+			band = "band"
+		end
 		return {
-			m:get(section, "hwmode") or "",
+			m:get(section, band) or "",
 			m:get(section, "channel") or "auto",
 			m:get(section, "htmode") or ""
 		}
 	end
 
 	function ch.formvalue(self, section)
+		local band = m:formvalue(self:cbid(section) .. ".band")
+		if not band then
+			if hw_modes.g then
+				band = "11g"
+			else
+				band = "11a"
+			end
+			if self.has_band then
+				if hw_modes.g then
+					band = "2g"
+				else
+					band = "5g"
+				end
+			end
+		end
 		return {
-			m:formvalue(self:cbid(section) .. ".band") or (hw_modes.g and "11g" or "11a"),
+			band,
 			m:formvalue(self:cbid(section) .. ".channel") or "auto",
 			m:formvalue(self:cbid(section) .. ".htmode") or ""
 		}
 	end
 
 	function ch.write(self, section, value)
-		m:set(section, "hwmode", value[1])
+		if self.has_band then
+			m:set(section, "band", value[1])
+		else
+			if value[1] == "2g" then
+				m:set(section, "hwmode", "11g")
+			elseif value[1] == "5g" then
+				m:set(section, "hwmode", "11a")
+			end
+		end
 		m:set(section, "channel", value[2])
 		m:set(section, "htmode", value[3])
 	end
