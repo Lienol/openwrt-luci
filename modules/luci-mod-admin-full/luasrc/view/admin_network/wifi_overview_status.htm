@@ -120,6 +120,8 @@
 								radiostate[dev].frequency ? radiostate[dev].frequency : '?',
 								radiostate[dev].bitrate ? radiostate[dev].bitrate : '?'
 						);
+						if (!radiostate[dev].channel && !radiostate[dev].frequency && !radiostate[dev].bitrate)
+							stat.innerHTML = '';
 				}
 			}
 		}
