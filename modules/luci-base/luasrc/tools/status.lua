@@ -191,52 +191,6 @@ function wifi_network(id)
 	return { }
 end
 
-function wifi_assoclist()
-	local sys = require "luci.sys"
-	local ntm = require "luci.model.network".init()
-	local hosts = sys.net.host_hints()
-
-	local assoc = {}
-	local _, dev, net, bss
-
-	for _, dev in ipairs(ntm:get_wifidevs()) do
-		local radioname = dev:get_i18n()
-
-		for _, net in ipairs(dev:get_wifinets()) do
-			local netname = net:shortname()
-			local netlink = net:adminlink()
-			local ifname  = net:ifname()
-
-			for _, bss in pairs(net:assoclist() or {}) do
-				local host = hosts[_]
-
-				bss.bssid  = _
-				bss.ifname = ifname
-				bss.radio  = radioname
-				bss.name   = netname
-				bss.link   = netlink
-
-				bss.host_name = (host) and (host.name or host.ipv4 or host.ipv6)
-				bss.host_hint = (host and host.name and (host.ipv4 or host.ipv6)) and (host.ipv4 or host.ipv6)
-
-				assoc[#assoc+1] = bss
-			end
-		end
-	end
-
-	table.sort(assoc, function(a, b)
-		if a.radio ~= b.radio then
-			return a.radio < b.radio
-		elseif a.ifname ~= b.ifname then
-			return a.ifname < b.ifname
-		else
-			return a.bssid < b.bssid
-		end
-	end)
-
-	return assoc
-end
-
 function switch_status(devs)
 	local dev
 	local switches = { }
