@@ -28,3 +28,5 @@ config internal apply
 	option holdoff 1
 	option timeout 3
 	option display 1
+	option popup_box 0
+	option auto_refresh_page 0

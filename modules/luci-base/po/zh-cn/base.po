@@ -1782,6 +1782,12 @@ msgstr "超时保留时间"
 msgid "display time"
 msgstr "保存应用后保留时间"
 
+msgid "Enable pop-up box"
+msgstr "启用弹出框"
+
+msgid "Enable auto refresh page"
+msgstr "启用自动刷新页面"
+
 msgid "Latency"
 msgstr "延迟"
 

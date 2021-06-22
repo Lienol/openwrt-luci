@@ -1,6 +1,6 @@
 <% export("cbi_apply_widget", function(redirect_ok, rollback_token) -%>
 <style type="text/css">
-	#cbi_apply_overlay {
+	.popup_box {
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -13,7 +13,7 @@
 		z-index: 20000;
 	}
 
-	#cbi_apply_overlay .alert-message {
+	.popup_box .alert-message {
 		display: flex;
 		/* flex-wrap: wrap; */
 		align-items: center;
@@ -23,13 +23,13 @@
 		overflow-y: hidden !important;
 	}
 
-	#cbi_apply_overlay .alert-message > h4,
-	#cbi_apply_overlay .alert-message > p,
-	#cbi_apply_overlay .alert-message > div {
+	.popup_box .alert-message > h4,
+	.popup_box .alert-message > p,
+	.popup_box .alert-message > div {
 		flex-basis: 100%;
 	}
 
-	#cbi_apply_overlay .alert-message > img {
+	.popup_box .alert-message > img {
 		margin-right: 1em;
 		flex-basis: 32px;
 	}
@@ -39,12 +39,11 @@
 		height: 100vh;
 	}
 
-	body.apply-overlay-active #cbi_apply_overlay {
+	body.apply-overlay-active .popup_box {
 		display: block;
 	}
 </style>
 
-<script type="text/javascript" src="<%=resource%>/cbi.js?v=git-18.138.59467-72fe5dd"></script>
 <script type="text/javascript">//<![CDATA[
 	var xhr = new XHR(),
 	    uci_apply_auth = { sid: '<%=luci.dispatcher.context.authsession%>', token: '<%=token%>' },
@@ -53,6 +52,8 @@
 	    uci_apply_timeout = <%=luci.config and luci.config.apply and luci.config.apply.timeout%>,
 	    uci_apply_display = <%=luci.config and luci.config.apply and luci.config.apply.display%>,
 	    uci_confirm_auth = <% if rollback_token then %>{ token: '<%=rollback_token%>' }<% else %>null<% end %>,
+		uci_apply_popup_box = <%=luci.config and luci.config.apply and luci.config.apply.popup_box or "0"%>,
+		uci_apply_auto_refresh_page = <%=luci.config and luci.config.apply and luci.config.apply.auto_refresh_page or "0"%>,
 	    was_xhr_poll_running = false;
 		
 	var config_doms = document.getElementsByClassName("cbi-map");
@@ -71,7 +72,9 @@
 	
 	
 	function uci_status_message(type, content) {
-		var overlay = document.getElementById('cbi_apply_overlay') || document.body.appendChild(E('<div id="cbi_apply_overlay"><div class="alert-message"></div></div>')),
+		var overlay = document.getElementById('cbi_apply_overlay') || 
+		(uci_apply_popup_box == "0" && config_doms.length > 0) && config_doms[0].insertBefore(E('<div id="cbi_apply_overlay"><div class="alert-message"></div></div>'), config_doms[0].children[0]) ||
+		document.body.appendChild(E('<div id="cbi_apply_overlay" class="popup_box"><div class="alert-message"></div></div>')),
 		    message = overlay.querySelector('.alert-message');
 
 		if (message && type) {
@@ -84,7 +87,8 @@
 			if (content)
 				message.innerHTML = content;
 
-			document.body.classList.add('apply-overlay-active');
+			if (!(uci_apply_popup_box == "0" && config_doms.length > 0))
+				document.body.classList.add('apply-overlay-active');
 
 			if (!was_xhr_poll_running) {
 				was_xhr_poll_running = XHR.running();
@@ -152,11 +156,20 @@
 				uci_status_message('notice', '<%:Configuration has been applied.%>');
 
 				window.clearTimeout(tt);
+				
 				window.setTimeout(function() {
 					<% if redirect_ok then -%>
 						location.href = decodeURIComponent('<%=luci.util.urlencode(redirect_ok)%>');
 					<%- else -%>
+						if (uci_apply_auto_refresh_page == "0") {
+							var overlay = document.getElementById('cbi_apply_overlay');
+							if (overlay) {
+								overlay.remove();
+							}
+							XHR.run();
+						} else {
 						window.location = window.location.href.split('#')[0];
+						}
 					<% end %>
 				}, uci_apply_display * 1000);
 
