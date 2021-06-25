@@ -54,7 +54,7 @@ local tpl_networks = tpl.Template(nil, [[
 								<input type="submit" name="cbi.apply" class="cbi-button cbi-button-reset" onclick="this.previousElementSibling.value='1'" title="<%:Shutdown this interface%>" value="<%:Stop%>"<%=ifattr(dynamic, "disabled", "disabled")%> />
 							<% end %>
 
-							<input type="button" class="cbi-button cbi-button-action important" onclick="location.href='<%=url("admin/network/network", net[1])%>'" title="<%:Edit this interface%>" value="<%:Edit%>" id="<%=net[1]%>-ifc-edit"<%=ifattr(dynamic, "disabled", "disabled")%> />
+							<input type="button" class="cbi-button cbi-button-edit" onclick="location.href='<%=url("admin/network/network", net[1])%>'" title="<%:Edit this interface%>" value="<%:Edit%>" id="<%=net[1]%>-ifc-edit"<%=ifattr(dynamic, "disabled", "disabled")%> />
 
 							<input type="hidden" name="cbid.network.<%=net[1]%>.__delete__" value="" />
 							<input type="submit" name="cbi.apply" class="cbi-button cbi-button-remove" onclick="iface_delete(event)" value="<%:Delete%>"<%=ifattr(dynamic, "disabled", "disabled")%> />
@@ -63,9 +63,9 @@ local tpl_networks = tpl.Template(nil, [[
 				</div>
 			<% end %>
 		</div>
-	</div>
-	<div class="cbi-section-create">
-		<input type="button" class="cbi-button cbi-button-add" value="<%:Add new interface...%>" onclick="location.href='<%=url("admin/network/iface_add")%>'" />
+		<div class="cbi-section-create">
+			<input type="button" class="cbi-button cbi-button-add" value="<%:Add new interface...%>" onclick="location.href='<%=url("admin/network/iface_add")%>'" />
+		</div>
 	</div>
 ]])
 
