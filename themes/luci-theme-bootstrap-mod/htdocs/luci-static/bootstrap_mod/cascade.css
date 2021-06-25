@@ -122,6 +122,7 @@ header {
     box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
     z-index: 100;
     border-bottom: 2px solid #ccc;
+    background-image: linear-gradient(to bottom, #333333, #222222);
 }
 
 .brand {
@@ -914,12 +915,11 @@ input[type=file] {
 
 .cbi-button,
 button {
-    border-radius: 6px !important;
+    border-radius: 4px;
     display: inline-block;
-    background: #fff;
+    background: linear-gradient(#fff,#fff 25%,#e6e6e6) no-repeat;
     border: 1px solid #ccc;
-    border-radius: 2px;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, .05);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 1px 2px rgba(0,0,0,0.05);
     color: #333;
     line-height: 16px;
     padding: 0.5em;
@@ -953,9 +953,8 @@ button:focus {
 
 .cbi-button-add,
 .cbi-input-add {
-    background: #404040;
-    border-color: #404040;
-    color: #fff;
+    border-color: #4a4;
+    color: #4a4;
 }
 
 .cbi-button-add:active,
@@ -967,9 +966,8 @@ button:focus {
 .cbi-button-remove,
 .cbi-input-remove,
 .cbi-section-remove input {
-    border-color: red;
-    background-color: red;
-    color: #fff;
+    border-color: #c44;
+    color: #c44;
 }
 
 .cbi-button-remove:active,
@@ -982,9 +980,8 @@ button:focus {
 
 .cbi-button-reload,
 .cbi-input-reload {
-    background: rgb(148, 143, 225);
     border-color: rgb(148, 143, 225);
-    color: #fff;
+    color: rgb(148, 143, 225);
 }
 
 .cbi-button-reload:active,
@@ -995,9 +992,8 @@ button:focus {
 
 .cbi-button-reset,
 .cbi-input-reset {
-    background: #6bde84;
-    border-color: #6bde84;
-    color: #fff;
+    border-color: #4a4;
+    color: #4a4;
 }
 
 .cbi-button-reset:active,
@@ -1008,9 +1004,8 @@ button:focus {
 
 .cbi-button-edit,
 .cbi-input-edit {
-    background: #ff7700;
     border-color: #ff7700;
-    color: #fff;
+    color: #ff7700;
 }
 
 .cbi-button-edit:active,
@@ -1021,9 +1016,8 @@ button:focus {
 
 .cbi-button-apply,
 .cbi-input-apply {
-    color: #fff;
-    background: #0069d6;
-    border: 1px solid #0069d6;
+    border-color: #0069d6;
+    color: #0069d6;
 }
 
 .cbi-button-apply:active,
@@ -1034,9 +1028,8 @@ button:focus {
 
 .cbi-button-save,
 .cbi-input-save {
-    background: rgb(148, 143, 225);
     border-color: rgb(148, 143, 225);
-    color: #fff;
+    color: rgb(148, 143, 225);
 }
 
 .cbi-button-save:active,
@@ -1049,7 +1042,13 @@ button:focus {
 input[type="text"] + .cbi-button,
 input[type="password"] + .cbi-button,
 select + .cbi-button {
-	padding: 4px 8px;
+	vertical-align: top;
+	padding: 0.4em;
+	border-color: #ccc;
+	margin: 0 0 1px -3px;
+	font-size: 14px;
+	line-height: 18px;
+	border-radius: 5px;
 }
 
 
@@ -1274,6 +1273,7 @@ body.node-main-login>header {
 
 body.node-main-login .alert-message {
     z-index: 999;
+	display: none;
 }
 
 .node-main-login>.container>form {
@@ -1288,8 +1288,9 @@ body.node-main-login .alert-message {
     transform: translate(-50%, -50%);
 }
 
-.node-main-login>.container>form .errorbox {
-    color: red;
+.node-main-login>.container>form .errorbox,
+.node-main-login>.container>form .errorbox>p {
+    color: red !important;
 }
 
 .node-main-login>.container>form>.cbi-map>h2 {
@@ -1530,9 +1531,8 @@ body.modal-overlay-active #modal_overlay>.modal {
 
 .btn.primary,
 .cbi-button-action.important {
-    color: #fff;
-    background: #0069d6;
-    border: 1px solid #0069d6;
+    border-color: #ff7700;
+    color: #ff7700;
 }
 
 .cbi-dropdown {
