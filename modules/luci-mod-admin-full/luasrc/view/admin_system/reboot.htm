@@ -21,7 +21,7 @@
 	var tries = 0;
 
 	function ok() {
-		window.location = '<%=controller%>/admin';
+		window.location = '<%=url("admin")%>';
 	}
 
 	function check() {
@@ -45,7 +45,7 @@
 		button.style.display = 'none';
 		document.getElementById('reboot-message').parentNode.style.display = '';
 
-		(new XHR()).post('<%=controller%>/admin/system/reboot/call', { token: '<%=token%>' }, check);
+		(new XHR()).post('<%=url("admin/system/reboot/call")%>', { token: '<%=token%>' }, check);
 	}
 //]]></script>
 
