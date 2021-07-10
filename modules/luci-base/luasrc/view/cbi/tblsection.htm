@@ -1,8 +1,13 @@
 <%-
-local rowcnt = 1
+local rowcnt = 0
+
 function rowstyle()
 	rowcnt = rowcnt + 1
-	return (rowcnt % 2) + 1
+	if rowcnt % 2 == 0 then
+		return " cbi-rowstyle-1"
+	else
+		return " cbi-rowstyle-2"
+	end
 end
 
 function width(o)
@@ -13,6 +18,27 @@ function width(o)
 		return ' style="width:%s"' % o.width
 	end
 	return ''
+end
+
+local has_titles = false
+local has_descriptions = false
+
+local anonclass = (not self.anonymous or self.sectiontitle) and "named" or "anonymous"
+local titlename = ifattr(not self.anonymous or self.sectiontitle, "data-title", translate("Name"))
+
+local i, k
+for i, k in pairs(self.children) do
+	if not k.typename then
+		k.typename = k.template and k.template:gsub("^.+/", "") or ""
+	end
+
+	if not has_titles and k.title and #k.title > 0 then
+		has_titles = true
+	end
+
+	if not has_descriptions and k.description and #k.description > 0 then
+		has_descriptions = true
+	end
 end
 -%>
 
@@ -28,7 +54,8 @@ end
 	<div class="cbi-section-node">
 		<%- local count = 0 -%>
 		<table class="cbi-section-table">
-			<tr class="cbi-section-table-titles">
+			<%- if has_titles then -%>
+			<tr class="cbi-section-table-titles"<%=titlename%>>
 			<%- if not self.anonymous then -%>
 				<%- if self.sectionhead then -%>
 					<th class="cbi-section-table-cell"><%=self.sectionhead%></th>
@@ -43,12 +70,15 @@ end
 				<%- if k.titleref then -%></a><%- end -%>
 				</th>
 			<%- count = count + 1; end; end; if self.sortable then -%>
-				<th class="cbi-section-table-cell"><%:Sort%></th>
+				<th class="cbi-section-table-cell"></th>
 			<%- end; if self.extedit or self.addremove then -%>
 				<th class="cbi-section-table-cell">&#160;</th>
 			<%- count = count + 1; end -%>
 			</tr>
-			<tr class="cbi-section-table-descr">
+			<%- end -%>
+			
+			<%- if has_descriptions then -%>
+			<tr class="cbi-section-table-descr <%=anonclass%>">
 			<%- if not self.anonymous then -%>
 				<%- if self.sectiondesc then -%>
 					<th class="cbi-section-table-cell"><%=self.sectiondesc%></th>
@@ -64,6 +94,7 @@ end
 				<th class="cbi-section-table-cell"></th>
 			<%- end -%>
 			</tr>
+			<%- end -%>
 			<%- local isempty = true
 			    for i, k in ipairs(self:cfgsections()) do
 					section = k
