@@ -4084,3 +4084,10 @@ msgstr "启用 256-QAM"
 
 msgid "802.11n 2.4Ghz Only"
 msgstr "只适合 802.11n 2.4Ghz"
+
+msgid ""
+"Enable packet steering across all CPUs. May help or hinder network speed."
+msgstr "启用所有 CPU 的数据包控制。可能有助于或阻碍网络速度。"
+
+msgid "Packet Steering"
+msgstr "数据包引导"
