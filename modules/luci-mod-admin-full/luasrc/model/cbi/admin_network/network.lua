@@ -3,6 +3,7 @@
 -- Licensed to the public under the Apache License 2.0.
 
 local fs = require "nixio.fs"
+local utl = require "luci.util"
 
 m = Map("network", translate("Interfaces"))
 m.pageaction = false
@@ -102,13 +103,21 @@ if fs.access("/usr/sbin/br2684ctl") then
 	m.pageaction = true
 end
 
+local packet_steering = utl.exec("cat /etc/hotplug.d/net/20-smp-packet-steering 2>/dev/null | grep 'packet_steering'")
 local network = require "luci.model.network"
-if network:has_ipv6() then
+if network:has_ipv6() or (packet_steering and packet_steering ~= "") then
 	local s = m:section(NamedSection, "globals", "globals", translate("Global network options"))
-	local o = s:option(Value, "ula_prefix", translate("IPv6 ULA-Prefix"))
-	o.datatype = "ip6addr"
-	o.rmempty = true
-	m.pageaction = true
+
+	if network:has_ipv6() then
+		local o = s:option(Value, "ula_prefix", translate("IPv6 ULA-Prefix"))
+		o.datatype = "ip6addr"
+		o.rmempty = true
+		m.pageaction = true
+	end
+
+	if (packet_steering and packet_steering ~= "") then
+		local o = s:option(Flag, "packet_steering", translate("Packet Steering"), translate("Enable packet steering across all CPUs. May help or hinder network speed."))
+	end
 end
 
 
