@@ -38,11 +38,6 @@
 				))
 			end
 		%></li>
-		<li><% if keep then %>
-			<%:Configuration files will be kept.%>
-		<% else %>
-			<%:Note: Configuration files will be erased.%>
-		<% end %></li>
 	</ul>
 </fieldset>
 
@@ -50,7 +45,12 @@
 	<form class="inline" action="<%=REQUEST_URI%>" method="post">
 		<input type="hidden" name="token" value="<%=token%>" />
 		<input type="hidden" name="step" value="2" />
-		<input type="hidden" name="keep" value="<%=keep and "1" or ""%>" />
+		<div class="cbi-value">
+			<label class="cbi-value-title" for="keep"><%:Keep settings%>:</label>
+			<div class="cbi-value-field">
+				<input type="checkbox" name="keep" id="keep" checked="checked" />
+			</div>
+		</div>
 		<input class="cbi-button cbi-button-reset" name="cancel" type="submit" value="<%:Cancel%>" />
 		<input class="cbi-button cbi-button-apply" type="submit" value="<%:Proceed%>" />
 	</form>
