@@ -4175,3 +4175,18 @@ msgstr "启用所有 CPU 的数据包控制。可能有助于或阻碍网络速�
 
 msgid "Packet Steering"
 msgstr "数据包引导"
+
+msgid "Choose mtdblock"
+msgstr "选择MTD分区"
+
+msgid "Download mtdblock"
+msgstr "下载MTD分区"
+
+msgid "Save mtdblock"
+msgstr "备份MTD"
+
+msgid "Save mtdblock contents"
+msgstr "备份MTD内容"
+
+msgid "Click \"Save mtdblock\" to download specified mtdblock file. (NOTE: THIS FEATURE IS FOR PROFESSIONALS! )"
+msgstr "点击\"备份MTD\"可以下载指定分区数据.(注意！仅提供给专业人士使用！)"
