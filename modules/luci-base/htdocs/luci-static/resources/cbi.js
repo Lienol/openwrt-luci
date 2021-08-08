@@ -1230,7 +1230,7 @@ function cbi_row_swap(elem, up, store)
 	if (!table)
 		return false;
 
-	var s = up ? 3 : 2;
+	var s = up ? 2 : 1;
 	var e = up ? table.rows.length : table.rows.length - 1;
 
 	for (var idx = s; idx < e; idx++)
@@ -1247,7 +1247,7 @@ function cbi_row_swap(elem, up, store)
 	}
 
 	var ids = [ ];
-	for (idx = 2; idx < table.rows.length; idx++)
+	for (idx = 1; idx < table.rows.length; idx++)
 	{
 		table.rows[idx].className = table.rows[idx].className.replace(
 			/cbi-rowstyle-[12]/, 'cbi-rowstyle-' + (1 + (idx % 2))
