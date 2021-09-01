@@ -1803,6 +1803,8 @@ div>.table>.tbody>.tr:nth-of-type(2n) {
     position: absolute;
     left: 1.3rem;
     padding-top: 3px;
+    content: "\e903";
+    color: #fb6340;
 }
 
 .main>.main-left>.nav>.slide>.menu[data-title=Status]:before {
