@@ -333,6 +333,9 @@ header > .container > .brand {
 
 .main > .main-left > .nav > li:nth-last-child(1) {
     margin-top: 2rem;
+}
+
+.main > .main-left > .nav > li.entry {
     font-size: 1.2rem;
 }
 
