@@ -49,7 +49,7 @@
 		local cpu_info = luci.sys.exec("/sbin/cpuinfo") or "ARM Processor x 0 (233MHz, 2.3°C)"
 
 		local rv = {
-			cpu_free   = tonumber(luci.sys.exec("top -n1 | awk '/^CPU:/ { printf(\"%d%\", $8) }'")) or 0,
+			cpu_free   = tonumber(luci.sys.exec("top -n1 | awk '/^CPU:/ { printf(\"%d\", $8) }'")) or 0,
 			cpuinfo    = cpu_info,
 			uptime     = sysinfo.uptime or 0,
 			localtime  = os.date("%Y-%m-%d") .. " " .. os.date("%X") .. " " .. translate(os.date("%A")),
