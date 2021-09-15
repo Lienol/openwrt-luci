@@ -46,6 +46,7 @@
 		):match("%d+")) or 4096
 
 		local rv = {
+			cpu_free   = tonumber(luci.sys.exec("top -n1 | awk '/^CPU:/ { printf(\"%d\", $8) }'")) or 0,
 			uptime     = sysinfo.uptime or 0,
 			localtime  = os.date("%Y-%m-%d") .. " " .. os.date("%X") .. " " .. translate(os.date("%A")),
 			loadavg    = sysinfo.load or { 0, 0, 0 },
@@ -53,8 +54,7 @@
 			swap       = swapinfo,
 			connmax    = conn_max,
 			conncount  = conn_count,
-			wifinets   = stat.wifi_networks(),
-			cpu_free   = tonumber(luci.sys.exec("top -n1 | awk '/^CPU:/ { printf(\"%d%\", $8) }'")) or 0,
+			wifinets   = stat.wifi_networks()
 		}
 
 		if wan then
