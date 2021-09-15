@@ -51,7 +51,7 @@
 		local eth_info = luci.sys.exec("ethinfo")
 
 		local rv = {
-			cpu_free   = tonumber(luci.sys.exec("top -n1 | awk '/^CPU:/ { printf(\"%d%\", $8) }'")) or 0,
+			cpu_free   = tonumber(luci.sys.exec("top -n1 | awk '/^CPU:/ { printf(\"%d\", $8) }'")) or 0,
 			cpuinfo    = cpu_info,
 			ethinfo    = eth_info,
 			uptime     = sysinfo.uptime or 0,
