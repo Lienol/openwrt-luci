@@ -3935,6 +3935,9 @@ msgstr "是"
 msgid "« Back"
 msgstr "« 后退"
 
+msgid "Disconnect"
+msgstr "断开连接"
+
 #~ msgid "Action"
 #~ msgstr "动作"
 
