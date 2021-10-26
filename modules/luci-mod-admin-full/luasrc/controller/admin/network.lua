@@ -43,6 +43,9 @@ function index()
 			end)
 
 		if has_wifi then
+			page = entry({"admin", "network", "wireless_disconnect_client"}, call("wifi_disconnect_client"), nil)
+			page.leaf = true
+
 			page = entry({"admin", "network", "wireless_join"}, post("wifi_join"), nil)
 			page.leaf = true
 
@@ -157,6 +160,21 @@ function index()
 		page = entry({"admin", "network", "diag_traceroute6"}, post("diag_traceroute6"), nil)
 		page.leaf = true
 --	end
+end
+
+function wifi_disconnect_client()
+	local ifname = luci.http.formvalue("ifname")
+	local addr = luci.http.formvalue("addr")
+	local deauth = luci.http.formvalue("deauth")
+	local reason = luci.http.formvalue("reason")
+	local ban_time = luci.http.formvalue("ban_time")
+
+	luci.util.ubus("hostapd." .. ifname, "del_client", {
+		addr = addr,
+		reason = reason,
+		deauth = deauth,
+		ban_time = ban_time,
+	})
 end
 
 function wifi_join()
