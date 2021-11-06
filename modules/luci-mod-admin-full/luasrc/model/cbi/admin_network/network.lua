@@ -141,6 +141,11 @@ o = s:option(Value, "__delete__")
 
 function o.write(self, sid, value)
 	ntm:del_network(sid)
+	m.uci:foreach("dhcp", "dhcp", function(s)
+		if s.interface == sid then
+			m.uci:delete("dhcp", s[".name"])
+		end
+	end)
 end
 
 
