@@ -518,6 +518,13 @@ function del_network(self, n)
 				end
 			end)
 	end
+	_uci:foreach("dhcp", "dhcp",
+		function(s)
+			if s.interface == n then
+				_uci:delete("dhcp", s['.name'])
+			end
+		end)
+	_uci:commit("dhcp")
 	return r
 end
 
