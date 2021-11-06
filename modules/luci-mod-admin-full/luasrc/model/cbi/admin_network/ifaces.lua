@@ -397,7 +397,7 @@ end
 -- Display DNS settings if dnsmasq is available
 --
 
-if has_dnsmasq and net:proto() == "static" then
+if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:proto() == "none") then
 	m2 = Map("dhcp", "", "")
 
 	local has_section = false
@@ -437,6 +437,10 @@ if has_dnsmasq and net:proto() == "static" then
 			translate("Ignore interface"),
 			translate("Disable <abbr title=\"Dynamic Host Configuration Protocol\">DHCP</abbr> for " ..
 				"this interface."))
+		if net:proto() ~= "static" then
+			ignore.default = "1"
+			ignore.rmempty = false
+		end
 
 		local start = s:taboption("general", Value, "start", translate("Start"),
 			translate("Lowest leased address as offset from the network address."))
