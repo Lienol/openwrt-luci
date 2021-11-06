@@ -350,6 +350,8 @@ function iface_delete(iface)
 		luci.http.redirect(luci.dispatcher.build_url("admin/network/network"))
 		netmd:commit("network")
 		netmd:commit("wireless")
+		luci.sys.call("env -i /sbin/ifup %q >/dev/null 2>/dev/null" % iface)
+		luci.sys.call("env -i /sbin/ifdown %q >/dev/null 2>/dev/null" % iface)
 		return
 	end
 
