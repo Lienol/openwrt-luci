@@ -442,22 +442,64 @@ function diag_command(cmd, addr)
 	luci.http.status(500, "Bad address")
 end
 
-function diag_ping(addr)
-	diag_command("ping -c 5 -W 1 %q 2>&1", addr)
+function get_l3_device_by_network(network)
+	local util = require "luci.util"
+	local dump = util.ubus("network.interface", "dump", { })
+	if dump then
+		local _, net
+		for _, net in ipairs(dump.interface) do
+			if net.interface == network then
+				return net.l3_device
+			end
+		end
+	end
+	return nil
 end
 
-function diag_traceroute(addr)
-	diag_command("traceroute -q 1 -w 1 -n %q 2>&1", addr)
+function diag_ping(addr, network)
+	if network then
+		local device = get_l3_device_by_network(network)
+		if device then
+			diag_command("ping -4 -c 5 -W 1 -I " .. device .. " %q 2>&1", addr)
+			return
+		end
+	end
+	diag_command("ping -4 -c 5 -W 1 %q 2>&1", addr)
+end
+
+function diag_traceroute(addr, network)
+	if network then
+		local device = get_l3_device_by_network(network)
+		if device then
+			diag_command("traceroute -4 -q 1 -w 1 -n -i " .. device .. " %q 2>&1", addr)
+			return
+		end
+	end
+	diag_command("traceroute -4 -q 1 -w 1 -n %q 2>&1", addr)
 end
 
 function diag_nslookup(addr)
 	diag_command("nslookup %q 2>&1", addr)
 end
 
-function diag_ping6(addr)
+function diag_ping6(addr, network)
+	if network then
+		local device = get_l3_device_by_network(network)
+		if device then
+			diag_command("ping6 -c 5 -I " .. device .. " %q 2>&1", addr)
+			return
+		end
+	end
 	diag_command("ping6 -c 5 %q 2>&1", addr)
 end
 
-function diag_traceroute6(addr)
+function diag_traceroute6(addr, network)
+	if network then
+		local device = get_l3_device_by_network(network)
+		if device then
+			diag_command("traceroute6 -q 1 -w 2 -n -i " .. device .. " %q 2>&1", addr)
+			return
+		end
+	end
 	diag_command("traceroute6 -q 1 -w 2 -n %q 2>&1", addr)
 end

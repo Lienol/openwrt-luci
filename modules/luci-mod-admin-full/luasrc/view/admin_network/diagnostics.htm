@@ -13,17 +13,33 @@ local has_traceroute6 = fs.access("/bin/traceroute6") or fs.access("/usr/bin/tra
 local dns_host = luci.config.diag and luci.config.diag.dns or "dev.openwrt.org"
 local ping_host = luci.config.diag and luci.config.diag.ping or "dev.openwrt.org"
 local route_host = luci.config.diag and luci.config.diag.route or "dev.openwrt.org"
+
+local networks = {}
+local uci = require "luci.model.uci".cursor()
+uci:foreach("network", "interface",
+	function (section)
+		if section[".name"] ~= "loopback" then
+			networks[#networks + 1] = section[".name"]
+		end
+	end
+)
+
 %>
 
 <script type="text/javascript" src="<%=resource%>/cbi.js"></script>
 <script type="text/javascript">//<![CDATA[
 	var stxhr = new XHR();
 
-	function update_status(field, proto)
+	function update_status(network, field, proto)
 	{
 		var tool = field.name;
 		var addr = field.value;
 		var protocol = proto ? "6" : "";
+		
+		if (network && network != 0) {
+			var dom = document.getElementsByName(tool + '_network')[0];
+			network = dom.options[network].value;
+		}
 
 		var legend = document.getElementById('diag-rc-legend');
 		var output = document.getElementById('diag-rc-output');
@@ -38,7 +54,7 @@ local route_host = luci.config.diag and luci.config.diag.route or "dev.openwrt.o
 			legend.parentNode.style.display = 'block';
 			legend.style.display = 'inline';
 
-			stxhr.post('<%=url('admin/network')%>/diag_' + tool + protocol + '/' + addr, { token: '<%=token%>' },
+			stxhr.post('<%=url('admin/network')%>/diag_' + tool + protocol + '/' + addr + (network ? '/' + network : ''), { token: '<%=token%>' },
 				function(x)
 				{
 					if (x.responseText)
@@ -68,27 +84,39 @@ local route_host = luci.config.diag and luci.config.diag.route or "dev.openwrt.o
 
 			<div style="width:30%; float:left">
 				<input style="margin: 5px 0" type="text" value="<%=ping_host%>" name="ping" /><br />
+				<select name="ping_network" style="width:auto">
+					<option value="" selected="selected"><%:Auto%></option>
+					<% for i,v in ipairs(networks) do %>
+						<option value="<%=v%>"><%=v%></option>
+					<% end %>
+				</select>
 				<% if has_ping6 then %>
 				<select name="ping_proto" style="width:auto">
 					<option value="" selected="selected"><%:IPv4%></option>
 					<option value="6"><%:IPv6%></option>
 				</select>
-				<input type="button" value="<%:Ping%>" class="cbi-button cbi-button-apply" onclick="update_status(this.form.ping, this.form.ping_proto.selectedIndex)" />
+				<input type="button" value="<%:Ping%>" class="cbi-button cbi-button-apply" onclick="update_status(this.form.ping_network.selectedIndex, this.form.ping, this.form.ping_proto.selectedIndex)" />
 				<% else %>
-				<input type="button" value="<%:Ping%>" class="cbi-button cbi-button-apply" onclick="update_status(this.form.ping)" />
+				<input type="button" value="<%:Ping%>" class="cbi-button cbi-button-apply" onclick="update_status(this.form.ping_network.selectedIndex, this.form.ping)" />
 				<% end %>
 			</div>
 
 			<div style="width:33%; float:left">
 				<input style="margin: 5px 0" type="text" value="<%=route_host%>" name="traceroute" /><br />
+				<select name="traceroute_network" style="width:auto">
+					<option value="" selected="selected"><%:Auto%></option>
+					<% for i,v in ipairs(networks) do %>
+						<option value="<%=v%>"><%=v%></option>
+					<% end %>
+				</select>
 				<% if has_traceroute6 then %>
 				<select name="traceroute_proto" style="width:auto">
 					<option value="" selected="selected"><%:IPv4%></option>
 					<option value="6"><%:IPv6%></option>
 				</select>
-				<input type="button" value="<%:Traceroute%>" class="cbi-button cbi-button-apply" onclick="update_status(this.form.traceroute, this.form.traceroute_proto.selectedIndex)" />
+				<input type="button" value="<%:Traceroute%>" class="cbi-button cbi-button-apply" onclick="update_status(this.form.traceroute_network.selectedIndex, this.form.traceroute, this.form.traceroute_proto.selectedIndex)" />
 				<% else %>
-				<input type="button" value="<%:Traceroute%>" class="cbi-button cbi-button-apply" onclick="update_status(this.form.traceroute)" />
+				<input type="button" value="<%:Traceroute%>" class="cbi-button cbi-button-apply" onclick="update_status(this.form.traceroute_network.selectedIndex, this.form.traceroute)" />
 				<% end %>
 				<% if not has_traceroute6 then %>
 					<p>&#160;</p>
@@ -98,7 +126,7 @@ local route_host = luci.config.diag and luci.config.diag.route or "dev.openwrt.o
 
 			<div style="width:33%; float:left;">
 				<input style="margin: 5px 0" type="text" value="<%=dns_host%>" name="nslookup" /><br />
-				<input type="button" value="<%:Nslookup%>" class="cbi-button cbi-button-apply" onclick="update_status(this.form.nslookup)" />
+				<input type="button" value="<%:Nslookup%>" class="cbi-button cbi-button-apply" onclick="update_status(0, this.form.nslookup)" />
 			</div>
 
 			<br style="clear:both" /><br />
