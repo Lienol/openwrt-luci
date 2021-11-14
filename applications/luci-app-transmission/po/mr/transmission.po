@@ -2,186 +2,185 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-19 21:20+0200\n"
-"PO-Revision-Date: 2020-01-13 14:26+0000\n"
-"Last-Translator: Marcin Net <marcin.net@linux.pl>\n"
-"Language-Team: Polish <https://hosted.weblate.org/projects/openwrt/"
-"luciapplicationstransmission/pl/>\n"
-"Language: pl\n"
+"POT-Creation-Date: 2019-12-07 12:03+0200\n"
+"PO-Revision-Date: 2020-01-10 12:23+0000\n"
+"Last-Translator: Prachi Joshi <josprachi@yahoo.com>\n"
+"Language-Team: Marathi <https://hosted.weblate.org/projects/openwrt/"
+"luciapplicationstransmission/mr/>\n"
+"Language: mr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 3.10.1\n"
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:39
 msgid "Alternative download speed"
-msgstr "Alternatywna prędkość pobierania"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:36
 msgid "Alternative speed enabled"
-msgstr "Prędkość alternatywna włączona"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:190
 msgid "Alternative speed time begin"
-msgstr "Godzina włączenia prędkości alternatywnej"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:188
 msgid "Alternative speed time day"
-msgstr "Dzień prędkości alternatywnej"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:192
 msgid "Alternative speed time end"
-msgstr "Godzina wyłączenia prędkości alternatywnej"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:183
 msgid "Alternative speed timing enabled"
-msgstr "Włączanie prędkości alternatywnej w podanym czasie"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:41
 msgid "Alternative upload speed"
-msgstr "Alternatywna prędkość wysyłania"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:79
 msgid "Automatically start added torrents"
-msgstr "Automatyczne rozpoczęcie pobierania nowych torrentów"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:34
 msgid "Bandwidth settings"
-msgstr "Ustawienia przepustowości"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:131
 msgid "Binding address IPv4"
-msgstr "Przypisanie adresu IPv4"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:133
 msgid "Binding address IPv6"
-msgstr "Przypisanie adresu IPv6"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:57
 msgid "Block list enabled"
-msgstr "Lista blokowania włączona"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:60
 msgid "Blocklist URL"
-msgstr "Adres URL listy blokowania"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:55
 msgid "Blocklists"
-msgstr "Listy blokowania"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:31
 msgid "Cache size in MB"
-msgstr "Rozmiar pamięci podręcznej w MB"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:25
 msgid "Config file directory"
-msgstr "Katalog plików konfiguracyjnych"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:32
 msgid "Custom WEB UI directory"
-msgstr "Własny katalog WEB UI"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:94
 msgid "DHT enabled"
-msgstr "DHT włączone"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:111
 msgid "Debug"
-msgstr "Debugowanie"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:65
 msgid "Download directory"
-msgstr "Katalog pobierania"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:202
 msgid "Download queue enabled"
-msgstr "Kolejka pobierania włączona"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:205
 msgid "Download queue size"
-msgstr "Rozmiar kolejki pobierania"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:86
 msgid "Enable watch directory"
-msgstr "Włącz folder obserwowany"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:23
 msgid "Enabled"
-msgstr "Włączone"
+msgstr "सक्षम केले"
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:97
 msgid "Encryption"
-msgstr "Szyfrowanie"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:109
 msgid "Error"
-msgstr "Błąd"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:73
 msgid "Fast"
-msgstr "Szybko"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:63
 msgid "Files and Locations"
-msgstr "Pliki i położenia"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:100
 msgid "Forced"
-msgstr "Wymuszone"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:74
 msgid "Full"
-msgstr "Pełne"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:136
 msgid "Global peer limit"
-msgstr "Globalny limit peerów"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:19
 msgid "Global settings"
-msgstr "Ustawienia globalne"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:123
 msgid "Idle seeding limit"
-msgstr "Limit przesyłu w bezczynności"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:120
 msgid "Idle seeding limit enabled"
-msgstr "Włączony limit transferu podczas bezczynności"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:69
 msgid "Incomplete directory"
-msgstr "Niekompletny katalog"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:66
 msgid "Incomplete directory enabled"
-msgstr "Opcja \"Niekompletny katalog\" włączona"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:110
 msgid "Info"
-msgstr "Informacja"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:104
 msgid "LPD enabled"
-msgstr "LPD włączone"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:101
 msgid "Lazy bitfield enabled"
-msgstr "Lazy bitfield włączone"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:107
 msgid "Message level"
-msgstr "Poziom komunikatów"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:92
 msgid "Miscellaneous"
-msgstr "Różne"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:108
 msgid "None"
-msgstr "Brak"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:188
 msgid ""
@@ -189,213 +188,207 @@ msgid ""
 "enabled, add a value. For Sunday - 1, Monday - 2, Tuesday - 4, Wednesday - "
 "8, Thursday - 16, Friday - 32, Saturday - 64"
 msgstr ""
-"Liczba/pole bitowe. Zaczyna się od 0, następnie dla każdego dnia dla jakiego "
-"chcesz włączyć harmonogram dodaj odpowiednią wartość. Niedziela - 1, "
-"Poniedziałek - 2, Wtorek - 4, Środa - 8, Czwartek - 16, Piątek - 32, Sobota -"
-" 64"
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:72
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:98
 msgid "Off"
-msgstr "Wyłączone"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:14
 msgid "Open Web Interface"
-msgstr "Otwórz interfejs Web"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:112
 msgid "PEX enabled"
-msgstr "PEX włączony"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:140
 msgid "Peer Port settings"
-msgstr "Ustawienia portu peer"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:135
 msgid "Peer congestion algorithm"
-msgstr "Algorytm przeciążenia peer"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:137
 msgid "Peer limit per torrent"
-msgstr "Limit peer'a dla torrenta"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:142
 msgid "Peer port"
-msgstr "Port peer"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:146
 msgid "Peer port random high"
-msgstr "Maksymalny port peer`a"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:148
 msgid "Peer port random low"
-msgstr "Minimalny port peer`a"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:143
 msgid "Peer port random on start"
-msgstr "Losowy port peer`a przy starcie"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:129
 msgid "Peer settings"
-msgstr "Ustawienia peer"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:138
 msgid "Peer socket tos"
-msgstr "Typ gniazda <abbr title=\"Type-Of-Service w TCP\">TOS</abbr> peer`a"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:150
 msgid "Port forwarding enabled"
-msgstr "Przekazywanie portów włączone"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:99
 msgid "Preferred"
-msgstr "Preferowany"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:75
 msgid "Prefetch enabled"
-msgstr "Pobieranie wstępne włączone"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:207
 msgid "Queue stalled enabled"
-msgstr "Blokada kolejki włączona"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:210
 msgid "Queue stalled minutes"
-msgstr "Blokada kolejki w minutach"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:200
 msgid "Queueing"
-msgstr "Kolejkowanie"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:163
 msgid "RPC URL"
-msgstr "Adres URL RPC"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:171
 msgid "RPC authentication required"
-msgstr "Wymagana autoryzacja RPC"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:161
 msgid "RPC bind address"
-msgstr "Adres węzła RPC"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:156
 msgid "RPC enabled"
-msgstr "RPC włączone"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:177
 msgid "RPC password"
-msgstr "Hasło RPC"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:159
 msgid "RPC port"
-msgstr "Port RPC"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:154
 msgid "RPC settings"
-msgstr "Ustawienia RPC"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:175
 msgid "RPC username"
-msgstr "Nazwa użytkownika RPC"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:169
 msgid "RPC whitelist"
-msgstr "Biała lista RPC"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:165
 msgid "RPC whitelist enabled"
-msgstr "Biała lista RPC włączona"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:197
 msgid "Ratio limit"
-msgstr "Dopuszczalna wartość"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:194
 msgid "Ratio limit enabled"
-msgstr "Dopuszczalna wartość włączona"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:76
 msgid "Rename partial files"
-msgstr "Zmień nazwy plików częściowych"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:26
 msgid "Run daemon as user"
-msgstr "Uruchom daemona jako użytkownik"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:181
 msgid "Scheduling"
-msgstr "Harmonogramowanie"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:217
 msgid "Scrape paused torrents enabled"
-msgstr "Zdzieranie wstrzymanych torentów włączone"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:115
 msgid "Script torrent done enabled"
-msgstr "Włączenie wykonywania skryptu po zakończeniu pobierania"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:118
 msgid "Script torrent done filename"
-msgstr "Nazwa skryptu wykonywanego po zakończeniu pobierania"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:212
 msgid "Seed queue enabled"
-msgstr "Kolejkowanie Seed'ów włączone"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:215
 msgid "Seed queue size"
-msgstr "Rozmiar kolejki Seed'ów"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:46
 msgid "Speed limit down"
-msgstr "Limit prędkości pobierania"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:43
 msgid "Speed limit down enabled"
-msgstr "Limit prędkości pobierania włączony"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:51
 msgid "Speed limit up"
-msgstr "Limit prędkości wysyłania"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:48
 msgid "Speed limit up enabled"
-msgstr "Limit prędkości wysyłania włączony"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/controller/transmission.lua:11
 msgid "Transmission"
-msgstr "Transmission"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:17
 msgid ""
 "Transmission daemon is a simple bittorrent client, here you can configure "
 "the settings."
 msgstr ""
-"Demon Transmission jest prostym klientem BitTorrent. Tutaj możesz zmienić "
-"jego ustawienia."
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:82
 msgid "Trash original torrent files"
-msgstr "Usuń oryginalne pliki torrent"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:53
 msgid "Upload slots per torrent"
-msgstr "Liczba połączeń na plik torrent - wysyłanie"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:89
 msgid "Watch directory"
-msgstr "Obserwowany folder"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:190
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:192
 msgid "in minutes from midnight"
-msgstr "w minutach od północy"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:71
 msgid "preallocation"
-msgstr "prealokacja"
+msgstr ""
 
 #: applications/luci-app-transmission/luasrc/model/cbi/transmission.lua:125
 msgid "uTP enabled"
-msgstr "uTP włączone"
+msgstr ""
