@@ -19,17 +19,13 @@ if [ "$(uci -q get luci.diag)" != "internal" ]; then
 	EOF
 fi
 
-if [ -n "$(command -v cpuinfo)" ]; then
-	if [ -n "$(command -v ethinfo)" ]; then
-		[ -f /usr/lib/lua/luci/view/admin_status/index_x86.htm ] && {
-			mv /usr/lib/lua/luci/view/admin_status/index_x86.htm /usr/lib/lua/luci/view/admin_status/index.htm
-		}
-	else
-		[ -f /usr/lib/lua/luci/view/admin_status/index_arm.htm ] && {
-			mv /usr/lib/lua/luci/view/admin_status/index_arm.htm /usr/lib/lua/luci/view/admin_status/index.htm
-		}
-	fi
-fi
+[ -n "$(opkg list-installed | grep 'autocore-arm')" ] && {
+	[ -f /usr/lib/lua/luci/view/admin_status/index_arm.htm ] && mv -f /usr/lib/lua/luci/view/admin_status/index_arm.htm /usr/lib/lua/luci/view/admin_status/index.htm
+}
+[ -n "$(opkg list-installed | grep 'autocore-x86')" ] && {
+	[ -f /usr/lib/lua/luci/view/admin_status/index_x86.htm ] && mv -f /usr/lib/lua/luci/view/admin_status/index_x86.htm /usr/lib/lua/luci/view/admin_status/index.htm
+}
+
 rm -f /usr/lib/lua/luci/view/admin_status/index_x86.htm
 rm -f /usr/lib/lua/luci/view/admin_status/index_arm.htm
 exit 0
