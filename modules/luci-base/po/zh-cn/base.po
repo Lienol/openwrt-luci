@@ -4190,3 +4190,171 @@ msgstr "备份MTD内容"
 
 msgid "Click \"Save mtdblock\" to download specified mtdblock file. (NOTE: THIS FEATURE IS FOR PROFESSIONALS! )"
 msgstr "点击\"备份MTD\"可以下载指定分区数据.(注意！仅提供给专业人士使用！)"
+
+msgid "IPv6 RA Settings"
+msgstr "IPv6 RA 设置"
+
+msgid "Designated master"
+msgstr "指定的主接口"
+
+msgid "Set this interface as master for RA and DHCPv6 relaying as well as NDP proxying."
+msgstr "将此接口设为 RA 和 DHCPv6 中继及 NDP 代理的主接口。"
+
+msgid "Interface \"%s\" is already marked as designated master."
+msgstr "接口“%s”已被标记为指定的主接口。"
+
+msgid "Local IPv6 DNS server"
+msgstr "本地 IPV6 DNS 服务器"
+
+msgid "Announce this device as IPv6 DNS server."
+msgstr "通告该设备为 IPv6 DNS 服务器。"
+
+msgid "Announced IPv6 DNS servers"
+msgstr "通告的 IPv6 DNS 服务器"
+
+msgid ""
+"Specifies a fixed list of IPv6 DNS server addresses to announce via DHCPv6. "
+"If left unspecified, the device will announce itself as IPv6 DNS server "
+"unless the <em>Local IPv6 DNS server</em> option is disabled."
+msgstr ""
+"指定一个通过 DHCPv6 宣布的 IPv6 DNS 服务器地址的固定列表。如未指定，设备会宣"
+"布自己是 IPv6 DNS 服务器，除非<em>本地 IPv6 DNS 服务器</em>选项被禁用。"
+
+msgid "Announced DNS domains"
+msgstr "通告的 DNS 域名"
+
+msgid ""
+"Specifies a fixed list of DNS search domains to announce via DHCPv6. If left "
+"unspecified, the local device DNS search domain will be announced."
+msgstr ""
+"指定一个通过 DHCPv6 宣告的 DNS 搜索域名的固定列表。如未指定，本地设备 DNS 搜"
+"索域将被宣布。"
+
+msgid "Learn routes"
+msgstr "学习路由"
+
+msgid "Setup routes for proxied IPv6 neighbours."
+msgstr "设置已代理 IPv6 邻居的路由。"
+
+msgid "NDP-Proxy slave"
+msgstr "NDP 代理从属设备"
+
+msgid "Set interface as NDP-Proxy external slave. Default is off."
+msgstr "将接口设置为 NDP 代理外部从属设备。默认为关闭。"
+
+msgid "Default router"
+msgstr "默认路由器"
+
+msgid ""
+"Configures the default router advertisement in <abbr title=\"Router "
+"Advertisement\">RA</abbr> messages."
+msgstr "配置 <abbr title=\"路由器通告\">RA</abbr> 消息中的默认路由器通告。"
+
+msgid "automatic"
+msgstr "自动"
+
+msgid "on available prefix"
+msgstr "在可用的前缀上"
+
+msgid "forced"
+msgstr "强制的"
+
+msgid "Enable <abbr title=\"Stateless Address Auto Config\">SLAAC</abbr>"
+msgstr "启用 <abbr title=\"无状态地址自动配置\">SLAAC</abbr>"
+
+msgid ""
+"Set the autonomous address-configuration flag in the prefix information "
+"options of sent <abbr title=\"Router Advertisement\">RA</abbr> messages. "
+"When enabled, clients will perform stateless IPv6 address autoconfiguration."
+msgstr ""
+"在已发送 <abbr title=\"路由器通告\">RA</abbr> 报文的前缀信息选项中设置自主地"
+"址配置标记。启用后，客户端将执行无状态 IPv6 地址自动配置。"
+
+msgid "<abbr title=\"Router Advertisement\">RA</abbr> Flags"
+msgstr "<abbr title=\"路由器通告\">RA</abbr> 标记"
+
+msgid ""
+"Specifies the flags sent in <abbr title=\"Router Advertisement\">RA</abbr> "
+"messages, for example to instruct clients to request further information via "
+"stateful DHCPv6."
+msgstr ""
+"指定<abbr title=\"路由器通告\">RA</abbr>消息中发送的标记，比如指示客户端通过"
+"有状态 DHCPv6 请求进一步的信息。"
+
+msgid "managed config (M)"
+msgstr "受管配置 (M)"
+
+msgid ""
+"The <em>Managed address configuration</em> (M) flag indicates that IPv6 "
+"addresses are available via DHCPv6."
+msgstr "<em>受管地址配置</em> (M) 标记表明可以通过 DHCPv6 获取 IPv6 地址。"
+
+msgid "other config (O)"
+msgstr "其他配置 (O)"
+
+msgid ""
+"The <em>Other configuration</em> (O) flag indicates that other information, "
+"such as DNS servers, is available via DHCPv6."
+msgstr ""
+"<em>其他配置</em> (O) 标记表明其他信息，如 DNS 服务器，可以通过 DHCPv6 获得。"
+
+msgid "mobile home agent (H)"
+msgstr "移动 home 代理 (H)"
+
+msgid ""
+"The <em>Mobile IPv6 Home Agent</em> (H) flag indicates that the device is "
+"also acting as Mobile IPv6 home agent on this link."
+msgstr ""
+"<em> 移动 IPv6 Home 代理</em> (H) 标记表明该设备在此链路上还 充当移动 IPv6 "
+"home 代理。"
+
+msgid "Max <abbr title=\"Router Advertisement\">RA</abbr> interval"
+msgstr "最长 <abbr title=\"路由器通告\">RA</abbr> 间隔"
+
+msgid ""
+"Maximum time allowed between sending unsolicited <abbr title=\"Router "
+"Advertisement, ICMPv6 Type 134\">RA</abbr>. Default is 600 seconds."
+msgstr ""
+"发送主动 <abbr title=\"路由器通告，ICMPv6 类型 134\">RA</abbr> 允许的最长时间"
+"间隔。默认为 600 秒。"
+
+msgid "Min <abbr title=\"Router Advertisement\">RA</abbr> interval"
+msgstr "最短 <abbr title=\"路由器通告\">RA</abbr> 间隔"
+
+msgid ""
+"Minimum time allowed between sending unsolicited <abbr title=\"Router "
+"Advertisement, ICMPv6 Type 134\">RA</abbr>. Default is 200 seconds."
+msgstr ""
+"发送主动 <abbr title=\"路由器通告，ICMPv6 类型 134\">RA</abbr> 允许的最短时间"
+"间隔。默认为 200 秒。"
+
+msgid "<abbr title=\"Router Advertisement\">RA</abbr> Lifetime"
+msgstr "<abbr title=\"路由器通告\">RA</abbr> 生命周期"
+
+msgid ""
+"Router Lifetime published in <abbr title=\"Router Advertisement, ICMPv6 Type "
+"134\">RA</abbr> messages. Maximum is 9000 seconds."
+msgstr ""
+"路由器生命周期以 <abbr title=\"路由器通告，ICMPv6 类型 134\">RA</abbr> 消息形"
+"式发布。最长为 9000 秒。"
+
+msgid "<abbr title=\"Router Advertisement\">RA</abbr> MTU"
+msgstr "<abbr title=\"路由器通告\">RA</abbr> MTU"
+
+msgid ""
+"The <abbr title=\"Maximum Transmission Unit\">MTU</abbr> to be published in "
+"<abbr title=\"Router Advertisement, ICMPv6 Type 134\">RA</abbr> messages. "
+"Minimum is 1280 bytes."
+msgstr ""
+"将在 <abbr title=\"路由器通告, ICMPv6 Type 134\">RA</abbr>消息中发布的<abbr "
+"title=\"Maximum Transmission Unit\">MTU</abbr>。最小值是 1280 字节。"
+
+msgid "<abbr title=\"Router Advertisement\">RA</abbr> Hop Limit"
+msgstr "<abbr title=\"路由器通告\">RA</abbr> 跳数限制"
+
+msgid ""
+"The maximum hops to be published in <abbr title=\"Router Advertisement\">RA</"
+"abbr> messages. Maximum is 255 hops."
+msgstr ""
+"将在 <abbr title=\"路由器通告\">RA</abbr>消息中发布的最大跳数。最大值为 255 "
+"跳。"
