@@ -401,6 +401,7 @@
 		<div class="tr"><div class="td left" width="33%"><%:Hostname%></div><div class="td left"><%=luci.sys.hostname() or "?"%></div></div>
 		<div class="tr"><div class="td left" width="33%"><%:Model%></div><div class="td left"><%=pcdata(boardinfo.model or "?")%></div></div>
 		<div class="tr"><div class="td left" width="33%"><%:CPU Info%></div><div class="td left" id="cpuinfo"></div></div>
+		<div class="tr"><div class="td left" width="33%"><%:Target Platform%></div><div class="td left"><%=pcdata(boardinfo.release.target or "?")%></div></div>
 		<div class="tr"><div class="td left" width="33%"><%:Firmware Version%></div><div class="td left">
 			<%=pcdata(ver.distname)%> <%=pcdata(ver.distversion)%> /
 			<%=pcdata(ver.luciname)%> (<%=pcdata(ver.luciversion)%>)
