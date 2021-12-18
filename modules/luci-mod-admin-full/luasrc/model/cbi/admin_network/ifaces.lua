@@ -483,13 +483,13 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 		s:taboption("advanced", DynamicList, "dhcp_option", translate("DHCP-Options"),
 			translate("Define additional DHCP options, for example \"<code>6,192.168.2.1," ..
 				"192.168.2.2</code>\" which advertises different DNS servers to clients."))
-
+--[[
 		for i, n in ipairs(s.children) do
 			if n ~= ignore then
 				n:depends("ignore", "")
 			end
 		end
-
+]]--
 		o = s:taboption("ipv6", ListValue, "ra", translate("Router Advertisement-Service"))
 		o:value("", translate("disabled"))
 		o:value("server", translate("server mode"))
