@@ -500,25 +500,26 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 			end
 		end)
 
-		if not has_other_master then
-			o = s:taboption("ipv6", Flag, "master", translate("Designated master"))
-			o.description = translate('Set this interface as master for RA and DHCPv6 relaying as well as NDP proxying.')
-		else
-			o = s:taboption("ipv6", DummyValue, "_master", translate("Designated master"))
-			if has_other_master['.name'] then
-				o.description = translate('Interface "%s" is already marked as designated master.' % has_other_master['.name'])
-			end
+		o = s:taboption("ipv6", Flag, "master", translate("Designated master"))
+		o.description = translate('Set this interface as master for RA and DHCPv6 relaying as well as NDP proxying.')
+		if has_other_master then
+			o.readonly = true
+			o.description = translatef('Interface "%s" is already marked as designated master.', has_other_master['.name'])
 		end
 
 		o = s:taboption("ipv6", ListValue, "ra", translate("Router Advertisement-Service"))
 		o:value("", translate("disabled"))
-		o:value("server", translate("server mode"))
+		if net:proto() == "static" then
+			o:value("server", translate("server mode"))
+		end
 		o:value("relay", translate("relay mode"))
 		o:value("hybrid", translate("hybrid mode"))
 
 		o = s:taboption("ipv6", ListValue, "dhcpv6", translate("DHCPv6-Service"))
 		o:value("", translate("disabled"))
-		o:value("server", translate("server mode"))
+		if net:proto() == "static" then
+			o:value("server", translate("server mode"))
+		end
 		o:value("relay", translate("relay mode"))
 		o:value("hybrid", translate("hybrid mode"))
 
@@ -583,19 +584,24 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 		o:depends("ra", "server")
 		o:depends({ ra = "hybrid", master = false })
 		function o.cfgvalue(self, section)
-			return ut.exec('echo -n $(uci get dhcp.' .. section .. '.ra_flags)') or "none"
+			local v = ""
+			for index, value in ipairs(m2.uci:get("dhcp", section, "ra_flags") or {}) do
+				v = v .. " " .. value
+			end
+			return v
 		end
 
 		function o.write(self, section, value)
-			ut.exec('uci delete dhcp.' .. section .. '.ra_flags')
-			for i in ut.imatch(value) do
-				ut.exec('uci add_list dhcp.' .. section .. '.ra_flags="' .. i .. '"')
+			m2.uci:delete("dhcp", section, "ra_flags")
+			local t = {}
+			for v in ut.imatch(value) do
+				t[#t + 1] = v
 			end
+			m2.uci:set("dhcp", section, "ra_flags", t)
 		end
 
 		function o.remove(self, section)
-			ut.exec('uci delete dhcp.' .. section .. '.ra_flags')
-			ut.exec('uci add_list dhcp.' .. section .. '.ra_flags="none"')
+			m2.uci:delete("dhcp", section, "ra_flags")
 		end
 
 		o = s:taboption("ipv6-ra", Value, "ra_maxinterval", translate('Max <abbr title="Router Advertisement">RA</abbr> interval'),
