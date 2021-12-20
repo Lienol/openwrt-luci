@@ -494,6 +494,8 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 		ltime.rmempty = true
 		ltime.default = "12h"
 
+		if net:proto() == "static" then
+
 		local dd = s:taboption("advanced", Flag, "dynamicdhcp",
 			translate("Dynamic <abbr title=\"Dynamic Host Configuration Protocol\">DHCP</abbr>"),
 			translate("Dynamically allocate DHCP addresses for clients. If disabled, only " ..
@@ -525,6 +527,7 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 			end
 		end
 ]]--
+		end
 
 		local has_other_master = nil
 		m2.uci:foreach("dhcp", "dhcp", function(s)
