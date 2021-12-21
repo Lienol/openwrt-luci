@@ -1665,7 +1665,7 @@ msgid "Invalid VLAN ID given! Only unique IDs are allowed"
 msgstr "无效的 VLAN ID！只允许唯一的 ID"
 
 msgid "Invalid username and/or password! Please try again."
-msgstr "无效的用户名和/或密码！请重试。"
+msgstr "无效的用户名或密码！请重试。"
 
 msgid "Isolate Clients"
 msgstr "隔离客户端"
