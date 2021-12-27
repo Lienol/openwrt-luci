@@ -1369,6 +1369,10 @@ body.node-main-login .alert-message {
 }
 
 /* luci 19 */
+.node-main-login>header .nav {
+    display: none;
+}
+
 body.modal-overlay-active {
     overflow: hidden;
     height: 100vh;
