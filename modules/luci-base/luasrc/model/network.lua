@@ -1158,6 +1158,7 @@ function protocol.get_interface(self)
 			return ifn and interface(ifn, self)
 		end
 		ifn = nil
+		local num = { }
 		_uci:foreach("wireless", "wifi-iface",
 			function(s)
 				if s.device then
