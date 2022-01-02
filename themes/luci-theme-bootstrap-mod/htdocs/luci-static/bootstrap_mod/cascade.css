@@ -582,7 +582,8 @@ p {
     color: #111;
 }
 
-.tabs > li > a:hover, .cbi-tabmenu > li > a:hover {
+.tabs>li>a:hover,
+.cbi-tabmenu>li>a:hover {
     text-decoration: none;
     background-color: #eee;
     border-color: #eee #eee #ddd;
@@ -610,6 +611,7 @@ fieldset fieldset {
 table .cbi-value-field,
 .table .cbi-value-field {
     display: table-cell;
+    width: unset;
 }
 
 .cbi-value-title {
@@ -629,6 +631,7 @@ table .cbi-value-field,
 .cbi-value-field {
     color: #811;
     display: table-cell;
+    width: 0.1%;
 }
 
 .cbi-section-table-cell {
@@ -815,7 +818,12 @@ select {
     line-height: 18px;
 }
 
-input[disabled], select[disabled], textarea[disabled], input[readonly], select[readonly], textarea[readonly] {
+input[disabled],
+select[disabled],
+textarea[disabled],
+input[readonly],
+select[readonly],
+textarea[readonly] {
     background-color: #f5f5f5;
     border-color: #ddd;
     color: unset;
@@ -923,9 +931,9 @@ input[type=file] {
 button {
     border-radius: 4px;
     display: inline-block;
-    background: linear-gradient(#fff,#fff 25%,#e6e6e6) no-repeat;
+    background: linear-gradient(#fff, #fff 25%, #e6e6e6) no-repeat;
     border: 1px solid #ccc;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.2), 0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
     color: #333;
     line-height: 16px;
     padding: 0.5em;
@@ -966,8 +974,7 @@ button:focus {
 .cbi-button-add:active,
 .cbi-button-add:focus,
 .cbi-input-add:active,
-.cbi-input-add:focus {
-}
+.cbi-input-add:focus {}
 
 .cbi-button-remove,
 .cbi-input-remove,
@@ -981,8 +988,7 @@ button:focus {
 .cbi-input-remove:active,
 .cbi-input-remove:focus,
 .cbi-section-remove input:active,
-.cbi-section-remove input:focus {
-}
+.cbi-section-remove input:focus {}
 
 .cbi-button-reload,
 .cbi-input-reload {
@@ -993,8 +999,7 @@ button:focus {
 .cbi-button-reload:active,
 .cbi-button-reload:focus,
 .cbi-input-reload:active,
-.cbi-input-reload:focus {
-}
+.cbi-input-reload:focus {}
 
 .cbi-button-reset,
 .cbi-input-reset {
@@ -1005,8 +1010,7 @@ button:focus {
 .cbi-button-reset:active,
 .cbi-button-reset:focus,
 .cbi-input-reset:active,
-.cbi-input-reset:focus {
-}
+.cbi-input-reset:focus {}
 
 .cbi-button-edit,
 .cbi-input-edit {
@@ -1017,8 +1021,7 @@ button:focus {
 .cbi-button-edit:active,
 .cbi-button-edit:focus,
 .cbi-input-edit:active,
-.cbi-input-edit:focus {
-}
+.cbi-input-edit:focus {}
 
 .cbi-button-apply,
 .cbi-input-apply {
@@ -1029,8 +1032,7 @@ button:focus {
 .cbi-button-apply:active,
 .cbi-button-apply:focus,
 .cbi-input-apply:active,
-.cbi-input-apply:focus {
-}
+.cbi-input-apply:focus {}
 
 .cbi-button-save,
 .cbi-input-save {
@@ -1041,20 +1043,19 @@ button:focus {
 .cbi-button-save:active,
 .cbi-button-save:focus,
 .cbi-input-save:active,
-.cbi-input-save:focus {
-}
+.cbi-input-save:focus {}
 
 /* LuCI 18 DynamicList */
-input[type="text"] + .cbi-button,
-input[type="password"] + .cbi-button,
-select + .cbi-button {
-	vertical-align: top;
-	padding: 0.4em;
-	border-color: #ccc;
-	margin: 0 0 1px -3px;
-	font-size: 14px;
-	line-height: 18px;
-	border-radius: 5px;
+input[type="text"]+.cbi-button,
+input[type="password"]+.cbi-button,
+select+.cbi-button {
+    vertical-align: top;
+    padding: 0.4em;
+    border-color: #ccc;
+    margin: 0 0 1px -3px;
+    font-size: 14px;
+    line-height: 18px;
+    border-radius: 5px;
 }
 
 
@@ -1276,13 +1277,13 @@ body.node-main-login>header {
     border-bottom: none;
 }
 
-body.node-main-login>header .brand{
-	display: none;
+body.node-main-login>header .brand {
+    display: none;
 }
 
 body.node-main-login .alert-message {
     z-index: 999;
-	display: none;
+    display: none;
 }
 
 .node-main-login>.container>form {
@@ -1303,8 +1304,7 @@ body.node-main-login .alert-message {
     color: red !important;
 }
 
-.node-main-login>.container>form>.cbi-map>h2 {
-}
+.node-main-login>.container>form>.cbi-map>h2 {}
 
 .node-main-login>.container>form input[name='luci_username'],
 .node-main-login>.container>form input[name='luci_password'] {
