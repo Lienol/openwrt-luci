@@ -164,7 +164,7 @@ msgstr "网络掩码（或 IPv6 前缀）"
 #: applications/luci-app-ocserv/luasrc/model/cbi/ocserv/user-config.lua:7
 #: applications/luci-app-ocserv/luasrc/model/cbi/ocserv/users.lua:7
 msgid "OpenConnect VPN"
-msgstr "OpenConnect VPN程序"
+msgstr "OpenConnect VPN"
 
 #: applications/luci-app-ocserv/luasrc/model/cbi/ocserv/users.lua:24
 msgid "Password"
