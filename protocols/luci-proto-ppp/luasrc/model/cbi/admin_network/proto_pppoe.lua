@@ -83,6 +83,7 @@ end
 
 keepalive_failure.placeholder = "0"
 keepalive_failure.datatype    = "uinteger"
+keepalive_failure.default = "5"
 
 
 keepalive_interval = section:taboption("advanced", Value, "_keepalive_interval",
@@ -111,6 +112,7 @@ keepalive_interval.remove      = keepalive_interval.write
 keepalive_failure.write        = keepalive_interval.write
 keepalive_failure.remove       = keepalive_interval.write
 keepalive_interval.placeholder = "5"
+keepalive_interval.default = "5"
 keepalive_interval.datatype    = "min(1)"
 
 
@@ -133,4 +135,5 @@ luci.tools.proto.opt_macaddr(section, ifc, translate("Override MAC address"))
 
 mtu = section:taboption("advanced", Value, "mtu", translate("Override MTU"))
 mtu.placeholder = "1500"
+mtu.default = "1480"
 mtu.datatype    = "max(9200)"
