@@ -281,6 +281,12 @@ msgstr "总发射功率（ACTATP）"
 msgid "Alert"
 msgstr "警戒"
 
+msgid "Alias Interface"
+msgstr "接口别名"
+
+msgid "Alias of \"%s\""
+msgstr "“%s”的别名"
+
 msgid ""
 "Allocate IP addresses sequentially, starting from the lowest available "
 "address"
