@@ -158,17 +158,20 @@
 							html += String.format('<strong><%:Uptime%>:</strong> %t<br />', ifc.uptime);
 						}
 
-						if (ifc.macaddr)
+						if (!ifc.is_dynamic && ifc.macaddr && ifc.macaddr != "00:00:00:00:00:00")
 						{
 							html += String.format('<strong><%:MAC-Address%>:</strong> %s<br />', ifc.macaddr);
 						}
-
-						html += String.format(
-							'<strong><%:RX%></strong>: %.2mB (%d <%:Pkts.%>)<br />' +
-							'<strong><%:TX%></strong>: %.2mB (%d <%:Pkts.%>)<br />',
-								ifc.rx_bytes, ifc.rx_packets,
-								ifc.tx_bytes, ifc.tx_packets
-						);
+						
+						if (!ifc.is_dynamic)
+						{
+							html += String.format(
+								'<strong><%:RX%></strong>: %.2mB (%d <%:Pkts.%>)<br />' +
+								'<strong><%:TX%></strong>: %.2mB (%d <%:Pkts.%>)<br />',
+									ifc.rx_bytes, ifc.rx_packets,
+									ifc.tx_bytes, ifc.tx_packets
+							);
+						}
 
 						if (ifc.ipaddrs && ifc.ipaddrs.length)
 						{
@@ -243,10 +246,10 @@
 			</tr>
 			<%
 				for i, net in ipairs(netlist) do
-					local z = net[3]
-					local c = z and z:get_color() or "#EEEEEE"
-					local t = z and translate("Part of zone %q" % z:name()) or translate("No zone assigned")
 					local dynamic = net[4]:is_dynamic()
+					local z = net[3]
+					local c = not dynamic and z and z:get_color() or "#EEEEEE"
+					local t = z and translate("Part of zone %q" % z:name()) or translate("No zone assigned")
 			%>
 				<tr class="cbi-section-table-row cbi-rowstyle-<%=i % 2 + 1%>">
 					<td class="cbi-value-field" style="padding:3px">
@@ -264,10 +267,12 @@
 						<em><%:Collecting data...%></em>
 					</td>
 					<td style="width:420px">
+					<% if not (disabled or dynamic) then %>
 						<input type="button" class="cbi-button cbi-button-reload" style="width:100px" onclick="iface_shutdown('<%=net[1]%>', true)" title="<%:Reconnect this interface%>" value="<%:Connect%>"<%=ifattr(disabled or dynamic, "disabled", "disabled")%> />
 						<input type="button" class="cbi-button cbi-button-reset" style="width:100px" onclick="iface_shutdown('<%=net[1]%>', false)" title="<%:Shutdown this interface%>" value="<%:Stop%>"<%=ifattr(disabled or dynamic, "disabled", "disabled")%> />
 						<input type="button" class="cbi-button cbi-button-edit" style="width:100px" onclick="location.href='<%=url("admin/network/network", net[1])%>'" title="<%:Edit this interface%>" value="<%:Edit%>" id="<%=net[1]%>-ifc-edit"<%=ifattr(disabled or dynamic, "disabled", "disabled")%> />
 						<input type="button" class="cbi-button cbi-button-remove" style="width:100px" onclick="iface_delete('<%=net[1]%>')" value="<%:Delete%>"<%=ifattr(disabled or dynamic, "disabled", "disabled")%> />
+					<% end %>
 					</td>
 				</tr>
 			<% end %>
