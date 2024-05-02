@@ -4325,3 +4325,9 @@ msgid ""
 msgstr ""
 "将在 <abbr title=\"路由器通告\">RA</abbr>消息中发布的最大跳数。最大值为 255 "
 "跳。"
+
+msgid "Delete this DHCP Server"
+msgstr "删除 DHCP 服务器"
+
+msgid "Delete DHCP Server configured for this interface"
+msgstr "删除此接口 DHCP 服务器"

@@ -146,6 +146,12 @@ if m:formvalue("cbid.dhcp._enable._enable") then
 	luci.http.redirect(luci.dispatcher.build_url("admin/network/network", arg[1]))
 	return
 end
+if m:formvalue("cbid.dhcp." .. arg[1] .. "._delete") then
+	m.uci:delete("dhcp", arg[1])
+	m.uci:save("dhcp")
+	luci.http.redirect(luci.dispatcher.build_url("admin/network/network", arg[1]))
+	return
+end
 
 local ifc = net:get_interface()
 
@@ -459,6 +465,11 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 			translate("Expiry time of leased addresses, minimum is 2 minutes (<code>2m</code>)."))
 		ltime.rmempty = true
 		ltime.default = "12h"
+
+		x = s:taboption("general", Button, "_delete")
+		x.title      = translate("Delete this DHCP Server")
+		x.inputtitle = translate("Delete DHCP Server configured for this interface")
+		x.inputstyle = "remove"
 
 		if net:proto() == "static" then
 
