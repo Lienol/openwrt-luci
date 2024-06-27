@@ -53,12 +53,13 @@
 		local conn_max = tonumber(luci.sys.exec(
 			"sysctl -n -e net.nf_conntrack_max net.ipv4.netfilter.ip_conntrack_max"
 		):match("%d+")) or 4096
-
-		local cpu_info = luci.sys.exec("/sbin/cpuinfo") or "ARM Processor x 0 (233MHz, 2.3°C)"
+		
+		local cpu_usage = luci.sys.exec("/sbin/usage") or "0%"
+		local cpu_info = luci.sys.exec("/sbin/cpuinfo") or "?"
 		local eth_info = luci.sys.exec("ethinfo")
 
 		local rv = {
-			cpu_free   = tonumber(luci.sys.exec("top -n1 | awk '/^CPU:/ { printf(\"%d\", $8) }'")) or 0,
+			cpuusage   = cpu_usage,
 			cpuinfo    = cpu_info,
 			ethinfo    = eth_info,
 			uptime     = sysinfo.uptime or 0,
@@ -686,6 +687,9 @@
 
 			if (e = document.getElementById('uptime'))
 				e.innerHTML = String.format('%t', info.uptime);
+				
+			if (e = document.getElementById('cpuusage'))
+				e.innerHTML = info.cpuusage;
 
 			if (e = document.getElementById('cpuinfo'))
 				e.innerHTML = info.cpuinfo;
@@ -697,9 +701,6 @@
 					info.loadavg[1] / 65535.0,
 					info.loadavg[2] / 65535.0
 				);
-				
-			if (e = document.getElementById('cpuused'))
-				e.innerHTML = 100 - info.cpu_free + " %";
 
 			if (e = document.getElementById('memtotal'))
 				e.innerHTML = progressbar(
@@ -750,7 +751,7 @@
 		<tr><td width="33%"><%:Local Time%></td><td id="localtime">-</td></tr>
 		<tr><td width="33%"><%:Uptime%></td><td id="uptime">-</td></tr>
 		<tr><td width="33%"><%:Load Average%></td><td id="loadavg">-</td></tr>
-		<tr><td width="33%"><%:CPU Used%></td><td id="cpuused">-</td></tr>
+		<tr><td width="33%"><%:CPU Used%></td><td id="cpuusage">-</td></tr>
 	</table>
 </fieldset>
 
@@ -758,7 +759,6 @@
 	<legend><%:Total Available%></legend>
 
 	<table width="100%" cellspacing="10">
-		<!-- <tr><td width="33%">CPU</td><td id="cpu_free">-</td></tr> -->
 		<tr><td width="33%"><%:Memory%></td><td id="memtotal">-</td></tr>
 		<% if swapinfo.total > 0 then %>
 			<tr><td width="33%"><%:Swap%></td><td id="swaptotal">-</td></tr>
