@@ -4151,12 +4151,29 @@ msgstr "启用 256-QAM"
 msgid "802.11n 2.4Ghz Only"
 msgstr "只适合 802.11n 2.4Ghz"
 
-msgid ""
-"Enable packet steering across all CPUs. May help or hinder network speed."
-msgstr "启用所有 CPU 的数据包控制。可能有助于或阻碍网络速度。"
+msgid "Enable packet steering across CPUs. May help or hinder network speed."
+msgstr "启用跨CPU的数据包引导。可能有助于提高或降低网络速度。"
 
 msgid "Packet Steering"
 msgstr "数据包引导"
+
+msgid "Enabled (all CPUs)"
+msgstr "启用（所有CPU）"
+
+msgid "Steering flows (<abbr title=\"Receive Packet Steering\">RPS</abbr>)"
+msgstr "流量引导（<abbr title=\"Receive Packet Steering （接受数据包转向）\">RPS</abbr>）"
+
+msgid "Directs packet flows to specific CPUs where the local socket owner listens (the local service)."
+msgstr "将数据包流定向到特定的CPU，以便于本地套接字所有者（即本地服务）监听。"
+
+msgid "Note: this setting is for local services on the device only (not for forwarding)."
+msgstr "注意: 此设置仅适用于设备上的本地服务 (不适用于转发)。"
+
+msgid "Standard: none"
+msgstr "标准: 无"
+
+msgid "Suggested: 128"
+msgstr "建议: 128"
 
 msgid "IPv6 RA Settings"
 msgstr "IPv6 RA 设置"
