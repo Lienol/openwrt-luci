@@ -103,9 +103,9 @@ if fs.access("/usr/sbin/br2684ctl") then
 	m.pageaction = true
 end
 
-local packet_steering = utl.exec("cat /etc/hotplug.d/net/20-smp-packet-steering 2>/dev/null | grep 'packet_steering'")
+local packet_steering = fs.access("/usr/libexec/network/packet-steering.sh") or fs.access("/usr/libexec/network/packet-steering.uc")
 local network = require "luci.model.network"
-if network:has_ipv6() or (packet_steering and packet_steering ~= "") then
+if network:has_ipv6() or packet_steering then
 	local s = m:section(NamedSection, "globals", "globals", translate("Global network options"))
 
 	if network:has_ipv6() then
@@ -115,8 +115,21 @@ if network:has_ipv6() or (packet_steering and packet_steering ~= "") then
 		m.pageaction = true
 	end
 
-	if (packet_steering and packet_steering ~= "") then
-		local o = s:option(Flag, "packet_steering", translate("Packet Steering"), translate("Enable packet steering across all CPUs. May help or hinder network speed."))
+	if packet_steering then
+		local o = s:option(ListValue, "packet_steering", translate("Packet Steering"), translate("Enable packet steering across CPUs. May help or hinder network speed."))
+		o:value('', translate('Disabled'))
+		o:value('1', translate('Enabled'))
+		o:value('2', translate('Enabled (all CPUs)'))
+
+		local o = s:option(ListValue, "steering_flows", translate('Steering flows (<abbr title="Receive Packet Steering">RPS</abbr>)'),
+			translate('Directs packet flows to specific CPUs where the local socket owner listens (the local service).') .. 
+			translate('Note: this setting is for local services on the device only (not for forwarding).'))
+		o:value('', translate('Standard: none'))
+		o:value('128', translate('Suggested: 128'))
+		o:value('256', translate('256'))
+		o:depends("packet_steering", "1")
+		o:depends("packet_steering", "2")
+		o.datatype = "uinteger"
 	end
 end
 
