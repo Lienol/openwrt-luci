@@ -4572,3 +4572,16 @@ msgstr "最大源端口 #"
 
 msgid "Max valid value %s."
 msgstr "最大有效值 %s。"
+
+msgid "Extra DHCP logging"
+msgstr "额外 DHCP 记录"
+
+msgid ""
+"Log all options sent to DHCP clients and the tags used to determine them."
+msgstr "记录发送给DHCP客户端的所有选项以及用于确定这些选项的标签。"
+
+msgid "Log facility"
+msgstr "记录设施"
+
+msgid "Set log class/facility for syslog entries."
+msgstr "设置 syslog 条目的日志类/设施。"
