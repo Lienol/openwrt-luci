@@ -292,8 +292,6 @@ o = s:taboption("general", DynamicList, "notinterface",
 o.optional = true
 o:depends("nonwildcard", true)
 
-m:section(SimpleSection).template = "admin_network/lease_status"
-
 s = m:section(TypedSection, "host", translate("Static Leases"),
 	translate("Static leases are used to assign fixed IP addresses and symbolic hostnames to " ..
 		"DHCP clients. They are also required for non-dynamic interface configurations where " ..
@@ -332,6 +330,9 @@ ip.datatype = "or(ip4addr,'ignore')"
 time = s:option(Value, "leasetime", translate("Lease time"))
 time.rmempty = true
 
+duid = s:option(Value, "duid", translate("DUID"))
+duid.datatype = "and(rangelength(20,36),hexstring)"
+
 hostid = s:option(Value, "hostid", translate("<abbr title=\"Internet Protocol Version 6\">IPv6</abbr>-Suffix (hex)"))
 
 ipc.neighbors({ family = 4 }, function(n)
@@ -349,6 +350,8 @@ function ip.validate(self, value, section)
 	end
 	return Value.validate(self, value, section)
 end
+
+m:section(SimpleSection).template = "admin_network/lease_status"
 
 d = m:section(TypedSection, "domain", translate("Custom domain"),
 	translate("Define a custom domain name and the corresponding PTR record"))
