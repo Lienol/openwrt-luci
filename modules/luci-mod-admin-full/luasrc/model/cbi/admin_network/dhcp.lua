@@ -44,6 +44,11 @@ s:taboption("general", Flag, "expandhosts",
 	translate("Expand hosts"),
 	translate("Add local domain suffix to names served from hosts files"))
 
+addr = s:taboption("general", DynamicList, "address", translate("Addresses"),
+	translate('Resolve specified FQDNs to an IP.'))
+addr.optional = true
+addr.placeholder = "/router.local/router.lan/192.168.0.1"
+
 se = s:taboption("general", Flag, "sequential_ip",
 	translate("Allocate IP sequentially"),
 	translate("Allocate IP addresses sequentially, starting from the lowest available address"))
