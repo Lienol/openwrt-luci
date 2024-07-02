@@ -1,4 +1,4 @@
--- Transplant by Lienol 2021-2022
+-- Transplant by Lienol 2021-2024
 
 local ut = require "luci.util"
 local d = require "luci.dispatcher"
@@ -276,6 +276,12 @@ o.default = o.disabled
 o = s:taboption('devadvanced', Flag, 'sendredirects', _('Send ICMP redirects'))
 o.default = o.enabled
 
+o = s:taboption('devadvanced', Flag, 'arp_accept', _('Honor gratuitous ARP'), _('When enabled, new ARP table entries are added from received gratuitous ARP requests or replies, otherwise only preexisting table entries are updated, but no new hosts are learned.'))
+o.default = o.disabled
+
+o = s:taboption('devadvanced', Flag, 'drop_gratuitous_arp', _('Drop gratuitous ARP'), _('Drop all gratuitous ARP frames, for example if there’s a known good ARP proxy on the network and such frames need not be used or in the case of 802.11, must not be used to prevent attacks.'))
+o.default = o.disabled
+
 o = s:taboption('devadvanced', Value, 'neighreachabletime', _('Neighbour cache validity'), _('Time in milliseconds'))
 o.placeholder = '30000'
 o.datatype = 'uinteger'
@@ -290,6 +296,14 @@ o.datatype = 'uinteger'
 
 o = s:taboption('devgeneral', Flag, 'ipv6', _('Enable IPv6'))
 o.default = o.enabled
+
+o = s:taboption('devadvanced', Flag, 'ip6segmentrouting', _('Enable IPv6 segment routing'))
+o.default = o.disabled
+o:depends('ipv6', '1')
+
+o = s:taboption('devadvanced', Flag, 'drop_unsolicited_na', _('Drop unsolicited NA'), _('Drop all unsolicited neighbor advertisements, for example if there’s a known good NA proxy on the network and such frames need not be used or in the case of 802.11, must not be used to prevent attacks.'))
+o.default = o.disabled
+o:depends('ipv6', '1')
 
 mtu6 = s:taboption('devgeneral', Value, 'mtu6', _('IPv6 MTU'))
 mtu6.placeholder = isEdit and ut.exec('cat /sys/class/net/%s/mtu' % _name) or ''
