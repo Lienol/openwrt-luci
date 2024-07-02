@@ -551,6 +551,12 @@ msgstr "备份/升级"
 msgid "Backup / Restore"
 msgstr "备份/恢复"
 
+msgid "Backup"
+msgstr "备份"
+
+msgid "Restore"
+msgstr "恢复"
+
 msgid "Backup file list"
 msgstr "文件备份列表"
 
@@ -673,10 +679,15 @@ msgstr "Cisco UDP 封装"
 
 msgid ""
 "Click \"Generate archive\" to download a tar archive of the current "
-"configuration files. To reset the firmware to its initial state, click "
+"configuration files."
+msgstr ""
+"点击“生成备份”下载当前配置文件的 tar 存档。"
+
+msgid ""
+"To reset the firmware to its initial state, click "
 "\"Perform reset\" (only possible with squashfs images)."
 msgstr ""
-"点击“生成备份”下载当前配置文件的 tar 存档。要将固件恢复到初始状态，请单击“执"
+"要将固件恢复到初始状态，请单击“执"
 "行重置”（仅 squashfs 格式的固件有效）。"
 
 msgid "Client"
