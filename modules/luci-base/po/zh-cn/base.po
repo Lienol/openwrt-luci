@@ -4536,3 +4536,9 @@ msgstr "转发"
 
 msgid "Limits"
 msgstr "限制"
+
+msgid "Addresses"
+msgstr "地址"
+
+msgid "Resolve specified FQDNs to an IP."
+msgstr "此列表将域名强制指向某个 IP 地址。"
