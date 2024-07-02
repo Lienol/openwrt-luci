@@ -4603,3 +4603,38 @@ msgstr "优先级"
 
 msgid "Set an alias for a hostname."
 msgstr "为主机名设置别称。"
+
+msgid ""
+"Bind service records to a domain name: specify the location of services. See "
+"<a href=\"%s\">RFC2782</a>."
+msgstr "绑定服务记录到域名：指定服务的位置。见 <a href=\"%s\">RFC2782</a>。"
+
+msgid ""
+"_service: _sip, _ldap, _imap, _stun, _xmpp-client, … . (Note: while _http is "
+"possible, no browsers support SRV records.)"
+msgstr ""
+"_service: _sip, _ldap, _imap, _stun, _xmpp-client, … . （注：虽然 _http 有可"
+"能，但没有浏览器支持 SRV 记录。）"
+
+msgid "_proto: _tcp, _udp, _sctp, _quic, … ."
+msgstr "_proto: _tcp, _udp, _sctp, _quic, … ."
+
+msgid "You may add multiple records for the same Target."
+msgstr "你可以为同一目标添加多条记录。"
+
+msgid ""
+"Larger weights (of the same prio) are given a proportionately higher "
+"probability of being selected."
+msgstr "较大的权重（相同的优先级下）被赋予相应较高的被选中概率。"
+
+msgid "Syntax:"
+msgstr "语法："
+
+msgid "CNAME or fqdn"
+msgstr "CNAME 或 fqdn"
+
+msgid "Ordinal: lower comes first."
+msgstr "序数：较低的优先。"
+
+msgid "Weight"
+msgstr "权重"
