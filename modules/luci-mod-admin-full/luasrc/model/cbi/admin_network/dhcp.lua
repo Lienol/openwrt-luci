@@ -254,10 +254,39 @@ s:taboption("logging", Flag, "logqueries",
 	translate("Log queries"),
 	translate("Write received DNS requests to syslog")).optional = true
 
+o = s:taboption("logging", Flag, "logdhcp",
+	translate("Extra DHCP logging"),
+	translate("Log all options sent to DHCP clients and the tags used to determine them."))
+o.optional = true
+
+o = s:taboption("logging", Value, "logfacility",
+	translate("Log facility"),
+	translate("Set log class/facility for syslog entries."))
+o.optional = true
+o:value('KERN')
+o:value('USER')
+o:value('MAIL')
+o:value('DAEMON')
+o:value('AUTH')
+o:value('LPR')
+o:value('NEWS')
+o:value('UUCP')
+o:value('CRON')
+o:value('LOCAL0')
+o:value('LOCAL1')
+o:value('LOCAL2')
+o:value('LOCAL3')
+o:value('LOCAL4')
+o:value('LOCAL5')
+o:value('LOCAL6')
+o:value('LOCAL7')
+o:value('-', _('stderr'))
+
 qu = s:taboption("logging", Flag, "quietdhcp",
 	translate("Suppress logging"),
 	translate("Suppress logging of the routine operation of these protocols"))
 qu.optional = true
+qu:depends("logdhcp", false)
 
 
 s:taboption("files", Flag, "readethers",
