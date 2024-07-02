@@ -49,6 +49,11 @@ addr = s:taboption("general", DynamicList, "address", translate("Addresses"),
 addr.optional = true
 addr.placeholder = "/router.local/router.lan/192.168.0.1"
 
+ipset = s:taboption("general", DynamicList, "ipset", translate("IP Sets"),
+	translate('List of IP sets to populate with the IPs of DNS lookup results of the FQDNs also specified here.'))
+ipset.optional = true
+ipset.placeholder = "/example.org/ipset,ipset6"
+
 se = s:taboption("general", Flag, "sequential_ip",
 	translate("Allocate IP sequentially"),
 	translate("Allocate IP addresses sequentially, starting from the lowest available address"))
