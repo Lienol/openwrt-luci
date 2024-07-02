@@ -7,6 +7,8 @@
 <%+header%>
 <h2 name="content"><%:Kernel Log%></h2>
 <div id="content_syslog">
-<textarea readonly="readonly" wrap="off" rows="<%=dmesg:cmatch("\n")+2%>" id="syslog"><%=dmesg:pcdata()%></textarea>
+	<button id="scrollDownButton" class="cbi-button cbi-button-neutral" onclick="document.getElementById('scrollUpButton').focus();"><%:Scroll to tail%></button>
+	<textarea style="margin: 10px 0;" readonly="readonly" wrap="off" rows="<%=dmesg:cmatch("\n")+2%>" id="syslog"><%=dmesg:pcdata()%></textarea>
+	<button id="scrollUpButton" class="cbi-button cbi-button-neutral" onclick="document.getElementById('scrollDownButton').focus();"><%:Scroll to head%></button>
 </div>
 <%+footer%>
