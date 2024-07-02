@@ -521,7 +521,7 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 			o.description = translatef('Interface "%s" is already marked as designated master.', has_other_master['.name'])
 		end
 
-		o = s:taboption("ipv6", ListValue, "ra", translate("Router Advertisement-Service"))
+		o = s:taboption("ipv6", ListValue, "ra", translate('<abbr title="Router Advertisement">RA</abbr>-Service'), translate('Configures the operation mode of the <abbr title="Router Advertisement">RA</abbr> service on this interface.'))
 		o:value("", translate("disabled"))
 		if net:proto() == "static" then
 			o:value("server", translate("server mode"))
@@ -529,13 +529,25 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 		o:value("relay", translate("relay mode"))
 		o:value("hybrid", translate("hybrid mode"))
 
-		o = s:taboption("ipv6", ListValue, "dhcpv6", translate("DHCPv6-Service"))
+		o = s:taboption("ipv6", ListValue, "dhcpv6", translate("DHCPv6-Service"), translate('Configures the operation mode of the DHCPv6 service on this interface.'))
 		o:value("", translate("disabled"))
 		if net:proto() == "static" then
 			o:value("server", translate("server mode"))
 		end
 		o:value("relay", translate("relay mode"))
 		o:value("hybrid", translate("hybrid mode"))
+
+		o = s:taboption('ipv6', Value, 'dhcpv6_pd_min_len', translate('<abbr title="Prefix Delegation">PD</abbr> minimum length'),
+				translate('Configures the minimum delegated prefix length assigned to a requesting downstream router, potentially overriding a requested prefix length. If left unspecified, the device will assign the smallest available prefix greater than or equal to the requested prefix.'))
+		o.datatype = 'range(1,62)'
+		o:depends({ dhcpv6 = "server" })
+
+		o = s:taboption("ipv6", DynamicList, "dns", translate("Announced IPv6 DNS servers"),
+				translate("Specifies a fixed list of IPv6 DNS server addresses to announce via DHCPv6. If left unspecified, the device will announce itself as IPv6 DNS server unless the <em>Local IPv6 DNS server</em> option is disabled."))
+		o:depends({ ra = "server", dns_service = false })
+		o:depends({ ra = "hybrid", master = false, dns_service = false })
+		o:depends({ dhcpv6 = "server", dns_service = false })
+		o:depends({ dhcpv6 = "hybrid", master = false, dns_service = false })
 
 		o = s:taboption("ipv6", Flag, "dns_service", translate("Local IPv6 DNS server"),
 		        translate("Announce this device as IPv6 DNS server."))
@@ -545,13 +557,6 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 		o:depends({ dhcpv6 = "server" })
 		o:depends({ dhcpv6 = "hybrid", master = false })
 
-		o = s:taboption("ipv6", DynamicList, "dns", translate("Announced IPv6 DNS servers"),
-				translate("Specifies a fixed list of IPv6 DNS server addresses to announce via DHCPv6. If left unspecified, the device will announce itself as IPv6 DNS server unless the <em>Local IPv6 DNS server</em> option is disabled."))
-		o:depends({ ra = "server", dns_service = false })
-		o:depends({ ra = "hybrid", master = false, dns_service = false })
-		o:depends({ dhcpv6 = "server", dns_service = false })
-		o:depends({ dhcpv6 = "hybrid", master = false, dns_service = false })
-
 		o = s:taboption("ipv6", DynamicList, "domain", translate("Announced DNS domains"),
 				translate("Specifies a fixed list of DNS search domains to announce via DHCPv6. If left unspecified, the local device DNS search domain will be announced."))
 		o.datatype = "hostname"
@@ -560,7 +565,17 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 		o:depends("dhcpv6", "server")
 		o:depends({ dhcpv6 = "hybrid", master = false })
 
-		o = s:taboption("ipv6", ListValue, "ndp", translate("NDP-Proxy"))
+		o = s:taboption("ipv6", DynamicList, "ntp", translate('NTP Servers'), translate('DHCPv6 option 56.') .. " " .. string.format('<a href="%s" target="_blank">RFC5908</a>', 'https://www.rfc-editor.org/rfc/rfc5908#section-4'))
+		local ntp_servers = m.uci:get("system", "ntp", "server")
+		for i, v in ipairs(ntp_servers) do
+			o:value(v)
+		end
+		o.optional = true
+		o.rmempty = true
+		o:depends({ dhcpv6 = "server" })
+		o:depends({ dhcpv6 = "hybrid", master = false })
+
+		o = s:taboption("ipv6", ListValue, "ndp", translate('<abbr title="Neighbour Discovery Protocol">NDP</abbr>-Proxy'), translate('Configures the operation mode of the NDP proxy service on this interface.'))
 		o:value("", translate("disabled"))
 		o:value("relay", translate("relay mode"))
 		o:value("hybrid", translate("hybrid mode"))
@@ -575,6 +590,18 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 		        translate("Set interface as NDP-Proxy external slave. Default is off."))
 		o:depends({ ndp = "relay", master = false })
 		o:depends({ ndp = "hybrid", master = false })
+
+		o = s:taboption('ipv6', Value, 'preferred_lifetime', translate('IPv6 Prefix Lifetime'), translate('Preferred lifetime for a prefix.'))
+		o.optional = true
+		o.default = '12h'
+		o:value('5m', translate('5m (5 minutes)'))
+		o:value('3h', translate('3h (3 hours)'))
+		o:value('12h', translate('12h (12 hours - default)'))
+		o:value('7d', translate('7d (7 days)'))
+
+		--This is a ra_* setting, but its placement is more logical/findable under IPv6 settings.
+		o = s:taboption('ipv6', Flag, 'ra_useleasetime', translate('Follow IPv4 Lifetime'), translate('DHCPv4 <code>leasetime</code> is used as limit and preferred lifetime of the IPv6 prefix.'))
+		o.optional = true
 
 		o = s:taboption("ipv6-ra", ListValue, "ra_default", translate("Default router"),
 		        translate('Configures the default router advertisement in <abbr title="Router Advertisement">RA</abbr> messages.'))
@@ -617,6 +644,13 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 		function o.remove(self, section)
 			m2.uci:delete("dhcp", section, "ra_flags")
 		end
+
+		o = s:taboption('ipv6-ra', Value, 'ra_pref64', translate('NAT64 prefix'), translate('Announce NAT64 prefix in <abbr title="Router Advertisement">RA</abbr> messages.'))
+		o.optional = true
+		o.datatype = 'cidr6'
+		o.placeholder = '64:ff9b::/96'
+		o:depends('ra', 'server')
+		o:depends({ ra = "hybrid", master = false })
 
 		o = s:taboption("ipv6-ra", Value, "ra_maxinterval", translate('Max <abbr title="Router Advertisement">RA</abbr> interval'),
 		        translate('Maximum time allowed between sending unsolicited <abbr title="Router Advertisement, ICMPv6 Type 134">RA</abbr>. Default is 600 seconds.'))

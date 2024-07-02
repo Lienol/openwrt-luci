@@ -4202,13 +4202,46 @@ msgstr "通告该设备为 IPv6 DNS 服务器。"
 msgid "Announced IPv6 DNS servers"
 msgstr "通告的 IPv6 DNS 服务器"
 
+msgid "<abbr title=\"Router Advertisement\">RA</abbr>-Service"
+msgstr "<abbr title=\"Router Advertisement（路由器通告）\">RA</abbr> 服务"
+
+msgid ""
+"Configures the operation mode of the <abbr title=\"Router "
+"Advertisement\">RA</abbr> service on this interface."
+msgstr ""
+"配置此接口上 <abbr title=\"Router Advertisement（路由器通告）\">RA</abbr> 服"
+"务的操作模式。"
+
+msgid "Configures the operation mode of the DHCPv6 service on this interface."
+msgstr "配置此接口上 DHCPv6 服务的操作模式。"
+
+msgid "<abbr title=\"Neighbour Discovery Protocol\">NDP</abbr>-Proxy"
+msgstr ""
+"<abbr title=\"Neighbour Discovery Protocol（邻居发现协议）\">NDP</abbr> 代理"
+
+msgid ""
+"Configures the operation mode of the NDP proxy service on this interface."
+msgstr "配置此接口上 NDP 代理服务的操作模式。"
+
+msgid "<abbr title=\"Prefix Delegation\">PD</abbr> minimum length"
+msgstr "<abbr title=\"Prefix Delegation（前缀代理）\">PD</abbr> 最小长度"
+
+msgid ""
+"Configures the minimum delegated prefix length assigned to a requesting "
+"downstream router, potentially overriding a requested prefix length. If left "
+"unspecified, the device will assign the smallest available prefix greater "
+"than or equal to the requested prefix."
+msgstr ""
+"配置分配给请求下游路由器的最小委托前缀长度，可能会覆盖请求的前缀长度。如未指"
+"定，该设备将分配大于或等于所请求前缀的最小可用前缀。"
+
 msgid ""
 "Specifies a fixed list of IPv6 DNS server addresses to announce via DHCPv6. "
 "If left unspecified, the device will announce itself as IPv6 DNS server "
 "unless the <em>Local IPv6 DNS server</em> option is disabled."
 msgstr ""
-"指定一个通过 DHCPv6 宣布的 IPv6 DNS 服务器地址的固定列表。如未指定，设备会宣"
-"布自己是 IPv6 DNS 服务器，除非<em>本地 IPv6 DNS 服务器</em>选项被禁用。"
+"指定一个通过 DHCPv6 通告的固定的 IPv6 DNS 服务器地址列表。如果未指定，设备将"
+"通告自身为 IPv6 DNS 服务器，除非<em>本地 IPv6 DNS 服务器</em>选项被禁用。"
 
 msgid "Announced DNS domains"
 msgstr "通告的 DNS 域名"
@@ -4226,11 +4259,43 @@ msgstr "学习路由"
 msgid "Setup routes for proxied IPv6 neighbours."
 msgstr "设置已代理 IPv6 邻居的路由。"
 
+msgid "NTP Servers"
+msgstr "NTP 服务器"
+
+msgid "DHCPv6 option 56."
+msgstr "DHCPv6 选项 56。"
+
 msgid "NDP-Proxy slave"
 msgstr "NDP 代理从属设备"
 
 msgid "Set interface as NDP-Proxy external slave. Default is off."
 msgstr "将接口设置为 NDP 代理外部从属设备。默认为关闭。"
+
+msgid "IPv6 Prefix Lifetime"
+msgstr "IPv6 前缀有效期"
+
+msgid "Preferred lifetime for a prefix."
+msgstr "前缀的首选有效期。"
+
+msgid "5m (5 minutes)"
+msgstr "5m（5 分钟）"
+
+msgid "3h (3 hours)"
+msgstr "3h（3 小时）"
+
+msgid "12h (12 hours - default)"
+msgstr "12h（12 小时 - 默认）"
+
+msgid "7d (7 days)"
+msgstr "7d（7 天）"
+
+msgid "Follow IPv4 Lifetime"
+msgstr "遵守 IPv4 有效期"
+
+msgid ""
+"DHCPv4 <code>leasetime</code> is used as limit and preferred lifetime of the "
+"IPv6 prefix."
+msgstr "DHCPv4 <code>租约</code> 被用作 IPv6 前缀的限制和首选有效期。"
 
 msgid "Default router"
 msgstr "默认路由器"
@@ -4298,6 +4363,16 @@ msgstr ""
 "<em> 移动 IPv6 Home 代理</em> (H) 标记表明该设备在此链路上还 充当移动 IPv6 "
 "home 代理。"
 
+msgid "NAT64 prefix"
+msgstr "NAT64 前缀"
+
+msgid ""
+"Announce NAT64 prefix in <abbr title=\"Router Advertisement\">RA</abbr> "
+"messages."
+msgstr ""
+"在 <abbr title=\"Router Advertisement（路由器通告）\">RA</abbr> 消息中宣布 "
+"NAT64 前缀。"
+
 msgid "Max <abbr title=\"Router Advertisement\">RA</abbr> interval"
 msgstr "最长 <abbr title=\"路由器通告\">RA</abbr> 间隔"
 
@@ -4319,14 +4394,14 @@ msgstr ""
 "间隔。默认为 200 秒。"
 
 msgid "<abbr title=\"Router Advertisement\">RA</abbr> Lifetime"
-msgstr "<abbr title=\"路由器通告\">RA</abbr> 生命周期"
+msgstr "<abbr title=\"路由器通告\">RA</abbr> 生存时间"
 
 msgid ""
 "Router Lifetime published in <abbr title=\"Router Advertisement, ICMPv6 Type "
 "134\">RA</abbr> messages. Maximum is 9000 seconds."
 msgstr ""
-"路由器生命周期以 <abbr title=\"路由器通告，ICMPv6 类型 134\">RA</abbr> 消息形"
-"式发布。最长为 9000 秒。"
+"在 <abbr title=\"Router Advertisement, ICMPv6 Type 134（路由器通告,ICMPv6类"
+"型 134）\">RA</abbr> 消息中发布的路由器生存时间为 9000 秒，这是最大值。"
 
 msgid "<abbr title=\"Router Advertisement\">RA</abbr> MTU"
 msgstr "<abbr title=\"路由器通告\">RA</abbr> MTU"
