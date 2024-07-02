@@ -4542,3 +4542,12 @@ msgstr "地址"
 
 msgid "Resolve specified FQDNs to an IP."
 msgstr "此列表将域名强制指向某个 IP 地址。"
+
+msgid "IP Sets"
+msgstr "IP 集"
+
+msgid ""
+"List of IP sets to populate with the IPs of DNS lookup results of the FQDNs "
+"also specified here."
+msgstr ""
+"IP 集列表用于存储根据指定完全限定域名（FQDN）进行 DNS 查找后获得的 IP 地址。"
