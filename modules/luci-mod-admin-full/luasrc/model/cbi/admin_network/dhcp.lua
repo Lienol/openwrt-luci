@@ -445,4 +445,20 @@ o.rmempty  = true
 o.datatype = "range(0,65535)"
 o.placeholder = "0"
 
+
+cname = m:section(TypedSection, "cname", translate("CNAME"), translate('Set an alias for a hostname.'))
+cname.addremove = true
+cname.anonymous = true
+cname.sortable = true
+cname.template = "cbi/tblsection"
+
+o = cname:option(Value, "cname", translate("Domain"))
+o.rmempty  = false
+o.placeholder = "www.example.com."
+
+o = cname:option(Value, "target", translate("Target"))
+o.rmempty  = false
+o.datatype = "hostname"
+o.placeholder = "example.com."
+
 return m
