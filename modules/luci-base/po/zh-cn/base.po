@@ -1498,6 +1498,12 @@ msgstr "IPv6 设置"
 msgid "IPv6 ULA-Prefix"
 msgstr "IPv6 ULA 前缀"
 
+msgid "ULA for IPv6 is analogous to IPv4 private network addressing."
+msgstr "ULA 在 IPv6 中的作用类似于 IPv4 中的私有网络地址。"
+
+msgid "This prefix is randomly generated at first install."
+msgstr "此前缀在首次安装时随机生成。"
+
 msgid "IPv6 WAN Status"
 msgstr "IPv6 WAN 状态"
 

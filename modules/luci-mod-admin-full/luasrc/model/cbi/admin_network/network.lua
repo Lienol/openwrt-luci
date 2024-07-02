@@ -109,7 +109,9 @@ if network:has_ipv6() or packet_steering then
 	local s = m:section(NamedSection, "globals", "globals", translate("Global network options"))
 
 	if network:has_ipv6() then
-		local o = s:option(Value, "ula_prefix", translate("IPv6 ULA-Prefix"))
+		local o = s:option(Value, "ula_prefix", translate("IPv6 ULA-Prefix"),
+			translate('ULA for IPv6 is analogous to IPv4 private network addressing.') ..
+			translate('This prefix is randomly generated at first install.'))
 		o.datatype = "ip6addr"
 		o.rmempty = true
 		m.pageaction = true
