@@ -305,6 +305,7 @@ s = m:section(TypedSection, "host", translate("Static Leases"),
 s.addremove = true
 s.anonymous = true
 s.template = "cbi/tblsection"
+s.extedit = "dhcp_config/%s"
 
 name = s:option(Value, "name", translate("Hostname"))
 name.datatype = "hostname"
