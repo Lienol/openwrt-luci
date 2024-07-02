@@ -895,6 +895,15 @@ msgstr "删除此网络"
 msgid "Description"
 msgstr "描述"
 
+msgid "An optional, short description for this device"
+msgstr "此设备的可选简短描述"
+
+msgid "Notes"
+msgstr "备注"
+
+msgid "Optional, free-form notes about this device"
+msgstr "此设备的可选任意格式备注"
+
 msgid "Design"
 msgstr "主题"
 
