@@ -1448,7 +1448,15 @@ msgid "Hostname to send when requesting DHCP"
 msgstr "请求 DHCP 时发送的主机名"
 
 msgid "Hostnames"
-msgstr "主机名"
+msgstr "主机名映射"
+
+msgid ""
+"Hostnames are used to bind a domain name to an IP address. This setting is "
+"redundant for hostnames already configured with static leases, but it can be "
+"useful to rebind an FQDN."
+msgstr ""
+"主机名用于将域名与IP地址绑定。对于已经配置了静态租约的主机名，此设置多余，但"
+"它对重新绑定 FQDN 可能有用。"
 
 msgid "Hybrid"
 msgstr "混合"
@@ -4135,15 +4143,6 @@ msgstr "使用 all-servers 并发查询"
 
 msgid "Setting this flag forces dnsmasq to send all queries to all available servers. The reply from the server which answers first will be returned to the original requester."
 msgstr "对所有 DNS 服务器发起查询，选择回应最快的一条作为查询结果返回"
-
-msgid "Custom domain"
-msgstr "自定义挟持域名"
-
-msgid "Define a custom domain name and the corresponding PTR record"
-msgstr "自定义域名对应的IP地址（需要客户端DNS指向本路由）"
-
-msgid "Domain name"
-msgstr "域名（不带 HTTP(S)://）"
 
 msgid "Comments"
 msgstr "备注"
