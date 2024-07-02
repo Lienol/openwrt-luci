@@ -248,11 +248,27 @@ msgstr "添加新接口..."
 msgid "Additional Hosts files"
 msgstr "额外的 HOSTS 文件"
 
-msgid "Filter IPv6 DNS forwards"
-msgstr "过滤 IPv6 DNS 记录"
+msgid "Filter SRV/SOA service discovery"
+msgstr "过滤 SRV/SOA 服务发现"
 
-msgid "Filter IPv4 DNS forwards"
-msgstr "过滤 IPv4 DNS 记录"
+msgid ""
+"Filters SRV/SOA service discovery, to avoid triggering dial-on-demand links."
+msgstr "过滤 SRV/SOA 服务发现，以避免触发按需拨号链接。"
+
+msgid "May prevent VoIP or other services from working."
+msgstr "可能造成 VoIP 或其他服务无法运作。"
+
+msgid "Filter IPv6 AAAA records"
+msgstr "过滤 IPv6 AAAA 记录"
+
+msgid "Remove IPv6 addresses from the results and only return IPv4 addresses."
+msgstr "从结果中删除 IPv6 地址，只返回 IPv4 地址。"
+
+msgid "Filter IPv4 A records"
+msgstr "过滤 IPv4 A 记录"
+
+msgid "Remove IPv4 addresses from the results and only return IPv6 addresses."
+msgstr "从结果中删除 IPv4 地址，只返回 IPv6 地址。"
 
 msgid "Disable HTTPS DNS Type forwards"
 msgstr "禁止解析 HTTPS 类型的记录"
@@ -266,14 +282,19 @@ msgstr "禁止解析 Unknown 类型的记录"
 msgid "Filter Unknown DNS Query Type Name Resolve"
 msgstr "过滤掉 Unknown 未知类型的查询"
 
-msgid "Minimum TTL to send to clients"
-msgstr "客户端缓存的最小 DNS TTL"
-
 msgid "Additional servers file"
 msgstr "额外的 SERVERS 文件"
 
-msgid "Modify DNS entries minimum TTL (max is 86400, 0 is no modify)"
-msgstr "修改发送到客户端的域名记录的 TTL 时间 (最大 86400, 0 表示不修改)"
+msgid "Min cache TTL"
+msgstr "最小缓存 TTL"
+
+msgid ""
+"Extend short TTL values to the seconds value given when caching them. Use "
+"with caution."
+msgstr "缓存时延长短 TTL 值到给定的秒数。小心使用。"
+
+msgid "(Max 1h == 3600)"
+msgstr "（最大值 1h == 3600)"
 
 msgid "Address"
 msgstr "地址"
@@ -4506,3 +4527,12 @@ msgstr "转发/反向 DNS"
 
 msgid "Add static forward and reverse DNS entries for this host."
 msgstr "为此主机添加静态转发和反向 DNS 条目。"
+
+msgid "Devices &amp; Ports"
+msgstr "设置及端口"
+
+msgid "Forwards"
+msgstr "转发"
+
+msgid "Limits"
+msgstr "限制"
