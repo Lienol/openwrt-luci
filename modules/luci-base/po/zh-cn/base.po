@@ -3228,7 +3228,7 @@ msgid "Table"
 msgstr "表"
 
 msgid "Target"
-msgstr "对象"
+msgstr "目标"
 
 msgid "Target network"
 msgstr "目标网络"
@@ -4600,3 +4600,6 @@ msgstr "中继"
 
 msgid "Priority"
 msgstr "优先级"
+
+msgid "Set an alias for a hostname."
+msgstr "为主机名设置别称。"
