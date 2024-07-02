@@ -243,6 +243,12 @@ o.optional = true
 o.datatype = "range(0,86400)"
 o.placeholder = 60
 
+o = s:taboption("limits", Value, "max_cache_ttl",
+	translate("Max cache TTL"),
+	translate("Set a maximum seconds TTL value for entries in the cache."))
+o.optional = true
+o.placeholder = 3600
+
 
 s:taboption("logging", Flag, "logqueries",
 	translate("Log queries"),
