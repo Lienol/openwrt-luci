@@ -461,4 +461,41 @@ o.rmempty  = false
 o.datatype = "hostname"
 o.placeholder = "example.com."
 
+
+srv = m:section(TypedSection, "srvhost", translate("SRV"),
+		translatef('Bind service records to a domain name: specify the location of services. See <a href="%s">RFC2782</a>.', 'https://datatracker.ietf.org/doc/html/rfc2782')
+		.. "<br />" .. translate('_service: _sip, _ldap, _imap, _stun, _xmpp-client, … . (Note: while _http is possible, no browsers support SRV records.)')
+		.. "<br />" .. translate('_proto: _tcp, _udp, _sctp, _quic, … .')
+		.. "<br />" .. translate('You may add multiple records for the same Target.')
+		.. "<br />" .. translate('Larger weights (of the same prio) are given a proportionately higher probability of being selected.'))
+srv.addremove = true
+srv.anonymous = true
+srv.sortable = true
+srv.template = "cbi/tblsection"
+
+o = srv:option(Value, "srv", translate("SRV"), translate('Syntax:') .. ' ' .. '<code>_service._proto.example.com.</code>')
+o.rmempty  = false
+o.datatype = "hostname"
+o.placeholder = "_sip._tcp.example.com."
+
+o = srv:option(Value, "target", translate("Target"), translate('CNAME or fqdn'))
+o.rmempty  = false
+o.datatype = "hostname"
+o.placeholder = "sip.example.com."
+
+o = srv:option(Value, "port", translate("Port"))
+o.rmempty  = false
+o.datatype = "port"
+o.placeholder = "5060"
+
+o = srv:option(Value, "class", translate("Priority"), translate('Ordinal: lower comes first.'))
+o.rmempty  = true
+o.datatype = "range(0,65535)"
+o.placeholder = "10"
+
+o = srv:option(Value, "weight", translate("Weight"))
+o.rmempty  = true
+o.datatype = "range(0,65535)"
+o.placeholder = "50"
+
 return m
