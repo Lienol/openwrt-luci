@@ -4551,3 +4551,18 @@ msgid ""
 "also specified here."
 msgstr ""
 "IP 集列表用于存储根据指定完全限定域名（FQDN）进行 DNS 查找后获得的 IP 地址。"
+
+msgid "Minimum source port #"
+msgstr "最小源端口 #"
+
+msgid "Min valid value %s."
+msgstr "最小有效值 %s。"
+
+msgid "Useful for systems behind firewalls."
+msgstr "对防火墙后面的系统有用。"
+
+msgid "Maximum source port #"
+msgstr "最大源端口 #"
+
+msgid "Max valid value %s."
+msgstr "最大有效值 %s。"
