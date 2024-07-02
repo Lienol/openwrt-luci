@@ -133,6 +133,8 @@ function index()
 			page.target = cbi("admin_network/hosts")
 			page.title  = _("Hostnames")
 			page.order  = 40
+
+			entry({"admin", "network", "dhcp_config"}, cbi("admin_network/dhcp_config")).leaf = true
 		end
 
 		page  = node("admin", "network", "routes")
