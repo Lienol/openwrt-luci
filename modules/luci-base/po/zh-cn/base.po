@@ -4584,3 +4584,19 @@ msgstr "记录设施"
 
 msgid "Set log class/facility for syslog entries."
 msgstr "设置 syslog 条目的日志类/设施。"
+
+msgid ""
+"Bind service records to a domain name: specify the location of services."
+msgstr "绑定服务记录到域名：指定服务的位置。"
+
+msgid "You may add multiple records for the same domain."
+msgstr "你可以为同一个域添加多条记录。"
+
+msgid "Domain"
+msgstr "域名"
+
+msgid "Relay"
+msgstr "中继"
+
+msgid "Priority"
+msgstr "优先级"

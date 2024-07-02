@@ -421,4 +421,28 @@ o.datatype = "ipaddr"
 o = d:option(Value, "comments", translate("Comments"))
 o.rmempty  = true
 
+
+mx = m:section(TypedSection, "mxhost", translate("MX"),
+	translate('Bind service records to a domain name: specify the location of services.') ..
+	'<br />' .. translate('You may add multiple records for the same domain.'))
+mx.addremove = true
+mx.anonymous = true
+mx.sortable = true
+mx.template = "cbi/tblsection"
+
+o = mx:option(Value, "domain", translate("Domain"))
+o.rmempty  = false
+o.datatype = "hostname"
+o.placeholder = "example.com."
+
+o = mx:option(Value, "relay", translate("Relay"))
+o.rmempty  = false
+o.datatype = "hostname"
+o.placeholder = "relay.example.com."
+
+o = mx:option(Value, "pref", translate("Priority"))
+o.rmempty  = true
+o.datatype = "range(0,65535)"
+o.placeholder = "0"
+
 return m
