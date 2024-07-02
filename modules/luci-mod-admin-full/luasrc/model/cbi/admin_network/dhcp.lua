@@ -404,21 +404,21 @@ end
 m:section(SimpleSection).template = "admin_network/lease_status"
 
 
-d = m:section(TypedSection, "domain", translate("Custom domain"),
-	translate("Define a custom domain name and the corresponding PTR record"))
-
+d = m:section(TypedSection, "domain", translate("Hostnames"),
+	translate('Hostnames are used to bind a domain name to an IP address. This setting is redundant for hostnames already configured with static leases, but it can be useful to rebind an FQDN.'))
 d.addremove = true
 d.anonymous = true
+d.sortable = true
 d.template = "cbi/tblsection"
 
-dns_name = d:option(Value, "name", translate("Domain name"))
-dns_name.datatype = "hostname"
-dns_name.rmempty  = true
+o = d:option(Value, "name", translate("Hostname"))
+o.datatype = "hostname"
+o.rmempty  = true
 
-dns_ip = d:option(Value, "ip", translate("<abbr title=\"Internet Protocol Version 4\">IPv4</abbr>-Address"))
-dns_ip.datatype = "or(ip4addr,'ignore')"
+o = d:option(Value, "ip", translate("IP address"))
+o.datatype = "ipaddr"
 
-dns_comments = d:option(Value, "comments", translate("Comments"))
-dns_comments.rmempty  = true
+o = d:option(Value, "comments", translate("Comments"))
+o.rmempty  = true
 
 return m
