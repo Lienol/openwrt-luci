@@ -96,6 +96,22 @@ qp.optional = true
 qp.datatype = "port"
 qp.placeholder = translate("any")
 
+o = s:taboption("devices", Value, "minport",
+	translate("Minimum source port #"),
+	translatef('Min valid value %s.', '<code>1024</code>') .. ' ' .. translate("Useful for systems behind firewalls."))
+o.optional = true
+o.datatype = "port"
+o.placeholder = 1024
+o:depends("queryport", "")
+
+o = s:taboption("devices", Value, "maxport",
+	translate("Maximum source port #"),
+	translatef('Max valid value %s.', '<code>65535</code>') .. ' ' .. translate("Useful for systems behind firewalls."))
+o.optional = true
+o.datatype = "port"
+o.placeholder = 50000
+o:depends("queryport", "")
+
 
 local have_dnssec_support = luci.util.checklib("/usr/sbin/dnsmasq", "libhogweed.so")
 if have_dnssec_support then
