@@ -16,8 +16,8 @@
 <fieldset class="cbi-section">
 
 	<fieldset class="cbi-section">
-		<legend><%:Backup / Restore%></legend>
-		<div class="cbi-section-descr"><%:Click "Generate archive" to download a tar archive of the current configuration files. To reset the firmware to its initial state, click "Perform reset" (only possible with squashfs images).%></div>
+		<legend><%:Backup%></legend>
+		<div class="cbi-section-descr"><%:Click "Generate archive" to download a tar archive of the current configuration files.%></div>
 		<div class="cbi-section-node">
 			<form class="inline" method="post" action="<%=url('admin/system/flashops/backup')%>">
 				<input type="hidden" name="token" value="<%=token%>" />
@@ -28,6 +28,13 @@
 					</div>
 				</div>
 			</form>
+		</div>
+	</fieldset>
+
+	<fieldset class="cbi-section">
+		<legend><%:Restore%></legend>
+		<div class="cbi-section-descr"><%:To reset the firmware to its initial state, click "Perform reset" (only possible with squashfs images).%></div>
+		<div class="cbi-section-node">
 			<% if reset_avail then %>
 			<form class="inline" method="post" action="<%=url('admin/system/flashops/reset')%>">
 				<input type="hidden" name="token" value="<%=token%>" />
@@ -71,9 +78,8 @@
 			</div>
 		</form>
 	</div>
+	<br />
 	<% end %>
-		<br />
-		<div class="cbi-section-descr"><%:To restore configuration files, you can upload a previously generated backup archive here.%></div>
 		<div class="cbi-section-node">
 			<form class="inline" method="post" action="<%=url('admin/system/flashops/restore')%>" enctype="multipart/form-data">
 				<div class="cbi-value cbi-value-last">
