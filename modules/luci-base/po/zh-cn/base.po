@@ -5011,6 +5011,27 @@ msgstr "接受具有本地源地址的数据包"
 msgid "Send ICMP redirects"
 msgstr "发送 ICMP 重定向"
 
+msgid "Honor gratuitous ARP"
+msgstr "遵循非必要的 ARP"
+
+msgid ""
+"When enabled, new ARP table entries are added from received gratuitous ARP "
+"requests or replies, otherwise only preexisting table entries are updated, "
+"but no new hosts are learned."
+msgstr "启用后，从接收到的免费 ARP 请求或回复中添加新的 ARP "
+"表项，否则仅更新已存在的表项，但不会学习新的主机。"
+
+msgid "Drop gratuitous ARP"
+msgstr "丢弃不必要的 ARP"
+
+msgid ""
+"Drop all gratuitous ARP frames, for example if there’s a known good ARP "
+"proxy on the network and such frames need not be used or in the case of "
+"802.11, must not be used to prevent attacks."
+msgstr ""
+"丢弃所有不必要的 ARP 帧，如果网络上有一个已知的好的ARP代理并且这样的帧无需使"
+"用或者就 802.11 而言，不准使用这样的帧以防止攻击。"
+
 msgid "Neighbour cache validity"
 msgstr "邻近缓存有效性"
 
@@ -5033,6 +5054,20 @@ msgstr "替换 ARP 条目所需的最短时间（以秒为单位）。 防止ARP
 
 msgid "Enable IPv6"
 msgstr "启用 IPv6"
+
+msgid "Enable IPv6 segment routing"
+msgstr "启用 IPv6 段路由"
+
+msgid "Drop unsolicited NA"
+msgstr "丢弃未经请求的 NA"
+
+msgid ""
+"Drop all unsolicited neighbor advertisements, for example if there’s a known "
+"good NA proxy on the network and such frames need not be used or in the case "
+"of 802.11, must not be used to prevent attacks."
+msgstr ""
+"丢弃所有未经请求的邻居通告，例如，如果网络中存在已知的好的 NA 代理，那么不需"
+"要使用这些帧；或者在 802.11 的情况下，必须禁止使用以防止攻击。"
 
 msgid "IPv6 MTU"
 msgstr "IPv6 MTU"
