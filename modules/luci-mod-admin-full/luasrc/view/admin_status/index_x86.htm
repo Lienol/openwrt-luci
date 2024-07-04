@@ -9,6 +9,8 @@
 	local util = require "luci.util"
 	local stat = require "luci.tools.status"
 	local ver = require "luci.version"
+	local ip = require "luci.ip"
+	local webadmin = require "luci.tools.webadmin"
 
 	local has_ipv6 = fs.access("/proc/net/ipv6_route")
 	local has_dhcp = fs.access("/etc/config/dhcp")
@@ -822,6 +824,36 @@
 	</table>
 </fieldset>
 <% end %>
+<% end %>
+
+<% if has_ipv6 then %>
+<fieldset class="cbi-section">
+	<legend><%:IPv6 Neighbours%></legend>
+
+	<div class="cbi-section-node">
+		<table class="cbi-section-table">
+			<tr class="cbi-section-table-titles">
+				<th class="cbi-section-table-cell"><%:IPv6-Address%></th>
+				<th class="cbi-section-table-cell"><%:MAC-Address%></th>
+				<th class="cbi-section-table-cell"><%:Interface%></th>
+			</tr>
+			<%
+				for _, v in ipairs(ip.neighbors({ family = 6 })) do
+					if v.dest and not v.dest:is6linklocal() and v.mac then
+			%>
+			<tr class="cbi-section-table-row cbi-rowstyle-<%=(style and 1 or 2)%>">
+				<td class="cbi-value-field"><%=v.dest%></td>
+				<td class="cbi-value-field"><%=v.mac%></td>
+				<td class="cbi-value-field"><%=webadmin.iface_get_network(v.dev) or '(' .. v.dev .. ')'%></td>
+			</tr>
+			<%
+						style = not style
+					end
+				end
+			%>
+		</table>
+	</div>
+</fieldset>
 <% end %>
 
 <% if has_dsl then %>
