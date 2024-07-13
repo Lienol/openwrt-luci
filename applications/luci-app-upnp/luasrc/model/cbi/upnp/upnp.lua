@@ -77,6 +77,20 @@ pu.placeholder = "http://192.168.1.1/"
 lf = s:taboption("advanced", Value, "upnp_lease_file", translate("UPnP lease file"))
 lf.placeholder = "/var/run/miniupnpd.leases"
 
+o = s:taboption("advanced", Flag, "use_stun", translate("Use STUN"))
+
+o = s:taboption("advanced", Value, "stun_host", translate("STUN Host"))
+o:depends("use_stun", "1")
+o.datatype    = "host"
+o:value("stun.miwifi.com")
+o:value("stun.syncthing.net")
+o:value("stunserver2024.stunprotocol.org")
+
+o = s:taboption("advanced", Value, "stun_port", translate("STUN Port"))
+o:depends("use_stun", "1")
+o.datatype    = "port"
+o.placeholder = "0-65535"
+
 
 s2 = m:section(TypedSection, "perm_rule", translate("MiniUPnP ACLs"),
 	translate("ACLs specify which external ports may be redirected to which internal addresses and ports"))
