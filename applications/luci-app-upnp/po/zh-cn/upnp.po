@@ -168,3 +168,12 @@ msgstr "值为 KByte/s，仅供参考"
 
 #~ msgid "enable"
 #~ msgstr "启用"
+
+msgid "Use STUN"
+msgstr "使用 STUN"
+
+msgid "STUN Host"
+msgstr "STUN 主机"
+
+msgid "STUN Port"
+msgstr "STUN 端口"
