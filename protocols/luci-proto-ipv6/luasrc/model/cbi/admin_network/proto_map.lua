@@ -5,7 +5,7 @@
 local map, section, net = ...
 
 local peeraddr, ip6addr
-local tunlink, defaultroute, metric, ttl, mtu
+local tunlink, ttl, mtu
 
 
 maptype = section:taboption("general", ListValue, "type", translate("Type"))
@@ -63,21 +63,6 @@ tunlink.template = "cbi/network_netlist"
 tunlink.nocreate = true
 
 
-defaultroute = section:taboption("advanced", Flag, "defaultroute",
-	translate("Default gateway"),
-	translate("If unchecked, no default route is configured"))
-
-defaultroute.default = defaultroute.enabled
-
-
-metric = section:taboption("advanced", Value, "metric",
-	translate("Use gateway metric"))
-
-metric.placeholder = "0"
-metric.datatype    = "uinteger"
-metric:depends("defaultroute", defaultroute.enabled)
-
-
 ttl = section:taboption("advanced", Value, "ttl", translate("Use TTL on tunnel interface"))
 ttl.placeholder = "64"
 ttl.datatype    = "range(1,255)"
@@ -86,3 +71,6 @@ ttl.datatype    = "range(1,255)"
 mtu = section:taboption("advanced", Value, "mtu", translate("Use MTU on tunnel interface"))
 mtu.placeholder = "1280"
 mtu.datatype    = "max(9200)"
+
+
+legacymap = section:taboption("advanced", Flag, "legacymap", translate("Use legacy MAP"), translate("Use legacy MAP interface identifier format (draft-ietf-softwire-map-00) instead of RFC7597"))
