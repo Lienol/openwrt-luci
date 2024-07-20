@@ -4884,6 +4884,9 @@ msgstr "DHCPv4 服务"
 msgid "Enable or disable DHCPv4 services on this interface."
 msgstr "启用或停用此接口的 DHCPv4 服务。"
 
+msgid "Disable this interface"
+msgstr "禁用该接口"
+
 msgid "Send the hostname of this device"
 msgstr "传输这台设备的主机名称"
 
