@@ -4790,6 +4790,9 @@ msgstr "资源记录编号"
 msgid "Raw Data"
 msgstr "原始数据"
 
+msgid "Disable this interface"
+msgstr "禁用该接口"
+
 msgid "Send the hostname of this device"
 msgstr "传输这台设备的主机名称"
 
