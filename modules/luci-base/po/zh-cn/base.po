@@ -4665,6 +4665,9 @@ msgstr "序数：较低的优先。"
 msgid "Weight"
 msgstr "权重"
 
+msgid "Disable this interface"
+msgstr "禁用该接口"
+
 msgid "Send the hostname of this device"
 msgstr "传输这台设备的主机名称"
 
