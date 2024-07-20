@@ -108,6 +108,22 @@ function dhcp6_leases()
 	return dhcp_leases_common(6)
 end
 
+function ipv6_neighbors()
+	local ip = require "luci.ip"
+	local webadmin = require "luci.tools.webadmin"
+	local t = {}
+	for _, v in ipairs(ip.neighbors({ family = 6 })) do
+		if v.dest and not v.dest:is6linklocal() and v.mac then
+			t[#t + 1] = {
+				dest = tostring(v.dest),
+				mac = tostring(v.mac),
+				iface = webadmin.iface_get_network(v.dev) or '(' .. v.dev .. ')'
+			}
+		end
+	end
+	return t
+end
+
 function guess_wifi_hw(dev)
 	local bands = ""
 	local ifname = dev:name()
