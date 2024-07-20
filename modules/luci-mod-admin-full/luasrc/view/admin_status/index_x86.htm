@@ -9,8 +9,6 @@
 	local util = require "luci.util"
 	local stat = require "luci.tools.status"
 	local ver = require "luci.version"
-	local ip = require "luci.ip"
-	local webadmin = require "luci.tools.webadmin"
 
 	local has_ipv6 = fs.access("/proc/net/ipv6_route")
 	local has_dhcp = fs.access("/etc/config/dhcp")
@@ -66,6 +64,7 @@
 			conncount  = conn_count,
 			leases     = stat.dhcp_leases(),
 			leases6    = stat.dhcp6_leases(),
+			ipv6_neighbors = has_ipv6 and stat.ipv6_neighbors() or nil,
 			wifinets   = stat.wifi_networks()
 		}
 
@@ -188,6 +187,7 @@
 	XHR.poll(1, '<%=REQUEST_URI%>', { status: 1 },
 		function(x, info)
 		{
+			var mac_hostname = {};
 			if (!(npoll++ % 5))
 				updateHosts();
 
@@ -418,6 +418,8 @@
 					tr.insertCell(-1).innerHTML = info.leases[i].ipaddr;
 					tr.insertCell(-1).innerHTML = info.leases[i].macaddr;
 					tr.insertCell(-1).innerHTML = timestr;
+
+					mac_hostname[info.leases[i].macaddr.toLowerCase()] = info.leases[i].hostname ? info.leases[i].hostname : '?'
 				}
 
 				if( ls.rows.length == 1 )
@@ -479,6 +481,38 @@
 					var td = tr.insertCell(-1);
 						td.colSpan = 4;
 						td.innerHTML = '<em><br /><%:There are no active leases.%></em>';
+				}
+			}
+			<% end %>
+
+			<% if has_ipv6 then %>
+			var ipv6_neighbors_dom = document.getElementById('ipv6_neighbors_status_table');
+			if (ipv6_neighbors_dom && info.ipv6_neighbors)
+			{
+				ipv6_neighbors_dom.parentNode.style.display = 'block';
+
+				/* clear all rows */
+				while( ipv6_neighbors_dom.rows.length > 1 )
+					ipv6_neighbors_dom.rows[0].parentNode.deleteRow(1);
+
+				for( var i = 0; i < info.ipv6_neighbors.length; i++ )
+				{
+					var tr = ipv6_neighbors_dom.rows[0].parentNode.insertRow(-1);
+						tr.className = 'cbi-section-table-row cbi-rowstyle-' + ((i % 2) + 1);
+
+					tr.insertCell(-1).innerHTML = mac_hostname[info.ipv6_neighbors[i].mac.toLowerCase()] ? mac_hostname[info.ipv6_neighbors[i].mac.toLowerCase()] : '?';
+					tr.insertCell(-1).innerHTML = info.ipv6_neighbors[i].dest;
+					tr.insertCell(-1).innerHTML = info.ipv6_neighbors[i].mac;
+					tr.insertCell(-1).innerHTML = info.ipv6_neighbors[i].iface;
+				}
+
+				if( ipv6_neighbors_dom.rows.length == 1 )
+				{
+					var tr = ipv6_neighbors_dom.rows[0].parentNode.insertRow(-1);
+						tr.className = 'cbi-section-table-row';
+
+					var td = tr.insertCell(-1);
+						td.colSpan = 4;
 				}
 			}
 			<% end %>
@@ -827,32 +861,20 @@
 <% end %>
 
 <% if has_ipv6 then %>
-<fieldset class="cbi-section">
+<fieldset class="cbi-section" style="display:none">
 	<legend><%:IPv6 Neighbours%></legend>
-
-	<div class="cbi-section-node">
-		<table class="cbi-section-table">
-			<tr class="cbi-section-table-titles">
-				<th class="cbi-section-table-cell"><%:IPv6-Address%></th>
-				<th class="cbi-section-table-cell"><%:MAC-Address%></th>
-				<th class="cbi-section-table-cell"><%:Interface%></th>
-			</tr>
-			<%
-				for _, v in ipairs(ip.neighbors({ family = 6 })) do
-					if v.dest and not v.dest:is6linklocal() and v.mac then
-			%>
-			<tr class="cbi-section-table-row cbi-rowstyle-<%=(style and 1 or 2)%>">
-				<td class="cbi-value-field"><%=v.dest%></td>
-				<td class="cbi-value-field"><%=v.mac%></td>
-				<td class="cbi-value-field"><%=webadmin.iface_get_network(v.dev) or '(' .. v.dev .. ')'%></td>
-			</tr>
-			<%
-						style = not style
-					end
-				end
-			%>
-		</table>
-	</div>
+	
+	<table class="cbi-section-table" id="ipv6_neighbors_status_table">
+		<tr class="cbi-section-table-titles">
+			<th class="cbi-section-table-cell"><%:Hostname%></th>
+			<th class="cbi-section-table-cell"><%:IPv6-Address%></th>
+			<th class="cbi-section-table-cell"><%:MAC-Address%></th>
+			<th class="cbi-section-table-cell"><%:Interface%></th>
+		</tr>
+		<tr class="cbi-section-table-row">
+			<td colspan="3"><em><br /><%:Collecting data...%></em></td>
+		</tr>
+	</table>
 </fieldset>
 <% end %>
 
