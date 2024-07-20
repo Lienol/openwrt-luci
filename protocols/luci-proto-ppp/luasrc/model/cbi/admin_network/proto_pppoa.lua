@@ -4,8 +4,7 @@
 local map, section, net = ...
 
 local encaps, atmdev, vci, vpi, username, password
-local ipv6, defaultroute, metric, peerdns, dns,
-      keepalive_failure, keepalive_interval, demand, mtu
+local ipv6, keepalive_failure, keepalive_interval, demand, mtu
 
 
 encaps = section:taboption("general", ListValue, "encaps", translate("PPPoA Encapsulation"))
@@ -44,36 +43,6 @@ if luci.model.network:has_ipv6() then
 	ipv6:value("1", translate("Manual"))
 	ipv6.default = "auto"
 end
-
-
-defaultroute = section:taboption("advanced", Flag, "defaultroute",
-	translate("Use default gateway"),
-	translate("If unchecked, no default route is configured"))
-
-defaultroute.default = defaultroute.enabled
-
-
-metric = section:taboption("advanced", Value, "metric",
-	translate("Use gateway metric"))
-
-metric.placeholder = "0"
-metric.datatype    = "uinteger"
-metric:depends("defaultroute", defaultroute.enabled)
-
-
-peerdns = section:taboption("advanced", Flag, "peerdns",
-	translate("Use DNS servers advertised by peer"),
-	translate("If unchecked, the advertised DNS server addresses are ignored"))
-
-peerdns.default = peerdns.enabled
-
-
-dns = section:taboption("advanced", DynamicList, "dns",
-	translate("Use custom DNS servers"))
-
-dns:depends("peerdns", "")
-dns.datatype = "ipaddr"
-dns.cast     = "string"
 
 
 keepalive_failure = section:taboption("advanced", Value, "_keepalive_failure",

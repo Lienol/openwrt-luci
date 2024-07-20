@@ -6,9 +6,9 @@ local map, section, net = ...
 
 local o = section:taboption("general", ListValue, "reqaddress",
 	translate("Request IPv6-address"))
-o:value("try")
-o:value("force")
-o:value("none", "disabled")
+o:value("try", translate("try"))
+o:value("force", translate("force"))
+o:value("none", translate("disabled"))
 o.default = "try"
 
 
@@ -24,35 +24,10 @@ o:value("64")
 o.default = "auto"
 
 
-o = section:taboption("advanced", Flag, "defaultroute",
-	translate("Use default gateway"),
-	translate("If unchecked, no default route is configured"))
-o.default = o.enabled
-
-
-o = section:taboption("advanced", Flag, "peerdns",
-	translate("Use DNS servers advertised by peer"),
-	translate("If unchecked, the advertised DNS server addresses are ignored"))
-o.default = o.enabled
-
-
-o = section:taboption("advanced", Value, "ip6prefix",
-	translate("Custom delegated IPv6-prefix"))
-o.dataype = "ip6addr"
-
-
-o = section:taboption("advanced", DynamicList, "dns",
-	translate("Use custom DNS servers"))
-o:depends("peerdns", "")
-o.datatype = "list(ip6addr)"
-o.cast     = "string"
+o = section:taboption("general", Flag, "norelease",
+	translate("Do not send a Release when restarting"),
+	translate("Enable to minimise the chance of prefix change after a restart"))
 
 
 o = section:taboption("advanced", Value, "clientid",
 	translate("Client ID to send when requesting DHCP"))
-
-luci.tools.proto.opt_macaddr(section, ifc, translate("Override MAC address"))
-
-o = section:taboption("advanced", Value, "mtu", translate("Override MTU"))
-o.placeholder = "1500"
-o.datatype    = "max(9200)"

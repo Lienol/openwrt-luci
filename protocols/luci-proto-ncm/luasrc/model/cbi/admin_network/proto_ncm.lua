@@ -13,8 +13,7 @@ You may obtain a copy of the License at
 local map, section, net = ...
 
 local device, apn, service, pincode, username, password, dialnumber
-local ipv6, maxwait, defaultroute, metric, peerdns, dns,
-      keepalive_failure, keepalive_interval, demand
+local ipv6, maxwait, keepalive_failure, keepalive_interval, demand
 
 
 device = section:taboption("general", Value, "device", translate("Modem device"))
@@ -73,35 +72,6 @@ maxwait = section:taboption("advanced", Value, "maxwait",
 
 maxwait.placeholder = "20"
 maxwait.datatype    = "min(1)"
-
-
-defaultroute = section:taboption("advanced", Flag, "defaultroute",
-	translate("Use default gateway"),
-	translate("If unchecked, no default route is configured"))
-
-defaultroute.default = defaultroute.enabled
-
-metric = section:taboption("advanced", Value, "metric",
-	translate("Use gateway metric"))
-
-metric.placeholder = "0"
-metric.datatype    = "uinteger"
-metric:depends("defaultroute", defaultroute.enabled)
-
-
-peerdns = section:taboption("advanced", Flag, "peerdns",
-	translate("Use DNS servers advertised by peer"),
-	translate("If unchecked, the advertised DNS server addresses are ignored"))
-
-peerdns.default = peerdns.enabled
-
-
-dns = section:taboption("advanced", DynamicList, "dns",
-	translate("Use custom DNS servers"))
-
-dns:depends("peerdns", "")
-dns.datatype = "ipaddr"
-dns.cast     = "string"
 
 
 keepalive_failure = section:taboption("advanced", Value, "_keepalive_failure",
