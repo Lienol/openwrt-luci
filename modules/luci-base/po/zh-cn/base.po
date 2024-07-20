@@ -4790,6 +4790,106 @@ msgstr "资源记录编号"
 msgid "Raw Data"
 msgstr "原始数据"
 
+msgid "Send the hostname of this device"
+msgstr "传输这台设备的主机名称"
+
+msgid "Do not send a hostname"
+msgstr "不发送主机名"
+
+msgid "IPv4 broadcast Address"
+msgstr "IPv4 广播地址"
+
+msgid "If unchecked, no default route is configured"
+msgstr "留空则不配置默认路由"
+
+msgid "Use DNS servers advertised by peer"
+msgstr "自动获取 DNS 服务器"
+
+msgid "If unchecked, the advertised DNS server addresses are ignored"
+msgstr "留空则忽略所通告的 DNS 服务器地址"
+
+msgid "DNS search domains"
+msgstr "DNS 搜索域名"
+
+msgid "DNS weight"
+msgstr "DNS 权重"
+
+msgid ""
+"The DNS server entries in the local resolv.conf are primarily sorted by the "
+"weight specified here"
+msgstr "本地 resolv.conf 中的 DNS 服务器条目主要按此处指定的权重排序"
+
+msgid "Override IPv4 routing table"
+msgstr "覆盖 IPv4 路由表"
+
+msgid "Override IPv6 routing table"
+msgstr "覆盖 IPv6 路由表"
+
+msgid "IPv6 source routing"
+msgstr "IPv6 源路由"
+
+msgid ""
+"Automatically handle multiple uplink interfaces using source-based policy "
+"routing."
+msgstr "使用基于源的策略路由自动处理多个上行链路接口。"
+
+msgid "Delegate IPv6 prefixes"
+msgstr "委托 IPv6 前缀"
+
+msgid ""
+"Enable downstream delegation of IPv6 prefixes available on this interface"
+msgstr "启用此接口上可用的 IPv6 前缀的下游委托"
+
+msgid "IPv6 prefix filter"
+msgstr "IPv6 前缀过滤器"
+
+msgid ""
+"If set, downstream subnets are only allocated from the given IPv6 prefix "
+"classes."
+msgstr "如果设置，则仅从给定的 IPv6 前缀类别中分配下游子网。"
+
+msgid "IPv6 preference"
+msgstr "IPv6 优先级"
+
+msgid ""
+"When delegating prefixes to multiple downstreams, interfaces with a higher "
+"preference value are considered first when allocating subnets."
+msgstr ""
+"将前缀委派给多个下游时，在分配子网时，将首先考虑具有较高优先级值的接口。"
+
+msgid "try"
+msgstr "尝试"
+
+msgid "force"
+msgstr "强制"
+
+msgid "Do not send a Release when restarting"
+msgstr "重启时不要发送 Release"
+
+msgid "Enable to minimise the chance of prefix change after a restart"
+msgstr "启用后最大程度减少重启后前缀更改的可能性"
+
+msgid "Encapsulation limit"
+msgstr "封装限制"
+
+msgid "Use legacy MAP"
+msgstr "使用旧式 MAP"
+
+msgid ""
+"Use legacy MAP interface identifier format (draft-ietf-softwire-map-00) "
+"instead of RFC7597"
+msgstr ""
+"使用旧式 MAP 接口标识符格式（draft-ietf-softwire-map-00），而非 RFC7597"
+
+msgid "Modem init timeout"
+msgstr "调制解调器初始化超时"
+
+msgid "Maximum amount of seconds to wait for the modem to become ready"
+msgstr "调制解调器就绪的最大等待时间（秒）"
+
+msgid "IPv6 APN profile index"
+msgstr "IPv6 APN 配置索引"
+
 msgid "Devices"
 msgstr "设备"
 
