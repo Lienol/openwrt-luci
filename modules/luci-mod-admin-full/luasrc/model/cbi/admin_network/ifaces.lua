@@ -262,6 +262,8 @@ if nw.new_netifd then
 end
 
 
+o = s:taboption("general", Flag, "disabled", translate("Disable this interface"))
+
 auto = s:taboption("general", Flag, "auto", translate("Bring up on boot"))
 auto.default = (net:proto() == "none") and auto.disabled or auto.enabled
 
