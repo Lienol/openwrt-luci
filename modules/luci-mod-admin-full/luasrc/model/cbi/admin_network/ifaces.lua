@@ -44,6 +44,32 @@ local function backup_ifnames(is_bridge)
 	end
 end
 
+function has_peerdns(proto)
+	if proto == "dhcp" then return true end
+	if proto == "dhcpv6" then return true end
+	if proto == "qmi" then return true end
+	if proto == "ppp" then return true end
+	if proto == "pppoe" then return true end
+	if proto == "pppoa" then return true end
+	if proto == "pptp" then return true end
+	if proto == "openvpn" then return true end
+	if proto == "sstp" then return true end
+	return false
+end
+
+function has_sourcefilter(proto)
+	if proto == "3g" then return true end
+	if proto == "dhcpv6" then return true end
+	if proto == "directip" then return true end
+	if proto == "mbim" then return true end
+	if proto == "ncm" then return true end
+	if proto == "ppp" then return true end
+	if proto == "pppoa" then return true end
+	if proto == "pppoe" then return true end
+	if proto == "pptp" then return true end
+	if proto == "qmi" then return true end
+	return false
+end
 
 -- redirect to overview page if network does not exist anymore (e.g. after a revert)
 if not net then
@@ -236,17 +262,93 @@ if nw.new_netifd then
 end
 
 
-auto = s:taboption("advanced", Flag, "auto", translate("Bring up on boot"))
+auto = s:taboption("general", Flag, "auto", translate("Bring up on boot"))
 auto.default = (net:proto() == "none") and auto.disabled or auto.enabled
-
-delegate = s:taboption("advanced", Flag, "delegate", translate("Use builtin IPv6-management"))
-delegate.default = delegate.enabled
 
 force_link = s:taboption("advanced", Flag, "force_link",
 	translate("Force link"),
 	translate("Set interface properties regardless of the link carrier (If set, carrier sense events do not invoke hotplug handlers)."))
 
 force_link.default = (net:proto() == "static") and force_link.enabled or force_link.disabled
+
+local form, ferr = loadfile(
+	ut.libpath() .. "/model/cbi/admin_network/proto_%s.lua" % net:proto()
+)
+
+if not form then
+	s:taboption("general", DummyValue, "_error",
+		translate("Missing protocol extension for proto %q" % net:proto())
+	).value = ferr
+else
+	setfenv(form, getfenv(1))(m, s, net)
+end
+
+o = s:taboption("advanced", Flag, "defaultroute", translate("Use default gateway"), translate("If unchecked, no default route is configured"))
+o.default = o.enabled
+
+if has_peerdns(net:proto()) then
+	o = s:taboption("advanced", Flag, "peerdns", translate("Use DNS servers advertised by peer"), translate("If unchecked, the advertised DNS server addresses are ignored"))
+	o.default = o.enabled
+end
+
+o = s:taboption("advanced", DynamicList, "dns", translate("Use custom DNS servers"))
+o.datatype = "ipaddr"
+o.cast     = "string"
+if has_peerdns(net:proto()) then
+	o:depends("peerdns", false)
+end
+
+o = s:taboption("advanced", DynamicList, "dns_search", translate("DNS search domains"))
+o.datatype = "hostname"
+if net:proto() ~= "static" then
+	o:depends("peerdns", false)
+end
+
+o = s:taboption("advanced", Value, "dns_metric", translate("DNS weight"), translate("The DNS server entries in the local resolv.conf are primarily sorted by the weight specified here"))
+o.datatype = "uinteger"
+o.placeholder = "0"
+
+o = s:taboption("advanced", Value, "metric", translate("Use gateway metric"))
+o.datatype = "uinteger"
+o.placeholder = "0"
+
+o = s:taboption("advanced", Value, "ip4table", translate("Override IPv4 routing table"))
+o.datatype = "or(uinteger, string)"
+
+o = s:taboption("advanced", Value, "ip6table", translate("Override IPv6 routing table"))
+o.datatype = "or(uinteger, string)"
+
+if has_sourcefilter(net:proto()) then
+	o = s:taboption("advanced", Flag, "sourcefilter", translate("IPv6 source routing"), translate("Automatically handle multiple uplink interfaces using source-based policy routing."))
+	o.default = o.enabled
+end
+
+delegate = s:taboption("advanced", Flag, "delegate", translate("Delegate IPv6 prefixes"), translate("Enable downstream delegation of IPv6 prefixes available on this interface"))
+delegate.default = delegate.enabled
+
+o = s:taboption("advanced", Value, "ip6assign", translate("IPv6 assignment length"), translate("Assign a part of given length of every public IPv6-prefix to this interface"))
+o.datatype = "max(128)"
+o:value("", translate("disabled"))
+o:value("64")
+
+o = s:taboption("advanced", Value, "ip6hint", translate("IPv6 assignment hint"), translate("Assign prefix parts using this hexadecimal subprefix ID for this interface."))
+for i=33,64 do o:depends("ip6assign", i) end
+
+o = s:taboption("advanced", DynamicList, "ip6class", translate("IPv6 prefix filter"), translate("If set, downstream subnets are only allocated from the given IPv6 prefix classes."))
+o:value("local", translatef("local (%s)", "Local ULA"))
+
+o = s:taboption("advanced", Value, "ip6ifaceid", translate("IPv6 suffix"),
+		translate("Optional. Allowed values: 'eui64', 'random', fixed value like '::1' " ..
+			"or '::1:2'. When IPv6 prefix (like 'a:b:c:d::') is received from a " ..
+			"delegating server, use the suffix (like '::1') to form the IPv6 address " ..
+			"('a:b:c:d::1') for the interface."))
+o.datatype = "ip6hostid"
+o.placeholder = "::1"
+o.rmempty = true
+
+o = s:taboption("advanced", Value, "ip6weight", translate("IPv6 preference"), translate("When delegating prefixes to multiple downstreams, interfaces with a higher preference value are considered first when allocating subnets."))
+o.datatype = "uinteger"
+o.placeholder = "0"
 
 if not nw.new_netifd then
 if not net:is_virtual() then
@@ -420,19 +522,6 @@ function p.validate(self, value, section)
 		end
 	end
 	return value
-end
-
-
-local form, ferr = loadfile(
-	ut.libpath() .. "/model/cbi/admin_network/proto_%s.lua" % net:proto()
-)
-
-if not form then
-	s:taboption("general", DummyValue, "_error",
-		translate("Missing protocol extension for proto %q" % net:proto())
-	).value = ferr
-else
-	setfenv(form, getfenv(1))(m, s, net)
 end
 
 

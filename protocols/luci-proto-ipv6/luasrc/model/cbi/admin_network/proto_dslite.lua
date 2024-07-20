@@ -5,7 +5,7 @@
 local map, section, net = ...
 
 local peeraddr, ip6addr
-local tunlink, defaultroute, metric, ttl, mtu
+local tunlink, mtu
 
 
 
@@ -15,6 +15,7 @@ peeraddr = section:taboption("general", Value, "peeraddr",
 
 peeraddr.rmempty  = false
 peeraddr.datatype = "or(hostname,ip6addr)"
+
 
 ip6addr = section:taboption("general", Value, "ip6addr",
 	translate("Local IPv6 address"),
@@ -28,24 +29,12 @@ tunlink.template = "cbi/network_netlist"
 tunlink.nocreate = true
 
 
-defaultroute = section:taboption("advanced", Flag, "defaultroute",
-	translate("Default gateway"),
-	translate("If unchecked, no default route is configured"))
-
-defaultroute.default = defaultroute.enabled
-
-
-metric = section:taboption("advanced", Value, "metric",
-	translate("Use gateway metric"))
-
-metric.placeholder = "0"
-metric.datatype    = "uinteger"
-metric:depends("defaultroute", defaultroute.enabled)
-
-
-ttl = section:taboption("advanced", Value, "ttl", translate("Use TTL on tunnel interface"))
-ttl.placeholder = "64"
-ttl.datatype    = "range(1,255)"
+encaplimit = section:taboption("advanced", ListValue, "encaplimit", translate("Encapsulation limit"))
+encaplimit.rmempty  = false
+encaplimit.default  = "ignore"
+encaplimit.datatype = 'or("ignore",range(0,255))'
+encaplimit:value("ignore", translate("ignore"))
+for i=1,256 do encaplimit:value(i) end
 
 
 mtu = section:taboption("advanced", Value, "mtu", translate("Use MTU on tunnel interface"))
