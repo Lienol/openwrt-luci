@@ -4,6 +4,7 @@
 module("luci.tools.status", package.seeall)
 
 local uci = require "luci.model.uci".cursor()
+local i18n = require "luci.i18n"
 
 local function dhcp_leases_common(family)
 	local rv = { }
@@ -107,6 +108,77 @@ function dhcp6_leases()
 	return dhcp_leases_common(6)
 end
 
+function guess_wifi_hw(dev)
+	local bands = ""
+	local ifname = dev:name()
+	local name, idx = ifname:match("^([a-z]+)(%d+)")
+	idx = tonumber(idx)
+
+	if pcall(require, "iwinfo") then
+		local bl = dev.iwinfo.hwmodelist
+		if bl and next(bl) then
+			if bl.a then bands = bands .. "a" end
+			if bl.b then bands = bands .. "b" end
+			if bl.g then bands = bands .. "g" end
+			if bl.n then bands = bands .. "n" end
+			if bl.ac then bands = bands .. "ac" end
+		end
+
+		local hw = dev.iwinfo.hardware_name
+		if hw then
+			return "%s 802.11%s" %{ hw, bands }
+		end
+	end
+
+	-- wl.o
+	if name == "wl" then
+		local name = i18n.translatef("Broadcom 802.11%s Wireless Controller", bands)
+		local nm   = 0
+
+		local fd = nixio.open("/proc/bus/pci/devices", "r")
+		if fd then
+			local ln
+			for ln in fd:linesource() do
+				if ln:match("wl$") then
+					if nm == idx then
+						local version = ln:match("^%S+%s+%S%S%S%S([0-9a-f]+)")
+						name = i18n.translatef(
+							"Broadcom BCM%04x 802.11 Wireless Controller",
+							tonumber(version, 16)
+						)
+
+						break
+					else
+						nm = nm + 1
+					end
+				end
+			end
+			fd:close()
+		end
+
+		return name
+
+	-- ralink
+	elseif name == "ra" or name == "rai" then
+		return i18n.translatef("Ralink/MediaTek 802.11%s Wireless Controller", bands)
+
+	-- hermes
+	elseif name == "eth" then
+		return i18n.translate("Hermes 802.11b Wireless Controller")
+		
+	elseif name == "host" then
+		return i18n.translate("Quantenna 802.11ac Wireless Controller")
+		
+	-- hostap
+	elseif name == "wlan" and fs.stat("/proc/net/hostap/" .. ifname, "type") == "dir" then
+		return i18n.translate("Prism2/2.5/3 802.11b Wireless Controller")
+
+	-- dunno yet
+	else
+		return i18n.translatef("Generic 802.11%s Wireless Controller", bands)
+	end
+end
+
 function wifi_networks()
 	local rv = { }
 	local ntm = require "luci.model.network".init()
@@ -116,7 +188,8 @@ function wifi_networks()
 		local rd = {
 			up       = dev:is_up(),
 			device   = dev:name(),
-			name     = dev:get_i18n(),
+			--name     = dev:get_i18n(),
+			name    = guess_wifi_hw(dev) .. " (" .. dev:name() .. ")",
 			networks = { }
 		}
 
