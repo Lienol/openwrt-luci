@@ -4,7 +4,7 @@
 local map, section, net = ...
 
 local ipaddr, peeraddr, ip6addr, tunnelid, username, password
-local defaultroute, metric, ttl, mtu
+local ttl, mtu
 
 
 ipaddr = s:taboption("general", Value, "ipaddr",
@@ -44,22 +44,6 @@ ip6prefixlen = s:taboption("general", Value, "ip4prefixlen",
 
 ip6prefixlen.placeholder = "0"
 ip6prefixlen.datatype    = "range(0,32)"
-
-
-
-defaultroute = section:taboption("advanced", Flag, "defaultroute",
-	translate("Default gateway"),
-	translate("If unchecked, no default route is configured"))
-
-defaultroute.default = defaultroute.enabled
-
-
-metric = section:taboption("advanced", Value, "metric",
-	translate("Use gateway metric"))
-
-metric.placeholder = "0"
-metric.datatype    = "uinteger"
-metric:depends("defaultroute", defaultroute.enabled)
 
 
 ttl = section:taboption("advanced", Value, "ttl", translate("Use TTL on tunnel interface"))
