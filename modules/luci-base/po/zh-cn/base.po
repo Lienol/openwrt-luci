@@ -92,7 +92,9 @@ msgstr ""
 "器"
 
 msgid "<abbr title=\"Extended Service Set Identifier\">ESSID</abbr>"
-msgstr "<abbr title=\"Extended Service Set Identifier\">ESSID</abbr>"
+msgstr ""
+"<abbr title=\"Extended Service Set Identifier（扩展服务集标识符）\">ESSID</"
+"abbr>"
 
 msgid "<abbr title=\"Internet Protocol Version 4\">IPv4</abbr>-Address"
 msgstr "<abbr title=\"Internet Protocol Version 4\">IPv4</abbr> 地址"
@@ -341,7 +343,7 @@ msgid "Allow all except listed"
 msgstr "仅允许列表外"
 
 msgid "Allow legacy 802.11b rates"
-msgstr "允许传统的 802.11b 速率"
+msgstr "允许使用旧的 802.11b 速率"
 
 msgid "Allow listed only"
 msgstr "仅允许列表内"
@@ -1115,8 +1117,8 @@ msgstr "启用 TFTP 服务器"
 msgid "Enable VLAN functionality"
 msgstr "启用 VLAN"
 
-msgid "Enable WPS pushbutton, requires WPA(2)-PSK"
-msgstr "启用 WPS 一键加密按钮，需要 WPA(2)-PSK"
+msgid "Enable WPS pushbutton, requires WPA(2)-PSK/WPA3-SAE"
+msgstr "启用 WPS 一键加密按钮，需要 WPA(2)-PSK/WPA3-SAE"
 
 msgid "Enable key reinstallation (KRACK) countermeasures"
 msgstr "启用密钥重新安装（KRACK）对策"
@@ -1200,10 +1202,10 @@ msgid "External"
 msgstr "外部"
 
 msgid "External R0 Key Holder List"
-msgstr "外部 <abbr title=\"R0 Key Holder\">R0KH</abbr> 列表"
+msgstr "外部 R0 密钥持有者列表"
 
 msgid "External R1 Key Holder List"
-msgstr "外部 <abbr title=\"R1 Key Holder\">R1KH</abbr> 列表"
+msgstr "外部 R1 密钥持有者列表"
 
 msgid "External system log server"
 msgstr "外部系统日志服务器地址"
@@ -1218,10 +1220,10 @@ msgid "Extra SSH command options"
 msgstr "额外的 SSH 命令选项"
 
 msgid "FT over DS"
-msgstr ""
+msgstr "FT over DS"
 
 msgid "FT over the Air"
-msgstr ""
+msgstr "FT over the Air"
 
 msgid "FT protocol"
 msgstr "FT 协议"
@@ -1447,7 +1449,9 @@ msgid "Hermes 802.11b Wireless Controller"
 msgstr "Hermes 802.11b 无线控制器"
 
 msgid "Hide <abbr title=\"Extended Service Set Identifier\">ESSID</abbr>"
-msgstr "隐藏 <abbr title=\"Extended Service Set Identifier\">ESSID</abbr>"
+msgstr ""
+"隐藏 <abbr title=\"Extended Service Set Identifier（扩展服务集标识"
+"符）\">ESSID</abbr>"
 
 msgid "Host"
 msgstr "主机"
@@ -1867,24 +1871,25 @@ msgstr ""
 
 msgid ""
 "List of R0KHs in the same Mobility Domain. <br />Format: MAC-address,NAS-"
-"Identifier,128-bit key as hex string. <br />This list is used to map R0KH-ID "
+"Identifier,256-bit key as hex string. <br />This list is used to map R0KH-ID "
 "(NAS Identifier) to a destination MAC address when requesting PMK-R1 key "
 "from the R0KH that the STA used during the Initial Mobility Domain "
 "Association."
 msgstr ""
-"同一移动域中的 R0KH 列表。<br />格式：MAC 地址，NAS 标识符，128 位密钥（十六"
-"进制字符串）。<br />在从初始移动域关联期间使用的 R0KH 中请求 PMK-R1 密钥时，"
-"该列表用于将 R0KH-ID（NAS 标识符）映射到目标 MAC 地址。"
+"同一移动域中的 R0KH 列表。<br />格式：MAC 地址、NAS 标识符、16进制字符串形式"
+"256 位密钥。<br />此列表用于在从 R0KH 请求 STA 于初始 Mobility Domain "
+"Association 期间所用的 PMK-R1 密钥时将 R0KH-ID（NAS 标识符）映射到目标 MAC 地"
+"址。"
 
 msgid ""
 "List of R1KHs in the same Mobility Domain. <br />Format: MAC-address,R1KH-ID "
-"as 6 octets with colons,128-bit key as hex string. <br />This list is used "
+"as 6 octets with colons,256-bit key as hex string. <br />This list is used "
 "to map R1KH-ID to a destination MAC address when sending PMK-R1 key from the "
 "R0KH. This is also the list of authorized R1KHs in the MD that can request "
 "PMK-R1 keys."
 msgstr ""
-"同一移动域中的 R1KH 列表。<br />格式：MAC 地址，R1KH-ID（包含冒号的 6 个八位"
-"字节），128 位密钥（十六进制字符串）。<br />当从 R0KH 发送 PMK-R1 键时，此列"
+"同一移动域中的 R1KH 列表。<br />格式: MAC 地址，R1KH-ID (包含冒号的 6 个八位"
+"字节)， 256 位密钥 (十六进制字符串)。<br /> 当从 R0KH 发送 PMK-R1 键时，此列"
 "表用于将 R1KH-ID 映射到目标 MAC 地址。这也是可以请求 PMK-R1 键的 MD 中授权的 "
 "R1KH 的列表。"
 
@@ -2450,7 +2455,7 @@ msgid "PIN code rejected"
 msgstr "PIN 码被拒绝"
 
 msgid "PMK R1 Push"
-msgstr "R1 推送 PMK"
+msgstr "PMK R1 推送"
 
 msgid "PPP"
 msgstr "PPP"
@@ -4209,9 +4214,6 @@ msgstr "本地时区采用 IEEE Std 1003.1-2004 的 8.3 格式（例如 UTC8）"
 msgid "Enable 256-QAM"
 msgstr "启用 256-QAM"
 
-msgid "802.11n 2.4Ghz Only"
-msgstr "只适合 802.11n 2.4Ghz"
-
 msgid "Enable packet steering across CPUs. May help or hinder network speed."
 msgstr "启用跨CPU的数据包引导。可能有助于提高或降低网络速度。"
 
@@ -4789,6 +4791,418 @@ msgstr "资源记录编号"
 
 msgid "Raw Data"
 msgstr "原始数据"
+
+msgid ""
+"Legacy or badly behaving devices may require legacy 802.11b rates to "
+"interoperate. Airtime efficiency may be significantly reduced where these "
+"are used. It is recommended to not allow 802.11b rates where possible."
+msgstr ""
+"过时或性能欠佳的设备可能需要旧的 802.11b 速率才能互联。在使用这些速率的情况"
+"下，信道占用效率可能会显著降低。建议尽可能不使用 802.11b 速率。"
+
+msgid "Maximum transmit power"
+msgstr "最大传输功率"
+
+msgid ""
+"Specifies the maximum transmit power the wireless radio may use. Depending "
+"on regulatory requirements and wireless usage, the actual transmit power may "
+"be reduced by the driver."
+msgstr ""
+"指定最大发射功率。依据监管要求和使用情况，驱动程序可能将实际发射功率限定在此"
+"值以下。"
+
+msgid "Coverage cell density"
+msgstr "无线信号覆盖密度"
+
+msgid ""
+"Configures data rates based on the coverage cell density. Normal configures "
+"basic rates to 6, 12, 24 Mbps if legacy 802.11b rates are not used else to "
+"5.5, 11 Mbps. High configures basic rates to 12, 24 Mbps if legacy 802.11b "
+"rates are not used else to the 11 Mbps rate. Very High configures 24 Mbps as "
+"the basic rate. Supported rates lower than the minimum basic rate are not "
+"offered."
+msgstr ""
+"根据无线信号覆盖密度来配置数据速率。Normal（正常）：如果不使用旧的 802.11b 速"
+"率，则将基础速率配置为 6、12、24 Mbps，否则配置为 5.5、11 Mbps。High（高）："
+"如果不使用旧的 802.11b 速率，则将基础速率配置为 12、24 Mbps，否则配置为 11 "
+"Mbps 速率。Very High（非常高）：配置 24 Mbps 为基础速率，不提供低于最低基础速"
+"率的支持速率。"
+
+msgid "High"
+msgstr "高"
+
+msgid "Very High"
+msgstr "非常高"
+
+msgid ""
+"Distance to farthest network member in meters. Set only for distances above "
+"one kilometer; otherwise it is harmful."
+msgstr ""
+"和最远网络成员之间的距离，单位为米。请仅在距离超出 1 千米时设置此项，否则有"
+"害。"
+
+msgid "Beacon Interval"
+msgstr "信标间隔"
+
+msgid "WLAN roaming"
+msgstr "WLAN 漫游"
+
+msgid ""
+"Settings for assisting wireless clients in roaming between multiple APs: "
+"802.11r, 802.11k and 802.11v"
+msgstr "协助无线客户端在多个 AP 之间漫游的设置：802.11r、 802.11k 和 802.11v"
+
+msgid "RSSI threshold for joining"
+msgstr "RSSI 加入阈值"
+
+msgid "0 = not using RSSI threshold, 1 = do not change driver default"
+msgstr "0 = 不使用 RSSI 阈值，1 = 驱动默认值"
+
+msgid ""
+"Where the ESSID is hidden, clients may fail to roam and airtime efficiency "
+"may be significantly reduced."
+msgstr ""
+"在 ESSID 被隐藏的范围内，客户端可能无法漫游且信道占用效率可能显著降低。"
+
+msgid ""
+"Where Wi-Fi Multimedia (WMM) Mode QoS is disabled, clients may be limited to "
+"802.11a/802.11g rates."
+msgstr ""
+"如果禁用 Wi-Fi 多媒体 （WMM） 模式 QoS，则客户端的速率可能限制为 "
+"802.11a/802.11g。"
+
+msgid "Multi To Unicast"
+msgstr "多播到单播"
+
+msgid ""
+"ARP, IPv4 and IPv6 (even 802.1Q) with multicast destination MACs are unicast "
+"to the STA MAC address. Note: This is not Directed Multicast Service (DMS) "
+"in 802.11v. Note: might break receiver STA multicast expectations."
+msgstr ""
+"带组播目的地 MAC 的ARP、IPv4 和 IPv6（甚至 802.1Q）是对 STA MAC 地址的单播。"
+"注意：这不是 802.11v 中的定向多播服务（DMS）。注意：可能会破坏接收端 STA 多播"
+"预期。"
+
+msgid "MAC address"
+msgstr "MAC 地址"
+
+msgid ""
+"Override default MAC address - the range of usable addresses might be "
+"limited by the driver"
+msgstr "覆盖默认 MAC 地址 - 可用地址的范围可能受限于驱动"
+
+msgid "driver default"
+msgstr "驱动默认"
+
+msgid "driver default (%s)"
+msgstr "驱动默认（%s）"
+
+msgid "randomly generated"
+msgstr "随机生成"
+
+msgid "Short Preamble"
+msgstr "Short Preamble"
+
+msgid "DTIM Interval"
+msgstr "DTIM 间隔"
+
+msgid "Delivery Traffic Indication Message Interval"
+msgstr "发送流量指示消息间隔"
+
+msgid "Time interval for rekeying GTK"
+msgstr "重新加密 GTK 的时间间隔"
+
+msgid "sec"
+msgstr "秒"
+
+msgid "Disable Inactivity Polling"
+msgstr "禁用不活动轮询"
+
+msgid "Station inactivity limit"
+msgstr "非活动站点限制"
+
+msgid "802.11v: BSS Max Idle. Units: seconds."
+msgstr "802.11v: BSS 最长空闲时间。 单位：秒。"
+
+msgid "Maximum allowed Listen Interval"
+msgstr "允许的最大监听间隔"
+
+msgid "Disassociate On Low Acknowledgement"
+msgstr "在低 Ack 应答时断开连接"
+
+msgid "Allow AP mode to disconnect STAs based on low ACK condition"
+msgstr "允许 AP 模式时在低 ACK 应答的情况下断开无线终端"
+
+msgid ""
+"Enables fast roaming among access points that belong to the same Mobility "
+"Domain"
+msgstr "启用属于同一移动域接入点之间的快速漫游"
+
+msgid ""
+"When using a PSK, the PMK can be automatically generated. When enabled, the "
+"R0/R1 key options below are not applied. Disable this to use the R0 and R1 "
+"key options."
+msgstr ""
+"使用 PSK 时，可以自动生成 PMK，因此以下 R0/R1 密钥选项不生效。若要使用 R0 和 "
+"R1 密钥则禁用此选项。"
+
+msgid "802.11k RRM"
+msgstr "802.11k RRM"
+
+msgid ""
+"Radio Resource Measurement - Sends beacons to assist roaming. Not all "
+"clients support this."
+msgstr "无线电资源测量 - 发送信标以协助漫游。并不是所有的客户端都支持这一点。"
+
+msgid "Neighbour Report"
+msgstr "邻居报告"
+
+msgid "802.11k: Enable neighbor report via radio measurements."
+msgstr "802.11k: 通过无线电测量启用邻居报告。"
+
+msgid "Beacon Report"
+msgstr "信标报告"
+
+msgid "802.11k: Enable beacon report via radio measurements."
+msgstr "802.11k: 通过无线电测量启用信标报告。"
+
+msgid "802.11v: Time Advertisement in management frames."
+msgstr "802.11v: 管理帧中的时间公告。"
+
+msgid "Time zone"
+msgstr "时间区域"
+
+msgid "802.11v: Local Time Zone Advertisement in management frames."
+msgstr "802.11v: 管理帧中的本地时区公告。"
+
+msgid "WNM Sleep Mode"
+msgstr "WNM 睡眠模式"
+
+msgid ""
+"802.11v: Wireless Network Management (WNM) Sleep Mode (extended sleep mode "
+"for stations)."
+msgstr "802.11v：无线网络管理 （WNM）休眠模式 (站点扩展休眠模式)。"
+
+msgid "WNM Sleep Mode Fixes"
+msgstr "WNM 睡眠模式修复"
+
+msgid ""
+"802.11v: Wireless Network Management (WNM) Sleep Mode Fixes: Prevents "
+"reinstallation attacks."
+msgstr "802.11v: 无线网络管理（WNM）睡眠模式修复：防止重装攻击。"
+
+msgid "BSS Transition"
+msgstr "BSS 过渡"
+
+msgid "802.11v: Basic Service Set (BSS) transition management."
+msgstr "802.11v: 基础服务集合（BSS）过渡管理。"
+
+msgid "ProxyARP"
+msgstr "代理 ARP"
+
+msgid ""
+"802.11v: Proxy ARP enables non-AP STA to remain in power-save for longer."
+msgstr "802.11v: 代理 ARP 允许非 AP STA 在 power-save 中停留更长时间。"
+
+msgid "No Encryption"
+msgstr "无加密"
+
+msgid "open network"
+msgstr "开放网络"
+
+msgid "weak security"
+msgstr "弱安全性"
+
+msgid "medium security"
+msgstr "中等安全性"
+
+msgid "strong security"
+msgstr "强安全性"
+
+msgid "Force CCMP-256 (AES)"
+msgstr "强制使用 CCMP-256 (AES)"
+
+msgid "Force GCMP (AES)"
+msgstr "强制使用 GCMP (AES)"
+
+msgid "Force GCMP-256 (AES)"
+msgstr "强制使用 GCMP-256 (AES)"
+
+msgid ""
+"WPA-Encryption requires wpa_supplicant (for client mode) or hostapd (for AP "
+"and ad-hoc mode) to be installed."
+msgstr ""
+"WPA 加密需要安装 wpa_supplicant (客户端模式) 或安装 hostapd (接入点 AP、点对"
+"点 Ad-Hoc 模式)。"
+
+msgid "Requires hostapd"
+msgstr "需要 hostapd"
+
+msgid "Requires hostapd with EAP Suite-B support"
+msgstr "需要带 EAP Suite-B 支持的 hostapd"
+
+msgid "Requires hostapd with EAP support"
+msgstr "需要带 EAP 支持的 hostapd"
+
+msgid "Requires hostapd with OWE support"
+msgstr "需要带 OWE 支持的 hostapd"
+
+msgid "Requires hostapd with SAE support"
+msgstr "需要带 SAE 支持的 hostapd"
+
+msgid "Requires hostapd with WEP support"
+msgstr "需要带 WEP 支持的 hostapd"
+
+msgid "Requires wpa-supplicant"
+msgstr "需要 wpa-supplicant"
+
+msgid "Requires wpa-supplicant with EAP Suite-B support"
+msgstr "需要带 EAP Suite-B 支持的 wpa-supplicant"
+
+msgid "Requires wpa-supplicant with EAP support"
+msgstr "需要带 EAP 支持的 wpa-supplicant"
+
+msgid "Requires wpa-supplicant with OWE support"
+msgstr "需要带 OWE 支持的 wpa-supplicant"
+
+msgid "Requires wpa-supplicant with SAE support"
+msgstr "需要带 SAE 支持的 wpa-supplicant"
+
+msgid "Requires wpa-supplicant with WEP support"
+msgstr "需要带 WEP 支持的 wpa-supplicant"
+
+msgid "Enable Private PSK (PPSK)"
+msgstr "启用私有 PSK (PPSK)"
+
+msgid ""
+"Private Pre-Shared Key (PPSK) allows the use of different Pre-Shared Key for "
+"each STA MAC address. Private MAC PSKs are stored on the RADIUS server."
+msgstr ""
+"Private Pre-Shared Key (PPSK) 允许为每个 STA MAC 地址使用不同的预共享密钥。私"
+"有的 MAC PSK 存储在 RADIUS 服务器上。"
+
+msgid "RADIUS Authentication Server"
+msgstr "Radius 认证服务器"
+
+msgid "RADIUS Authentication Port"
+msgstr "Radius 认证端口"
+
+msgid "RADIUS Authentication Secret"
+msgstr "Radius 认证密钥"
+
+msgid "RADIUS Accounting Server"
+msgstr "Radius 计费服务器"
+
+msgid "RADIUS Accounting Port"
+msgstr "Radius 计费端口"
+
+msgid "RADIUS Accounting Secret"
+msgstr "Radius 计费密钥"
+
+msgid "Must be in %s format."
+msgstr "必须使用 %s 格式。"
+
+msgid "string (UTF-8)"
+msgstr "编码 (UTF-8)"
+
+msgid "octet string"
+msgstr "八位字符串"
+
+msgid "RADIUS Access-Request attributes"
+msgstr "RADIUS Access-Request 属性"
+
+msgid "Attributes to add/replace in each request."
+msgstr "要在每个请求中添加/替换的属性。"
+
+msgid "RADIUS Accounting-Request attributes"
+msgstr "RADIUS Accounting-Request 属性"
+
+msgid "Attributes to add/replace in each request."
+msgstr "要在每个请求中添加/替换的属性。"
+
+msgid "RADIUS Dynamic VLAN Assignment"
+msgstr "RADIUS 动态 VLAN 分配"
+
+msgid ""
+"Required: Rejects auth if RADIUS server does not provide appropriate VLAN "
+"attributes."
+msgstr "必需：拒绝验证，如果 RADIUS 服务器不提供正确的 VLAN 属性。"
+
+msgid "RADIUS Per STA VLAN"
+msgstr "RADIUS Per STA VLAN"
+
+msgid "Each STA is assigned its own AP_VLAN interface."
+msgstr "每个 STA 被分配了自己的 AP_VLAN 接口。"
+
+msgid "RADIUS VLAN Naming"
+msgstr "RADIUS VLAN 命名"
+
+msgid ""
+"Off: <code>vlanXXX</code>, e.g., <code>vlan1</code>. On: "
+"<code>vlan_tagged_interface.XXX</code>, e.g. <code>eth0.1</code>."
+msgstr ""
+"关: <code>vlanXXX</code>, 如 <code>vlan1</code>。开: "
+"<code>vlan_tagged_interface.XXX</code>, 如 <code>eth0.1</code>."
+
+msgid "RADIUS VLAN Tagged Interface"
+msgstr "RADIUS VLAN 有标签的接口"
+
+msgid "E.g. eth0, eth1"
+msgstr "如，eth0, eth1"
+
+msgid "RADIUS VLAN Bridge Naming Scheme"
+msgstr "RADIUS VLAN 网桥命名方案"
+
+msgid "E.g. <code>br-vlan</code> or <code>brvlan</code>."
+msgstr "如 <code>br-vlan</code> 或 <code>brvlan</code>。"
+
+msgid "DAE-Client"
+msgstr "DAE 客户端"
+
+msgid "Dynamic Authorization Extension client."
+msgstr "动态授权扩展客户端。"
+
+msgid "DAE-Port"
+msgstr "DAE 端口"
+
+msgid "Dynamic Authorization Extension port."
+msgstr "动态授权扩展端口。"
+
+msgid "DAE-Secret"
+msgstr "DAE 密文"
+
+msgid "Dynamic Authorization Extension secret."
+msgstr "动态授权扩展密钥。"
+
+msgid "RSN Preauth"
+msgstr "RSN 预认证"
+
+msgid ""
+"Robust Security Network (RSN): Allow roaming preauth for WPA2-EAP networks "
+"(and advertise it in WLAN beacons). Only works if the specified network "
+"interface is a bridge. Shortens the time-critical reassociation process."
+msgstr ""
+"健壮安全网络 (RSN)：允许 WPA2-EAP 网络的漫游预认证 (并在 WLAN 信标中发布它)。"
+"只有当指定的网络接口是网桥时才有效。缩短时序要求严格的再关联过程。"
+
+msgid ""
+"Note: Some wireless drivers do not fully support 802.11w. E.g. mwlwifi may "
+"have problems"
+msgstr ""
+"注意：有些无线驱动程序不完全支持 802.11w。例如：mwlwifi 可能会有一些问题"
+
+msgid "Operating Channel Validation"
+msgstr "工作信道验证"
+
+msgid ""
+"Note: Workaround mode allows a STA that claims OCV capability to connect "
+"even if the STA doesn't send OCI or negotiate PMF."
+msgstr ""
+"注：权宜模式允许宣称具有 OCV 能力的 STA 进行连接，即使该 STA 并不发送 OCI 或"
+"协商 PMF."
+
+msgid "Enabled (workaround mode)"
+msgstr "已启用（权宜模式）"
 
 msgid "Disable this interface"
 msgstr "禁用该接口"
