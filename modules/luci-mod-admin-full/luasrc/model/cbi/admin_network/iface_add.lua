@@ -59,8 +59,9 @@ function newproto.validate(self, value, section)
 	local name = newnet:formvalue(section)
 	if not name or #name == 0 then
 		newnet:add_error(section, translate("No network name specified"))
-	elseif m:get(name) then
+	elseif uci:get("network", name:lower()) then
 		newnet:add_error(section, translate("The given network name is not unique"))
+		return nil
 	end
 
 	local proto = nw:get_protocol(value)
@@ -78,6 +79,7 @@ end
 function newproto.write(self, section, value)
 	local name = newnet:formvalue(section)
 	if name and #name > 0 then
+		name = name:lower()
 		local br = (netbridge:formvalue(section) == "1") and "bridge" or nil
 		local net = nw:add_network(name, { proto = value, type = br })
 		if net then
