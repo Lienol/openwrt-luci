@@ -5,6 +5,36 @@ local ipc = require "luci.ip"
 local o
 require "luci.util"
 
+local recordtypes = {
+	'ANY',
+	'A',
+	'AAAA',
+	'ALIAS',
+	'CAA',
+	'CERT',
+	'CNAME',
+	'DS',
+	'HINFO',
+	'HIP',
+	'HTTPS',
+	'KEY',
+	'LOC',
+	'MX',
+	'NAPTR',
+	'NS',
+	'OPENPGPKEY',
+	'PTR',
+	'RP',
+	'SIG',
+	'SOA',
+	'SRV',
+	'SSHFP',
+	'SVCB',
+	'TLSA',
+	'TXT',
+	'URI',
+}
+
 m = Map("dhcp", translate("DHCP and DNS"),
 	translate("Dnsmasq is a combined <abbr title=\"Dynamic Host Configuration Protocol" ..
 		"\">DHCP</abbr>-Server and <abbr title=\"Domain Name System\">DNS</abbr>-" ..
@@ -170,6 +200,12 @@ filter_aaaa.optional = true
 
 filter_a = s:taboption("filteropts", Flag, "filter_a", translate("Filter IPv4 A records"), translate("Remove IPv4 addresses from the results and only return IPv6 addresses."))
 filter_a.optional = true
+
+o = s:taboption('filteropts', DynamicList, 'filter_rr', translate('Filter arbitrary RR'), translate('Removes records of the specified type(s) from answers.'))
+o.optional = true
+for _, v in ipairs(recordtypes) do
+	o:value(v)
+end
 
 https = s:taboption("filteropts", Flag, "filter_https", translate("Disable HTTPS DNS Type forwards"), translate("Filter HTTPS DNS Query Type Name Resolve"))
 https.optional = true
