@@ -4664,3 +4664,78 @@ msgstr "序数：较低的优先。"
 
 msgid "Weight"
 msgstr "权重"
+
+msgid "Add requestor MAC"
+msgstr "添加请求者 MAC 地址"
+
+msgid ""
+"Add the MAC address of the requestor to DNS queries which are forwarded "
+"upstream."
+msgstr "将请求者的 MAC 地址添加到向上游转发的 DNS 查询中。"
+
+msgid "%s uses the default MAC address format encoding"
+msgstr "%s 使用默认的 MAC 地址格式编码"
+
+msgid "%s uses an alternative encoding of the MAC as base64"
+msgstr "%s 使用 MAC 地址的 Base64 编码作为替代编码"
+
+msgid "%s uses a human-readable encoding of hex-and-colons"
+msgstr "%s 使用可读的十六进制和冒号编码形式"
+
+msgid "enabled (default)"
+msgstr "启用（默认）"
+
+msgid "Remove MAC address before forwarding query"
+msgstr "在转发查询之前移除 MAC 地址"
+
+msgid ""
+"Remove any MAC address information already in downstream queries before "
+"forwarding upstream."
+msgstr "在转发到上游之前，移除下游查询中已有的任何 MAC 地址信息。"
+
+msgid "Add subnet address to forwards"
+msgstr "在转发请求时添加子网地址"
+
+msgid ""
+"Add a subnet address to the DNS queries which are forwarded upstream, "
+"leaving this value empty disables the feature."
+msgstr ""
+"将 DNS 查询中的子网地址附加到向上游转发的查询中，将此值留空则禁用此功能。"
+
+msgid ""
+"If an address is specified in the flag, it will be used, otherwise, the "
+"address of the requestor will be used."
+msgstr "如果在标志中指定了地址，那么将使用该地址，否则将使用请求者的地址。"
+
+msgid ""
+"The amount of the address forwarded depends on the prefix length parameter: "
+"32 (128 for IPv6) forwards the whole address, zero forwards none of it but "
+"still marks the request so that no upstream nameserver will add client "
+"address information either."
+msgstr ""
+"转发的地址数量取决于前缀长度参数：对于 IPv4，32 表示转发整个地址，对于 IPv6，"
+"128 表示转发整个地址；而设置为 0 则不转发任何地址信息，但仍然标记请求，使得上"
+"游名称服务器也不会添加客户端地址信息。"
+
+msgid "The default (%s) is zero for both IPv4 and IPv6."
+msgstr "默认值（%s）对于 IPv4 和 IPv6 都是 0。"
+
+msgid ""
+"%s adds the /24 and /96 subnets of the requestor for IPv4 and IPv6 "
+"requestors, respectively."
+msgstr "%s 为 IPv4 和 IPv6 的请求者分别添加了请求者的 /24 子网 和 /96 子网。"
+
+msgid "%s adds 1.2.3.0/24 for IPv4 requestors and ::/0 for IPv6 requestors."
+msgstr ""
+"%s 为 IPv4 请求者添加 1.2.3.0/24 子网，并为 IPv6 请求者添加 ::/0 子网。"
+
+msgid "%s adds 1.2.3.0/24 for both IPv4 and IPv6 requestors."
+msgstr "%s 为 IPv4 和 IPv6 请求者都添加 1.2.3.0/24 子网。"
+
+msgid "Remove subnet address before forwarding query"
+msgstr "在转发查询之前移除子网地址"
+
+msgid ""
+"Remove any subnet address already present in a downstream query before "
+"forwarding it upstream."
+msgstr "在转发到上游之前，移除下游查询中已存在的任何子网地址信息。"
