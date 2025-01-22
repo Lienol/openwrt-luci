@@ -46,9 +46,6 @@ function index()
 			page = entry({"admin", "network", "wireless_disconnect_client"}, call("wifi_disconnect_client"), nil)
 			page.leaf = true
 
-			page = entry({"admin", "network", "wireless_assoclist"}, call("wifi_assoclist"), nil)
-			page.leaf = true
-
 			page = entry({"admin", "network", "wireless_join"}, post("wifi_join"), nil)
 			page.leaf = true
 
@@ -67,7 +64,7 @@ function index()
 			page = entry({"admin", "network", "wireless_shutdown"}, post("wifi_shutdown"), nil)
 			page.leaf = true
 
-			page = entry({"admin", "network", "wireless"}, arcombine(cbi("admin_network/wifi_overview"), cbi("admin_network/wifi")), _("Wireless"), 15)
+			page = entry({"admin", "network", "wireless"}, arcombine(template("admin_network/wifi_overview"), cbi("admin_network/wifi")), _("Wireless"), 15)
 			page.leaf = true
 			page.subindex = true
 
@@ -407,13 +404,6 @@ end
 
 function wifi_shutdown(wnet)
 	wifi_reconnect_shutdown(true, wnet)
-end
-
-function wifi_assoclist()
-	local s = require "luci.tools.status"
-
-	luci.http.prepare_content("application/json")
-	luci.http.write_json(s.wifi_assoclist())
 end
 
 function lease_status()
