@@ -4739,3 +4739,14 @@ msgid ""
 "Remove any subnet address already present in a downstream query before "
 "forwarding it upstream."
 msgstr "在转发到上游之前，移除下游查询中已存在的任何子网地址信息。"
+
+msgid "Ignore hosts files directory"
+msgstr "忽略主机文件目录"
+
+msgid "On: use instance specific hosts file only"
+msgstr "开启：仅使用特定实例的主机文件"
+
+msgid ""
+"Off: use all files in the directory including the instance specific hosts "
+"file"
+msgstr "关闭：使用目录中的所有文件，包括特定实例的主机文件"
