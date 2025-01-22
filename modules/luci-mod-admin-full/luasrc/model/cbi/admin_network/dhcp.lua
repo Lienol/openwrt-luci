@@ -197,10 +197,42 @@ df = s:taboption("forward", DynamicList, "server", translate("DNS forwardings"),
 df.optional = true
 df.placeholder = "/example.org/10.1.2.3"
 
-s:taboption("forward", Value, "serversfile",
-	translate("Additional servers file"),
-	translate("This file may contain lines like 'server=/domain/1.2.3.4' or 'server=1.2.3.4' for"..
-	        "domain-specific or full upstream <abbr title=\"Domain Name System\">DNS</abbr> servers."))
+o = s:taboption("forward", Value, "serversfile",
+		translate("Additional servers file"),
+		translate("This file may contain lines like 'server=/domain/1.2.3.4' or 'server=1.2.3.4' for"..
+			"domain-specific or full upstream <abbr title=\"Domain Name System\">DNS</abbr> servers."))
+o.placeholder = "/etc/dnsmasq.servers"
+
+o = s:taboption('forward', Value, 'addmac',
+	translate('Add requestor MAC'),
+	translate('Add the MAC address of the requestor to DNS queries which are forwarded upstream.') .. ' ' .. '<br />' ..
+	translatef('%s uses the default MAC address format encoding', '<code>enabled</code>') .. ' ' .. '<br />' ..
+	translatef('%s uses an alternative encoding of the MAC as base64', '<code>base64</code>') .. ' ' .. '<br />' ..
+	translatef('%s uses a human-readable encoding of hex-and-colons', '<code>text</code>'))
+o.optional = true
+o:value('', translate('off'))
+o:value('1', translate('enabled (default)'))
+o:value('base64')
+o:value('text')
+
+s:taboption('forward', Flag, 'stripmac',
+	translate('Remove MAC address before forwarding query'),
+	translate('Remove any MAC address information already in downstream queries before forwarding upstream.'))
+
+o = s:taboption('forward', Value, 'addsubnet',
+	translate('Add subnet address to forwards'),
+	translate('Add a subnet address to the DNS queries which are forwarded upstream, leaving this value empty disables the feature.') .. ' ' ..
+	translate('If an address is specified in the flag, it will be used, otherwise, the address of the requestor will be used.') .. ' ' ..
+	translate('The amount of the address forwarded depends on the prefix length parameter: 32 (128 for IPv6) forwards the whole address, zero forwards none of it but still marks the request so that no upstream nameserver will add client address information either.') .. ' ' .. '<br />' ..
+	translatef('The default (%s) is zero for both IPv4 and IPv6.', '<code>0,0</code>') .. ' ' .. '<br />' ..
+	translatef('%s adds the /24 and /96 subnets of the requestor for IPv4 and IPv6 requestors, respectively.', '<code>24,96</code>') .. ' ' .. '<br />' ..
+	translatef('%s adds 1.2.3.0/24 for IPv4 requestors and ::/0 for IPv6 requestors.', '<code>1.2.3.4/24</code>') .. ' ' .. '<br />' ..
+	translatef('%s adds 1.2.3.0/24 for both IPv4 and IPv6 requestors.', '<code>1.2.3.4/24,1.2.3.4/24</code>'))
+o.optional = true;
+
+s:taboption('forward', Flag, 'stripsubnet',
+	translate('Remove subnet address before forwarding query'),
+	translate('Remove any subnet address already present in a downstream query before forwarding it upstream.'))
 
 
 lm = s:taboption("limits", Value, "dhcpleasemax",
@@ -280,7 +312,7 @@ o:value('LOCAL4')
 o:value('LOCAL5')
 o:value('LOCAL6')
 o:value('LOCAL7')
-o:value('-', _('stderr'))
+o:value('-', 'stderr')
 
 qu = s:taboption("logging", Flag, "quietdhcp",
 	translate("Suppress logging"),
