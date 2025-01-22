@@ -346,6 +346,12 @@ s:taboption("files", Flag, "strictorder",
 	translate("<abbr title=\"Domain Name System\">DNS</abbr> servers will be queried in the " ..
 		"order of the resolvfile")).optional = true
 
+o = s:taboption('files', Flag, 'ignore_hosts_dir',
+	translate('Ignore hosts files directory'),
+	translate('On: use instance specific hosts file only') .. '<br/>' ..
+	translate('Off: use all files in the directory including the instance specific hosts file'))
+o.optional = true
+
 s:taboption("files", Flag, "nohosts",
 	translate("Ignore <code>/etc/hosts</code>")).optional = true
 
