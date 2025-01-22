@@ -4756,3 +4756,15 @@ msgstr "过滤任意的资源记录"
 
 msgid "Removes records of the specified type(s) from answers."
 msgstr "从应答中移除指定类型的记录。"
+
+msgid "Cache"
+msgstr "缓存"
+
+msgid "Cache arbitrary RR"
+msgstr "缓存任意的资源记录"
+
+msgid "By default, dnsmasq caches A, AAAA, CNAME and SRV DNS record types."
+msgstr "默认情况下，dnsmasq 会缓存A，AAAA，CNAME和 SRV 类型的 DNS 记录。"
+
+msgid "This option adds additional record types to the cache."
+msgstr "这个选项将额外的记录类型添加到缓存中。"

@@ -46,6 +46,7 @@ s.anonymous = true
 s.addremove = false
 
 s:tab("general", translate("General Settings"))
+s:tab("cache", translate("Cache"))
 s:tab("devices", translate("Devices &amp; Ports"))
 s:tab("dnssecopt", translate("DNSSEC"))
 s:tab("filteropts", translate("Filter"))
@@ -92,6 +93,15 @@ se.optional = true
 s:taboption("general", Flag, "allservers",
 	translate("Use all servers"),
 	translate("Setting this flag forces dnsmasq to send all queries to all available servers. The reply from the server which answers first will be returned to the original requester."))
+
+
+o = s:taboption('cache', DynamicList, 'cache_rr', translate('Cache arbitrary RR'),
+	translate('By default, dnsmasq caches A, AAAA, CNAME and SRV DNS record types.') .. '<br/>' ..
+	translate('This option adds additional record types to the cache.'))
+o.optional = true
+for _, v in ipairs(recordtypes) do
+	o:value(v)
+end
 
 
 o = s:taboption("devices", Flag, "nonwildcard",
