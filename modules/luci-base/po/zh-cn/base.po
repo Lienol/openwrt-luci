@@ -4768,3 +4768,21 @@ msgstr "默认情况下，dnsmasq 会缓存A，AAAA，CNAME和 SRV 类型的 DNS
 
 msgid "This option adds additional record types to the cache."
 msgstr "这个选项将额外的记录类型添加到缓存中。"
+
+msgid "DNS-RR"
+msgstr "DNS资源记录"
+
+msgid "Set an arbitrary resource record (RR) type."
+msgstr "设置任意的资源记录（RR）类型。"
+
+msgid "Hexdata is automatically en/decoded on save and load"
+msgstr "Hexdata 在保存和加载时会自动进行编码和解码"
+
+msgid "Resource Record Name"
+msgstr "资源记录名称"
+
+msgid "Resource Record Number"
+msgstr "资源记录编号"
+
+msgid "Raw Data"
+msgstr "原始数据"

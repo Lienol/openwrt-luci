@@ -582,4 +582,28 @@ o.rmempty  = true
 o.datatype = "range(0,65535)"
 o.placeholder = "50"
 
+
+dnsrr = m:section(TypedSection, "dnsrr", translate("DNS-RR"),
+		translate('Set an arbitrary resource record (RR) type.') .. "<br />" ..
+		translate('Hexdata is automatically en/decoded on save and load'))
+dnsrr.addremove = true
+dnsrr.anonymous = true
+dnsrr.sortable = true
+dnsrr.template = "cbi/tblsection"
+
+o = dnsrr:option(Value, "dnsrr", translate("Resource Record Name"))
+o.rmempty  = false
+o.datatype = "hostname"
+o.placeholder = "svcb.example.com."
+
+o = dnsrr:option(Value, "rrnumber", translate("Resource Record Number"))
+o.rmempty  = false
+o.datatype = "uinteger"
+o.placeholder = "64"
+
+o = dnsrr:option(Value, "hexdata", translate("Raw Data"))
+o.rmempty  = true
+o.datatype = "string"
+o.placeholder = "free-form string"
+
 return m
