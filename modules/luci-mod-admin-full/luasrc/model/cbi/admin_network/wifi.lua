@@ -1222,6 +1222,18 @@ if hwtype == "mac80211" or hwtype == "prism2" then
 	o = s:taboption("encryption", FileUpload, "ca_cert", translate("Path to CA-Certificate"))
 	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
 
+	o = s:taboption("encryption", Value, "subject_match", translate('Certificate constraint (Subject)'), translate("Certificate constraint substring - e.g. /CN=wifi.mycompany.com<br />See `logread -f` during handshake for actual values"))
+	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
+
+	o = s:taboption("encryption", DynamicList, "altsubject_match", translate('Certificate constraint (SAN)'), translate("Certificate constraint(s) via Subject Alternate Name values<br />(supported attributes: EMAIL, DNS, URI) - e.g. DNS:wifi.mycompany.com"))
+	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
+
+	o = s:taboption("encryption", DynamicList, "domain_match", translate('Certificate constraint (Domain)'), translate("Certificate constraint(s) against DNS SAN values (if available)<br />or Subject CN (exact match)"))
+	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
+
+	o = s:taboption("encryption", DynamicList, "domain_suffix_match", translate('Certificate constraint (Wildcard)'), translate("Certificate constraint(s) against DNS SAN values (if available)<br />or Subject CN (suffix match)"))
+	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
+
 	o = s:taboption("encryption", FileUpload, "client_cert", translate("Path to Client-Certificate"))
 	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'}, eap_type = {'tls'} })
 
@@ -1243,6 +1255,18 @@ if hwtype == "mac80211" or hwtype == "prism2" then
 	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'}, eap_type = {'fast', 'peap', 'ttls'} })
 
 	o = s:taboption("encryption", FileUpload, "ca_cert2", translate("Path to inner CA-Certificate"))
+	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'}, auth = {'EAP-TLS'} })
+
+	o = s:taboption("encryption", Value, "subject_match2", translate('Inner certificate constraint (Subject)'), translate("Certificate constraint substring - e.g. /CN=wifi.mycompany.com<br />See `logread -f` during handshake for actual values"))
+	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'}, auth = {'EAP-TLS'} })
+
+	o = s:taboption("encryption", DynamicList, "altsubject_match2", translate('Inner certificate constraint (SAN)'), translate("Certificate constraint(s) via Subject Alternate Name values<br />(supported attributes: EMAIL, DNS, URI) - e.g. DNS:wifi.mycompany.com"))
+	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'}, auth = {'EAP-TLS'} })
+
+	o = s:taboption("encryption", DynamicList, "domain_match2", translate('Inner certificate constraint (Domain)'), translate("Certificate constraint(s) against DNS SAN values (if available)<br />or Subject CN (exact match)"))
+	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'}, auth = {'EAP-TLS'} })
+
+	o = s:taboption("encryption", DynamicList, "domain_suffix_match2", translate('Inner certificate constraint (Wildcard)'), translate("Certificate constraint(s) against DNS SAN values (if available)<br />or Subject CN (suffix match)"))
 	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'}, auth = {'EAP-TLS'} })
 
 	o = s:taboption("encryption", FileUpload, "client_cert2", translate("Path to inner Client-Certificate"))
