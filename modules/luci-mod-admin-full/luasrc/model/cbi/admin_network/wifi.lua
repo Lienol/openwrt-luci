@@ -71,6 +71,37 @@ end
 
 m.title = luci.util.pcdata(wnet:get_i18n())
 
+local function add_dependency_permutations(o, deps)
+    local res = nil
+
+    for key, list in pairs(deps) do
+        if type(list) == "table" then
+            local tmp = {}
+
+            for j = 1, #list do
+                for k = 1, (res and #res or 1) do
+                    local item = res and {} or {}
+                    if res then
+                        for k_key, k_val in pairs(res[k]) do
+                            item[k_key] = k_val
+                        end
+                    end
+                    item[key] = list[j]
+                    table.insert(tmp, item)
+                end
+            end
+
+            res = tmp
+        end
+    end
+
+    if res then
+        for i = 1, #res do
+            o:depends(res[i])
+        end
+    end
+end
+
 
 local function txpower_list(iw)
 	local list = iw.txpwrlist or { }
@@ -434,12 +465,12 @@ meshid = s:taboption("general", Value, "mesh_id", translate("Mesh Id"))
 meshid:depends({mode="mesh"})
 
 meshfwd = s:taboption("advanced", Flag, "mesh_fwding", translate("Forward mesh peer traffic"))
-meshfwd.rmempty = false
+--meshfwd.rmempty = false
 meshfwd.default = "1"
 meshfwd:depends({mode="mesh"})
 
 mesh_rssi_threshold = s:taboption("advanced", Flag, "mesh_rssi_threshold", translate("RSSI threshold for joining"), translate('0 = not using RSSI threshold, 1 = do not change driver default'))
-mesh_rssi_threshold.rmempty = false
+--mesh_rssi_threshold.rmempty = false
 mesh_rssi_threshold.default = "0"
 mesh_rssi_threshold.datatype = 'range(-255,1)'
 mesh_rssi_threshold:depends({mode="mesh"})
@@ -877,124 +908,42 @@ for i, v in ipairs(crypto_modes) do
 end
 
 o = s:taboption("encryption", Flag, "ppsk", translate("Enable Private PSK (PPSK)"), translate('Private Pre-Shared Key (PPSK) allows the use of different Pre-Shared Key for each STA MAC address. Private MAC PSKs are stored on the RADIUS server.'))
-o:depends({mode="ap", encryption="psk"})
-o:depends({mode="ap", encryption="psk2"})
-o:depends({mode="ap", encryption="psk+psk2"})
-o:depends({mode="ap", encryption="psk-mixed"})
-o:depends({mode="ap-wds", encryption="psk"})
-o:depends({mode="ap-wds", encryption="psk2"})
-o:depends({mode="ap-wds", encryption="psk+psk2"})
-o:depends({mode="ap-wds", encryption="psk-mixed"})
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'psk', 'psk2', 'psk+psk2', 'psk-mixed'} })
 
 o = s:taboption("encryption", Value, "auth_server", translate("RADIUS Authentication Server"))
-o:depends({mode="ap", encryption="wpa"})
-o:depends({mode="ap", encryption="wpa2"})
-o:depends({mode="ap", encryption="wpa3"})
-o:depends({mode="ap", encryption="wpa3-mixed"})
-o:depends({mode="ap", encryption="wpa3-192"})
-o:depends({mode="ap-wds", encryption="wpa"})
-o:depends({mode="ap-wds", encryption="wpa2"})
-o:depends({mode="ap-wds", encryption="wpa3"})
-o:depends({mode="ap-wds", encryption="wpa3-mixed"})
-o:depends({mode="ap-wds", encryption="wpa3-192"})
-o:depends({mode="ap", encryption="psk", ppsk=true})
-o:depends({mode="ap", encryption="psk2", ppsk=true})
-o:depends({mode="ap", encryption="psk+psk2", ppsk=true})
-o:depends({mode="ap", encryption="psk-mixed", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk2", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk+psk2", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk-mixed", ppsk=true})
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'psk', 'psk2', 'psk+psk2', 'psk-mixed'}, ppsk = {'1'} })
 o.rmempty = true
 o.datatype = "host(0)"
 
 o = s:taboption("encryption", Value, "auth_port", translate("RADIUS Authentication Port"))
-o:depends({mode="ap", encryption="wpa"})
-o:depends({mode="ap", encryption="wpa2"})
-o:depends({mode="ap", encryption="wpa3"})
-o:depends({mode="ap", encryption="wpa3-mixed"})
-o:depends({mode="ap", encryption="wpa3-192"})
-o:depends({mode="ap-wds", encryption="wpa"})
-o:depends({mode="ap-wds", encryption="wpa2"})
-o:depends({mode="ap-wds", encryption="wpa3"})
-o:depends({mode="ap-wds", encryption="wpa3-mixed"})
-o:depends({mode="ap-wds", encryption="wpa3-192"})
-o:depends({mode="ap", encryption="psk", ppsk=true})
-o:depends({mode="ap", encryption="psk2", ppsk=true})
-o:depends({mode="ap", encryption="psk+psk2", ppsk=true})
-o:depends({mode="ap", encryption="psk-mixed", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk2", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk+psk2", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk-mixed", ppsk=true})
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'psk', 'psk2', 'psk+psk2', 'psk-mixed'}, ppsk = {'1'} })
 o.rmempty = true
 o.datatype = "port"
 o.placeholder = "1812"
 o.default = o.placeholder
 
 o = s:taboption("encryption", Value, "auth_secret", translate("RADIUS Authentication Secret"))
-o:depends({mode="ap", encryption="wpa"})
-o:depends({mode="ap", encryption="wpa2"})
-o:depends({mode="ap", encryption="wpa3"})
-o:depends({mode="ap", encryption="wpa3-mixed"})
-o:depends({mode="ap", encryption="wpa3-192"})
-o:depends({mode="ap-wds", encryption="wpa"})
-o:depends({mode="ap-wds", encryption="wpa2"})
-o:depends({mode="ap-wds", encryption="wpa3"})
-o:depends({mode="ap-wds", encryption="wpa3-mixed"})
-o:depends({mode="ap-wds", encryption="wpa3-192"})
-o:depends({mode="ap", encryption="psk", ppsk=true})
-o:depends({mode="ap", encryption="psk2", ppsk=true})
-o:depends({mode="ap", encryption="psk+psk2", ppsk=true})
-o:depends({mode="ap", encryption="psk-mixed", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk2", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk+psk2", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk-mixed", ppsk=true})
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'psk', 'psk2', 'psk+psk2', 'psk-mixed'}, ppsk = {'1'} })
 o.rmempty = true
 o.password = true
 
 o = s:taboption("encryption", Value, "acct_server", translate("RADIUS Accounting Server"))
-o:depends({mode="ap", encryption="wpa"})
-o:depends({mode="ap", encryption="wpa2"})
-o:depends({mode="ap", encryption="wpa3"})
-o:depends({mode="ap", encryption="wpa3-mixed"})
-o:depends({mode="ap", encryption="wpa3-192"})
-o:depends({mode="ap-wds", encryption="wpa"})
-o:depends({mode="ap-wds", encryption="wpa2"})
-o:depends({mode="ap-wds", encryption="wpa3"})
-o:depends({mode="ap-wds", encryption="wpa3-mixed"})
-o:depends({mode="ap-wds", encryption="wpa3-192"})
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
 o.rmempty = true
 o.datatype = "host(0)"
 
 o = s:taboption("encryption", Value, "acct_port", translate("RADIUS Accounting Port"))
-o:depends({mode="ap", encryption="wpa"})
-o:depends({mode="ap", encryption="wpa2"})
-o:depends({mode="ap", encryption="wpa3"})
-o:depends({mode="ap", encryption="wpa3-mixed"})
-o:depends({mode="ap", encryption="wpa3-192"})
-o:depends({mode="ap-wds", encryption="wpa"})
-o:depends({mode="ap-wds", encryption="wpa2"})
-o:depends({mode="ap-wds", encryption="wpa3"})
-o:depends({mode="ap-wds", encryption="wpa3-mixed"})
-o:depends({mode="ap-wds", encryption="wpa3-192"})
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
 o.rmempty = true
 o.datatype = "port"
 o.placeholder = "1813"
 o.default = o.placeholder
 
 o = s:taboption("encryption", Value, "acct_secret", translate("RADIUS Accounting Secret"))
-o:depends({mode="ap", encryption="wpa"})
-o:depends({mode="ap", encryption="wpa2"})
-o:depends({mode="ap", encryption="wpa3"})
-o:depends({mode="ap", encryption="wpa3-mixed"})
-o:depends({mode="ap", encryption="wpa3-192"})
-o:depends({mode="ap-wds", encryption="wpa"})
-o:depends({mode="ap-wds", encryption="wpa2"})
-o:depends({mode="ap-wds", encryption="wpa3"})
-o:depends({mode="ap-wds", encryption="wpa3-mixed"})
-o:depends({mode="ap-wds", encryption="wpa3-192"})
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
 o.rmempty = true
 o.password = true
 
@@ -1013,54 +962,20 @@ end
 local req_attr_syntax = translate('Format') .. '<code>&lt;attr_id&gt;[:&lt;syntax:value&gt;]</code>' .. '<br />' ..
 	translatef('<code>syntax: s = %s; ', translatef('string (UTF-8)') .. translatef('d = %s; ', translate("integer")) .. translate('x = %s</code>', translate('octet string')))
 o = s:taboption("encryption", DynamicList, "radius_auth_req_attr", translate("RADIUS Access-Request attributes"), translate("Attributes to add/replace in each request.") .. "<br />" .. req_attr_syntax)
-o:depends({mode="ap", encryption="wpa"})
-o:depends({mode="ap", encryption="wpa2"})
-o:depends({mode="ap", encryption="wpa3"})
-o:depends({mode="ap", encryption="wpa3-mixed"})
-o:depends({mode="ap", encryption="wpa3-192"})
-o:depends({mode="ap-wds", encryption="wpa"})
-o:depends({mode="ap-wds", encryption="wpa2"})
-o:depends({mode="ap-wds", encryption="wpa3"})
-o:depends({mode="ap-wds", encryption="wpa3-mixed"})
-o:depends({mode="ap-wds", encryption="wpa3-192"})
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
 o.rmempty = true
 o.validate = attr_validate
 o.placeholder = '126:s:Operator'
 
 o = s:taboption("encryption", DynamicList, "radius_acct_req_attr", translate("RADIUS Accounting-Request attributes"), translate("Attributes to add/replace in each request.") .. "<br />" .. req_attr_syntax)
-o:depends({mode="ap", encryption="wpa"})
-o:depends({mode="ap", encryption="wpa2"})
-o:depends({mode="ap", encryption="wpa3"})
-o:depends({mode="ap", encryption="wpa3-mixed"})
-o:depends({mode="ap", encryption="wpa3-192"})
-o:depends({mode="ap-wds", encryption="wpa"})
-o:depends({mode="ap-wds", encryption="wpa2"})
-o:depends({mode="ap-wds", encryption="wpa3"})
-o:depends({mode="ap-wds", encryption="wpa3-mixed"})
-o:depends({mode="ap-wds", encryption="wpa3-192"})
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
 o.rmempty = true
 o.validate = attr_validate
 o.placeholder = '77:x:74657374696e67'
 
 o = s:taboption("encryption", ListValue, "dynamic_vlan", translate("RADIUS Dynamic VLAN Assignment"), translate("Required: Rejects auth if RADIUS server does not provide appropriate VLAN attributes."))
-o:depends({mode="ap", encryption="wpa"})
-o:depends({mode="ap", encryption="wpa2"})
-o:depends({mode="ap", encryption="wpa3"})
-o:depends({mode="ap", encryption="wpa3-mixed"})
-o:depends({mode="ap", encryption="wpa3-192"})
-o:depends({mode="ap-wds", encryption="wpa"})
-o:depends({mode="ap-wds", encryption="wpa2"})
-o:depends({mode="ap-wds", encryption="wpa3"})
-o:depends({mode="ap-wds", encryption="wpa3-mixed"})
-o:depends({mode="ap-wds", encryption="wpa3-192"})
-o:depends({mode="ap", encryption="psk", ppsk=true})
-o:depends({mode="ap", encryption="psk2", ppsk=true})
-o:depends({mode="ap", encryption="psk+psk2", ppsk=true})
-o:depends({mode="ap", encryption="psk-mixed", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk2", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk+psk2", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk-mixed", ppsk=true})
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'psk', 'psk2', 'psk+psk2', 'psk-mixed'}, ppsk = {'1'} })
 o:value("0", translate("Disabled"))
 o:value("1", translate("Optional"))
 o:value("2", translate("Required"))
@@ -1073,167 +988,70 @@ o.write = function(self, section, value)
 end
 
 o = s:taboption("encryption", Flag, "per_sta_vif", translate("RADIUS Per STA VLAN"), translate("Each STA is assigned its own AP_VLAN interface."))
-o:depends({mode="ap", encryption="wpa"})
-o:depends({mode="ap", encryption="wpa2"})
-o:depends({mode="ap", encryption="wpa3"})
-o:depends({mode="ap", encryption="wpa3-mixed"})
-o:depends({mode="ap", encryption="wpa3-192"})
-o:depends({mode="ap-wds", encryption="wpa"})
-o:depends({mode="ap-wds", encryption="wpa2"})
-o:depends({mode="ap-wds", encryption="wpa3"})
-o:depends({mode="ap-wds", encryption="wpa3-mixed"})
-o:depends({mode="ap-wds", encryption="wpa3-192"})
-o:depends({mode="ap", encryption="psk", ppsk=true})
-o:depends({mode="ap", encryption="psk2", ppsk=true})
-o:depends({mode="ap", encryption="psk+psk2", ppsk=true})
-o:depends({mode="ap", encryption="psk-mixed", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk2", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk+psk2", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk-mixed", ppsk=true})
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'psk', 'psk2', 'psk+psk2', 'psk-mixed'}, ppsk = {'1'} })
 
 -- hostapd internally defaults to vlan_naming=1 even with dynamic VLAN off
 o = s:taboption("encryption", Flag, "vlan_naming", translate("RADIUS VLAN Naming"), translate('Off: <code>vlanXXX</code>, e.g., <code>vlan1</code>. On: <code>vlan_tagged_interface.XXX</code>, e.g. <code>eth0.1</code>.'))
-o:depends({mode="ap", encryption="wpa"})
-o:depends({mode="ap", encryption="wpa2"})
-o:depends({mode="ap", encryption="wpa3"})
-o:depends({mode="ap", encryption="wpa3-mixed"})
-o:depends({mode="ap", encryption="wpa3-192"})
-o:depends({mode="ap-wds", encryption="wpa"})
-o:depends({mode="ap-wds", encryption="wpa2"})
-o:depends({mode="ap-wds", encryption="wpa3"})
-o:depends({mode="ap-wds", encryption="wpa3-mixed"})
-o:depends({mode="ap-wds", encryption="wpa3-192"})
-o:depends({mode="ap", encryption="psk", ppsk=true})
-o:depends({mode="ap", encryption="psk2", ppsk=true})
-o:depends({mode="ap", encryption="psk+psk2", ppsk=true})
-o:depends({mode="ap", encryption="psk-mixed", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk2", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk+psk2", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk-mixed", ppsk=true})
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'psk', 'psk2', 'psk+psk2', 'psk-mixed'}, ppsk = {'1'} })
 
 -- Need optimization
 o = s:taboption("encryption", Value, "vlan_tagged_interface", translate("RADIUS VLAN Tagged Interface"), translate('E.g. eth0, eth1'))
-o:depends({mode="ap", encryption="wpa"})
-o:depends({mode="ap", encryption="wpa2"})
-o:depends({mode="ap", encryption="wpa3"})
-o:depends({mode="ap", encryption="wpa3-mixed"})
-o:depends({mode="ap", encryption="wpa3-192"})
-o:depends({mode="ap-wds", encryption="wpa"})
-o:depends({mode="ap-wds", encryption="wpa2"})
-o:depends({mode="ap-wds", encryption="wpa3"})
-o:depends({mode="ap-wds", encryption="wpa3-mixed"})
-o:depends({mode="ap-wds", encryption="wpa3-192"})
-o:depends({mode="ap", encryption="psk", ppsk=true})
-o:depends({mode="ap", encryption="psk2", ppsk=true})
-o:depends({mode="ap", encryption="psk+psk2", ppsk=true})
-o:depends({mode="ap", encryption="psk-mixed", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk2", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk+psk2", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk-mixed", ppsk=true})
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'psk', 'psk2', 'psk+psk2', 'psk-mixed'}, ppsk = {'1'} })
 o.rmempty = true
 
 o = s:taboption("encryption", Value, "vlan_bridge", translate("RADIUS VLAN Bridge Naming Scheme"), translate('E.g. <code>br-vlan</code> or <code>brvlan</code>.'))
-o:depends({mode="ap", encryption="wpa"})
-o:depends({mode="ap", encryption="wpa2"})
-o:depends({mode="ap", encryption="wpa3"})
-o:depends({mode="ap", encryption="wpa3-mixed"})
-o:depends({mode="ap", encryption="wpa3-192"})
-o:depends({mode="ap-wds", encryption="wpa"})
-o:depends({mode="ap-wds", encryption="wpa2"})
-o:depends({mode="ap-wds", encryption="wpa3"})
-o:depends({mode="ap-wds", encryption="wpa3-mixed"})
-o:depends({mode="ap-wds", encryption="wpa3-192"})
-o:depends({mode="ap", encryption="psk", ppsk=true})
-o:depends({mode="ap", encryption="psk2", ppsk=true})
-o:depends({mode="ap", encryption="psk+psk2", ppsk=true})
-o:depends({mode="ap", encryption="psk-mixed", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk2", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk+psk2", ppsk=true})
-o:depends({mode="ap-wds", encryption="psk-mixed", ppsk=true})
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'psk', 'psk2', 'psk+psk2', 'psk-mixed'}, ppsk = {'1'} })
 o.rmempty = true
 
 -- extra RADIUS settings end
 
 o = s:taboption("encryption", Value, "dae_client", translate("DAE-Client"), translate('Dynamic Authorization Extension client.'))
-o:depends({mode="ap", encryption="wpa"})
-o:depends({mode="ap", encryption="wpa2"})
-o:depends({mode="ap", encryption="wpa3"})
-o:depends({mode="ap", encryption="wpa3-mixed"})
-o:depends({mode="ap", encryption="wpa3-192"})
-o:depends({mode="ap-wds", encryption="wpa"})
-o:depends({mode="ap-wds", encryption="wpa2"})
-o:depends({mode="ap-wds", encryption="wpa3"})
-o:depends({mode="ap-wds", encryption="wpa3-mixed"})
-o:depends({mode="ap-wds", encryption="wpa3-192"})
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
 o.rmempty = true
 o.datatype = "host(0)"
 
 o = s:taboption("encryption", Value, "dae_port", translate("DAE-Port"), translate('Dynamic Authorization Extension port.'))
-o:depends({mode="ap", encryption="wpa"})
-o:depends({mode="ap", encryption="wpa2"})
-o:depends({mode="ap", encryption="wpa3"})
-o:depends({mode="ap", encryption="wpa3-mixed"})
-o:depends({mode="ap", encryption="wpa3-192"})
-o:depends({mode="ap-wds", encryption="wpa"})
-o:depends({mode="ap-wds", encryption="wpa2"})
-o:depends({mode="ap-wds", encryption="wpa3"})
-o:depends({mode="ap-wds", encryption="wpa3-mixed"})
-o:depends({mode="ap-wds", encryption="wpa3-192"})
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
 o.rmempty = true
 o.datatype = "port"
 o.placeholder = "3799"
 
 o = s:taboption("encryption", Value, "dae_secret", translate("DAE-Secret"), translate('Dynamic Authorization Extension secret.'))
-o:depends({mode="ap", encryption="wpa"})
-o:depends({mode="ap", encryption="wpa2"})
-o:depends({mode="ap", encryption="wpa3"})
-o:depends({mode="ap", encryption="wpa3-mixed"})
-o:depends({mode="ap", encryption="wpa3-192"})
-o:depends({mode="ap-wds", encryption="wpa"})
-o:depends({mode="ap-wds", encryption="wpa2"})
-o:depends({mode="ap-wds", encryption="wpa3"})
-o:depends({mode="ap-wds", encryption="wpa3-mixed"})
-o:depends({mode="ap-wds", encryption="wpa3-192"})
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
 o.rmempty = true
 o.password = true
 
 -- WPA(1) has only WPA IE. Only >= WPA2 has RSN IE Preauth frames.
 o = s:taboption("encryption", Flag, "rsn_preauth", translate("RSN Preauth"), translate('Robust Security Network (RSN): Allow roaming preauth for WPA2-EAP networks (and advertise it in WLAN beacons). Only works if the specified network interface is a bridge. Shortens the time-critical reassociation process.'))
-o:depends({mode="ap", encryption="wpa2"})
-o:depends({mode="ap", encryption="wpa3"})
-o:depends({mode="ap", encryption="wpa3-mixed"})
-o:depends({mode="ap-wds", encryption="wpa2"})
-o:depends({mode="ap-wds", encryption="wpa3"})
-o:depends({mode="ap-wds", encryption="wpa3-mixed"})
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'wpa2', 'wpa3', 'wpa3-mixed'} })
 o.rmempty = true
 o.password = true
 
-wpakey = s:taboption("encryption", Value, "_wpa_key", translate("Key"))
-wpakey:depends("encryption", "psk")
-wpakey:depends("encryption", "psk2")
-wpakey:depends("encryption", "psk+psk2")
-wpakey:depends("encryption", "psk-mixed")
-wpakey:depends("encryption", "sae")
-wpakey:depends("encryption", "sae-mixed")
-wpakey.datatype = "wpakey"
-wpakey.rmempty = true
-wpakey.password = true
-
-wpakey.cfgvalue = function(self, section, value)
+o = s:taboption("encryption", Value, "_wpa_key", translate("Key"))
+add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'psk', 'psk2', 'psk+psk2', 'psk-mixed'}, ppsk = false })
+add_dependency_permutations(o, { mode = {'sta', 'adhoc', 'mesh', 'sta-wds'}, encryption = {'psk', 'psk2', 'psk+psk2', 'psk-mixed'} })
+o:depends("encryption", "sae")
+o:depends("encryption", "sae-mixed")
+o.datatype = "wpakey"
+o.rmempty = true
+o.password = true
+o.cfgvalue = function(self, section, value)
 	local key = m.uci:get("wireless", section, "key")
 	if key == "1" or key == "2" or key == "3" or key == "4" then
 		return nil
 	end
 	return key
 end
-
-wpakey.write = function(self, section, value)
+o.write = function(self, section, value)
 	self.map.uci:set("wireless", section, "key", value)
 	self.map.uci:delete("wireless", section, "key1")
+	self.map.uci:delete("wireless", section, "key2")
+	self.map.uci:delete("wireless", section, "key3")
+	self.map.uci:delete("wireless", section, "key4")
 end
 
 
@@ -1279,37 +1097,14 @@ if hwtype == "mac80211" or hwtype == "prism2" then
 	-- Probe 802.11r support (and EAP support as a proxy for Openwrt)
 	local has_80211r = (os.execute("hostapd -v11r 2>/dev/null || hostapd -veap 2>/dev/null") == 0)
 	o = s:taboption("roaming", Flag, "ieee80211r", translate("802.11r Fast Transition"), translate('Enables fast roaming among access points that belong to the same Mobility Domain'))
-	o:depends({mode="ap", encryption="wpa2"})
-	o:depends({mode="ap", encryption="wpa3"})
-	o:depends({mode="ap", encryption="wpa3-mixed"})
-	o:depends({mode="ap", encryption="wpa3-192"})
-	o:depends({mode="ap-wds", encryption="wpa2"})
-	o:depends({mode="ap-wds", encryption="wpa3"})
-	o:depends({mode="ap-wds", encryption="wpa3-mixed"})
-	o:depends({mode="ap-wds", encryption="wpa3-192"})
+	add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
 	if has_80211r then
-		o:depends({mode="ap", encryption="psk2"})
-		o:depends({mode="ap", encryption="psk-mixed"})
-		o:depends({mode="ap", encryption="sae"})
-		o:depends({mode="ap", encryption="sae-mixed"})
-		o:depends({mode="ap-wds", encryption="psk2"})
-		o:depends({mode="ap-wds", encryption="psk-mixed"})
-		o:depends({mode="ap-wds", encryption="sae"})
-		o:depends({mode="ap-wds", encryption="sae-mixed"})
+		add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'psk2', 'psk-mixed', 'sae', 'sae-mixed'} })
 	end
 	o.rmempty = true
 
 	o = s:taboption("roaming", Value, "nasid", translate("NAS ID"), translate('Used for two different purposes: RADIUS NAS ID and 802.11r R0KH-ID. Not needed with normal WPA(2)-PSK.'))
-	o:depends({mode="ap", encryption="wpa"})
-	o:depends({mode="ap", encryption="wpa2"})
-	o:depends({mode="ap", encryption="wpa3"})
-	o:depends({mode="ap", encryption="wpa3-mixed"})
-	o:depends({mode="ap", encryption="wpa3-192"})
-	o:depends({mode="ap-wds", encryption="wpa"})
-	o:depends({mode="ap-wds", encryption="wpa2"})
-	o:depends({mode="ap-wds", encryption="wpa3"})
-	o:depends({mode="ap-wds", encryption="wpa3-mixed"})
-	o:depends({mode="ap-wds", encryption="wpa3-192"})
+	add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
 	o:depends({ ieee80211r = "1" })
 	o.rmempty = true
 
@@ -1332,10 +1127,9 @@ if hwtype == "mac80211" or hwtype == "prism2" then
 	o.rmempty = true
 
 	o = s:taboption("roaming", Flag, "ft_psk_generate_local", translate("Generate PMK locally"), translate("When using a PSK, the PMK can be automatically generated. When enabled, the R0/R1 key options below are not applied. Disable this to use the R0 and R1 key options."))
-	o:depends({ ieee80211r = "1", mode = "ap", encryption = "psk2" })
-	o:depends({ ieee80211r = "1", mode = "ap", encryption = "psk-mixed" })
-	o:depends({ ieee80211r = "1", mode = "ap-wds", encryption = "psk2" })
-	o:depends({ ieee80211r = "1", mode = "ap-wds", encryption = "psk-mixed" })
+	add_dependency_permutations(o, { ieee80211r = "1", mode = {'ap', 'ap-wds'}, encryption = {'psk2', 'psk-mixed'} })
+	o.default = o.enabled
+--	o.rmempty = false
 
 	o = s:taboption("roaming", Value, "r0_key_lifetime", translate("R0 Key Lifetime"), translate("minutes"))
 	o:depends({ ieee80211r = "1" })
@@ -1370,6 +1164,7 @@ if hwtype == "mac80211" or hwtype == "prism2" then
 	if has_eap then
 		-- 802.11k settings start
 		o = s:taboption("roaming", Flag, "ieee80211k", translate("802.11k RRM"), translate('Radio Resource Measurement - Sends beacons to assist roaming. Not all clients support this.'))
+		--add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'psk', 'psk2', 'psk-mixed', 'sae', 'sae-mixed'} })
 		o:depends('mode', 'ap')
 		o:depends('mode', 'ap-wds')
 		
@@ -1384,7 +1179,6 @@ if hwtype == "mac80211" or hwtype == "prism2" then
 
 		-- 802.11v settings start
 		o = s:taboption("roaming", ListValue, "time_advertisement", translate("Time advertisement"), translate('802.11v: Time Advertisement in management frames.'))
-		o:depends({ieee80211v="1"})
 		o:value("0", translate("Disabled"))
 		o:value("2", translate("Enabled"))
 		o.rmempty = true
@@ -1418,188 +1212,73 @@ if hwtype == "mac80211" or hwtype == "prism2" then
 		-- 802.11v settings end
 	end
 
-	eaptype = s:taboption("encryption", ListValue, "eap_type", translate("EAP-Method"))
-	eaptype:value("tls",  "TLS")
-	eaptype:value("ttls", "TTLS")
-	eaptype:value("peap", "PEAP")
-	eaptype:value("fast", "FAST")
-	eaptype:depends({mode="sta", encryption="wpa"})
-	eaptype:depends({mode="sta", encryption="wpa2"})
-	eaptype:depends({mode="sta-wds", encryption="wpa"})
-	eaptype:depends({mode="sta-wds", encryption="wpa2"})
+	o = s:taboption("encryption", ListValue, "eap_type", translate("EAP-Method"))
+	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
+	o:value("tls",  "TLS")
+	o:value("ttls", "TTLS")
+	o:value("peap", "PEAP")
+	o:value("fast", "FAST")
 
-	cacert = s:taboption("encryption", FileUpload, "ca_cert", translate("Path to CA-Certificate"))
-	cacert:depends({mode="sta", encryption="wpa"})
-	cacert:depends({mode="sta", encryption="wpa2"})
-	cacert:depends({mode="sta-wds", encryption="wpa"})
-	cacert:depends({mode="sta-wds", encryption="wpa2"})
-	cacert.rmempty = true
+	o = s:taboption("encryption", FileUpload, "ca_cert", translate("Path to CA-Certificate"))
+	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'} })
 
-	clientcert = s:taboption("encryption", FileUpload, "client_cert", translate("Path to Client-Certificate"))
-	clientcert:depends({mode="sta", eap_type="tls", encryption="wpa"})
-	clientcert:depends({mode="sta", eap_type="tls", encryption="wpa2"})
-	clientcert:depends({mode="sta-wds", eap_type="tls", encryption="wpa"})
-	clientcert:depends({mode="sta-wds", eap_type="tls", encryption="wpa2"})
+	o = s:taboption("encryption", FileUpload, "client_cert", translate("Path to Client-Certificate"))
+	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'}, eap_type = {'tls'} })
 
-	privkey = s:taboption("encryption", FileUpload, "priv_key", translate("Path to Private Key"))
-	privkey:depends({mode="sta", eap_type="tls", encryption="wpa2"})
-	privkey:depends({mode="sta", eap_type="tls", encryption="wpa"})
-	privkey:depends({mode="sta-wds", eap_type="tls", encryption="wpa2"})
-	privkey:depends({mode="sta-wds", eap_type="tls", encryption="wpa"})
+	o = s:taboption("encryption", FileUpload, "priv_key", translate("Path to Private Key"))
+	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'}, eap_type = {'tls'} })
 
-	privkeypwd = s:taboption("encryption", Value, "priv_key_pwd", translate("Password of Private Key"))
-	privkeypwd:depends({mode="sta", eap_type="tls", encryption="wpa2"})
-	privkeypwd:depends({mode="sta", eap_type="tls", encryption="wpa"})
-	privkeypwd:depends({mode="sta-wds", eap_type="tls", encryption="wpa2"})
-	privkeypwd:depends({mode="sta-wds", eap_type="tls", encryption="wpa"})
-	privkeypwd.rmempty = true
-	privkeypwd.password = true
+	o = s:taboption("encryption", Value, "priv_key_pwd", translate("Password of Private Key"))
+	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'}, eap_type = {'tls'} })
 
-	auth = s:taboption("encryption", ListValue, "auth", translate("Authentication"))
-	auth:value("PAP", "PAP", {eap_type="ttls"})
-	auth:value("CHAP", "CHAP", {eap_type="ttls"})
-	auth:value("MSCHAP", "MSCHAP", {eap_type="ttls"})
-	auth:value("MSCHAPV2", "MSCHAPv2", {eap_type="ttls"})
-	auth:value("EAP-GTC")
-	auth:value("EAP-MD5")
-	auth:value("EAP-MSCHAPV2")
-	auth:value("EAP-TLS")
-	auth:depends({mode="sta", eap_type="fast", encryption="wpa2"})
-	auth:depends({mode="sta", eap_type="fast", encryption="wpa"})
-	auth:depends({mode="sta", eap_type="peap", encryption="wpa2"})
-	auth:depends({mode="sta", eap_type="peap", encryption="wpa"})
-	auth:depends({mode="sta", eap_type="ttls", encryption="wpa2"})
-	auth:depends({mode="sta", eap_type="ttls", encryption="wpa"})
-	auth:depends({mode="sta-wds", eap_type="fast", encryption="wpa2"})
-	auth:depends({mode="sta-wds", eap_type="fast", encryption="wpa"})
-	auth:depends({mode="sta-wds", eap_type="peap", encryption="wpa2"})
-	auth:depends({mode="sta-wds", eap_type="peap", encryption="wpa"})
-	auth:depends({mode="sta-wds", eap_type="ttls", encryption="wpa2"})
-	auth:depends({mode="sta-wds", eap_type="ttls", encryption="wpa"})
+	o = s:taboption("encryption", ListValue, "auth", translate("Authentication"))
+	o:value("PAP", "PAP", {eap_type="ttls"})
+	o:value("CHAP", "CHAP", {eap_type="ttls"})
+	o:value("MSCHAP", "MSCHAP", {eap_type="ttls"})
+	o:value("MSCHAPV2", "MSCHAPv2", {eap_type="ttls"})
+	o:value("EAP-GTC")
+	o:value("EAP-MD5")
+	o:value("EAP-MSCHAPV2")
+	o:value("EAP-TLS")
+	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'}, eap_type = {'fast', 'peap', 'ttls'} })
 
-	cacert2 = s:taboption("encryption", FileUpload, "ca_cert2", translate("Path to inner CA-Certificate"))
-	cacert2:depends({mode="sta", auth="EAP-TLS", encryption="wpa"})
-	cacert2:depends({mode="sta", auth="EAP-TLS", encryption="wpa2"})
-	cacert2:depends({mode="sta-wds", auth="EAP-TLS", encryption="wpa"})
-	cacert2:depends({mode="sta-wds", auth="EAP-TLS", encryption="wpa2"})
+	o = s:taboption("encryption", FileUpload, "ca_cert2", translate("Path to inner CA-Certificate"))
+	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'}, auth = {'EAP-TLS'} })
 
-	clientcert2 = s:taboption("encryption", FileUpload, "client_cert2", translate("Path to inner Client-Certificate"))
-	clientcert2:depends({mode="sta", auth="EAP-TLS", encryption="wpa"})
-	clientcert2:depends({mode="sta", auth="EAP-TLS", encryption="wpa2"})
-	clientcert2:depends({mode="sta-wds", auth="EAP-TLS", encryption="wpa"})
-	clientcert2:depends({mode="sta-wds", auth="EAP-TLS", encryption="wpa2"})
+	o = s:taboption("encryption", FileUpload, "client_cert2", translate("Path to inner Client-Certificate"))
+	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'}, auth = {'EAP-TLS'} })
 
-	privkey2 = s:taboption("encryption", FileUpload, "priv_key2", translate("Path to inner Private Key"))
-	privkey2:depends({mode="sta", auth="EAP-TLS", encryption="wpa"})
-	privkey2:depends({mode="sta", auth="EAP-TLS", encryption="wpa2"})
-	privkey2:depends({mode="sta-wds", auth="EAP-TLS", encryption="wpa"})
-	privkey2:depends({mode="sta-wds", auth="EAP-TLS", encryption="wpa2"})
+	o = s:taboption("encryption", FileUpload, "priv_key2", translate("Path to inner Private Key"))
+	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'}, auth = {'EAP-TLS'} })
 
-	privkeypwd2 = s:taboption("encryption", Value, "priv_key2_pwd", translate("Password of inner Private Key"))
-	privkeypwd2:depends({mode="sta", auth="EAP-TLS", encryption="wpa"})
-	privkeypwd2:depends({mode="sta", auth="EAP-TLS", encryption="wpa2"})
-	privkeypwd2:depends({mode="sta-wds", auth="EAP-TLS", encryption="wpa"})
-	privkeypwd2:depends({mode="sta-wds", auth="EAP-TLS", encryption="wpa2"})
-	privkeypwd2.rmempty = true
-	privkeypwd2.password = true
+	o = s:taboption("encryption", Value, "priv_key2_pwd", translate("Password of inner Private Key"))
+	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'}, auth = {'EAP-TLS'} })
+	o.password = true
 
-	identity = s:taboption("encryption", Value, "identity", translate("Identity"))
-	identity:depends({mode="sta", eap_type="fast", encryption="wpa2"})
-	identity:depends({mode="sta", eap_type="fast", encryption="wpa"})
-	identity:depends({mode="sta", eap_type="peap", encryption="wpa2"})
-	identity:depends({mode="sta", eap_type="peap", encryption="wpa"})
-	identity:depends({mode="sta", eap_type="ttls", encryption="wpa2"})
-	identity:depends({mode="sta", eap_type="ttls", encryption="wpa"})
-	identity:depends({mode="sta-wds", eap_type="fast", encryption="wpa2"})
-	identity:depends({mode="sta-wds", eap_type="fast", encryption="wpa"})
-	identity:depends({mode="sta-wds", eap_type="peap", encryption="wpa2"})
-	identity:depends({mode="sta-wds", eap_type="peap", encryption="wpa"})
-	identity:depends({mode="sta-wds", eap_type="ttls", encryption="wpa2"})
-	identity:depends({mode="sta-wds", eap_type="ttls", encryption="wpa"})
-	identity:depends({mode="sta", eap_type="tls", encryption="wpa2"})
-	identity:depends({mode="sta", eap_type="tls", encryption="wpa"})
-	identity:depends({mode="sta-wds", eap_type="tls", encryption="wpa2"})
-	identity:depends({mode="sta-wds", eap_type="tls", encryption="wpa"})
+	o = s:taboption("encryption", Value, "identity", translate("Identity"))
+	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'}, eap_type = {'fast', 'peap', 'tls', 'ttls'} })
 
-	anonymous_identity = s:taboption("encryption", Value, "anonymous_identity", translate("Anonymous Identity"))
-	anonymous_identity:depends({mode="sta", eap_type="fast", encryption="wpa2"})
-	anonymous_identity:depends({mode="sta", eap_type="fast", encryption="wpa"})
-	anonymous_identity:depends({mode="sta", eap_type="peap", encryption="wpa2"})
-	anonymous_identity:depends({mode="sta", eap_type="peap", encryption="wpa"})
-	anonymous_identity:depends({mode="sta", eap_type="ttls", encryption="wpa2"})
-	anonymous_identity:depends({mode="sta", eap_type="ttls", encryption="wpa"})
-	anonymous_identity:depends({mode="sta-wds", eap_type="fast", encryption="wpa2"})
-	anonymous_identity:depends({mode="sta-wds", eap_type="fast", encryption="wpa"})
-	anonymous_identity:depends({mode="sta-wds", eap_type="peap", encryption="wpa2"})
-	anonymous_identity:depends({mode="sta-wds", eap_type="peap", encryption="wpa"})
-	anonymous_identity:depends({mode="sta-wds", eap_type="ttls", encryption="wpa2"})
-	anonymous_identity:depends({mode="sta-wds", eap_type="ttls", encryption="wpa"})
-	anonymous_identity:depends({mode="sta", eap_type="tls", encryption="wpa2"})
-	anonymous_identity:depends({mode="sta", eap_type="tls", encryption="wpa"})
-	anonymous_identity:depends({mode="sta-wds", eap_type="tls", encryption="wpa2"})
-	anonymous_identity:depends({mode="sta-wds", eap_type="tls", encryption="wpa"})
+	o = s:taboption("encryption", Value, "anonymous_identity", translate("Anonymous Identity"))
+	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'}, eap_type = {'fast', 'peap', 'tls', 'ttls'} })
 
-	password = s:taboption("encryption", Value, "password", translate("Password"))
-	password:depends({mode="sta", eap_type="fast", encryption="wpa2"})
-	password:depends({mode="sta", eap_type="fast", encryption="wpa"})
-	password:depends({mode="sta", eap_type="peap", encryption="wpa2"})
-	password:depends({mode="sta", eap_type="peap", encryption="wpa"})
-	password:depends({mode="sta", eap_type="ttls", encryption="wpa2"})
-	password:depends({mode="sta", eap_type="ttls", encryption="wpa"})
-	password:depends({mode="sta-wds", eap_type="fast", encryption="wpa2"})
-	password:depends({mode="sta-wds", eap_type="fast", encryption="wpa"})
-	password:depends({mode="sta-wds", eap_type="peap", encryption="wpa2"})
-	password:depends({mode="sta-wds", eap_type="peap", encryption="wpa"})
-	password:depends({mode="sta-wds", eap_type="ttls", encryption="wpa2"})
-	password:depends({mode="sta-wds", eap_type="ttls", encryption="wpa"})
-	password.rmempty = true
-	password.password = true
+	o = s:taboption("encryption", Value, "password", translate("Password"))
+	add_dependency_permutations(o, { mode = {'sta', 'sta-wds'}, encryption = {'wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'}, eap_type = {'fast', 'peap', 'ttls'} })
+	o.password = true
 end
 
 -- ieee802.11w options
 if hwtype == "mac80211" then
 	local has_80211w = (os.execute("hostapd -v11w 2>/dev/null || hostapd -veap 2>/dev/null") == 0)
 	if has_80211w then
-		ieee80211w = s:taboption("encryption", ListValue, "ieee80211w",
+		o = s:taboption("encryption", ListValue, "ieee80211w",
 			translate("802.11w Management Frame Protection"),
 			translate("Note: Some wireless drivers do not fully support 802.11w. E.g. mwlwifi may have problems"))
-		ieee80211w.default = ""
-		ieee80211w.rmempty = true
-		ieee80211w:value("", translate("Disabled (default)"))
-		ieee80211w:value("1", translate("Optional"))
-		ieee80211w:value("2", translate("Required"))
-		ieee80211w:depends({mode="ap", encryption="owe"})
-		ieee80211w:depends({mode="ap", encryption="psk2"})
-		ieee80211w:depends({mode="ap", encryption="psk-mixed"})
-		ieee80211w:depends({mode="ap", encryption="sae"})
-		ieee80211w:depends({mode="ap", encryption="sae-mixed"})
-		ieee80211w:depends({mode="ap", encryption="wpa2"})
-		ieee80211w:depends({mode="ap", encryption="wpa3"})
-		ieee80211w:depends({mode="ap", encryption="wpa3-mixed"})
-		ieee80211w:depends({mode="ap-wds", encryption="owe"})
-		ieee80211w:depends({mode="ap-wds", encryption="psk2"})
-		ieee80211w:depends({mode="ap-wds", encryption="psk-mixed"})
-		ieee80211w:depends({mode="ap-wds", encryption="sae"})
-		ieee80211w:depends({mode="ap-wds", encryption="sae-mixed"})
-		ieee80211w:depends({mode="ap-wds", encryption="wpa2"})
-		ieee80211w:depends({mode="ap-wds", encryption="wpa3"})
-		ieee80211w:depends({mode="ap-wds", encryption="wpa3-mixed"})
-		ieee80211w:depends({mode="sta", encryption="owe"})
-		ieee80211w:depends({mode="sta", encryption="psk2"})
-		ieee80211w:depends({mode="sta", encryption="psk-mixed"})
-		ieee80211w:depends({mode="sta", encryption="sae"})
-		ieee80211w:depends({mode="sta", encryption="sae-mixed"})
-		ieee80211w:depends({mode="sta", encryption="wpa2"})
-		ieee80211w:depends({mode="sta", encryption="wpa3"})
-		ieee80211w:depends({mode="sta", encryption="wpa3-mixed"})
-		ieee80211w:depends({mode="sta-wds", encryption="owe"})
-		ieee80211w:depends({mode="sta-wds", encryption="psk2"})
-		ieee80211w:depends({mode="sta-wds", encryption="psk-mixed"})
-		ieee80211w:depends({mode="sta-wds", encryption="sae"})
-		ieee80211w:depends({mode="sta-wds", encryption="sae-mixed"})
-		ieee80211w:depends({mode="sta-wds", encryption="wpa2"})
-		ieee80211w:depends({mode="sta-wds", encryption="wpa3"})
-		ieee80211w:depends({mode="sta-wds", encryption="wpa3-mixed"})
+		o.default = ""
+		o.rmempty = true
+		o:value("", translate("Disabled (default)"))
+		o:value("1", translate("Optional"))
+		o:value("2", translate("Required"))
+		add_dependency_permutations(o, { mode = {'ap', 'ap-wds', 'sta', 'sta-wds'}, encryption = {'owe', 'psk2', 'psk-mixed', 'sae', 'sae-mixed', 'wpa2', 'wpa3', 'wpa3-mixed'} })
 
 		max_timeout = s:taboption("encryption", Value, "ieee80211w_max_timeout",
 				translate("802.11w maximum timeout"),
@@ -1639,20 +1318,7 @@ if hwtype == "mac80211" then
 	o = s:taboption("encryption", Flag, "wpa_disable_eapol_key_retries",
 		translate("Enable key reinstallation (KRACK) countermeasures"),
 		translate("Complicates key reinstallation attacks on the client side by disabling retransmission of EAPOL-Key frames that are used to install keys. This workaround might cause interoperability issues and reduced robustness of key negotiation especially in environments with heavy traffic load."))
-	o:depends({mode="ap", encryption="psk2"})
-	o:depends({mode="ap", encryption="psk-mixed"})
-	o:depends({mode="ap", encryption="sae"})
-	o:depends({mode="ap", encryption="sae-mixed"})
-	o:depends({mode="ap", encryption="wpa2"})
-	o:depends({mode="ap", encryption="wpa3"})
-	o:depends({mode="ap", encryption="wpa3-mixed"})
-	o:depends({mode="ap-wds", encryption="psk2"})
-	o:depends({mode="ap-wds", encryption="psk-mixed"})
-	o:depends({mode="ap-wds", encryption="sae"})
-	o:depends({mode="ap-wds", encryption="sae-mixed"})
-	o:depends({mode="ap-wds", encryption="wpa2"})
-	o:depends({mode="ap-wds", encryption="wpa3"})
-	o:depends({mode="ap-wds", encryption="wpa3-mixed"})
+	add_dependency_permutations(o, { mode = {'ap', 'ap-wds'}, encryption = {'psk2', 'psk-mixed', 'sae', 'sae-mixed', 'wpa2', 'wpa3', 'wpa3-mixed'} })
 end
 
 if hwtype == "mac80211" or hwtype == "prism2" then
