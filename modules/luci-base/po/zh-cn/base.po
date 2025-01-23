@@ -5204,6 +5204,54 @@ msgstr ""
 msgid "Enabled (workaround mode)"
 msgstr "已启用（权宜模式）"
 
+msgid "Certificate constraint (Subject)"
+msgstr "证书约束（主题）"
+
+msgid ""
+"Certificate constraint substring - e.g. /CN=wifi.mycompany.com<br />See "
+"`logread -f` during handshake for actual values"
+msgstr ""
+"证书约束子字符串 - 例如：/CN=wifi.mycompany.com<br />请参阅握手期间“logread -"
+"f”的实际值"
+
+msgid "Certificate constraint (SAN)"
+msgstr "证书约束（SAN）"
+
+msgid ""
+"Certificate constraint(s) via Subject Alternate Name values<br />(supported "
+"attributes: EMAIL, DNS, URI) - e.g. DNS:wifi.mycompany.com"
+msgstr ""
+"通过主题备用名称值（支持的属性：电子邮件、DNS、URI）<br />的证书约束 - 例如 "
+"DNS：wifi.mycompany.com"
+
+msgid "Certificate constraint (Domain)"
+msgstr "证书约束（域）"
+
+msgid ""
+"Certificate constraint(s) against DNS SAN values (if available)<br />or "
+"Subject CN (exact match)"
+msgstr "针对 DNS SAN 值（如果可用）的证书约束<br />或主题 CN（严格匹配）"
+
+msgid "Certificate constraint (Wildcard)"
+msgstr "证书约束（通配符）"
+
+msgid ""
+"Certificate constraint(s) against DNS SAN values (if available)<br />or "
+"Subject CN (suffix match)"
+msgstr "针对 DNS SAN 值（如果可用）的证书约束<br />或主题 CN（后缀匹配）"
+
+msgid "Inner certificate constraint (Subject)"
+msgstr "内部证书约束（主题）"
+
+msgid "Inner certificate constraint (SAN)"
+msgstr "内部证书约束（SAN）"
+
+msgid "Inner certificate constraint (Domain)"
+msgstr "内部证书约束（域）"
+
+msgid "Inner certificate constraint (Wildcard)"
+msgstr "内部证书约束（通配符）"
+
 msgid "Disable this interface"
 msgstr "禁用该接口"
 
