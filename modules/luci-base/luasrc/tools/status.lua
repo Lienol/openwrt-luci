@@ -5,6 +5,7 @@ module("luci.tools.status", package.seeall)
 
 local uci = require "luci.model.uci".cursor()
 local i18n = require "luci.i18n"
+has_iwinfo = pcall(require, "iwinfo")
 
 local function dhcp_leases_common(family)
 	local rv = { }
@@ -126,18 +127,20 @@ end
 
 function guess_wifi_hw(dev)
 	local bands = ""
+	local bands_table = {}
 	local ifname = dev:name()
 	local name, idx = ifname:match("^([a-z]+)(%d+)")
 	idx = tonumber(idx)
 
-	if pcall(require, "iwinfo") then
+	if has_iwinfo then
 		local bl = dev.iwinfo.hwmodelist
 		if bl and next(bl) then
-			if bl.a then bands = bands .. "a" end
-			if bl.b then bands = bands .. "b" end
-			if bl.g then bands = bands .. "g" end
-			if bl.n then bands = bands .. "n" end
-			if bl.ac then bands = bands .. "ac" end
+			if bl.a then bands_table[#bands_table + 1] = "a" end
+			if bl.b then bands_table[#bands_table + 1] = "b" end
+			if bl.g then bands_table[#bands_table + 1] = "g" end
+			if bl.n then bands_table[#bands_table + 1] = "n" end
+			if bl.ac then bands_table[#bands_table + 1] = "ac" end
+			bands = table.concat(bands_table, "/")
 		end
 
 		local hw = dev.iwinfo.hardware_name
@@ -272,7 +275,8 @@ function wifi_network(id)
 				device     = {
 					up     = dev:is_up(),
 					device = dev:name(),
-					name   = dev:get_i18n()
+					--name   = dev:get_i18n()
+					name    = guess_wifi_hw(dev) .. " (" .. dev:name() .. ")"
 				}
 			}
 		end

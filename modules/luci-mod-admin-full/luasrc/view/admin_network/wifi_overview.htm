@@ -5,87 +5,11 @@
 -%>
 
 <%-
-
-	local ip = require "luci.ip"
-	local fs = require "nixio.fs"
-	local utl = require "luci.util"
 	local uci = require "luci.model.uci".cursor()
 	local ntm = require "luci.model.network"
-
-	local has_iwinfo = pcall(require, "iwinfo")
+	local status = require "luci.tools.status"
 
 	ntm.init(uci)
-
-	function guess_wifi_hw(dev)
-		local bands = ""
-		local ifname = dev:name()
-		local name, idx = ifname:match("^([a-z]+)(%d+)")
-		idx = tonumber(idx)
-
-		if has_iwinfo then
-			local bl = dev.iwinfo.hwmodelist
-			if bl and next(bl) then
-				if bl.a then bands = bands .. "a" end
-				if bl.b then bands = bands .. "b" end
-				if bl.g then bands = bands .. "g" end
-				if bl.n then bands = bands .. "n" end
-				if bl.ac then bands = bands .. "ac" end
-			end
-
-			local hw = dev.iwinfo.hardware_name
-			if hw then
-				return "%s 802.11%s" %{ hw, bands }
-			end
-		end
-
-		-- wl.o
-		if name == "wl" then
-			local name = translatef("Broadcom 802.11%s Wireless Controller", bands)
-			local nm   = 0
-
-			local fd = nixio.open("/proc/bus/pci/devices", "r")
-			if fd then
-				local ln
-				for ln in fd:linesource() do
-					if ln:match("wl$") then
-						if nm == idx then
-							local version = ln:match("^%S+%s+%S%S%S%S([0-9a-f]+)")
-							name = translatef(
-								"Broadcom BCM%04x 802.11 Wireless Controller",
-								tonumber(version, 16)
-							)
-
-							break
-						else
-							nm = nm + 1
-						end
-					end
-				end
-				fd:close()
-			end
-
-			return name
-
-		-- ralink
-		elseif name == "ra" or name == "rai" then
-			return translatef("Ralink/MediaTek 802.11%s Wireless Controller", bands)
-
-		-- hermes
-		elseif name == "eth" then
-			return translate("Hermes 802.11b Wireless Controller")
-			
-		elseif name == "host" then
-			return translate("Quantenna 802.11ac Wireless Controller")
-			
-		-- hostap
-		elseif name == "wlan" and fs.stat("/proc/net/hostap/" .. ifname, "type") == "dir" then
-			return translate("Prism2/2.5/3 802.11b Wireless Controller")
-
-		-- dunno yet
-		else
-			return translatef("Generic 802.11%s Wireless Controller", bands)
-		end
-	end
 
 	local devices = ntm:get_wifidevs()
 	local netlist = { }
@@ -103,7 +27,7 @@
 
 <%+header%>
 
-<% if not has_iwinfo then %>
+<% if not status.has_iwinfo then %>
 	<div class="errorbox">
 		<strong><%:Package libiwinfo required!%></strong><br />
 		<%_The <em>libiwinfo-lua</em> package is not installed. You must install this component for working wireless configuration!%>
@@ -451,7 +375,7 @@
 			<tr>
 				<td style="width:34px"><img src="<%=resource%>/icons/wifi_big_disabled.png" style="float:left; margin-right:10px" id="<%=dev:name()%>-iw-upstate" /></td>
 				<td colspan="2" style="text-align:left">
-					<big><strong><%=guess_wifi_hw(dev)%> (<%=dev:name()%>)</strong></big><br />
+					<big><strong><%=status.guess_wifi_hw(dev)%> (<%=dev:name()%>)</strong></big><br />
 					<span id="<%=dev:name()%>-iw-devinfo"></span>
 				</td>
 				<td style="width:310px;text-align:right">
