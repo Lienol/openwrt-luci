@@ -5,6 +5,7 @@ module("luci.tools.status", package.seeall)
 
 local uci = require "luci.model.uci".cursor()
 local i18n = require "luci.i18n"
+has_iwinfo = pcall(require, "iwinfo")
 
 local function dhcp_leases_common(family)
 	local rv = { }
@@ -125,30 +126,32 @@ function ipv6_neighbors()
 end
 
 function guess_wifi_hw(dev)
-	local bands = ""
+	local bands = {}
 	local ifname = dev:name()
 	local name, idx = ifname:match("^([a-z]+)(%d+)")
 	idx = tonumber(idx)
 
-	if pcall(require, "iwinfo") then
+	if has_iwinfo then
 		local bl = dev.iwinfo.hwmodelist
 		if bl and next(bl) then
-			if bl.a then bands = bands .. "a" end
-			if bl.b then bands = bands .. "b" end
-			if bl.g then bands = bands .. "g" end
-			if bl.n then bands = bands .. "n" end
-			if bl.ac then bands = bands .. "ac" end
+			if bl.be then bands[#bands + 1] = "be" end
+			if bl.ax then bands[#bands + 1] = "ax" end
+			if bl.ac then bands[#bands + 1] = "ac" end
+			if bl.n then bands[#bands + 1] = "n" end
+			if bl.g then bands[#bands + 1] = "g" end
+			if bl.b then bands[#bands + 1] = "b" end
+			if bl.a then bands[#bands + 1] = "a" end
 		end
 
 		local hw = dev.iwinfo.hardware_name
 		if hw then
-			return "%s 802.11%s" %{ hw, bands }
+			return "%s 802.11%s" %{ hw, table.concat(bands, "/") }
 		end
 	end
 
 	-- wl.o
 	if name == "wl" then
-		local name = i18n.translatef("Broadcom 802.11%s Wireless Controller", bands)
+		local name = i18n.translatef("Broadcom 802.11%s Wireless Controller", table.concat(bands, "/"))
 		local nm   = 0
 
 		local fd = nixio.open("/proc/bus/pci/devices", "r")
@@ -176,7 +179,7 @@ function guess_wifi_hw(dev)
 
 	-- ralink
 	elseif name == "ra" or name == "rai" then
-		return i18n.translatef("Ralink/MediaTek 802.11%s Wireless Controller", bands)
+		return i18n.translatef("Ralink/MediaTek 802.11%s Wireless Controller", table.concat(bands, "/"))
 
 	-- hermes
 	elseif name == "eth" then
@@ -191,7 +194,7 @@ function guess_wifi_hw(dev)
 
 	-- dunno yet
 	else
-		return i18n.translatef("Generic 802.11%s Wireless Controller", bands)
+		return i18n.translatef("Generic 802.11%s Wireless Controller", table.concat(bands, "/"))
 	end
 end
 
@@ -272,7 +275,8 @@ function wifi_network(id)
 				device     = {
 					up     = dev:is_up(),
 					device = dev:name(),
-					name   = dev:get_i18n()
+					--name   = dev:get_i18n()
+					name    = guess_wifi_hw(dev) .. " (" .. dev:name() .. ")"
 				}
 			}
 		end
