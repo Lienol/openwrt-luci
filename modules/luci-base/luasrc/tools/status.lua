@@ -141,6 +141,7 @@ function guess_wifi_hw(dev)
 			if bl.n then bands_table[#bands_table + 1] = "n" end
 			if bl.ac then bands_table[#bands_table + 1] = "ac" end
 			if bl.ax then bands_table[#bands_table + 1] = "ax" end
+			if bl.be then bands_table[#bands_table + 1] = "be" end
 			bands = table.concat(bands_table, "/")
 		end
 
