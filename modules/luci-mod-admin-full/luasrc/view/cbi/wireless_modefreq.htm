@@ -13,6 +13,7 @@
 			'auto', 'auto', true
 		],
 		'6g': [
+			'auto', 'auto', true
 		],
 		'60g': [
 		]
@@ -40,10 +41,11 @@
 	}
 
 	var modes = [
-		'', 'Legacy', true,
+		'', 'Legacy', hwmodes.a || hwmodes.b || hwmodes.g,
 		'n', 'N', hwmodes.n,
 		'ac', 'AC', hwmodes.ac,
-		'ax', 'AX', hwmodes.ax
+		'ax', 'AX', hwmodes.ax,
+		'be', 'BE', hwmodes.be
 	];
 
 	var htmodes = {
@@ -65,13 +67,21 @@
 			'HE40', '40 MHz', htmodes.HE40,
 			'HE80', '80 MHz', htmodes.HE80,
 			'HE160', '160 MHz', htmodes.HE160
+		],
+		'be': [
+			'EHT20', '20 MHz', htmodes.EHT20,
+			'EHT40', '40 MHz', htmodes.EHT40,
+			'EHT80', '80 MHz', htmodes.EHT80,
+			'EHT160', '160 MHz', htmodes.EHT160,
+			'EHT320', '320 MHz', htmodes.EHT320
 		]
 	};
 
 	var bands = {
 		'':   [
 			'2g', '2.4 GHz', (channels['2g'].length > 3),
-			'5g', '5 GHz', (channels['5g'].length > 3)
+			'5g', '5 GHz', (channels['5g'].length > 3),
+			'60g', '60 GHz', (channels['60g'].length > 0)
 		],
 		'n':  [
 			'2g', '2.4 GHz', (channels['2g'].length > 3),
@@ -82,7 +92,13 @@
 		],
 		'ax': [
 			'2g', '2.4 GHz', this.channels['2g'].length > 3,
-			'5g', '5 GHz', this.channels['5g'].length > 3
+			'5g', '5 GHz', this.channels['5g'].length > 3,
+			'6g', '6 GHz', this.channels['6g'].length > 3
+		],
+		'be': [
+			'2g', '2.4 GHz', this.channels['2g'].length > 3,
+			'5g', '5 GHz', this.channels['5g'].length > 3,
+			'6g', '6 GHz', this.channels['6g'].length > 3
 		]
 	};
 
@@ -154,7 +170,9 @@
 
 		cbi_set_values(mode, modes);
 
-		if (/HE20|HE40|HE80|HE160/.test(htval))
+		if (/EHT20|EHT40|EHT80|EHT160|EHT320/.test(htval))
+			mode.value = 'be';		
+		else if (/HE20|HE40|HE80|HE160/.test(htval))
 			mode.value = 'ax';
 		else if (/VHT20|VHT40|VHT80|VHT160/.test(htval))
 			mode.value = 'ac';
