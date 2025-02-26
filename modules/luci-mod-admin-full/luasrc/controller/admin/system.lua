@@ -401,7 +401,12 @@ function action_passwd()
 end
 
 function action_reboot()
-	luci.sys.reboot()
+	local force = luci.http.formvalue("force")
+	if force then
+		os.execute("reboot -f >/dev/null 2>&1")
+	else
+		luci.sys.reboot()
+	end
 end
 
 function fork_exec(command)
