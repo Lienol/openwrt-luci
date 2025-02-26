@@ -2548,6 +2548,9 @@ msgstr "完全正向保密"
 msgid "Perform reboot"
 msgstr "执行重启"
 
+msgid "Perform reboot (Force)"
+msgstr "执行重启（强制）"
+
 msgid "Perform reset"
 msgstr "执行重置"
 

@@ -41,15 +41,20 @@
 		document.getElementById('reboot-message').innerHTML = '<%:Waiting for device...%>';
 	}
 
-	function reboot(button) {
+	function reboot(button, force) {
 		button.style.display = 'none';
 		document.getElementById('reboot-message').parentNode.style.display = '';
+		var params = { token: '<%=token%>' };
+		if (force) {
+			params.force = 1;
+		}
 
-		(new XHR()).post('<%=url("admin/system/reboot/call")%>', { token: '<%=token%>' }, check);
+		(new XHR()).post('<%=url("admin/system/reboot/call")%>', params, check);
 	}
 //]]></script>
 
 <input class="cbi-button cbi-button-apply" type="button" value="<%:Perform reboot%>" onclick="reboot(this)" />
+<input class="cbi-button cbi-button-apply" type="button" value="<%:Perform reboot (Force)%>" onclick="reboot(this, true)" />
 
 <p class="alert-message" style="display:none">
 	<img src="<%=resource%>/icons/loading.gif" alt="<%:Loading%>" style="vertical-align:middle" />
