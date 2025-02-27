@@ -114,6 +114,17 @@ else
 	end)
 end
 
+function cbi_add_networks(field)
+	local ntm = require "luci.model.network".init()
+	local net
+	for _, net in ipairs(ntm:get_networks()) do
+		if net:name() ~= "loopback" then
+			field:value(net:name())
+		end
+	end
+end
+
+
 -- multi-used functions -- ####################################################
 -- function to verify settings around ip_source
 -- will use dynamic_dns_lucihelper to check if
@@ -691,8 +702,8 @@ src4 = ns:taboption("advanced", ListValue, "ipv4_source",
 src4:depends("use_ipv6", "0")	-- IPv4 selected
 src4.default = "network"
 src4:value("network", translate("Network"))
-src4:value("web", translate("URL"))
 src4:value("interface", translate("Interface"))
+src4:value("web", translate("URL"))
 src4:value("script", translate("Script"))
 function src4.cfgvalue(self, section)
 	return DDNS.read_value(self, section, "ip_source")
@@ -741,8 +752,8 @@ src6 = ns:taboption("advanced", ListValue, "ipv6_source",
 src6:depends("use_ipv6", 1)	-- IPv6 selected
 src6.default = "network"
 src6:value("network", translate("Network"))
-src6:value("web", translate("URL"))
 src6:value("interface", translate("Interface"))
+src6:value("web", translate("URL"))
 src6:value("script", translate("Script"))
 if not has_ipv6 then
 	src6.description = err_ipv6_other
@@ -782,7 +793,7 @@ function src6.write(self, section, value)
 		self.map:del(section, "ip_url")		-- delete not need parameters
 		self.map:del(section, "ip_interface")
 	end
-	self.map:del(section, self.option)		 -- delete "ipv4_source" helper
+	self.map:del(section, self.option)		 -- delete "ipv6_source" helper
 	return self.map:set(section, "ip_source", value) -- and write "ip_source
 end
 function src6.parse(self, section, novld)
@@ -790,12 +801,13 @@ function src6.parse(self, section, novld)
 end
 
 -- IPv4 - ip_network (default "wan") -- #######################################
-ipn4 = ns:taboption("advanced", ListValue, "ipv4_network",
+ipn4 = ns:taboption("advanced", Value, "ipv4_network",
 	translate("Network") .. " [IPv4]",
 	translate("Defines the network to read systems IPv4-Address from") )
 ipn4:depends("ipv4_source", "network")
 ipn4.default = "wan"
-WADM.cbi_add_networks(ipn4)
+--WADM.cbi_add_networks(ipn4)
+cbi_add_networks(ipn4)
 function ipn4.cfgvalue(self, section)
 	return DDNS.read_value(self, section, "ip_network")
 end
@@ -819,6 +831,7 @@ function ipn4.write(self, section, value)
 		-- set also as "interface" for monitoring events changes/hot-plug
 		self.map:set(section, "interface", value)
 		self.map:del(section, self.option)		  -- delete "ipv4_network" helper
+		self.map:set(section, "ip_source", "network")
 		return self.map:set(section, "ip_network", value) -- and write "ip_network"
 	end
 end
@@ -827,11 +840,12 @@ function ipn4.parse(self, section, novld)
 end
 
 -- IPv6 - ip_network (default "wan6") -- ######################################
-ipn6 = ns:taboption("advanced", ListValue, "ipv6_network",
+ipn6 = ns:taboption("advanced", Value, "ipv6_network",
 	translate("Network") .. " [IPv6]" )
 ipn6:depends("ipv6_source", "network")
 ipn6.default = "wan6"
-WADM.cbi_add_networks(ipn6)
+--WADM.cbi_add_networks(ipn6)
+cbi_add_networks(ipn6)
 if has_ipv6 then
 	ipn6.description = translate("Defines the network to read systems IPv6-Address from")
 else
@@ -862,6 +876,7 @@ function ipn6.write(self, section, value)
 		-- set also as "interface" for monitoring events changes/hotplug
 		self.map:set(section, "interface", value)
 		self.map:del(section, self.option)		  -- delete "ipv6_network" helper
+		self.map:set(section, "ip_source", "network")
 		return self.map:set(section, "ip_network", value) -- and write "ip_network"
 	end
 end
@@ -966,7 +981,7 @@ function iurl6.parse(self, section, novld)
 end
 
 -- IPv4 + IPv6 - ip_interface -- ##############################################
-ipi = ns:taboption("advanced", ListValue, "ip_interface",
+ipi = ns:taboption("advanced", Value, "ip_interface",
 	translate("Interface"),
 	translate("Defines the interface to read systems IP-Address from") )
 ipi:depends("ipv4_source", "interface")	-- IPv4
@@ -977,6 +992,12 @@ for _, v in pairs(SYS.net.devices()) do
 	net = WADM.iface_get_network(v)
 	if net and net ~= "loopback" then
 		ipi:value(v)
+	end
+end
+for _, v in pairs(ipi.keylist) do
+	if v == "pppoe-wan" or v:match("^pppoe%-") or v == "wan" then
+		ipi.default = v
+		ipi.rmempty = false
 	end
 end
 function ipi.validate(self, value)
@@ -1050,7 +1071,8 @@ eif4 = ns:taboption("advanced", ListValue, "ipv4_interface",
 eif4:depends("ipv4_source", "web")
 eif4:depends("ipv4_source", "script")
 eif4.default = "wan"
-WADM.cbi_add_networks(eif4)
+--WADM.cbi_add_networks(eif4)
+cbi_add_networks(eif4)
 function eif4.cfgvalue(self, section)
 	return DDNS.read_value(self, section, "interface")
 end
@@ -1088,7 +1110,8 @@ eif6 = ns:taboption("advanced", ListValue, "ipv6_interface",
 eif6:depends("ipv6_source", "web")
 eif6:depends("ipv6_source", "script")
 eif6.default = "wan6"
-WADM.cbi_add_networks(eif6)
+--WADM.cbi_add_networks(eif6)
+cbi_add_networks(eif6)
 if not has_ipv6 then
 	eif6.description = err_ipv6_other
 else
@@ -1135,7 +1158,8 @@ if has_bindnet or ( ( m:get(section, "bind_network") or "" ) ~= "" ) then
 	bnet:depends("ipv6_source", "web")
 	bnet.default = ""
 	bnet:value("", translate("-- default --"))
-	WADM.cbi_add_networks(bnet)
+	--WADM.cbi_add_networks(bnet)
+	cbi_add_networks(bnet)
 	function bnet.cfgvalue(self, section)
 		local value = AbstractValue.cfgvalue(self, section)
 		if not has_bindnet and value ~= "" then
