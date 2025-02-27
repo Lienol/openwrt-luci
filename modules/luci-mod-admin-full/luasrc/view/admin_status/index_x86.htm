@@ -705,7 +705,7 @@
 							'<td style="text-align:center"><span style="line-height:25px">%s</span><br /><small><img draggable="false" src="<%=resource%>/icons/%s" /><br />%s<br />%s</small></td>',							ports[i].name,
 							ports[i].status ? 'port_up.png' : 'port_down.png',
 							ports[i].speed,
-							ports[i].duplex ? '<%:full-duplex%>' : '<%:half-duplex%>');
+							ports[i].duplex ? '<%:full-duplex%>' : ports[i].status ? '<%:half-duplex%>' : 'x');
 				};
 				e.innerHTML = "<tr>" + tmp + "</tr>";
 			}
