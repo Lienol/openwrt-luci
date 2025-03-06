@@ -591,7 +591,7 @@ dnsrr.anonymous = true
 dnsrr.sortable = true
 dnsrr.template = "cbi/tblsection"
 
-o = dnsrr:option(Value, "dnsrr", translate("Resource Record Name"))
+o = dnsrr:option(Value, "rrname", translate("Resource Record Name"))
 o.rmempty  = false
 o.datatype = "hostname"
 o.placeholder = "svcb.example.com."
