@@ -217,12 +217,6 @@ for _, v in ipairs(recordtypes) do
 	o:value(v)
 end
 
-https = s:taboption("filteropts", Flag, "filter_https", translate("Disable HTTPS DNS Type forwards"), translate("Filter HTTPS DNS Query Type Name Resolve"))
-https.optional = true
-
-unknown = s:taboption("filteropts", Flag, "filter_unknown", translate("Disable Unknown DNS Type forwards"), translate("Filter Unknown DNS Query Type Name Resolve"))
-unknown.optional = true
-
 lq = s:taboption("filteropts", Flag, "localise_queries",
 		translate("Localise queries"),
 		translate("Localise hostname depending on the requesting subnet if multiple IPs are available"))
