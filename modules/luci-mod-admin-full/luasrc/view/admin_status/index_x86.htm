@@ -48,12 +48,10 @@
 
 		local cpu_info = luci.sys.exec("cpuinfo")
 
-		local eth_info = luci.sys.exec("ethinfo")
-
 		local rv = {
 			cpu_free   = tonumber(luci.sys.exec("top -n1 | awk '/^CPU:/ { printf(\"%d\", $8) }'")) or 0,
 			cpuinfo    = cpu_info,
-			ethinfo    = eth_info,
+			ethinfo    = require "luci.model.ethinfo".getAllInfo(),
 			uptime     = sysinfo.uptime or 0,
 			localtime  = os.date("%Y-%m-%d") .. " " .. os.date("%X") .. " " .. translate(os.date("%A")),
 			loadavg    = sysinfo.load or { 0, 0, 0 },
@@ -697,17 +695,84 @@
 			var e;
 
 			if (e = document.getElementById('ethinfo')) {
-				var ports = eval('(' + info.ethinfo + ')');
-				var tmp = "";
-				for (var i in ports)
-				{
-					tmp = tmp + String.format(
-							'<td style="text-align:center"><span style="line-height:25px">%s</span><br /><small><img draggable="false" src="<%=resource%>/icons/%s" /><br />%s<br />%s</small></td>',							ports[i].name,
-							ports[i].status ? 'port_up.png' : 'port_down.png',
-							ports[i].speed,
-							ports[i].duplex ? '<%:full-duplex%>' : ports[i].status ? '<%:half-duplex%>' : 'x');
-				};
-				e.innerHTML = "<tr>" + tmp + "</tr>";
+				var ethinfo = info.ethinfo
+				e.innerHTML = "";
+				const template = document.getElementById('ethinfo-template').innerHTML;
+				function renderTemplate(template, data) {
+					for (var k in data) {
+						template = template.replaceAll("[[" + k + "]]", data[k]);
+					}
+					return template;
+				}
+				function formatSpeed(carrier, speed, duplex) {
+					if ((speed > 0) && duplex) {
+						var d = (duplex == 'half') ? '\u202f(H)' : ''
+						var e = document.createElement('span');
+						e.title = "<%:Speed: %d Mibit/s, Duplex: %s%>".format(speed, duplex)
+
+						switch (true) {
+							case (speed < 1000):
+								e.innerText = '%d\u202fM%s'.format(speed, d);
+								break;
+							case (speed == 1000):
+								e.innerText = '1\u202fGbE' + d;
+								break;
+							case (speed >= 1e6 && speed < 1e9):
+								e.innerText = '%f\u202fTbE'.format(speed / 1e6);
+								break;
+							case (speed >= 1e9):
+								e.innerText = '%f\u202fPbE'.format(speed / 1e9);
+								break;
+							default: e.innerText = '%f\u202fGbE'.format(speed / 1000);
+						}
+						return e.outerHTML;
+					}
+					return carrier && carrier == "1" ? "<%:Connected%>" : "<%:no link%>";
+				}
+				function formatStats(portdev) {
+					var stats = portdev.stats
+					
+					return '<span>' +
+								'<span class="nowrap"><strong><%:Received bytes%>: ' + '%1024mB'.format(stats.rx_bytes) + '</strong></span>' +
+								'<span class="nowrap"><strong><%:Received packets%>: ' + '%1000mPkts.'.format(stats.rx_packets) + '</strong></span>' +
+								'<span class="nowrap"><strong><%:Received multicast%>: ' + '%1000mPkts.'.format(stats.multicast) + '</strong></span>' +
+								'<span class="nowrap"><strong><%:Receive errors%>: ' + '%1000mPkts.'.format(stats.rx_errors) + '</strong></span>' +
+								'<span class="nowrap"><strong><%:Receive dropped%>: ' + '%1000mPkts.'.format(stats.rx_dropped) + '</strong></span>' +
+
+								'<span class="nowrap"><strong><%:Transmitted bytes%>: ' + '%1024mB'.format(stats.tx_bytes) + '</strong></span>' +
+								'<span class="nowrap"><strong><%:Transmitted packets%>: ' + '%1000mPkts.'.format(stats.tx_packets) + '</strong></span>' +
+								'<span class="nowrap"><strong><%:Transmit errors%>: ' + '%1000mPkts.'.format(stats.tx_errors) + '</strong></span>' +
+								'<span class="nowrap"><strong><%:Transmit dropped%>: ' + '%1000mPkts.'.format(stats.tx_dropped) + '</strong></span>' +
+
+								'<span class="nowrap"><strong><%:Collisions seen%>: ' + stats.collisions + '</strong></span>' +
+							'</span>'
+				}
+				if (ethinfo && ethinfo.length > 0) {
+					document.getElementById("ethinfo-fieldset").style.display = ""
+					for (var i = 0; i < ethinfo.length; i++) {
+						let role = ethinfo[i].role
+						let device = ethinfo[i].device
+						let stats = ethinfo[i].stats
+
+						const replaceAllData = {
+							name: device,
+							icon_url: stats.carrier && stats.carrier == "1" ? "<%=resource%>/icons/port_up.png" : "<%=resource%>/icons/port_down.png",
+							speed_dom: formatSpeed(stats.carrier, stats.speed, stats.duplex),
+							tx_bytes: '\u25b2\u202f%1024.1mB'.format(stats.tx_bytes),
+							rx_bytes: '\u25bc\u202f%1024.1mB'.format(stats.rx_bytes),
+							formatStats: formatStats(ethinfo[i])
+						}
+						for (var k in stats) {
+							replaceAllData["stats." + k] = stats[k]
+						}
+
+						const new_html = renderTemplate(template, replaceAllData);
+
+						const wrapper = document.createElement('div');
+						wrapper.innerHTML = new_html;
+						e.appendChild(wrapper.firstElementChild);
+					}
+				}
 			}
 
 			if (e = document.getElementById('localtime'))
@@ -761,6 +826,47 @@
 	);
 //]]></script>
 
+<style>
+#ethinfo {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+	margin-bottom: 1em;
+	justify-items: center;
+	align-items: center;
+	padding: 10px 10px 9px;
+	border-top: 1px solid #ddd;
+}
+#ethinfo .cbi-tooltip {
+	position: absolute;
+	z-index: 1000;
+	left: -10000px;
+	box-shadow: 0 0 2px var(--border-color-high);
+	border-radius: 3px;
+	background: var(--background-color-high);
+	white-space: pre;
+	padding: 2px 5px;
+	opacity: 0;
+	transition: opacity .25s ease-in;
+}
+#ethinfo .cbi-tooltip-container {
+	cursor: help;
+	border-bottom: 1px dotted #0069d6;
+}
+#ethinfo .cbi-tooltip-container:hover .cbi-tooltip:not(:empty) {
+	left: auto;
+	opacity: 1;
+	transition: opacity .25s ease-in;
+}
+#ethinfo .cbi-tooltip-container .cbi-tooltip {
+	font-style: normal;
+	white-space: normal;
+	color: var(--text-color-high);
+}
+#ethinfo .cbi-tooltip .nowrap {
+	display: block;
+}
+</style>
+
 <h2 name="content"><%:Status%></h2>
 
 <fieldset class="cbi-section">
@@ -795,11 +901,30 @@
 	</table>
 </fieldset>
 
-<fieldset class="cbi-section">
+<fieldset class="cbi-section" id="ethinfo-fieldset" style="display: none">
 	<legend><%:Interfaces%></legend>
-
-	<table width="100%" cellspacing="10" id="ethinfo">
-	</table>
+	
+	<script type="text/template" id="ethinfo-template">
+		<div class="ifacebox" style="margin:.25em;min-width:70px;max-width:100px">
+			<div class="ifacebox-head" style="font-weight:bold">[[name]]</div>
+			<div class="ifacebox-body" style="font-weight:bold">
+				<img src="[[icon_url]]"></img>
+				<br></br>
+				[[speed_dom]]
+			</div>
+			<!-- TODO -->
+			<!-- <div class="ifacebox-head cbi-tooltip-container" style="display:flex"></div> -->
+			<div class="ifacebox-body">
+				<div class="cbi-tooltip-container" style="text-align:left;font-size:80%">
+					[[tx_bytes]]
+					<br>
+					[[rx_bytes]]
+					<span class="cbi-tooltip">[[formatStats]]</span>
+				</div>
+			</div>
+		</div>
+	</script>
+	<div id="ethinfo"></div>
 </fieldset>
 
 <fieldset class="cbi-section">
