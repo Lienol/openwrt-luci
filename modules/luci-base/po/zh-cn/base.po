@@ -5712,3 +5712,45 @@ msgstr "必须以 'br-' 开头"
 
 msgid "This VLAN ID already exists."
 msgstr "此 VLAN ID 已存在。"
+
+
+
+msgid "Collisions seen"
+msgstr "发现冲突"
+
+msgid "Part of network:"
+msgid_plural "Part of networks:"
+msgstr[0] "网络的一部分："
+
+msgid "Port is not part of any network"
+msgstr "端口不是任何一个网络的一部分"
+
+msgid "Receive dropped"
+msgstr "接收被丢弃"
+
+msgid "Receive errors"
+msgstr "接收出错"
+
+msgid "Received bytes"
+msgstr "接收到的字节数"
+
+msgid "Received multicast"
+msgstr "接收到的多播"
+
+msgid "Received packets"
+msgstr "接收到的数据包"
+
+msgid "Speed: %d Mibit/s, Duplex: %s"
+msgstr "速度： %d Mibit/s, 双工： %s"
+
+msgid "Transmit dropped"
+msgstr "传输被丢弃"
+
+msgid "Transmit errors"
+msgstr "传输错误"
+
+msgid "Transmitted bytes"
+msgstr "已传输字节数"
+
+msgid "Transmitted packets"
+msgstr "已传输的数据包"
