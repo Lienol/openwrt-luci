@@ -8,6 +8,7 @@
 include $(TOPDIR)/rules.mk
 
 LUCI_TITLE:=Network UPS Tools Configuration
+LUCI_DEPENDS:=+nut +nut-upsmon +nut-server +nut-upsc +nut-web-cgi +nut-upscmd
 LUCI_PKGARCH:=all
 PKG_RELEASE:=1
 
