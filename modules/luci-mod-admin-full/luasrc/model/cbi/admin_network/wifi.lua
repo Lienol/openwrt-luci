@@ -339,7 +339,14 @@ if hwtype == "mac80211" then
 	o.datatype = 'range(15,65535)'
 	o.placeholder = '100'
 	o.rmempty = true
-	
+
+	o = s:taboption("advanced", Flag, "rxldpc", translate("Rx LDPC"), translate("Low-Density Parity-Check"))
+	o.default = '1'
+
+	o = s:taboption("advanced", Flag, "ldpc", translate("Tx LDPC"))
+	o:depends("rxldpc", '1')
+	o.default = '1'
+
 	if hw_modes.b or hw_modes.g then
 		vendor_vht = s:taboption("advanced", Flag, "vendor_vht", translate("Enable 256-QAM"))
 		vendor_vht.default = vendor_vht.disabled
