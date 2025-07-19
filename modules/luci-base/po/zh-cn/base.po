@@ -5713,7 +5713,14 @@ msgstr "必须以 'br-' 开头"
 msgid "This VLAN ID already exists."
 msgstr "此 VLAN ID 已存在。"
 
+msgid "Rx LDPC"
+msgstr "接收端低密度奇偶校验"
 
+msgid "Low-Density Parity-Check"
+msgstr "低密度奇偶校验"
+
+msgid "Tx LDPC"
+msgstr "发送端低密度奇偶校验"
 
 msgid "Collisions seen"
 msgstr "发现冲突"
