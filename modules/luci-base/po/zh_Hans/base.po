@@ -14036,3 +14036,9 @@ msgstr "« 后退"
 
 #~ msgid "Set Static"
 #~ msgstr "设为静态"
+
+msgid "CPU Info"
+msgstr "CPU 信息"
+
+msgid "CPU Used"
+msgstr "CPU 使用率"

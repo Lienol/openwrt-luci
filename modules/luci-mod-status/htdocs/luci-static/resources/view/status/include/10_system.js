@@ -29,13 +29,17 @@ return baseclass.extend({
 	title: _('System'),
 
 	load: function() {
-		return Promise.all([
-			L.resolveDefault(callSystemBoard(), {}),
-			L.resolveDefault(callSystemInfo(), {}),
-			L.resolveDefault(callLuciVersion(), { revision: _('unknown version'), branch: 'LuCI' }),
-			L.resolveDefault(callGetUnixtime(), 0),
-			uci.load('system')
-		]);
+		return callSystemBoard().then(function (boardinfo) {
+			return Promise.all([
+				boardinfo,
+				L.resolveDefault(callSystemInfo(), {}),
+				L.resolveDefault(callLuciVersion(), { revision: _('unknown version'), branch: 'LuCI' }),
+				L.resolveDefault(callGetUnixtime(), 0),
+				L.resolveDefault(fs.exec_direct('/sbin/cpuinfo'), ''),
+				boardinfo.system.startsWith("ARM") ? L.resolveDefault(fs.exec_direct('/sbin/usage'), '') : L.resolveDefault(fs.exec_direct('/sbin/luci-mod-status-cpu_free'), ''),
+				uci.load('system')
+			]);
+		});
 	},
 
 	render: function(data) {
@@ -77,6 +81,27 @@ return baseclass.extend({
 				systeminfo.load[2] / 65535.0
 			) : null
 		];
+
+		if (data[4]) {
+			var cpuinfo = data[4];
+			//fields[4] = _('CPU Info')
+			//fields[5] = cpuinfo
+			if ((L.isObject(boardinfo.release) ? boardinfo.release.target : '').startsWith("x86")) {
+				fields[5] = fields[5] + " (" + cpuinfo + ")"
+			} else if (boardinfo.system.startsWith("ARM")) {
+				fields[5] = cpuinfo
+			}
+		}
+
+		if (data[5]) {
+			var cpu_free = data[5];
+			fields.push(_('CPU Used'))
+			if (boardinfo.system.startsWith("ARM")) {
+				fields.push(cpu_free)
+			} else {
+				fields.push((100 - cpu_free) + "%")
+			}
+		}
 
 		var table = E('table', { 'class': 'table' });
 
