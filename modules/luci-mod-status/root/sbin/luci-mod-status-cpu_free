@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cpu_free=$(top -n1 | awk '/^CPU:/ { printf("%d", $8) }')
+
+echo "$cpu_free"
