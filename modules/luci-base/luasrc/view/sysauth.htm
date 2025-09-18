@@ -5,6 +5,12 @@
 -%>
 
 <%+header%>
+<%
+local default_username = "root"
+local default_username = duser or default_username
+local last_username = luci.http.formvalue("luci_username")
+default_username = last_username or default_username
+-%>
 
 <form method="post" action="<%=pcdata(luci.http.getenv("REQUEST_URI"))%>">
 	<%- if fuser then %>
@@ -20,7 +26,7 @@
 			<div class="cbi-value">
 				<label class="cbi-value-title"><%:Username%></label>
 				<div class="cbi-value-field">
-					<input class="cbi-input-user" type="text" name="luci_username" value="<%=duser%>" />
+					<input class="cbi-input-user" type="text" name="luci_username" value="<%=default_username%>" />
 				</div>
 			</div>
 			<div class="cbi-value cbi-value-last">
@@ -38,9 +44,14 @@
 	</div>
 </form>
 <script type="text/javascript">//<![CDATA[
-	var input = document.getElementsByName('luci_password')[0];
-	if (input)
-		input.focus();
+	var input_username = document.getElementsByName('luci_username')[0];
+	var input_password = document.getElementsByName('luci_password')[0];
+	if (input_password) {
+		input_password.focus();
+	}
+	if (input_username.value == "") {
+		input_username.focus();
+	}
 //]]></script>
 
 <%+footer%>

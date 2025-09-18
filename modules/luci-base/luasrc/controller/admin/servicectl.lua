@@ -4,7 +4,12 @@
 module("luci.controller.admin.servicectl", package.seeall)
 
 function index()
-	entry({"servicectl"}, alias("servicectl", "status")).sysauth = "root"
+	local uci = require "luci.model.uci".cursor()
+	local sysauth_t = {}
+	uci:foreach("rpcd", "login", function(t)
+		sysauth_t[#sysauth_t + 1] = t.username
+	end)
+	entry({"servicectl"}, alias("servicectl", "status")).sysauth = sysauth_t
 	entry({"servicectl", "status"}, call("action_status")).leaf = true
 	entry({"servicectl", "restart"}, post("action_restart")).leaf = true
 end
