@@ -19,6 +19,13 @@ function index()
 	page.ucidata = true
 	page.index = true
 
+	local uci = require "luci.model.uci".cursor()
+	local sysauth_t = {}
+	uci:foreach("rpcd", "login", function(t)
+		sysauth_t[#sysauth_t + 1] = t.username
+	end)
+	page.sysauth = sysauth_t
+
 	-- Empty services menu to be populated by addons
 	entry({"admin", "services"}, firstchild(), _("Services"), 40).index = true
 	
