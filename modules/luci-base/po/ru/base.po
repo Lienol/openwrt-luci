@@ -2,9 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LuCI: base\n"
 "POT-Creation-Date: 2010-05-09 01:01+0300\n"
-"PO-Revision-Date: 2025-08-10 20:26+0000\n"
-"Last-Translator: SnIPeRSnIPeR "
-"<snipersniper@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2025-09-21 06:29+0000\n"
+"Last-Translator: vanapro1 <law820314@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/openwrt/luci/ru/"
 ">\n"
 "Language: ru\n"
@@ -13,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 "Project-Info: Это технический перевод, не дословный. Главное-удобный русский "
 "интерфейс, все проверялось в графическом режиме, совместим с другими apps\n"
 
@@ -144,8 +143,8 @@ msgid "-- Additional Field --"
 msgstr "-- Дополнительно --"
 
 #: modules/luci-base/htdocs/luci-static/resources/cbi.js:275
-#: modules/luci-base/htdocs/luci-static/resources/form.js:3803
-#: modules/luci-base/htdocs/luci-static/resources/form.js:4450
+#: modules/luci-base/htdocs/luci-static/resources/form.js:3806
+#: modules/luci-base/htdocs/luci-static/resources/form.js:4453
 #: modules/luci-base/htdocs/luci-static/resources/ui.js:797
 #: modules/luci-base/htdocs/luci-static/resources/ui.js:1035
 #: modules/luci-base/htdocs/luci-static/resources/ui.js:2055
@@ -1190,7 +1189,7 @@ msgstr "Краткое описание устройства (необязате
 
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/interfaces.js:1615
 msgid "Annex"
-msgstr "Приложение"
+msgstr "Annex"
 
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/interfaces.js:850
 msgid ""
@@ -6054,7 +6053,7 @@ msgstr "Состояние линии"
 
 #: modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/50_dsl.js:26
 msgid "Line Uptime"
-msgstr "Время подключения к линии"
+msgstr "Время работы линии"
 
 #: modules/luci-mod-system/htdocs/luci-static/resources/view/system/led-trigger/netdev.js:24
 msgid "Link On"
@@ -6387,7 +6386,7 @@ msgstr "Запись запросов"
 
 #: modules/luci-mod-system/htdocs/luci-static/resources/view/system/system.js:123
 msgid "Logging"
-msgstr "Журналирование"
+msgstr "Ведение журнала"
 
 #: themes/luci-theme-bootstrap/htdocs/luci-static/resources/view/bootstrap/sysauth.js:23
 msgid "Logging in…"
@@ -7060,7 +7059,7 @@ msgstr "Список <abbr title=\"Network Time Protocol\">NTP</abbr>-серве
 #: modules/luci-mod-system/htdocs/luci-static/resources/view/system/leds.js:68
 #: protocols/luci-proto-wireguard/htdocs/luci-static/resources/view/wireguard/status.js:36
 msgid "Name"
-msgstr "Имя"
+msgstr "Название"
 
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js:2254
 msgid ""
@@ -7239,7 +7238,7 @@ msgstr "Новости"
 msgid "Next »"
 msgstr "Следующий »"
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:4386
+#: modules/luci-base/htdocs/luci-static/resources/form.js:4389
 msgid "No"
 msgstr "Нет"
 
@@ -7749,7 +7748,7 @@ msgid "Operator Name"
 msgstr "Имя оператора"
 
 #: modules/luci-base/htdocs/luci-static/resources/form.js:2014
-#: modules/luci-base/htdocs/luci-static/resources/form.js:4399
+#: modules/luci-base/htdocs/luci-static/resources/form.js:4402
 msgid "Option \"%s\" contains an invalid input value."
 msgstr "Опция \"%s\" содержит недопустимое значение."
 
@@ -10073,7 +10072,7 @@ msgstr ""
 #: modules/luci-mod-status/htdocs/luci-static/resources/view/status/iptables.js:70
 #: modules/luci-mod-status/htdocs/luci-static/resources/view/status/routes.js:224
 msgid "Source"
-msgstr "Отправитель"
+msgstr "Источник"
 
 #: modules/luci-mod-status/htdocs/luci-static/resources/view/status/nftables.js:43
 msgctxt "nft ip saddr"
@@ -12658,7 +12657,7 @@ msgstr ""
 msgid "Write system log to file"
 msgstr "Записывать системные события в файл"
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:4386
+#: modules/luci-base/htdocs/luci-static/resources/form.js:4389
 msgid "Yes"
 msgstr "Да"
 
@@ -13049,7 +13048,7 @@ msgstr "не пустое значение"
 #: protocols/luci-proto-wireguard/htdocs/luci-static/resources/view/wireguard/status.js:56
 #: protocols/luci-proto-wireguard/htdocs/luci-static/resources/view/wireguard/status.js:60
 msgid "none"
-msgstr "ничего"
+msgstr "Нет"
 
 #: protocols/luci-proto-modemmanager/htdocs/luci-static/resources/protocol/modemmanager.js:163
 msgid "none: Do not set an initial EPS bearer (default behaviour)"
@@ -13223,7 +13222,7 @@ msgstr "неизвестная версия"
 msgid "unlimited"
 msgstr "без ограничений"
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:3803
+#: modules/luci-base/htdocs/luci-static/resources/form.js:3806
 #: modules/luci-base/htdocs/luci-static/resources/tools/widgets.js:85
 #: modules/luci-base/htdocs/luci-static/resources/tools/widgets.js:147
 #: modules/luci-base/htdocs/luci-static/resources/tools/widgets.js:383

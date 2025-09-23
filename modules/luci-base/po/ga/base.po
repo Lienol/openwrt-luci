@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-07-24 15:20+0000\n"
+"PO-Revision-Date: 2025-09-08 17:09+0000\n"
 "Last-Translator: Aindriú Mac Giolla Eoin <aindriu80@gmail.com>\n"
 "Language-Team: Irish <https://hosted.weblate.org/projects/openwrt/luci/ga/>\n"
 "Language: ga\n"
@@ -8,7 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : (n>2 && n<7) ? 2 :"
 "(n>6 && n<11) ? 3 : 4;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/dhcp.js:1330
 msgid "!known (not known)"
@@ -140,8 +140,8 @@ msgid "-- Additional Field --"
 msgstr "- Réimse Breise -"
 
 #: modules/luci-base/htdocs/luci-static/resources/cbi.js:275
-#: modules/luci-base/htdocs/luci-static/resources/form.js:3803
-#: modules/luci-base/htdocs/luci-static/resources/form.js:4450
+#: modules/luci-base/htdocs/luci-static/resources/form.js:3806
+#: modules/luci-base/htdocs/luci-static/resources/form.js:4453
 #: modules/luci-base/htdocs/luci-static/resources/ui.js:797
 #: modules/luci-base/htdocs/luci-static/resources/ui.js:1035
 #: modules/luci-base/htdocs/luci-static/resources/ui.js:2055
@@ -959,7 +959,7 @@ msgstr "Riarachán"
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js:1043
 #: modules/luci-mod-system/htdocs/luci-static/resources/view/system/mounts.js:241
 msgid "Advanced Settings"
-msgstr "Socruithe chun cinn"
+msgstr "Socruithe Ardleibhéil"
 
 #: modules/luci-mod-network/htdocs/luci-static/resources/tools/network.js:449
 msgid "Advanced device options"
@@ -7093,7 +7093,7 @@ msgstr "Nuacht"
 msgid "Next »"
 msgstr "Ar Aghaidh”"
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:4386
+#: modules/luci-base/htdocs/luci-static/resources/form.js:4389
 msgid "No"
 msgstr "Níl"
 
@@ -7594,7 +7594,7 @@ msgid "Operator Name"
 msgstr "Ainm Oibreora"
 
 #: modules/luci-base/htdocs/luci-static/resources/form.js:2014
-#: modules/luci-base/htdocs/luci-static/resources/form.js:4399
+#: modules/luci-base/htdocs/luci-static/resources/form.js:4402
 msgid "Option \"%s\" contains an invalid input value."
 msgstr "Tá luach ionchuir neamhbhailí sa rogha “%s”."
 
@@ -12458,7 +12458,7 @@ msgstr "Scríobh ceisteanna DNS a fuarthas chuig syslog."
 msgid "Write system log to file"
 msgstr "Scríobh logáil an chórais chuig comhad"
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:4386
+#: modules/luci-base/htdocs/luci-static/resources/form.js:4389
 msgid "Yes"
 msgstr "Tá"
 
@@ -12849,7 +12849,7 @@ msgstr "luach neamh-folamh"
 #: protocols/luci-proto-wireguard/htdocs/luci-static/resources/view/wireguard/status.js:56
 #: protocols/luci-proto-wireguard/htdocs/luci-static/resources/view/wireguard/status.js:60
 msgid "none"
-msgstr "níl aon"
+msgstr "aon cheann"
 
 #: protocols/luci-proto-modemmanager/htdocs/luci-static/resources/protocol/modemmanager.js:163
 msgid "none: Do not set an initial EPS bearer (default behaviour)"
@@ -13023,7 +13023,7 @@ msgstr "leagan anaithnid"
 msgid "unlimited"
 msgstr "neamhtheoranta"
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:3803
+#: modules/luci-base/htdocs/luci-static/resources/form.js:3806
 #: modules/luci-base/htdocs/luci-static/resources/tools/widgets.js:85
 #: modules/luci-base/htdocs/luci-static/resources/tools/widgets.js:147
 #: modules/luci-base/htdocs/luci-static/resources/tools/widgets.js:383

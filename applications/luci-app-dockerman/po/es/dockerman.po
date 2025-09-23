@@ -1,14 +1,14 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-06-20 21:42+0000\n"
-"Last-Translator: Franco Castillo <castillofrancodamian@gmail.com>\n"
+"PO-Revision-Date: 2025-09-07 21:06+0000\n"
+"Last-Translator: brodrigueznu <brodrigueznu@hotmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/openwrt/"
 "luciapplicationsdockerman/es/>\n"
 "Language: es\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.14-dev\n"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/newcontainer.lua:604
 msgid "A list of kernel capabilities to add to the container"
@@ -180,7 +180,7 @@ msgstr "Conectar red"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/configuration.lua:14
 msgid "Connect to remote endpoint"
-msgstr "Conectarse al punto final remoto"
+msgstr "Conecta a un punto final remoto"
 
 #: applications/luci-app-dockerman/luasrc/view/dockerman/container.htm:7
 msgid "Console"
@@ -214,7 +214,7 @@ msgstr "Contenedores"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/containers.lua:107
 msgid "Containers overview"
-msgstr "Descripción general de contenedores"
+msgstr "Vista general de contenedores"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/newnetwork.lua:84
 msgid "Create macvlan interface"
@@ -319,7 +319,7 @@ msgstr "DockerMan es un cliente de administrador de Docker simple para LuCI"
 
 #: applications/luci-app-dockerman/luasrc/view/dockerman/container_file.htm:14
 msgid "Download"
-msgstr "Descargar"
+msgstr "Descarga"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/networks.lua:79
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/newnetwork.lua:32
@@ -670,7 +670,7 @@ msgstr "Red superpuesta"
 
 #: applications/luci-app-dockerman/luasrc/controller/dockerman.lua:36
 msgid "Overview"
-msgstr "Descripción general"
+msgstr "Vista general"
 
 #: applications/luci-app-dockerman/luasrc/model/cbi/dockerman/networks.lua:81
 msgid "Parent Interface"
