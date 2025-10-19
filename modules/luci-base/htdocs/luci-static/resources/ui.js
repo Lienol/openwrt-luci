@@ -368,7 +368,7 @@ const UITextfield = UIElement.extend(/** @lends LuCI.ui.Textfield.prototype */ {
 			'id': this.options.id ? `widget.${this.options.id}` : null,
 			'name': this.options.name,
 			'type': 'text',
-			'class': this.options.password ? 'cbi-input-password' : 'cbi-input-text',
+			'class': `password-input ${this.options.password ? 'cbi-input-password' : 'cbi-input-text'}`,
 			'readonly': this.options.readonly ? '' : null,
 			'disabled': this.options.disabled ? '' : null,
 			'maxlength': this.options.maxlength,
@@ -384,8 +384,15 @@ const UITextfield = UIElement.extend(/** @lends LuCI.ui.Textfield.prototype */ {
 					'title': _('Reveal/hide password'),
 					'aria-label': _('Reveal/hide password'),
 					'click': function(ev) {
-						const e = this.previousElementSibling;
-						e.type = (e.type === 'password') ? 'text' : 'password';
+						// DOM manipulation (e.g. by password managers) may have inserted other
+						// elements between the reveal button and the input. This searches for
+						// the first <input> inside the parent of the <button> to use for toggle.
+						const e = this.parentElement.querySelector('input.password-input')
+						if (e) {
+							e.type = (e.type === 'password') ? 'text' : 'password';
+						} else {
+							console.error('unable to find input corresponding to reveal/hide button');
+						}
 						ev.preventDefault();
 					}
 				}, '∗')
@@ -1083,7 +1090,9 @@ const UIDropdown = UIElement.extend(/** @lends LuCI.ui.Dropdown.prototype */ {
 				'class': 'create-item-input',
 				'readonly': this.options.readonly ? '' : null,
 				'maxlength': this.options.maxlength,
-				'placeholder': this.options.custom_placeholder ?? this.options.placeholder
+				'placeholder': this.options.custom_placeholder ?? this.options.placeholder,
+				'inputmode': 'text',
+				'enterkeyhint': 'done'
 			});
 
 			if (this.options.datatype || this.options.validate)
@@ -4784,7 +4793,7 @@ const UI = baseclass.extend(/** @lends LuCI.ui.prototype */ {
 					E('div', { 'class': 'uci-change-legend-label' }, [
 						E('var', {}, E('del', '&#160;')), ' ', _('Option removed') ])]),
 				E('br'), list,
-				E('div', { 'class': 'right' }, [ //button-row?
+				E('div', { 'class': 'button-row' }, [
 					E('button', {
 						'class': 'btn cbi-button',
 						'click': UI.prototype.hideModal
@@ -4900,7 +4909,7 @@ const UI = baseclass.extend(/** @lends LuCI.ui.prototype */ {
 						UI.prototype.changes.displayStatus('warning', [
 							E('h4', _('Configuration changes have been rolled back!')),
 							E('p', _('The device could not be reached within %d seconds after applying the pending changes, which caused the configuration to be rolled back for safety reasons. If you believe that the configuration changes are correct nonetheless, perform an unchecked configuration apply. Alternatively, you can dismiss this warning and edit changes before attempting to apply again, or revert all pending changes to keep the currently working configuration state.').format(L.env.apply_rollback)),
-							E('div', { 'class': 'right' }, [
+							E('div', { 'class': 'button-row' }, [
 								E('button', {
 									'class': 'btn',
 									'click': L.bind(UI.prototype.changes.displayStatus, UI.prototype.changes, false)
