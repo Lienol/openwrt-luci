@@ -4789,3 +4789,9 @@ msgstr "资源记录编号"
 
 msgid "Raw Data"
 msgstr "原始数据"
+
+msgid "Force DHCP-Options"
+msgstr "强制 DHCP-Options"
+
+msgid "As DHCP-Options; send unsolicited (dnsmasq only)."
+msgstr "强制发送客户端未请求的 DHCP-Options （仅限 dnsmasq）。"
