@@ -1566,6 +1566,21 @@ msgstr "ULA 在 IPv6 中的作用类似于 IPv4 中的私有网络地址。"
 msgid "This prefix is randomly generated at first install."
 msgstr "此前缀在首次安装时随机生成。"
 
+msgid "Default DUID"
+msgstr "默认 DUID"
+
+msgid ""
+"The default <abbr title=\"DHCP Unique Identifier\">DUID</abbr> for this "
+"device, used when acting as a DHCP server or client. The client identifier "
+"can be overridden on a per-interface basis."
+msgstr ""
+"该设备的默认<abbr title=\"DHCP Unique Identifier\">DUID</abbr>，在其作为 "
+"DHCP 服务器或客户端时使用。可以在每个接口对客户端标识符进行覆盖。"
+
+msgid ""
+"This identifier is randomly generated the first time the device is booted."
+msgstr "标识符在设备首次启动时随机生成。"
+
 msgid "IPv6 WAN Status"
 msgstr "IPv6 WAN 状态"
 
