@@ -575,7 +575,7 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 		s.addremove = false
 		s.anonymous = true
 		s:tab("general",  translate("General Setup"))
-		s:tab("advanced", translate("Advanced Settings"))
+		s:tab("ipv4", translate("IPv4 Settings"))
 		s:tab("ipv6", translate("IPv6 Settings"))
 		s:tab("ipv6-ra", translate("IPv6 RA Settings"))
 
@@ -592,65 +592,65 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 			ignore.rmempty = false
 		end
 
-		local start = s:taboption("general", Value, "start", translate("Start"),
-			translate("Lowest leased address as offset from the network address."))
-		start.optional = true
-		start.datatype = "or(uinteger,ip4addr)"
-		start.default = "100"
+		if net:proto() == "static" then
+			local dd = s:taboption("general", Flag, "dynamicdhcp",
+				translate("Dynamic <abbr title=\"Dynamic Host Configuration Protocol\">DHCP</abbr>"),
+				translate("Dynamically allocate DHCP addresses for clients. If disabled, only " ..
+					"clients having static leases will be served."))
+			dd.default = dd.enabled
 
-		local limit = s:taboption("general", Value, "limit", translate("Limit"),
-			translate("Maximum number of leased addresses."))
-		limit.optional = true
-		limit.datatype = "uinteger"
-		limit.default = "150"
+			local ltime = s:taboption("general", Value, "leasetime", translate("Lease time"),
+				translate("Expiry time of leased addresses, minimum is 2 minutes (<code>2m</code>)."))
+			ltime.rmempty = true
+			ltime.default = "12h"
 
-		local ltime = s:taboption("general", Value, "leasetime", translate("Lease time"),
-			translate("Expiry time of leased addresses, minimum is 2 minutes (<code>2m</code>)."))
-		ltime.rmempty = true
-		ltime.default = "12h"
+			s:taboption("general", Flag, "force", translate("Force"),
+				translate("Force DHCP on this network even if another server is detected."))
+
+			s:taboption("general", DynamicList, "dhcp_option", translate("DHCP-Options"),
+				translate("Define additional DHCP options, for example \"<code>6,192.168.2.1," ..
+					"192.168.2.2</code>\" which advertises different DNS servers to clients."))
+
+			s:taboption("general", DynamicList, "dhcp_option_force", translate("Force DHCP-Options"),
+				translate("As DHCP-Options; send unsolicited (dnsmasq only)."))
+			
+			local start = s:taboption("ipv4", Value, "start", translate("Start address"),
+				translate("Lowest leased address as offset from the network address."))
+			start.optional = true
+			start.datatype = "or(uinteger,ip4addr)"
+			start.default = "101"
+
+			local limit = s:taboption("ipv4", Value, "limit", translate("Maximum number of leases"),
+				translate("Maximum number of leased addresses."))
+			limit.optional = true
+			limit.datatype = "uinteger"
+			limit.default = "150"
+
+			mask = s:taboption("ipv4", Value, "netmask",
+				translate("<abbr title=\"Internet Protocol Version 4\">IPv4</abbr>-Netmask"),
+				translate("Override the netmask sent to clients. Normally it is calculated " ..
+					"from the subnet that is served."))
+
+			mask.optional = true
+			mask.datatype = "ip4addr"
+
+			-- XXX: is this actually useful?
+			--s:taboption("general", Value, "name", translate("Name"),
+			--	translate("Define a name for this network."))
+
+--[[
+			for i, n in ipairs(s.children) do
+				if n ~= ignore then
+					n:depends("ignore", "")
+				end
+			end
+]]--
+		end
 
 		x = s:taboption("general", Button, "_delete")
 		x.title      = translate("Delete this DHCP Server")
 		x.inputtitle = translate("Delete DHCP Server configured for this interface")
 		x.inputstyle = "remove"
-
-		if net:proto() == "static" then
-
-		local dd = s:taboption("advanced", Flag, "dynamicdhcp",
-			translate("Dynamic <abbr title=\"Dynamic Host Configuration Protocol\">DHCP</abbr>"),
-			translate("Dynamically allocate DHCP addresses for clients. If disabled, only " ..
-				"clients having static leases will be served."))
-		dd.default = dd.enabled
-
-		s:taboption("advanced", Flag, "force", translate("Force"),
-			translate("Force DHCP on this network even if another server is detected."))
-
-		-- XXX: is this actually useful?
-		--s:taboption("advanced", Value, "name", translate("Name"),
-		--	translate("Define a name for this network."))
-
-		mask = s:taboption("advanced", Value, "netmask",
-			translate("<abbr title=\"Internet Protocol Version 4\">IPv4</abbr>-Netmask"),
-			translate("Override the netmask sent to clients. Normally it is calculated " ..
-				"from the subnet that is served."))
-
-		mask.optional = true
-		mask.datatype = "ip4addr"
-
-		s:taboption("advanced", DynamicList, "dhcp_option", translate("DHCP-Options"),
-			translate("Define additional DHCP options, for example \"<code>6,192.168.2.1," ..
-				"192.168.2.2</code>\" which advertises different DNS servers to clients."))
-
-		s:taboption("advanced", DynamicList, "dhcp_option_force", translate("Force DHCP-Options"),
-			translate("As DHCP-Options; send unsolicited (dnsmasq only)."))
---[[
-		for i, n in ipairs(s.children) do
-			if n ~= ignore then
-				n:depends("ignore", "")
-			end
-		end
-]]--
-		end
 
 		local has_other_master = nil
 		m2.uci:foreach("dhcp", "dhcp", function(s)
@@ -685,15 +685,19 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 
 		o = s:taboption('ipv6', Value, 'dhcpv6_pd_min_len', translate('<abbr title="Prefix Delegation">PD</abbr> minimum length'),
 				translate('Configures the minimum delegated prefix length assigned to a requesting downstream router, potentially overriding a requested prefix length. If left unspecified, the device will assign the smallest available prefix greater than or equal to the requested prefix.'))
-		o.datatype = 'range(1,62)'
+		o.placeholder = '62'
+		o.datatype = 'range(1,64)'
 		o:depends({ dhcpv6 = "server" })
 
-		o = s:taboption("ipv6", DynamicList, "dns", translate("Announced IPv6 DNS servers"),
-				translate("Specifies a fixed list of IPv6 DNS server addresses to announce via DHCPv6. If left unspecified, the device will announce itself as IPv6 DNS server unless the <em>Local IPv6 DNS server</em> option is disabled."))
-		o:depends({ ra = "server", dns_service = false })
-		o:depends({ ra = "hybrid", master = false, dns_service = false })
-		o:depends({ dhcpv6 = "server", dns_service = false })
-		o:depends({ dhcpv6 = "hybrid", master = false, dns_service = false })
+		-- This option is used by odhcpd. It can take IPv4/6 entries, although IPv4 DNS servers don't
+		--	always make sense in an IPv6 environment, they might in a dual stack environment.
+		o = s:taboption("ipv6", DynamicList, "dns", translate("Announce IPv4/6 DNS servers"),
+				translate("Specifies a fixed list of DNS server addresses to announce via DHCPv6.") .. '<br/>' ..
+				translate("If left unspecified, the device will announce itself as DNS server unless the <em>Local IPv6 DNS server</em> option is disabled."))
+		o:depends({ ra = "server" })
+		o:depends({ ra = "hybrid", master = false })
+		o:depends({ dhcpv6 = "server" })
+		o:depends({ dhcpv6 = "hybrid", master = false })
 
 		o = s:taboption("ipv6", Flag, "dns_service", translate("Local IPv6 DNS server"),
 		        translate("Announce this device as IPv6 DNS server."))
@@ -701,6 +705,19 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 		o:depends({ ra = "server" })
 		o:depends({ ra = "hybrid", master = false })
 		o:depends({ dhcpv6 = "server" })
+		o:depends({ dhcpv6 = "hybrid", master = false })
+
+		o = s:taboption("ipv6", DynamicList, "dnr", translate("Announce encrypted DNS servers"),
+				translatef('Specifies a fixed list of encrypted DNS server addresses to announce via DHCPv6/<abbr title="Router Advertisement">RA</abbr> (see %s).',
+					string.format('<a href="%s" target="_blank">RFC9463</a>', 'https://www.rfc-editor.org/rfc/rfc9463')) .. '<br/>' ..
+				translate('IPv4 addresses are only supported if <code>odhcpd</code> also handles DHCPv4.') .. '<br/>' ..
+				translate('Syntax: <code>&lt;numeric priority&gt; &lt;domain-name&gt; [IP,...] [SVC parameter ...]</code>') .. '<br/>' ..
+				translate('Example: <code>100 dns.example.com 2001:db8::53,192.168.1.53 alpn=doq port=853</code>') .. '<br/>' ..
+				translate('Note: the <code>_lifetime=&lt;seconds&gt;</code> SVC parameter sets the lifetime of the announced server (use <code>0</code> to indicate a server which should no longer be used).')
+		)
+		o:depends("ra", "server")
+		o:depends({ ra = "hybrid", master = false })
+		o:depends("dhcpv6", "server")
 		o:depends({ dhcpv6 = "hybrid", master = false })
 
 		o = s:taboption("ipv6", DynamicList, "domain", translate("Announced DNS domains"),
@@ -737,18 +754,6 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 		o:depends({ ndp = "relay", master = false })
 		o:depends({ ndp = "hybrid", master = false })
 
-		o = s:taboption('ipv6', Value, 'preferred_lifetime', translate('IPv6 Prefix Lifetime'), translate('Preferred lifetime for a prefix.'))
-		o.optional = true
-		o.default = '12h'
-		o:value('5m', translate('5m (5 minutes)'))
-		o:value('3h', translate('3h (3 hours)'))
-		o:value('12h', translate('12h (12 hours - default)'))
-		o:value('7d', translate('7d (7 days)'))
-
-		--This is a ra_* setting, but its placement is more logical/findable under IPv6 settings.
-		o = s:taboption('ipv6', Flag, 'ra_useleasetime', translate('Follow IPv4 Lifetime'), translate('DHCPv4 <code>leasetime</code> is used as limit and preferred lifetime of the IPv6 prefix.'))
-		o.optional = true
-
 		o = s:taboption("ipv6-ra", ListValue, "ra_default", translate("Default router"),
 		        translate('Configures the default router advertisement in <abbr title="Router Advertisement">RA</abbr> messages.'))
 		o:value("", translate("automatic"))
@@ -762,6 +767,14 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 		o.default = o.enabled
 		o:depends("ra", "server")
 		o:depends({ ra = "hybrid", master = false })
+
+		o = s:taboption("ipv6-ra", ListValue, "ra_preference", translate("Router Priority"),
+		    translate('A tie-breaker for clients and their routes when multiple routers exist on the same network.'))
+		o.default = 'medium'
+		o:value("low", translate("Low"))
+		o:value("medium", translate("Medium"))
+		o:value("high", translate("High"))
+		o:depends("ra", "server")
 
 		o = s:taboption("ipv6-ra", MultiValue, "ra_flags", translate('<abbr title="Router Advertisement">RA</abbr> Flags'),
 				translate('Specifies the flags sent in <abbr title="Router Advertisement">RA</abbr> messages, for example to instruct clients to request further information via stateful DHCPv6.'))
@@ -814,10 +827,28 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 		o:depends("ra", "server")
 		o:depends({ ra = "hybrid", master = false })
 
+		o = s:taboption("ipv6-ra", Value, "ra_reachabletime", translate('<abbr title="Router Advertisement">RA</abbr> Reachability Timer'),
+		        translate('Units: milliseconds. 0 means unspecified.') .. ' ' ..
+		        translate('Dictates how long a node assumes a neighbor is reachable after a reachability confirmation; published in <abbr title="Router Advertisement">RA</abbr> messages.'))
+		o.datatype = 'range(0, 3600000)'
+		o.placeholder = "0"
+		o.default = o.placeholder
+		o:depends("ra", "server")
+		o:depends({ ra = "hybrid", master = false })
+
+		o = s:taboption("ipv6-ra", Value, "ra_retranstime", translate('<abbr title="Router Advertisement">RA</abbr> Retransmission Timer'),
+		        translate('Units: milliseconds. 0 means unspecified.') .. ' ' ..
+		        translate('Controls retransmitted Neighbor Solicitation messages; published in <abbr title="Router Advertisement">RA</abbr> messages.'))
+		o.datatype = 'range(0, 60000)' -- odhcpd caps to 60,000 msec
+		o.placeholder = "0"
+		o.default = o.placeholder
+		o:depends("ra", "server")
+		o:depends({ ra = "hybrid", master = false })
+
 		o = s:taboption("ipv6-ra", Value, "ra_lifetime", translate('<abbr title="Router Advertisement">RA</abbr> Lifetime'),
 		        translate('Router Lifetime published in <abbr title="Router Advertisement, ICMPv6 Type 134">RA</abbr> messages. Maximum is 9000 seconds.'))
 		o.datatype = "range(0, 9000)"
-		o.placeholder = "1800"
+		o.placeholder = "2700"
 		o:depends("ra", "server")
 		o:depends({ ra = "hybrid", master = false })
 
@@ -830,6 +861,26 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 		o = s:taboption("ipv6-ra", Value, "ra_hoplimit", translate('<abbr title="Router Advertisement">RA</abbr> Hop Limit'),
 		        translate('The maximum hops to be published in <abbr title="Router Advertisement">RA</abbr> messages. Maximum is 255 hops.'))
 		o.datatype = "range(0, 255)"
+		o:depends("ra", "server")
+		o:depends({ ra = "hybrid", master = false })
+
+		o = s:taboption("ipv6-ra", Value, "max_preferred_lifetime", translate('IPv6 Preferred Prefix Lifetime'), translate('Maximum preferred lifetime for a prefix.'))
+		o.default = "45m"
+		o:value('5m', translate('5m (5 minutes)'))
+		o:value('45m', translate('45m (45 minutes - default)'))
+		o:value('3h', translate('3h (3 hours)'))
+		o:value('12h', translate('12h (12 hours)'))
+		o:value('7d', translate('7d (7 days)'))
+		o:depends("ra", "server")
+		o:depends({ ra = "hybrid", master = false })
+
+		o = s:taboption("ipv6-ra", Value, "max_valid_lifetime", translate('IPv6 Valid Prefix Lifetime'), translate('Maximum valid lifetime for a prefix.'))
+		o.default = "90m"
+		o:value('5m', translate('5m (5 minutes)'))
+		o:value('90m', translate('90m (90 minutes - default)'))
+		o:value('3h', translate('3h (3 hours)'))
+		o:value('12h', translate('12h (12 hours)'))
+		o:value('7d', translate('7d (7 days)'))
 		o:depends("ra", "server")
 		o:depends({ ra = "hybrid", master = false })
 
