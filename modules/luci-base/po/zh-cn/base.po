@@ -1503,6 +1503,9 @@ msgstr "IP 地址缺失"
 msgid "IPv4"
 msgstr "IPv4"
 
+msgid "IPv4 Settings"
+msgstr "IPv4 设置"
+
 msgid "IPv4 Firewall"
 msgstr "IPv4 防火墙"
 
@@ -1996,6 +1999,9 @@ msgstr "退出"
 msgid "Loss of Signal Seconds (LOSS)"
 msgstr "信号丢失秒数（LOSS）"
 
+msgid "Start address"
+msgstr "地址起始"
+
 msgid "Lowest leased address as offset from the network address."
 msgstr "网络地址的起始分配基址。"
 
@@ -2055,6 +2061,9 @@ msgid ""
 msgstr ""
 "名称的最大长度为 15 个字符，包含根据协议类型，网桥自动添加上的名字前缀（br-、"
 "6in4-、pppoe- 等）"
+
+msgid "Maximum number of leases"
+msgstr "最大租约数"
 
 msgid "Maximum number of leased addresses."
 msgstr "最大地址分配数量。"
@@ -4269,8 +4278,47 @@ msgstr "本地 IPV6 DNS 服务器"
 msgid "Announce this device as IPv6 DNS server."
 msgstr "通告该设备为 IPv6 DNS 服务器。"
 
-msgid "Announced IPv6 DNS servers"
-msgstr "通告的 IPv6 DNS 服务器"
+msgid "Announce IPv4/6 DNS servers"
+msgstr "通告 IPv4/6 DNS 服务器"
+
+msgid "Specifies a fixed list of DNS server addresses to announce via DHCPv6."
+msgstr "指定通过 DHCPv6 通告的 DNS 服务器地址的固定列表。"
+
+msgid "Announce encrypted DNS servers"
+msgstr "通告加密 DNS 服务器"
+
+msgid ""
+"Specifies a fixed list of encrypted DNS server addresses to announce via "
+"DHCPv6/<abbr title=\"Router Advertisement\">RA</abbr> (see %s)."
+msgstr ""
+"指定通过 DHCPv6/<abbr title=\"Router Advertisement\">RA</abbr> 消息通告的加"
+"密 DNS 服务器（详见 %s）。"
+
+msgid ""
+"IPv4 addresses are only supported if <code>odhcpd</code> also handles DHCPv4."
+msgstr "只有 <code>odhcpd</code> 同时处理 DHCPv4 时才支持 IPv4 地址。"
+
+msgid ""
+"Syntax: <code>&lt;numeric priority&gt; &lt;domain-name&gt; [IP,...] [SVC "
+"parameter ...]</code>"
+msgstr ""
+"语法：<code>&lt;数字优先级&gt; &lt;域名&gt; [IP 地址,...] [SVC 参数 ...]</"
+"code>"
+
+msgid ""
+"Example: <code>100 dns.example.com 2001:db8::53,192.168.1.53 alpn=doq "
+"port=853</code>"
+msgstr ""
+"示例：<code>100 dns.example.com 2001:db8::53,192.168.1.53 alpn=doq port=853</"
+"code>"
+
+msgid ""
+"Note: the <code>_lifetime=&lt;seconds&gt;</code> SVC parameter sets the "
+"lifetime of the announced server (use <code>0</code> to indicate a server "
+"which should no longer be used)."
+msgstr ""
+"注意：SVC 参数 <code>_lifetime=&lt;seconds&gt;</code> 设置通告的 DNS 服务器有"
+"效期（设置为 <code>0</code> 表示不再使用该服务器）。"
 
 msgid "<abbr title=\"Router Advertisement\">RA</abbr>-Service"
 msgstr "<abbr title=\"Router Advertisement（路由器通告）\">RA</abbr> 服务"
@@ -4306,12 +4354,11 @@ msgstr ""
 "定，该设备将分配大于或等于所请求前缀的最小可用前缀。"
 
 msgid ""
-"Specifies a fixed list of IPv6 DNS server addresses to announce via DHCPv6. "
-"If left unspecified, the device will announce itself as IPv6 DNS server "
-"unless the <em>Local IPv6 DNS server</em> option is disabled."
+"If left unspecified, the device will announce itself as DNS server unless "
+"the <em>Local IPv6 DNS server</em> option is disabled."
 msgstr ""
-"指定一个通过 DHCPv6 通告的固定的 IPv6 DNS 服务器地址列表。如果未指定，设备将"
-"通告自身为 IPv6 DNS 服务器，除非<em>本地 IPv6 DNS 服务器</em>选项被禁用。"
+"如未指定，设备会将自己通告为 DNS 服务器，除非禁用了 <em>本地 IPv6 DNS 服务器"
+"</em>选项。"
 
 msgid "Announced DNS domains"
 msgstr "通告的 DNS 域名"
@@ -4341,14 +4388,11 @@ msgstr "NDP 代理从属设备"
 msgid "Set interface as NDP-Proxy external slave. Default is off."
 msgstr "将接口设置为 NDP 代理外部从属设备。默认为关闭。"
 
-msgid "IPv6 Prefix Lifetime"
-msgstr "IPv6 前缀有效期"
-
-msgid "Preferred lifetime for a prefix."
-msgstr "前缀的首选有效期。"
-
 msgid "5m (5 minutes)"
 msgstr "5m（5 分钟）"
+
+msgid "45m (45 minutes - default)"
+msgstr "45m （45分钟 - 默认）"
 
 msgid "3h (3 hours)"
 msgstr "3h（3 小时）"
@@ -4356,16 +4400,14 @@ msgstr "3h（3 小时）"
 msgid "12h (12 hours - default)"
 msgstr "12h（12 小时 - 默认）"
 
+msgid "12h (12 hours)"
+msgstr "12h （12 小时）"
+
 msgid "7d (7 days)"
 msgstr "7d（7 天）"
 
-msgid "Follow IPv4 Lifetime"
-msgstr "遵守 IPv4 有效期"
-
-msgid ""
-"DHCPv4 <code>leasetime</code> is used as limit and preferred lifetime of the "
-"IPv6 prefix."
-msgstr "DHCPv4 <code>租约</code> 被用作 IPv6 前缀的限制和首选有效期。"
+msgid "90m (90 minutes - default)"
+msgstr "90m （90分钟 - 默认）"
 
 msgid "Default router"
 msgstr "默认路由器"
@@ -4394,6 +4436,15 @@ msgid ""
 msgstr ""
 "在已发送 <abbr title=\"路由器通告\">RA</abbr> 报文的前缀信息选项中设置自主地"
 "址配置标记。启用后，客户端将执行无状态 IPv6 地址自动配置。"
+
+msgid "Low"
+msgstr "低"
+
+msgid "Medium"
+msgstr "一般"
+
+msgid "High"
+msgstr "高"
 
 msgid "<abbr title=\"Router Advertisement\">RA</abbr> Flags"
 msgstr "<abbr title=\"路由器通告\">RA</abbr> 标记"
@@ -4463,8 +4514,32 @@ msgstr ""
 "发送主动 <abbr title=\"路由器通告，ICMPv6 类型 134\">RA</abbr> 允许的最短时间"
 "间隔。默认为 200 秒。"
 
+msgid "Units: milliseconds. 0 means unspecified."
+msgstr "单位：毫秒。0 表示未指定。"
+
+msgid ""
+"Dictates how long a node assumes a neighbor is reachable after a "
+"reachability confirmation; published in <abbr title=\"Router "
+"Advertisement\">RA</abbr> messages."
+msgstr ""
+"规定节点在收到邻居节点可达性确认后，假定邻居节点保持可达状态的持续时间；该参"
+"数通过 <abbr title=\"Router Advertisement\">RA</abbr> 消息发布。"
+
+msgid ""
+"Controls retransmitted Neighbor Solicitation messages; published in <abbr "
+"title=\"Router Advertisement\">RA</abbr> messages."
+msgstr ""
+"控制重传的邻居请求消息；在 <abbr title=\"Router Advertisement（路由器通告）"
+"\"> RA </abbr>消息中发布。"
+
 msgid "<abbr title=\"Router Advertisement\">RA</abbr> Lifetime"
 msgstr "<abbr title=\"路由器通告\">RA</abbr> 生存时间"
+
+msgid "<abbr title=\"Router Advertisement\">RA</abbr> Reachability Timer"
+msgstr "<abbr title=\"Router Advertisement\">RA</abbr> 可达性定时器"
+
+msgid "<abbr title=\"Router Advertisement\">RA</abbr> Retransmission Timer"
+msgstr "<abbr title=\"Router Advertisement\">RA</abbr> 重传定时器"
 
 msgid ""
 "Router Lifetime published in <abbr title=\"Router Advertisement, ICMPv6 Type "
@@ -4493,6 +4568,18 @@ msgid ""
 msgstr ""
 "将在 <abbr title=\"路由器通告\">RA</abbr>消息中发布的最大跳数。最大值为 255 "
 "跳。"
+
+msgid "IPv6 Preferred Prefix Lifetime"
+msgstr "IPv6 首选前缀生命周期"
+
+msgid "Maximum preferred lifetime for a prefix."
+msgstr "前缀的最大首选生命周期。"
+
+msgid "IPv6 Valid Prefix Lifetime"
+msgstr "IPv6 有效前缀生命周期"
+
+msgid "Maximum valid lifetime for a prefix."
+msgstr "前缀的最大有效生命周期。"
 
 msgid "Delete this DHCP Server"
 msgstr "删除 DHCP 服务器"
