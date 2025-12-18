@@ -497,6 +497,9 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 		s:taboption("advanced", DynamicList, "dhcp_option", translate("DHCP-Options"),
 			translate("Define additional DHCP options, for example \"<code>6,192.168.2.1," ..
 				"192.168.2.2</code>\" which advertises different DNS servers to clients."))
+
+		s:taboption("advanced", DynamicList, "dhcp_option_force", translate("Force DHCP-Options"),
+			translate("As DHCP-Options; send unsolicited (dnsmasq only)."))
 --[[
 		for i, n in ipairs(s.children) do
 			if n ~= ignore then
