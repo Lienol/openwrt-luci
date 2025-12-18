@@ -115,6 +115,13 @@ if network:has_ipv6() or packet_steering then
 		o.datatype = "ip6addr"
 		o.rmempty = true
 		m.pageaction = true
+
+		local o = s:option(Value, "dhcp_default_duid", translate("Default DUID"),
+			translate('The default <abbr title="DHCP Unique Identifier">DUID</abbr> for this device, used when acting as a DHCP server or client. The client identifier can be overridden on a per-interface basis.') .. '<br/>' ..
+			translate('This identifier is randomly generated the first time the device is booted.'))
+		o.datatype = "and(rangelength(6,260),hexstring)"
+		o.rmempty = true
+		m.pageaction = true
 	end
 
 	if packet_steering then
