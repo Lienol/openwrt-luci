@@ -1903,6 +1903,12 @@ msgstr "监听接口"
 msgid "Listen Port"
 msgstr "监听端口"
 
+msgid "Listen addresses"
+msgstr "监听地址"
+
+msgid "Listen only on the specified addresses."
+msgstr "只侦听指定的地址。"
+
 msgid "Listen only on the given interface or, if unspecified, on all"
 msgstr "仅监听指定的接口，未指定则监听全部"
 
