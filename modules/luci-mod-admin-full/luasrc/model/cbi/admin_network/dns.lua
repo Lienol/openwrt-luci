@@ -100,6 +100,12 @@ o = s:taboption("devices", DynamicList, "interface",
 o.optional = true
 o:depends("nonwildcard", true)
 
+o = s:taboption("devices", DynamicList, "listen_address",
+	translate("Listen addresses"),
+	translate("Listen only on the specified addresses."))
+o.optional = true
+o:depends("nonwildcard", true)
+
 o = s:taboption("devices", DynamicList, "notinterface",
 	translate("Exclude interfaces"),
 	translate("Prevent listening on these interfaces."))
