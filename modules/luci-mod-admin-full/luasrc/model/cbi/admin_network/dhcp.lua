@@ -41,6 +41,11 @@ lm.optional = true
 lm.datatype = "uinteger"
 lm.placeholder = translate("unlimited")
 
+o = s:taboption("general", Flag, "address_as_local",
+	translate("Resolve addresses locally"),
+	translate("Never send queries for FQDNs in the Address option to an upstream resolver."))
+o.optional = true
+
 
 o = s:taboption("devices", Flag, "nonwildcard",
 	translate("Non-wildcard"),

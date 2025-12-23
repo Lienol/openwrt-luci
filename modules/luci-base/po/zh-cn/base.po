@@ -2874,6 +2874,13 @@ msgstr "HOSTS 和解析文件"
 msgid "Resolve file"
 msgstr "解析文件"
 
+msgid "Resolve addresses locally"
+msgstr "本地解析地址"
+
+msgid ""
+"Never send queries for FQDNs in the Address option to an upstream resolver."
+msgstr "永不将地址选项中 FQDN 的查询请求发送至上游解析器。"
+
 msgid "Restart"
 msgstr "重启"
 
