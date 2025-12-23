@@ -55,6 +55,9 @@ function ip.validate(self, value, section)
 end
 
 tag = s:option(DynamicList, 'tag', translate('Tag'), translate('Assign new, freeform tags to this entry.'))
+m.uci:foreach("dhcp", "tag", function(s)
+	tag:value(s[".name"])
+end)
 
 match_tag = s:option(DynamicList, 'match_tag', translate('Match Tag'),
 		translatef('When a host matches an entry then the special tag %s is set. Use %s to match all known hosts.', '<code>known</code>', '<code>known</code>') .. '<br /><br />' ..
