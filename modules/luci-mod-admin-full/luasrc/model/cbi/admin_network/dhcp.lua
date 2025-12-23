@@ -4,6 +4,7 @@
 local ipc = require "luci.ip"
 local o
 require "luci.util"
+local sys = require "luci.sys"
 
 local recordtypes = {
 	'ANY',
@@ -418,6 +419,36 @@ db.optional = true
 db:depends("enable_tftp", "1")
 db.placeholder = "pxelinux.0"
 
+tag_s = m:section(TypedSection, "tag", translate("Tag"))
+tag_s.template = "cbi/tblsection"
+tag_s.anonymous = false
+tag_s.addremove = true
+tag_s.sortable = true
+tag_s.extedit = "dhcp_tag_config/%s"
+function tag_s.create(e, t)
+	TypedSection.create(e, t)
+	luci.http.redirect(e.extedit:format(t))
+end
+function tag_s.remove(e, t)
+	m.uci:foreach("dhcp", "host", function(s)
+		local tags = s.tag or {}
+		if #tags > 0 then
+			for i = #tags, 1, -1 do
+				if t == tags[i] then
+					sys.call('uci -q del_list dhcp.' .. s[".name"] .. '.tag="' .. t .. '"')
+				end
+			end
+		end
+	end)
+	TypedSection.remove(e, t)
+end
+
+o = tag_s:option(DynamicList, "dhcp_option", translate("DHCP-Options"))
+
+o = tag_s:option(Flag, "force", translate("Force") .. " " .. translate("DHCP-Options"))
+o.default = 0
+o.rmempty  = false
+
 
 s = m:section(TypedSection, "host", translate("Static Leases"),
 	translate("Static leases are used to assign fixed IP addresses and symbolic hostnames to " ..
@@ -455,8 +486,13 @@ mac.rmempty  = true
 ip = s:option(Value, "ip", translate("<abbr title=\"Internet Protocol Version 4\">IPv4</abbr>-Address"))
 ip.datatype = "or(ip4addr,'ignore')"
 
-time = s:option(Value, "leasetime", translate("Lease time"))
-time.rmempty = true
+--time = s:option(Value, "leasetime", translate("Lease time"))
+--time.rmempty = true
+
+tag = s:option(DynamicList, 'tag', translate('Tag'))
+m.uci:foreach("dhcp", "tag", function(s)
+	tag:value(s[".name"])
+end)
 
 duid = s:option(Value, "duid", translate("DUID"))
 duid.datatype = "and(rangelength(20,36),hexstring)"

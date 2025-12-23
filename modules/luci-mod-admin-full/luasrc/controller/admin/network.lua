@@ -134,6 +134,7 @@ function index()
 			page.title  = _("Hostnames")
 			page.order  = 40
 
+			entry({"admin", "network", "dhcp_tag_config"}, cbi("admin_network/dhcp_tag_config")).leaf = true
 			entry({"admin", "network", "dhcp_config"}, cbi("admin_network/dhcp_config")).leaf = true
 		end
 
