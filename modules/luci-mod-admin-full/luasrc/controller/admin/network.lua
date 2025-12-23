@@ -123,19 +123,24 @@ function index()
 		if nixio.fs.access("/etc/config/dhcp") then
 			page = node("admin", "network", "dhcp")
 			page.target = cbi("admin_network/dhcp")
-			page.title  = _("DHCP and DNS")
+			page.title  = _("DHCP")
 			page.order  = 30
 
 			page = entry({"admin", "network", "dhcplease_status"}, call("lease_status"), nil)
 			page.leaf = true
 
+			entry({"admin", "network", "dhcp_tag_config"}, cbi("admin_network/dhcp_tag_config")).leaf = true
+			entry({"admin", "network", "dhcp_static_leases_config"}, cbi("admin_network/dhcp_static_leases_config")).leaf = true
+
+			page = node("admin", "network", "dns")
+			page.target = cbi("admin_network/dns")
+			page.title  = _("DNS")
+			page.order  = 31
+
 			page = node("admin", "network", "hosts")
 			page.target = cbi("admin_network/hosts")
 			page.title  = _("Hostnames")
-			page.order  = 40
-
-			entry({"admin", "network", "dhcp_tag_config"}, cbi("admin_network/dhcp_tag_config")).leaf = true
-			entry({"admin", "network", "dhcp_config"}, cbi("admin_network/dhcp_config")).leaf = true
+			page.order  = 32
 		end
 
 		page  = node("admin", "network", "routes")
