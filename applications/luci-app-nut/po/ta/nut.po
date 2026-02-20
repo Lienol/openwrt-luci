@@ -157,6 +157,10 @@ msgstr "லூசி-ஆப்-நட்டுக்கு யுசிஐ அ�
 msgid "Host"
 msgstr "விருந்தோம்பி"
 
+#: applications/luci-app-nut/htdocs/luci-static/resources/view/nut/nut_monitor.js:69
+msgid "Host Sync"
+msgstr ""
+
 #: applications/luci-app-nut/htdocs/luci-static/resources/view/nut/nut_cgi.js:24
 msgid "Hostname or IP address"
 msgstr "ஓச்ட்பெயர் அல்லது ஐபி முகவரி"
@@ -165,10 +169,6 @@ msgstr "ஓச்ட்பெயர் அல்லது ஐபி முகவ
 #: applications/luci-app-nut/htdocs/luci-static/resources/view/nut/nut_monitor.js:188
 msgid "Hostname or address of UPS"
 msgstr "ஓச்ட்பெயர் அல்லது யுபிஎச் முகவரி"
-
-#: applications/luci-app-nut/htdocs/luci-static/resources/view/nut/nut_monitor.js:69
-msgid "Hot Sync"
-msgstr "சூடான ஒத்திசைவு"
 
 #: applications/luci-app-nut/htdocs/luci-static/resources/view/nut/nut_server.js:68
 msgid "IP Address"
@@ -506,6 +506,15 @@ msgstr "ஒத்திசைவான தொடர்பு"
 #: applications/luci-app-nut/htdocs/luci-static/resources/view/nut/nut_server.js:145
 msgid "The name of this section will be used as UPS name elsewhere"
 msgstr "இந்த பிரிவின் பெயர் வேறு இடங்களில் யுபிஎச் பெயராகப் பயன்படுத்தப்படும்"
+
+#: applications/luci-app-nut/htdocs/luci-static/resources/view/nut/nut_server.js:157
+#: applications/luci-app-nut/htdocs/luci-static/resources/view/nut/nut_server.js:193
+#: applications/luci-app-nut/htdocs/luci-static/resources/view/nut/nut_server.js:196
+#: applications/luci-app-nut/htdocs/luci-static/resources/view/nut/nut_server.js:247
+msgid ""
+"This is passed through to the driver, so make sure your driver supports this "
+"option"
+msgstr ""
 
 #: applications/luci-app-nut/htdocs/luci-static/resources/view/nut/nut_server.js:125
 msgid "Time in seconds between driver start retry attempts."

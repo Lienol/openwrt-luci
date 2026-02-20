@@ -1,20 +1,20 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-12-30 17:00+0000\n"
-"Last-Translator: Steve <secure@mail.az>\n"
+"PO-Revision-Date: 2026-02-15 08:21+0000\n"
+"Last-Translator: PhillyMay <mein.alias@outlook.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/openwrt/"
 "luciapplicationshttps-dns-proxy/de/>\n"
 "Language: de\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.16-dev\n"
 
-#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:284
+#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:283
 msgid "%s%s%s proxy at %s on port %s.%s"
 msgstr "%s%s%s-Proxy an %s auf Port %s.%s"
 
-#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:276
+#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:275
 msgid "%s%s%s proxy on port %s.%s"
 msgstr "%s%s%s Proxy auf Port %s.%s"
 
@@ -34,18 +34,21 @@ msgstr ""
 
 #: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/view/https-dns-proxy/overview.js:253
 #: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/view/https-dns-proxy/overview.js:587
+#, fuzzy
 msgid "2: Warning"
-msgstr ""
+msgstr "2: Warnung"
 
 #: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/view/https-dns-proxy/overview.js:254
 #: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/view/https-dns-proxy/overview.js:588
+#, fuzzy
 msgid "3: Info"
-msgstr ""
+msgstr "3: Info"
 
 #: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/view/https-dns-proxy/overview.js:255
 #: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/view/https-dns-proxy/overview.js:589
+#, fuzzy
 msgid "4: Debug"
-msgstr ""
+msgstr "4: Debug"
 
 #: applications/luci-app-https-dns-proxy/root/usr/share/https-dns-proxy/providers/co.oszx.dns.json:14
 #: applications/luci-app-https-dns-proxy/root/usr/share/https-dns-proxy/providers/gr.libredns.doh.json:14
@@ -220,11 +223,11 @@ msgstr "Digitale Gesellschaft (CH)"
 msgid "Direct"
 msgstr "Direkt"
 
-#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:408
+#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:407
 msgid "Disable"
 msgstr "Deaktivieren"
 
-#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:402
+#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:401
 msgid "Disabling %s service"
 msgstr "Deaktiviere Dienst %s"
 
@@ -240,11 +243,11 @@ msgstr "DoH 360 DNS (CN)"
 msgid "DoH DNS (SB)"
 msgstr "DoH DNS (SB)"
 
-#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:389
+#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:388
 msgid "Enable"
 msgstr "Aktivieren"
 
-#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:383
+#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:382
 msgid "Enabling %s service"
 msgstr "Aktiviere Dienst %s"
 
@@ -278,7 +281,7 @@ msgstr "Finnland"
 msgid "Force DNS Ports"
 msgstr "DNS-Ports erzwingen"
 
-#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:197
+#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:196
 msgid "Force DNS ports:"
 msgstr "DNS-Ports erzwingen:"
 
@@ -344,7 +347,7 @@ msgstr "HTTPS DNS Proxy - Konfiguration"
 msgid "HTTPS DNS Proxy - Instances"
 msgstr "HTTPS DNS Proxy - Instanzen"
 
-#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:187
+#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:186
 msgid "HTTPS DNS Proxy - Status"
 msgstr "HTTPS DNS Proxy - Status"
 
@@ -484,7 +487,7 @@ msgstr "NextDNS.io"
 msgid "Norway"
 msgstr "Norwegen"
 
-#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:213
+#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:212
 msgid "Not installed or not found"
 msgstr "Nicht installiert oder nicht gefunden"
 
@@ -509,7 +512,7 @@ msgstr "OpenNameServer"
 msgid "Parameter"
 msgstr "Parameter"
 
-#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:295
+#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:294
 msgid "Please %sdonate%s to support development of this project."
 msgstr ""
 "Bitte %spenden Sie%s, um die Entwicklung dieses Projekts zu unterstützen."
@@ -572,11 +575,11 @@ msgstr "Quad 101 (TW)"
 msgid "Quad 9"
 msgstr "Quad 9"
 
-#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:351
+#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:350
 msgid "Restart"
 msgstr "Neustart"
 
-#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:345
+#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:344
 msgid "Restarting %s service"
 msgstr "Neustart des Dienstes %s"
 
@@ -619,7 +622,7 @@ msgstr "Gesichert mit ECS-Unterstützung"
 msgid "Security Filter"
 msgstr "Sicherheitsfilter"
 
-#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:229
+#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:228
 msgid "See the %sREADME%s for details."
 msgstr "Siehe die %sREADME%s für Details."
 
@@ -627,11 +630,11 @@ msgstr "Siehe die %sREADME%s für Details."
 msgid "Select the DNSMASQ Configs to update"
 msgstr "Wähle die zu aktualisierenden DNSMASQ-Konfigurationen aus"
 
-#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:434
+#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:433
 msgid "Service Control"
 msgstr "Dienstverwaltung"
 
-#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:227
+#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:226
 msgid "Service Instances"
 msgstr "Dienst-Instanzen"
 
@@ -639,7 +642,7 @@ msgstr "Dienst-Instanzen"
 msgid "Service Options"
 msgstr ""
 
-#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:191
+#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:190
 msgid "Service Status"
 msgstr "Dienststatus"
 
@@ -673,11 +676,11 @@ msgstr "Spanien"
 msgid "Standard"
 msgstr "Standard"
 
-#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:332
+#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:331
 msgid "Start"
 msgstr "Start"
 
-#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:326
+#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:325
 msgid "Starting %s service"
 msgstr "Start des Dienstes %s"
 
@@ -686,11 +689,11 @@ msgstr "Start des Dienstes %s"
 msgid "Statistic Interval"
 msgstr ""
 
-#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:370
+#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:369
 msgid "Stop"
 msgstr "Stopp"
 
-#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:364
+#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:363
 msgid "Stopping %s service"
 msgstr "Beenden des Dienstes %s"
 
@@ -809,15 +812,15 @@ msgstr "Benutzername"
 msgid "Variant"
 msgstr "Variante"
 
-#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:195
+#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:194
 msgid "Version %s - Running."
 msgstr "Version %s - Wird ausgeführt."
 
-#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:207
+#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:206
 msgid "Version %s - Stopped (Disabled)."
 msgstr "Version %s - Angehalten (Deaktiviert)."
 
-#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:205
+#: applications/luci-app-https-dns-proxy/htdocs/luci-static/resources/https-dns-proxy/status.js:204
 msgid "Version %s - Stopped."
 msgstr "Version %s - Angehalten."
 

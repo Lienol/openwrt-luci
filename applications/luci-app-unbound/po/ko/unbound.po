@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-01-15 16:49+0000\n"
+"PO-Revision-Date: 2026-02-15 08:21+0000\n"
 "Last-Translator: Hyeonjeong Lee <h9101654@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/openwrt/"
 "luciapplicationsunbound/ko/>\n"
@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: applications/luci-app-unbound/htdocs/luci-static/resources/view/unbound/configure.js:165
 #: applications/luci-app-unbound/htdocs/luci-static/resources/view/unbound/zone-details.js:66
@@ -41,7 +41,7 @@ msgstr ""
 
 #: applications/luci-app-unbound/htdocs/luci-static/resources/view/unbound/configure.js:48
 msgid "Advanced"
-msgstr ""
+msgstr "고급"
 
 #: applications/luci-app-unbound/htdocs/luci-static/resources/view/unbound/configure.js:248
 msgid "Aggressive"
@@ -119,7 +119,7 @@ msgstr ""
 #: applications/luci-app-unbound/htdocs/luci-static/resources/view/unbound/configure.js:237
 #: applications/luci-app-unbound/htdocs/luci-static/resources/view/unbound/configure.js:246
 msgid "Default"
-msgstr ""
+msgstr "기본값"
 
 #: applications/luci-app-unbound/htdocs/luci-static/resources/view/unbound/configure.js:180
 msgid "Denied (nxdomain)"
@@ -250,7 +250,7 @@ msgstr ""
 
 #: applications/luci-app-unbound/root/usr/share/luci/menu.d/luci-app-unbound.json:53
 msgid "Files"
-msgstr ""
+msgstr "파일"
 
 #: applications/luci-app-unbound/htdocs/luci-static/resources/view/unbound/configure.js:107
 msgid "Filter Entire Subnet"
@@ -322,23 +322,23 @@ msgstr ""
 
 #: applications/luci-app-unbound/htdocs/luci-static/resources/view/unbound/configure.js:229
 msgid "IP4 All and IP6 Local"
-msgstr ""
+msgstr "IPv4 전체 및 IPv6 로컬"
 
 #: applications/luci-app-unbound/htdocs/luci-static/resources/view/unbound/configure.js:228
 msgid "IP4 Only"
-msgstr ""
+msgstr "IPv4 전용"
 
 #: applications/luci-app-unbound/htdocs/luci-static/resources/view/unbound/configure.js:232
 msgid "IP4 and IP6"
-msgstr ""
+msgstr "IPv4 및 IPv6"
 
 #: applications/luci-app-unbound/htdocs/luci-static/resources/view/unbound/configure.js:230
 msgid "IP6 Only*"
-msgstr ""
+msgstr "IPv6 전용*"
 
 #: applications/luci-app-unbound/htdocs/luci-static/resources/view/unbound/configure.js:231
 msgid "IP6 Preferred"
-msgstr ""
+msgstr "IPv6 우선"
 
 #: applications/luci-app-unbound/htdocs/luci-static/resources/view/unbound/configure.js:210
 msgid "Ignore"
@@ -578,7 +578,7 @@ msgstr "저장"
 
 #: applications/luci-app-unbound/htdocs/luci-static/resources/view/unbound/zone-details.js:81
 msgid "Server Port"
-msgstr ""
+msgstr "서버 포트"
 
 #: applications/luci-app-unbound/htdocs/luci-static/resources/view/unbound/zone-details.js:87
 msgid "Server TLS Port"
@@ -787,7 +787,7 @@ msgstr ""
 #: applications/luci-app-unbound/htdocs/luci-static/resources/view/unbound/configure.js:84
 #: applications/luci-app-unbound/htdocs/luci-static/resources/view/unbound/configure.js:129
 msgid "default"
-msgstr "기본"
+msgstr "기본값"
 
 #: applications/luci-app-unbound/htdocs/luci-static/resources/view/unbound/zones.js:104
 msgid "download from <var>%s</var>"

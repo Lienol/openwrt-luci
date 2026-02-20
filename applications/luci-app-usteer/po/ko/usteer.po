@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-01-11 05:01+0000\n"
+"PO-Revision-Date: 2026-02-11 22:44+0000\n"
 "Last-Translator: Hyeonjeong Lee <h9101654@gmail.com>\n"
 "Language-Team: Korean <https://hosted.weblate.org/projects/openwrt/"
 "luciapplicationsusteer/ko/>\n"
@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.16-dev\n"
 
 #: applications/luci-app-usteer/htdocs/luci-static/resources/view/usteer/usteer.js:79
 #: applications/luci-app-usteer/htdocs/luci-static/resources/view/usteer/usteer.js:234
@@ -93,7 +93,7 @@ msgstr "이벤트 로그 유형"
 
 #: applications/luci-app-usteer/htdocs/luci-static/resources/view/usteer/usteer.js:420
 msgid "Fatal"
-msgstr "심각 (Fatal)"
+msgstr "심각(Fatal)"
 
 #: applications/luci-app-usteer/htdocs/luci-static/resources/view/usteer/usteer.js:82
 #: applications/luci-app-usteer/htdocs/luci-static/resources/view/usteer/usteer.js:238
@@ -138,7 +138,7 @@ msgstr "이 옵션을 비활성화하면, 대신 클라이언트를 추방합니
 
 #: applications/luci-app-usteer/htdocs/luci-static/resources/view/usteer/usteer.js:421
 msgid "Info"
-msgstr "정보 (Info)"
+msgstr "정보(Info)"
 
 #: applications/luci-app-usteer/htdocs/luci-static/resources/view/usteer/usteer.js:558
 msgid "Initial connect delay"
@@ -390,7 +390,7 @@ msgstr "노드 가동 스크립트"
 #: applications/luci-app-usteer/htdocs/luci-static/resources/view/usteer/usteer.js:240
 msgctxt "Channel noise in usteer overview"
 msgid "Noise"
-msgstr "노이즈"
+msgstr "잡음"
 
 #: applications/luci-app-usteer/htdocs/luci-static/resources/view/usteer/usteer.js:479
 msgid "Number of remote update intervals after which a remote-node is deleted"
@@ -421,9 +421,12 @@ msgid "Remote update interval"
 msgstr "원격 갱신 주기"
 
 #: applications/luci-app-usteer/htdocs/luci-static/resources/view/usteer/usteer.js:526
+#, fuzzy
 msgid ""
 "Retry scanning when roam_scan_tries is exceeded after this timeout (in ms)."
 msgstr ""
+"로밍 탐색 시도(roam_scan_tries) 초과 시, 다시 탐색하기 전 대기 시간 (밀리초 "
+"단위)입니다."
 
 #: applications/luci-app-usteer/htdocs/luci-static/resources/view/usteer/usteer.js:548
 msgid "Roam kick delay"
@@ -450,10 +453,9 @@ msgid "Roam scan tries"
 msgstr "로밍 탐색 시도"
 
 #: applications/luci-app-usteer/htdocs/luci-static/resources/view/usteer/usteer.js:243
-#, fuzzy
 msgctxt "Roam source in usteer overview"
 msgid "Roam src"
-msgstr "로밍 출발지"
+msgstr "로밍 출발"
 
 #: applications/luci-app-usteer/htdocs/luci-static/resources/view/usteer/usteer.js:244
 msgctxt "Roam target in usteer overview"
