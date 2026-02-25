@@ -15,11 +15,6 @@ let indicatorDiv = null;
 let tooltipTimeout = null;
 
 /**
- * @namespace LuCI.ui
- * @memberof LuCI
- */
-
-/**
  * @class AbstractElement
  * @memberof LuCI.ui
  * @hideconstructor
@@ -925,7 +920,7 @@ const UISelect = UIElement.extend(/** @lends LuCI.ui.Select.prototype */ {
 			return;
 		}
 
-		const radioEls = frameEl.querySelectorAll('input[type="radio"]');
+		const radioEls = this.node.querySelectorAll('input[type="radio"]');
 		for (let i = 0; i < radioEls.length; i++)
 			radioEls[i].checked = (radioEls[i].value == value);
 	}
@@ -1165,7 +1160,7 @@ const UIDropdown = UIElement.extend(/** @lends LuCI.ui.Dropdown.prototype */ {
 
 		const ul = sb.querySelector('ul');
 		const more = sb.appendChild(E('span', { class: 'more', tabindex: -1 }, '···'));
-		const open = sb.appendChild(E('span', { class: 'open', tabindex: -1 }, '▾'));
+		sb.appendChild(E('span', { class: 'open', tabindex: -1 }, '▾'));
 		const canary = sb.appendChild(E('div'));
 		const create = sb.querySelector(this.options.create_query);
 		let ndisplay = this.options.display_items;
@@ -1296,7 +1291,6 @@ const UIDropdown = UIElement.extend(/** @lends LuCI.ui.Dropdown.prototype */ {
 	 * @param {Node} sb
 	 */
 	openDropdown(sb) {
-		const st = window.getComputedStyle(sb, null);
 		const ul = sb.querySelector('ul');
 		const li = ul.querySelectorAll('li');
 		const fl = findParent(sb, '.cbi-value-field');
@@ -2492,7 +2486,6 @@ const UIDynamicList = UIElement.extend(/** @lends LuCI.ui.DynamicList.prototype 
 		});
 
 		dl.addEventListener('touchstart', (e) => {
-			const touch = e.touches[0];
 			const target = e.target.closest('.item');
 			if (target) {
 				draggedItem = target;
@@ -3245,7 +3238,7 @@ const UIFileUpload = UIElement.extend(/** @lends LuCI.ui.FileUpload.prototype */
 	canonicalizePath(path) {
 	return path.replace(/\/{2,}/g, '/')                // Collapse multiple slashes
 				.replace(/\/\.(\/|$)/g, '/')           // Remove `/.`
-				.replace(/[^\/]+\/\.\.(\/|$)/g, '/')   // Resolve `/..`
+				.replace(/[^/]+\/\.\.(\/|$)/g, '/')   // Resolve `/..`
 				.replace(/\/$/g, (m, o, s) => s.length > 1 ? '' : '/'); // Remove trailing `/` only if not root
 	},
 
@@ -3377,7 +3370,7 @@ const UIFileUpload = UIElement.extend(/** @lends LuCI.ui.FileUpload.prototype */
 	 * @returns {Promise}
 	 */
 	handleDelete(path, fileStat, ev) {
-		const parent = path.replace(/\/[^\/]+$/, '') ?? '/';
+		const parent = path.replace(/\/[^/]+$/, '') ?? '/';
 		const name = path.replace(/^.+\//, '');
 		let msg;
 
@@ -3436,7 +3429,7 @@ const UIFileUpload = UIElement.extend(/** @lends LuCI.ui.FileUpload.prototype */
 						const nameinput = ev.target.parentNode.querySelector('input[type="text"]');
 						const uploadbtn = ev.target.parentNode.querySelector('button.cbi-button-save');
 
-						nameinput.value = ev.target.value.replace(/^.+[\/\\]/, '');
+						nameinput.value = ev.target.value.replace(/^.+[/\\]/, '');
 						uploadbtn.disabled = false;
 					}
 				}),
@@ -3653,7 +3646,7 @@ const UIFileUpload = UIElement.extend(/** @lends LuCI.ui.FileUpload.prototype */
 	handleFileBrowser(ev) {
 		const button = ev.target;
 		const browser = button.nextElementSibling;
-		let path = this.stat ? this.stat.path.replace(/\/[^\/]+$/, '') : (this.options.initial_directory ?? this.options.root_directory);
+		let path = this.stat ? this.stat.path.replace(/\/[^/]+$/, '') : (this.options.initial_directory ?? this.options.root_directory);
 
 		if (path.indexOf(this.options.root_directory) != 0)
 			path = this.options.root_directory;
@@ -3864,8 +3857,8 @@ const UITable = baseclass.extend(/** @lends LuCI.ui.table.prototype */ {
 			const trow = table.appendChild(E('tr', { 'class': 'tr placeholder' }));
 			const td = trow.appendChild(E('td', { 'class': 'td' }, placeholder));
 
-			if (typeof(captionClasses) == 'object')
-				DOMTokenList.prototype.add.apply(td.classList, L.toArray(captionClasses[0]));
+			if (typeof(options.captionClasses) == 'object')
+				DOMTokenList.prototype.add.apply(td.classList, L.toArray(options.captionClasses[0]));
 		}
 
 		DOMTokenList.prototype.add.apply(table.classList, L.toArray(options.classes));
@@ -3908,8 +3901,10 @@ const UITable = baseclass.extend(/** @lends LuCI.ui.table.prototype */ {
 		this.data = data;
 		this.placeholder = placeholder;
 
+		const tbodyEl = (this.node.tBodies && this.node.tBodies[0]) ? this.node.tBodies[0] : this.node;
+
 		let n = 0;
-		const rows = this.node.querySelectorAll('tr, .tr');
+		const rows = tbodyEl.querySelectorAll('tr, .tr');
 		const trows = [];
 		const captionClasses = this.options.captionClasses;
 		const trTag = (rows[0] && rows[0].nodeName == 'DIV') ? 'div' : 'tr';
@@ -3940,16 +3935,16 @@ const UITable = baseclass.extend(/** @lends LuCI.ui.table.prototype */ {
 
 		for (let i = 0; i < n; i++) {
 			if (rows[i+1])
-				this.node.replaceChild(trows[i], rows[i+1]);
+				tbodyEl.replaceChild(trows[i], rows[i+1]);
 			else
-				this.node.appendChild(trows[i]);
+				tbodyEl.appendChild(trows[i]);
 		}
 
 		while (rows[++n])
-			this.node.removeChild(rows[n]);
+			tbodyEl.removeChild(rows[n]);
 
-		if (placeholder && this.node.firstElementChild === this.node.lastElementChild) {
-			const trow = this.node.appendChild(E(trTag, { 'class': 'tr placeholder' }));
+		if (placeholder && tbodyEl.firstElementChild === tbodyEl.lastElementChild) {
+			const trow = tbodyEl.appendChild(E(trTag, { 'class': 'tr placeholder' }));
 			const td = trow.appendChild(E(tdTag, { 'class': 'td' }, placeholder));
 
 			if (typeof(captionClasses) == 'object')
@@ -4130,10 +4125,13 @@ const UITable = baseclass.extend(/** @lends LuCI.ui.table.prototype */ {
 	 * @param {Event} ev
 	 */
 	handleSort(ev) {
-		if (!ev.target.matches('th[data-sortable-row]'))
+		let th = (ev && ev.target) ? ev.target : null;
+		if (th && typeof th.matches === 'function' && !th.matches('th[data-sortable-row]'))
+			th = (typeof th.closest === 'function') ? th.closest('th[data-sortable-row]') : null;
+
+		if (!th)
 			return;
 
-		const th = ev.target;
 		const direction = (th.getAttribute('data-sort-direction') == 'asc');
 		let index = 0;
 
@@ -4600,7 +4598,6 @@ const UI = baseclass.extend(/** @lends LuCI.ui.prototype */ {
 		for (let i = 0; i < items.length; i += 2) {
 			if (items[i+1] !== null && items[i+1] !== undefined) {
 				const sep = separators[(i/2) % separators.length];
-				const cld = [];
 
 				children.push(E('span', { class: 'nowrap' }, [
 					items[i] ? E('strong', `${items[i]}: `) : '',
@@ -4695,13 +4692,14 @@ const UI = baseclass.extend(/** @lends LuCI.ui.prototype */ {
 
 			const menu = E('ul', { 'class': 'cbi-tabmenu' });
 			const group = panes[0].parentNode;
-			const groupId = +group.getAttribute('data-tab-group');
 			let selected = null;
 
 			if (group.getAttribute('data-initialized') === 'true')
 				return;
 
-			for (let i = 0, pane; pane = panes[i]; i++) {
+			let pane;
+			for (let i = 0; i < panes.length; i++) {
+				pane = panes[i];
 				const name = pane.getAttribute('data-tab');
 				const title = pane.getAttribute('data-tab-title');
 				const active = pane.getAttribute('data-tab-active') === 'true';
@@ -4810,7 +4808,8 @@ const UI = baseclass.extend(/** @lends LuCI.ui.prototype */ {
 		 */
 		getActiveTabId(pane) {
 			const path = this.getPathForPane(pane);
-			return +this.getActiveTabState().paths[path] ?? 0;
+			const p = +(this.getActiveTabState().paths[path]);
+			return p ?? 0;
 		},
 
 		/**
@@ -4872,7 +4871,6 @@ const UI = baseclass.extend(/** @lends LuCI.ui.prototype */ {
 			const name = tab.getAttribute('data-tab');
 			const menu = tab.parentNode;
 			const group = menu.nextElementSibling;
-			const groupId = +group.getAttribute('data-tab-group');
 			let index = 0;
 
 			ev.preventDefault();
@@ -5090,7 +5088,7 @@ const UI = baseclass.extend(/** @lends LuCI.ui.prototype */ {
 				for (let i = 0; i < 2; i++)
 					for (let j = 0; j < ipaddrs.length; j++)
 						tasks.push(this.pingDevice(i ? 'https' : 'http', ipaddrs[j])
-							.then(ev => { reachable = ev.target.src.replace(/^(https?:\/\/[^\/]+).*$/, '$1/') }, () => {}));
+							.then(ev => { reachable = ev.target.src.replace(/^(https?:\/\/[^/]+).*$/, '$1/') }, () => {}));
 
 				return Promise.all(tasks).then(() => {
 					if (reachable) {

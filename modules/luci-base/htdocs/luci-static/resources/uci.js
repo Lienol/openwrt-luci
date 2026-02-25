@@ -17,11 +17,6 @@ function isEmpty(object, ignore) {
 }
 
 /**
- * @namespace LuCI.uci
- * @memberof LuCI
- */
-
-/**
  * @class uci
  * @memberof LuCI
  * @hideconstructor
@@ -905,7 +900,6 @@ return baseclass.extend(/** @lends LuCI.uci.prototype */ {
 	 * have been reloaded by the save operation.
 	 */
 	save() {
-		const v = this.state.values;
 		const n = this.state.creates;
 		const c = this.state.changes;
 		const d = this.state.deletes;
