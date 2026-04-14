@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2026-02-11 22:44+0000\n"
-"Last-Translator: EESF-2 <eesf-2@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-04-06 20:00+0000\n"
+"Last-Translator: UDP <udp@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/openwrt/luciapplicationsolsr/zh_Hant/>\n"
 "Language: zh_Hant\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/status-olsr/mid.js:79
 msgid "Active MID announcements"
@@ -480,7 +480,7 @@ msgstr "LQ 魚眼"
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/frontend/olsrd.js:169
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/frontend/olsrd6.js:163
 msgid "LQ level"
-msgstr "LQ 級別"
+msgstr "LQ 等級"
 
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/status-olsr/neighbors.js:424
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/status-olsr/routes.js:199
@@ -517,7 +517,7 @@ msgid ""
 "etx_float and etx_fpm, smaller values mean slower changes of ETX value. "
 "(allowed values are between 0.01 and 1.0)"
 msgstr ""
-"連結品質老化因子 (僅適用於 lq 級別 2)。調整 etx_float 與 etx_fpm 參數，值越小"
+"連結品質老化因子 (僅適用於 lq 等級 2)。調整 etx_float 與 etx_fpm 參數，值越小"
 "意味著 ETX 值的變化越慢。(允許值介於 0.01 和 1.0 之間)"
 
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/frontend/olsrd.js:191
@@ -530,11 +530,11 @@ msgid ""
 "calculation<br /><b>etx_ffeth</b>: incompatible variant of etx_ff that "
 "allows ethernet links with ETX 0.1.<br />Defaults to \"etx_ff\""
 msgstr ""
-"連結品質演算法 (僅適用於 lq 級別 2)。<br /><b>etx_float</b>: 浮點數 ETX，按指"
+"連結品質演算法 (僅適用於 lq 等級 2)。<br /><b>etx_float</b>: 浮點數 ETX，按指"
 "數函式老化<br /><b>etx_fpm</b>: 與 etx_float 相同，但按整數算術 <br /"
 "><b>etx_ff</b>: ETX freifunk，一種使用所有 OLSR 流量 (而不僅僅是 hello) 進行 "
-"ETX 計算的 etx 變體 <br /><b>etx_ffeth</b>: 不相容的變體 etx_ff，允許乙太網連"
-"結使用 ETX 0.1。<br />預設為 \"etx_ff\""
+"ETX 計算的 etx 變體 <br /><b>etx_ffeth</b>: 不相容的變體 etx_ff，允許乙太網路"
+"連結使用 ETX 0.1。<br />預設為 \"etx_ff\""
 
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/frontend/olsrd.js:170
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/frontend/olsrd6.js:164
@@ -543,7 +543,7 @@ msgid ""
 "routing.<br /><b>0</b> = do not use link quality<br /><b>2</b> = use link "
 "quality for MPR selection and routing<br />Default is \"2\""
 msgstr ""
-"在 hopcount 和基於代價 (主要是 ETX) 路由之間切換連結品質級別。<br /><b>0</b> "
+"在 hopcount 和基於代價 (主要是 ETX) 路由之間切換連結品質等級。<br /><b>0</b> "
 "= 不使用連結品質<br /><b>2</b> = 使用連結品質進行 MPR 選擇和路由<br />預設為"
 "\"2\""
 
@@ -592,12 +592,12 @@ msgid ""
 "Make sure that OLSRd is running, the \"jsoninfo\" plugin is loaded, "
 "configured on port 9090, and accepts connections from \"127.0.0.1\"."
 msgstr ""
-"請確保 OLSRd 正在執行、\"jsoninfo\" 外掛已載入、配置於連接埠 9090 並且接受來"
-"自 \"127.0.0.1\" 的連線。"
+"請確保 OLSRd 執行中、\"jsoninfo\" 外掛已載入、配置於連接埠 9090 並且接受來自 "
+"\"127.0.0.1\" 的連線。"
 
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/status-olsr/routes.js:93
 msgid "Metric"
-msgstr "計量"
+msgstr "指標"
 
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/frontend/olsrd.js:286
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/frontend/olsrd.js:514
@@ -616,7 +616,7 @@ msgid ""
 ">reduce LQ to 192.168.0.1 by half: 192.168.0.1 0.5<br />reduce LQ to all "
 "nodes on this interface by 20%: default 0.8"
 msgstr ""
-"使用此處給出的因子放大路由 LQ。允許值介於 0.01 和 1.0 之間。它僅在 LQ-Level "
+"使用這裡給出的因子放大路由 LQ。允許值介於 0.01 和 1.0 之間。它僅在 LQ-Level "
 "大於 0 時使用。範例: <br />將到 192.168.0.1 的 LQ 減半: 192.168.0.1 0.5 <br /"
 ">將此介面到所有節點的 LQ 減少 20%: default 0.8"
 
@@ -628,7 +628,7 @@ msgid ""
 ">reduce LQ to fd91:662e:3c58::1 by half: fd91:662e:3c58::1 0.5<br />reduce "
 "LQ to all nodes on this interface by 20%: default 0.8"
 msgstr ""
-"使用此處給出的因子放大路由 LQ。允許值介於 0.01 和 1.0 之間。它僅在 LQ-Level "
+"使用這裡給出的因子放大路由 LQ。允許值介於 0.01 和 1.0 之間。它僅在 LQ-Level "
 "大於 0 時使用。範例: <br />將到 fd91:662e:3c58::1 的 LQ 減半: "
 "fd91:662e:3c58::1 0.5<br />將此介面到所有節點的 LQ 減少 20%: default 0.8"
 
@@ -705,12 +705,12 @@ msgstr "OLSR - 外掛"
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/frontend/olsrd6.js:35
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/status-olsr/error_olsr.js:8
 msgid "OLSR Daemon"
-msgstr "OLSR 守護程序"
+msgstr "OLSR 守護程式"
 
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/frontend/olsrdiface.js:16
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/frontend/olsrdiface6.js:16
 msgid "OLSR Daemon - Interface"
-msgstr "OLSR 守護程序 - 介面"
+msgstr "OLSR 守護程式 - 介面"
 
 #: applications/luci-app-olsr/root/usr/share/luci/menu.d/luci-app-olsr-backend.json:3
 msgid "OLSR IPv4"
@@ -761,7 +761,7 @@ msgstr "當前已知到其他 OLSR 節點的路由概覽"
 
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/status-olsr/interfaces.js:86
 msgid "Overview of interfaces where OLSR is running"
-msgstr "OLSR 正在執行的介面概覽"
+msgstr "OLSR 執行中介面概覽"
 
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/status-olsr/mid.js:77
 msgid "Overview of known multiple interface announcements"
@@ -908,7 +908,7 @@ msgstr "狀態"
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/status-olsr/routes.js:215
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/status-olsr/topology.js:110
 msgid "Still usable (20 > SNR > 5)"
-msgstr "仍可用 (20 > SNR > 5)"
+msgstr "仍然可用 (20 > SNR > 5)"
 
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/status-olsr/neighbors.js:431
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/status-olsr/routes.js:206
@@ -1082,7 +1082,7 @@ msgid ""
 "instead."
 msgstr ""
 "當主機之間存在多個連結時，介面權重用於確定要使用的連結。通常，權重由 olsrd 根"
-"據介面特性自動計算，但您可以在此處指定固定值。Olsrd 將選擇值最低的連結。<br /"
+"據介面特性自動計算，但您可以在這裡指定固定值。Olsrd 將選擇值最低的連結。<br /"
 "><b>注意: </b>僅當 LinkQualityLevel 設定為 0 時才使用介面權重。"
 "LinkQualityLevel 的任何其他值都將使用介面的 ETX 值。"
 
@@ -1125,7 +1125,7 @@ msgstr "未連線"
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/status-olsr/smartgw.js:92
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/status-olsr/smartgw.js:176
 msgid "infinite"
-msgstr ""
+msgstr "無限"
 
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/status-olsr/interfaces.js:76
 #: applications/luci-app-olsr/htdocs/luci-static/resources/view/olsr/status-olsr/smartgw.js:91

@@ -12,7 +12,12 @@
 					"getInitList",
 					"getInitStatus",
 					"getCronStatus",
-					"getPlatformSupport"
+					"getCronEntry",
+					"getPlatformSupport",
+					"getQueryLogStatus"
+				],
+				"log": [
+					"read"
 				],
 				"service": [
 					"list"
@@ -21,17 +26,24 @@
 			"uci": [
 				"adblock-fast",
 				"dhcp",
-				"smartdns"
+				"smartdns",
+				"unbound"
 			]
 		},
 		"write": {
 			"uci": [
-				"adblock-fast"
+				"adblock-fast",
+				"dhcp",
+				"smartdns",
+				"unbound"
 			],
 			"ubus": {
 				"luci.adblock-fast": [
 					"syncCron",
-					"setInitAction"
+					"setCronEntry",
+					"setInitAction",
+					"setRpcdToken",
+					"setQueryLog"
 				]
 			}
 		}

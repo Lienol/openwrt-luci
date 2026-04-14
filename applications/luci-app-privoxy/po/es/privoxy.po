@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2025-09-21 06:29+0000\n"
-"Last-Translator: Salvador Peña <salvadorp74@hotmail.com>\n"
+"PO-Revision-Date: 2026-03-30 03:54+0000\n"
+"Last-Translator: Franco Castillo <castillofrancodamian@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/openwrt/"
 "luciapplicationsprivoxy/es/>\n"
 "Language: es\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: applications/luci-app-privoxy/htdocs/luci-static/resources/view/privoxy/privoxy.js:90
 msgid ""
@@ -53,8 +53,8 @@ msgid ""
 "An alternative directory where the templates are loaded from.<br />No "
 "trailing \"/\", please."
 msgstr ""
-"Un directorio alternativo desde donde se cargan las plantillas.<br />Sin \"/"
-"\" final, por favor."
+"Un directorio alternativo desde donde se cargan las plantillas.<br />Sin «/» "
+"final, por favor."
 
 #: applications/luci-app-privoxy/htdocs/luci-static/resources/view/privoxy/privoxy.js:230
 msgid ""
@@ -102,7 +102,7 @@ msgstr "Compartir conexión"
 
 #: applications/luci-app-privoxy/htdocs/luci-static/resources/view/privoxy/privoxy.js:266
 msgid "Debug"
-msgstr "Depurar"
+msgstr "Depuración"
 
 #: applications/luci-app-privoxy/htdocs/luci-static/resources/view/privoxy/privoxy.js:273
 msgid "Debug 1"
@@ -303,7 +303,7 @@ msgid ""
 "If enabled, Privoxy hides the \"go there anyway\" link. The user obviously "
 "should not be able to bypass any blocks."
 msgstr ""
-"Si está activado, Privoxy oculta el enlace \"Ir allí de todos modos\". "
+"Si está activado, Privoxy oculta el enlace «Ir allí de todos modos». "
 "Obviamente, el usuario no debería poder evitar ningún bloqueo."
 
 #: applications/luci-app-privoxy/htdocs/luci-static/resources/view/privoxy/privoxy.js:31
@@ -539,7 +539,7 @@ msgid ""
 "located).<br />No trailing \"/\", please."
 msgstr ""
 "El directorio donde se realiza todo el registro (es decir, donde se "
-"encuentra el archivo de registro).<br />Sin \"/\" final, por favor."
+"encuentra el archivo de registro).<br />Sin «/» final, por favor."
 
 #: applications/luci-app-privoxy/htdocs/luci-static/resources/view/privoxy/privoxy.js:78
 msgid "The directory where the other configuration files are located."

@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-02-20 02:02+0000\n"
+"PO-Revision-Date: 2026-04-04 03:09+0000\n"
 "Last-Translator: Franco Castillo <castillofrancodamian@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/openwrt/"
 "luciapplicationslldpd/es/>\n"
@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16.1-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/config.js:372
 msgid "1A"
@@ -108,7 +108,7 @@ msgstr "Dirección cívica"
 
 #: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/status.js:46
 #: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/status.js:65
-#: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/status.js:613
+#: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/status.js:614
 msgid "Collecting data..."
 msgstr "Recopilando datos..."
 
@@ -170,7 +170,7 @@ msgstr ""
 
 #: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/config.js:637
 msgid "Disable LLDP-MED inventory TLV transmission"
-msgstr "Deshabilitar transmisión TLV del inventario LLDP-MED"
+msgstr "Desactivar transmisión TLV del inventario LLDP-MED"
 
 #: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/config.js:646
 msgid "Disable advertising of kernel release, version and machine"
@@ -180,7 +180,7 @@ msgstr "Desactivar anuncios de liberación del núcleo, versión y máquina"
 msgid "Disabled"
 msgstr "Desactivado"
 
-#: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/status.js:619
+#: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/status.js:620
 msgid "Discovered Neighbors"
 msgstr "Vecinos descubiertos"
 
@@ -336,7 +336,7 @@ msgstr "Número de inserciones"
 msgid "Interface MAC address"
 msgstr "Dirección MAC de interfaz"
 
-#: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/status.js:620
+#: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/status.js:621
 msgid "Interface Statistics"
 msgstr "Estadísticas de Interfaz"
 
@@ -362,7 +362,7 @@ msgstr ""
 msgid "LLDP"
 msgstr "LLDP"
 
-#: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/status.js:603
+#: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/status.js:604
 msgid "LLDP Status"
 msgstr "Estado del LLDP"
 
@@ -400,7 +400,7 @@ msgid ""
 "TLV but will not send them. Use this option if you do not want to transmit "
 "sensitive information like serial numbers."
 msgstr ""
-"LLDPd continuará recibiendo (y publicando si SNMP está habilitado) esos TLV "
+"LLDPd continuará recibiendo (y publicando si SNMP está activado) esos TLV "
 "LLDP-MED, pero no los enviará. Utilice esta opción si no desea transmitir "
 "información confidencial como números de serie."
 
@@ -414,7 +414,7 @@ msgstr ""
 msgid "Latitude"
 msgstr "Latitud"
 
-#: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/status.js:608
+#: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/status.js:609
 msgid "Local Chassis"
 msgstr "Bastidor local"
 
@@ -453,7 +453,7 @@ msgstr "Punto final de medios (Clase II)"
 
 #: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/config.js:475
 msgid "Must be a greater than zero number optionally suffixed with \"ms\""
-msgstr "Debe ser un número mayor que 0, opcionalmente con el sufijo \"ms\""
+msgstr "Debe ser un número mayor que 0, opcionalmente con el sufijo «ms»"
 
 #: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/config.js:494
 msgid "Must be a number"
@@ -493,9 +493,9 @@ msgstr "Interfaz(ces) de red"
 msgid "Network Interfaces"
 msgstr "Interfaces de red"
 
-#: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/status.js:562
-#: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/status.js:592
-#: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/status.js:596
+#: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/status.js:563
+#: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/status.js:593
+#: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/status.js:597
 msgid "No data to display"
 msgstr "Sin datos para mostrar"
 
@@ -724,7 +724,7 @@ msgstr ""
 "El retraso entre transmisiones de LLDP PDU. El valor predeterminado es 30 "
 "segundos."
 
-#: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/status.js:604
+#: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/status.js:605
 msgid ""
 "This page allows you to see discovered LLDP neighbors, local interfaces "
 "statistics and local chassis information."
@@ -770,9 +770,9 @@ msgid ""
 "When set, LLDPd enables an SNMP subagent using AgentX protocol. This enables "
 "information about other systems through SNMP."
 msgstr ""
-"Cuando se configura, LLDPd habilita un subagente SNMP utilizando el "
-"protocolo AgentX. Esto permite obtener información sobre otros sistemas a "
-"través de SNMP."
+"Cuando se configura, LLDPd activa un subagente SNMP utilizando el protocolo "
+"AgentX. Esto permite obtener información sobre otros sistemas a través de "
+"SNMP."
 
 #: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/config.js:663
 msgid ""
@@ -788,7 +788,7 @@ msgstr "añadir"
 
 #: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/config.js:927
 msgid "default"
-msgstr "predeterminado"
+msgstr "por defecto"
 
 #: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/status.js:287
 msgid "disabled"
@@ -796,7 +796,7 @@ msgstr "Desactivado"
 
 #: applications/luci-app-lldpd/htdocs/luci-static/resources/lldpd.js:46
 msgid "enable filter"
-msgstr "habilitar filtro"
+msgstr "activar filtro"
 
 #: applications/luci-app-lldpd/htdocs/luci-static/resources/view/lldpd/status.js:287
 msgid "enabled"

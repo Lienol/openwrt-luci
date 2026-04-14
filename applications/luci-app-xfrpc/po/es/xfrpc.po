@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2025-06-20 21:42+0000\n"
+"PO-Revision-Date: 2026-04-04 03:09+0000\n"
 "Last-Translator: Franco Castillo <castillofrancodamian@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/openwrt/"
 "luciapplicationsxfrpc/es/>\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: applications/luci-app-xfrpc/htdocs/luci-static/resources/view/xfrpc.js:104
 msgid "Alert"
@@ -22,15 +22,15 @@ msgstr "Por defecto, este valor es \"\"."
 
 #: applications/luci-app-xfrpc/htdocs/luci-static/resources/view/xfrpc.js:71
 msgid "By default, this value is \"0.0.0.0\"."
-msgstr "Por defecto, este valor es \"0.0.0.0\"."
+msgstr "Por defecto, este valor es «0.0.0.0»."
 
 #: applications/luci-app-xfrpc/htdocs/luci-static/resources/view/xfrpc.js:97
 msgid "By default, this value is \"Info\"."
-msgstr "Por defecto, este valor es \"Info\"."
+msgstr "Por defecto, este valor es «Info»."
 
 #: applications/luci-app-xfrpc/htdocs/luci-static/resources/view/xfrpc.js:129
 msgid "By default, this value is \"tcp\"."
-msgstr "Por defecto, este valor es \"tcp\"."
+msgstr "Por defecto, este valor es «tcp»."
 
 #: applications/luci-app-xfrpc/htdocs/luci-static/resources/view/xfrpc.js:76
 msgid "By default, this value is 7000."
@@ -54,11 +54,11 @@ msgstr "Dominios personalizados"
 
 #: applications/luci-app-xfrpc/htdocs/luci-static/resources/view/xfrpc.js:98
 msgid "Debug"
-msgstr "Depurar"
+msgstr "Depuración"
 
 #: applications/luci-app-xfrpc/htdocs/luci-static/resources/view/xfrpc.js:90
 msgid "Disabled xfrpc service"
-msgstr "Servicio xfrpc deshabilitado"
+msgstr "Servicio xfrpc desactivado"
 
 #: applications/luci-app-xfrpc/htdocs/luci-static/resources/view/xfrpc.js:105
 msgid "Emergency"
@@ -86,7 +86,7 @@ msgstr "Si el puerto remoto es 0, frps te asignará un puerto"
 
 #: applications/luci-app-xfrpc/htdocs/luci-static/resources/view/xfrpc.js:99
 msgid "Info"
-msgstr "Info"
+msgstr "Informe"
 
 #: applications/luci-app-xfrpc/htdocs/luci-static/resources/view/xfrpc.js:124
 #: applications/luci-app-xfrpc/htdocs/luci-static/resources/view/xfrpc.js:135
@@ -119,8 +119,8 @@ msgid ""
 "\"Emergency\"."
 msgstr ""
 "LogLevel especifica el nivel de registro mínimo. Los valores válidos son "
-"\"Depuración\", \"Información\", \"Aviso\", \"Advertencia\", \"Error\", "
-"\"Crítico\", \"Alerta\" y \"Emergencia\"."
+"«Depuración», «Información», «Aviso», «Advertencia», «Error», «Crítico», "
+"«Alerta» y «Emergencia»."
 
 #: applications/luci-app-xfrpc/htdocs/luci-static/resources/view/xfrpc.js:32
 msgid "NOT RUNNING"
@@ -128,7 +128,7 @@ msgstr "NO EN EJECUCIÓN"
 
 #: applications/luci-app-xfrpc/htdocs/luci-static/resources/view/xfrpc.js:114
 msgid "Name can not be \"common\""
-msgstr "El nombre no puede ser \"común\""
+msgstr "El nombre no debe ser «común»"
 
 #: applications/luci-app-xfrpc/htdocs/luci-static/resources/view/xfrpc.js:100
 msgid "Notice"
@@ -149,7 +149,7 @@ msgid ""
 "\"http\", \"https\"."
 msgstr ""
 "ProxyType especifica el tipo de este proxy. Los valores válidos incluyen "
-"\"tcp\", \"http\", \"https\"."
+"«tcp», «http», «https»."
 
 #: applications/luci-app-xfrpc/htdocs/luci-static/resources/view/xfrpc.js:30
 msgid "RUNNING"
@@ -207,7 +207,7 @@ msgstr ""
 
 #: applications/luci-app-xfrpc/htdocs/luci-static/resources/view/xfrpc.js:101
 msgid "Warning"
-msgstr "Advertencia"
+msgstr "Aviso"
 
 #: applications/luci-app-xfrpc/htdocs/luci-static/resources/view/xfrpc.js:30
 #: applications/luci-app-xfrpc/htdocs/luci-static/resources/view/xfrpc.js:32

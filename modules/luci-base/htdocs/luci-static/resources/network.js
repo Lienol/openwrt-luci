@@ -354,7 +354,6 @@ function initNetworkState(refresh) {
 	if (_state == null || refresh) {
 		const hasWifi = L.hasSystemFeature('wifi');
 
-		if (refresh) _state = null;
 		if (refresh || !_init) {
 			_init = Promise.all([
 			L.resolveDefault(callNetworkInterfaceDump(), []),
@@ -537,6 +536,9 @@ function initNetworkState(refresh) {
 		} // end if (refresh || !_init)
 
 	}
+
+	if (refresh)
+		return _init;
 
 	return (_state != null ? Promise.resolve(_state) : _init);
 }
@@ -2320,21 +2322,21 @@ Protocol = baseclass.extend(/** @lends LuCI.network.Protocol.prototype */ {
 	 */
 	getIP6Addrs() {
 		let addrs = this._ubus('ipv6-address');
-		const rv = [];
+		const rv = new Set();
 
 		if (Array.isArray(addrs))
 			for (let a of addrs)
 				if (L.isObject(a))
-					rv.push('%s/%d'.format(a.address, a.mask));
+					rv.add('%s/%d'.format(a.address, a.mask));
 
 		addrs = this._ubus('ipv6-prefix-assignment');
 
 		if (Array.isArray(addrs))
 			for (let a of addrs)
 				if (L.isObject(a) && L.isObject(a['local-address']))
-					rv.push('%s/%d'.format(a['local-address'].address, a['local-address'].mask));
+					rv.add('%s/%d'.format(a['local-address'].address, a['local-address'].mask));
 
-		return rv;
+		return Array.from(rv);
 	},
 
 	/**

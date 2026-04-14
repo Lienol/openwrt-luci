@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2026-02-07 16:10+0000\n"
-"Last-Translator: EESF-2 <eesf-2@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-04-06 20:00+0000\n"
+"Last-Translator: UDP <udp@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/openwrt/luciapplicationseoip/zh_Hant/>\n"
 "Language: zh_Hant\n"
@@ -10,15 +10,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: applications/luci-app-eoip/htdocs/luci-static/resources/view/eoip/eoip.js:38
 msgid "Destination"
-msgstr "目的位址"
+msgstr "目的地"
 
 #: applications/luci-app-eoip/htdocs/luci-static/resources/view/eoip/eoip.js:38
 msgid "Destination IP address for connection EoIP."
-msgstr ""
+msgstr "連線 EoIP 的目的地 IP 位址。"
 
 #: applications/luci-app-eoip/htdocs/luci-static/resources/view/eoip/eoip.js:43
 msgid "Dynamic"
@@ -45,10 +45,12 @@ msgid ""
 "Here you can configure EoIP tunnel. At current moment it is easiest way to "
 "create stateless tunnel with Mikrotik."
 msgstr ""
+"您可以在這裡配置 EoIP 隧道。這是當下和 Mikrotik 裝置建立無狀態隧道最簡單的方"
+"式。"
 
 #: applications/luci-app-eoip/htdocs/luci-static/resources/view/eoip/eoip.js:33
 msgid "ID tunnel"
-msgstr ""
+msgstr "ID 隧道"
 
 #: applications/luci-app-eoip/htdocs/luci-static/resources/view/eoip/eoip.js:18
 msgid "If you input 0 interface name zeoip0"
@@ -83,4 +85,4 @@ msgstr "VLAN"
 
 #: applications/luci-app-eoip/htdocs/luci-static/resources/view/eoip/eoip.js:45
 msgid "VLAN TAG on this interface"
-msgstr ""
+msgstr "此介面上的 VLAN 標籤"

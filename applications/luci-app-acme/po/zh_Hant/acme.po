@@ -1,19 +1,19 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-02-20 00:35+0000\n"
-"Last-Translator: EESF-2 <eesf-2@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-04-08 22:10+0000\n"
+"Last-Translator: UDP <udp@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/openwrt/luciapplicationsacme/zh_Hant/>\n"
 "Language: zh_Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 5.16.1-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: applications/luci-app-acme/htdocs/luci-static/resources/view/acme/acme.js:227
 #: applications/luci-app-acme/htdocs/luci-static/resources/view/acme/acme.js:235
 msgid "%s for the details of this process."
-msgstr ""
+msgstr "有關此行程的詳細資訊，請參閱 %s。"
 
 #: applications/luci-app-acme/htdocs/luci-static/resources/view/acme/acme.js:218
 msgid "%s for the format of credentials required by each API."
@@ -25,7 +25,7 @@ msgstr ""
 
 #: applications/luci-app-acme/htdocs/luci-static/resources/view/acme/logread.js:4
 msgid "ACME Log"
-msgstr "ACME 日誌"
+msgstr "ACME 紀錄"
 
 #: applications/luci-app-acme/htdocs/luci-static/resources/view/acme/acme.js:40
 #: applications/luci-app-acme/root/usr/share/luci/menu.d/luci-app-acme.json:3
@@ -64,7 +64,7 @@ msgstr "取消"
 
 #: applications/luci-app-acme/htdocs/luci-static/resources/view/acme/acme.js:48
 msgid "Cert files are stored in"
-msgstr "憑證儲存位置"
+msgstr "憑證檔案儲存在"
 
 #: applications/luci-app-acme/htdocs/luci-static/resources/view/acme/acme.js:306
 msgid "Certificate Profile"
@@ -154,7 +154,7 @@ msgstr "與帳號金鑰關聯的電子郵件位址。"
 
 #: applications/luci-app-acme/htdocs/luci-static/resources/view/acme/acme.js:62
 msgid "Enable debug logging"
-msgstr "啟用偵錯日誌"
+msgstr "啟用除錯紀錄"
 
 #: applications/luci-app-acme/htdocs/luci-static/resources/view/acme/acme.js:86
 msgid "Enabled"
@@ -162,7 +162,7 @@ msgstr "已啟用"
 
 #: applications/luci-app-acme/htdocs/luci-static/resources/view/acme/acme.js:68
 msgid "Found DDNS domains"
-msgstr ""
+msgstr "已找到 DDNS 網域"
 
 #: applications/luci-app-acme/htdocs/luci-static/resources/view/acme/acme.js:81
 msgid "General Settings"
@@ -172,7 +172,7 @@ msgstr "一般設定"
 msgid ""
 "Get certificate from the Letsencrypt staging server (use for testing; the "
 "certificate won't be valid)."
-msgstr "從 Let's Encrypt 臨時伺服器取得憑證 (僅供測試用途，憑證無效) 。"
+msgstr "從 Let's Encrypt 臨時伺服器取得憑證 (僅供測試用途，憑證不會有效) 。"
 
 #: applications/luci-app-acme/root/usr/share/rpcd/acl.d/luci-app-acme.json:3
 msgid "Grant UCI access for luci-app-acme"
@@ -198,7 +198,7 @@ msgstr "安裝套件 %s"
 
 #: applications/luci-app-acme/htdocs/luci-static/resources/view/acme/acme.js:142
 msgid "Invalid domain. Allowed lowercase a-z, numbers and hyphen -"
-msgstr ""
+msgstr "無效網域。允許小寫 a-z、數字和連字號 -"
 
 #: applications/luci-app-acme/htdocs/luci-static/resources/view/acme/acme.js:527
 msgid "Issued on"
@@ -232,7 +232,7 @@ msgstr "監聽連接埠"
 
 #: applications/luci-app-acme/root/usr/share/luci/menu.d/luci-app-acme.json:22
 msgid "Log View"
-msgstr "日誌檢視"
+msgstr "紀錄檢視"
 
 #: applications/luci-app-acme/htdocs/luci-static/resources/view/acme/acme.js:524
 msgid "Main Domain"
@@ -262,7 +262,7 @@ msgstr "要監聽 ACME challenge 請求的連接埠。此連接埠會在認證�
 
 #: applications/luci-app-acme/htdocs/luci-static/resources/view/acme/acme.js:525
 msgid "Private Key"
-msgstr "私有金鑰"
+msgstr "私鑰"
 
 #: applications/luci-app-acme/htdocs/luci-static/resources/view/acme/acme.js:526
 msgid "Public Certificate"
@@ -321,7 +321,7 @@ msgstr ""
 
 #: applications/luci-app-acme/htdocs/luci-static/resources/view/acme/acme.js:226
 msgid "The challenge alias to use for ALL domains."
-msgstr ""
+msgstr "所有網域要使用的 challenge 別名。"
 
 #: applications/luci-app-acme/htdocs/luci-static/resources/view/acme/acme.js:217
 msgid "The credentials for the DNS API mode selected above."
@@ -335,7 +335,7 @@ msgstr ""
 
 #: applications/luci-app-acme/htdocs/luci-static/resources/view/acme/acme.js:234
 msgid "The domain alias to use for ALL domains."
-msgstr ""
+msgstr "所有網域要使用的網域別名。"
 
 #: applications/luci-app-acme/htdocs/luci-static/resources/view/acme/acme.js:41
 msgid ""
@@ -356,7 +356,7 @@ msgstr ""
 
 #: applications/luci-app-acme/htdocs/luci-static/resources/view/acme/acme.js:282
 msgid "Use a custom CA instead of Let's Encrypt."
-msgstr "使用自訂 CA 憑證代替 Let's Encrypt。"
+msgstr "使用自訂 CA 代替 Let's Encrypt。"
 
 #: applications/luci-app-acme/htdocs/luci-static/resources/view/acme/acme.js:290
 msgid "Use staging server"

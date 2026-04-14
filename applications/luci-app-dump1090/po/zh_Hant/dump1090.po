@@ -1,14 +1,14 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-02-16 21:43+0000\n"
-"Last-Translator: EESF-2 <eesf-2@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2026-04-06 20:00+0000\n"
+"Last-Translator: UDP <udp@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Chinese (Traditional Han script) <https://hosted.weblate.org/"
 "projects/openwrt/luciapplicationsdump1090/zh_Hant/>\n"
 "Language: zh_Hant\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.16\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: applications/luci-app-dump1090/htdocs/luci-static/resources/view/dump1090/dump1090.js:117
 msgid "Absolute maximum range for position decoding"
@@ -44,7 +44,7 @@ msgstr "資料檔案"
 
 #: applications/luci-app-dump1090/htdocs/luci-static/resources/view/dump1090/dump1090.js:149
 msgid "Debug mode flags"
-msgstr "偵錯模式旗標"
+msgstr "除錯模式旗標"
 
 #: applications/luci-app-dump1090/htdocs/luci-static/resources/view/dump1090/dump1090.js:40
 #: applications/luci-app-dump1090/htdocs/luci-static/resources/view/dump1090/dump1090.js:171
@@ -248,4 +248,4 @@ msgstr "dump1090"
 msgid ""
 "dump1090 is a Mode S decoder specifically designed for RTLSDR devices. Here "
 "you can configure the settings."
-msgstr "dump1090 是專為 RTLSDR 裝置設計的 S 模式解碼器，您可以在此處設定配置。"
+msgstr "dump1090 是專為 RTLSDR 裝置設計的 S 模式解碼器，您可以在這裡設定配置。"

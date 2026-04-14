@@ -8,24 +8,164 @@
 "require view";
 "require ui";
 "require adblock-fast.status as adb";
+/* globals adb */
 
 var pkg = adb.pkg;
 
 return view.extend({
+	// Helper function to parse cron entry into config values
+	parseCronEntry: function (cronEntry) {
+		var defaults = {
+			auto_update_enabled: "0",
+			auto_update_mode: "daily",
+			auto_update_hour: "4",
+			auto_update_minute: "0",
+			auto_update_weekday: "0",
+			auto_update_monthday: "1",
+			auto_update_every_ndays: "3",
+			auto_update_every_nhours: "6",
+		};
+
+		if (!cronEntry || cronEntry.trim() === "") {
+			return defaults;
+		}
+
+		var commented = cronEntry.trim().startsWith("#");
+		var parts = cronEntry.replace(/^#\s*/, "").trim().split(/\s+/);
+		if (parts.length < 6) {
+			return defaults;
+		}
+
+		var minute = parts[0];
+		var hour = parts[1];
+		var dom = parts[2];
+		var month = parts[3];
+		var dow = parts[4];
+
+		var isNumber = function (val) {
+			return /^[0-9]+$/.test(val);
+		};
+		var isStep = function (val) {
+			return /^\*\/[0-9]+$/.test(val);
+		};
+
+		if (month !== "*" || !isNumber(minute)) {
+			return defaults;
+		}
+
+		var config = Object.assign({}, defaults, {
+			auto_update_enabled: commented ? "0" : "1",
+			auto_update_minute: minute,
+		});
+
+		if (isStep(hour)) {
+			if (dom !== "*" || dow !== "*") {
+				return defaults;
+			}
+			config.auto_update_mode = "every_n_hours";
+			config.auto_update_every_nhours = hour.split("/")[1];
+			return config;
+		}
+
+		if (!isNumber(hour)) {
+			return defaults;
+		}
+
+		if (isStep(dom)) {
+			if (dow !== "*") {
+				return defaults;
+			}
+			config.auto_update_mode = "every_n_days";
+			config.auto_update_hour = hour;
+			config.auto_update_every_ndays = dom.split("/")[1];
+			return config;
+		}
+
+		if (dom !== "*") {
+			if (!isNumber(dom) || dow !== "*") {
+				return defaults;
+			}
+			config.auto_update_mode = "monthly";
+			config.auto_update_hour = hour;
+			config.auto_update_monthday = dom;
+			return config;
+		}
+
+		if (dow !== "*") {
+			if (!isNumber(dow)) {
+				return defaults;
+			}
+			config.auto_update_mode = "weekly";
+			config.auto_update_hour = hour;
+			config.auto_update_weekday = dow;
+			return config;
+		}
+
+		config.auto_update_mode = "daily";
+		config.auto_update_hour = hour;
+		return config;
+	},
+
+	// Helper function to generate cron entry from config values
+	generateCronEntry: function (config) {
+		if (config.auto_update_enabled !== "1") {
+			return "";
+		}
+
+		var minute = config.auto_update_minute || "0";
+		var hour,
+			dom = "*",
+			dow = "*";
+
+		switch (config.auto_update_mode) {
+			case "every_n_hours":
+				hour = "*/" + (config.auto_update_every_nhours || "6");
+				break;
+			case "every_n_days":
+				hour = config.auto_update_hour || "4";
+				dom = "*/" + (config.auto_update_every_ndays || "3");
+				break;
+			case "monthly":
+				hour = config.auto_update_hour || "4";
+				dom = config.auto_update_monthday || "1";
+				break;
+			case "weekly":
+				hour = config.auto_update_hour || "4";
+				dow = config.auto_update_weekday || "0";
+				break;
+			default: // daily
+				hour = config.auto_update_hour || "4";
+				break;
+		}
+
+		return (
+			minute +
+			" " +
+			hour +
+			" " +
+			dom +
+			" * " +
+			dow +
+			" /etc/init.d/adblock-fast dl # adblock-fast-auto"
+		);
+	},
+
 	load: function () {
 		return Promise.all([
-			L.resolveDefault(adb.getFileUrlFilesizes(pkg.Name), {}),
-			L.resolveDefault(adb.getPlatformSupport(pkg.Name), {}),
+			L.resolveDefault(adb.getInitStatus(pkg.Name), {}),
+			L.resolveDefault(adb.getCronStatus(pkg.Name), {}),
 			L.resolveDefault(L.uci.load(pkg.Name), {}),
 			L.resolveDefault(L.uci.load("dhcp"), {}),
 			L.resolveDefault(L.uci.load("smartdns"), {}),
+			L.resolveDefault(adb.getQueryLogStatus(pkg.Name), {}),
 		]);
 	},
 
 	render: function (data) {
+		var initData = (data[0] && data[0][pkg.Name]) || {};
 		var reply = {
-			sizes: (data[0] && data[0][pkg.Name] && data[0][pkg.Name]["sizes"]) || [],
-			platform: (data[1] && data[1][pkg.Name]) || {
+			sizes: initData.file_url || [],
+			platform: initData.platform || {
 				ipset_installed: false,
 				nft_installed: false,
 				dnsmasq_installed: false,
@@ -37,18 +177,45 @@ return view.extend({
 				unbound_installed: false,
 				leds: [],
 			},
+			cronEntry:
+				(data[1] && data[1][pkg.Name] && data[1][pkg.Name]["entry"]) || "",
+			cronStatus: (data[1] && data[1][pkg.Name]) || {},
 			pkg: (!pkg.isObjEmpty(data[2]) && data[2]) || null,
 			dhcp: (!pkg.isObjEmpty(data[3]) && data[3]) || null,
 			smartdns: (!pkg.isObjEmpty(data[4]) && data[4]) || null,
 		};
+
+		// Parse cron entry into virtual config values
+		var cronConfig = this.parseCronEntry(reply.cronEntry);
+
+		var queryLogData =
+			(data[5] && data[5][pkg.Name]) || {};
+
 		var status, m, s1, s2, s3, o;
 
 		status = new adb.status();
+
+		if (!initData.enabled) {
+			return status.render().then(function (statusNode) {
+				return E("div", {}, [
+					statusNode,
+					E("div", { class: "cbi-map" }, [
+						E("h2", {}, _("AdBlock-Fast - Configuration")),
+						E("div", { class: "cbi-map-descr" },
+							_("Service is disabled. Please enable the service using the Service Control button above to configure service options.")),
+					]),
+				]);
+			});
+		}
+
 		m = new form.Map(pkg.Name, _("AdBlock-Fast - Configuration"));
+		this._map = m;
 
 		s1 = m.section(form.NamedSection, "config", pkg.Name);
 		s1.tab("tab_basic", _("Basic Configuration"));
 		s1.tab("tab_advanced", _("Advanced Configuration"));
+		s1.tab("tab_schedule", _("List Updates Schedule"));
+		s1.tab("tab_log", _("DNS Query Log"));
 
 		var text = _(
 			"DNS resolution option, see the %sREADME%s for details.",
@@ -208,7 +375,9 @@ return view.extend({
 				} else return "*";
 			};
 			o.write = function (section_id, formvalue) {
-				L.uci.set(pkg.Name, section_id, "dnsmasq_instance", formvalue);
+				if (formvalue !== "+") {
+					L.uci.set(pkg.Name, section_id, "dnsmasq_instance", [formvalue]);
+				}
 			};
 
 			o = s1.taboption(
@@ -271,7 +440,9 @@ return view.extend({
 				} else return "*";
 			};
 			o.write = function (section_id, formvalue) {
-				L.uci.set(pkg.Name, section_id, "smartdns_instance", formvalue);
+				if (formvalue !== "+") {
+					L.uci.set(pkg.Name, section_id, "smartdns_instance", [formvalue]);
+				}
 			};
 
 			o = s1.taboption(
@@ -340,18 +511,7 @@ return view.extend({
 		}
 
 		o = s1.taboption(
-			"tab_advanced",
-			form.ListValue,
-			"config_update_enabled",
-			_("Automatic Config Update"),
-			_("Perform config update before downloading the block/allow-lists."),
-		);
-		o.value("0", _("Disable"));
-		o.value("1", _("Enable"));
-		o.default = "0";
-
-		o = s1.taboption(
-			"tab_advanced",
+			"tab_schedule",
 			form.ListValue,
 			"auto_update_enabled",
 			_("Automatic List Update"),
@@ -360,9 +520,13 @@ return view.extend({
 		o.value("0", _("Disable"));
 		o.value("1", _("Enable"));
 		o.default = "0";
+		// Override to use cron data instead of UCI
+		o.cfgvalue = function (section_id) {
+			return cronConfig.auto_update_enabled;
+		};
 
 		o = s1.taboption(
-			"tab_advanced",
+			"tab_schedule",
 			form.ListValue,
 			"auto_update_mode",
 			_("Schedule Type"),
@@ -375,42 +539,47 @@ return view.extend({
 		o.value("every_n_hours", _("Every N hours"));
 		o.default = "daily";
 		o.depends("auto_update_enabled", "1");
+		// Override to use cron data instead of UCI
+		o.cfgvalue = function (section_id) {
+			return cronConfig.auto_update_mode;
+		};
 
 		o = s1.taboption(
-			"tab_advanced",
+			"tab_schedule",
 			form.ListValue,
-			"auto_update_hour",
-			_("Update Hour"),
-			_("Hour of day to run the update (0-23)."),
+			"auto_update_every_ndays",
+			_("Every N days"),
+			_("Run once every N days."),
 		);
-		for (var i = 0; i < 24; i++) {
-			var hourLabel = i < 10 ? "0" + i : "" + i;
-			o.value(String(i), hourLabel);
+		for (let i = 1; i <= 31; i++) {
+			o.value(String(i), String(i));
 		}
-		o.default = "4";
-		o.depends({ auto_update_enabled: "1", auto_update_mode: "daily" });
-		o.depends({ auto_update_enabled: "1", auto_update_mode: "weekly" });
-		o.depends({ auto_update_enabled: "1", auto_update_mode: "monthly" });
+		o.default = "3";
 		o.depends({ auto_update_enabled: "1", auto_update_mode: "every_n_days" });
+		// Override to use cron data instead of UCI
+		o.cfgvalue = function (section_id) {
+			return cronConfig.auto_update_every_ndays;
+		};
 
 		o = s1.taboption(
-			"tab_advanced",
+			"tab_schedule",
 			form.ListValue,
-			"auto_update_minute",
-			_("Update Minute"),
-			_(
-				"Minute of hour to run the update (0-59). In 'Every N hours' mode, updates run at the selected minute within each interval.",
-			),
+			"auto_update_every_nhours",
+			_("Every N hours"),
+			_("Run once every N hours."),
 		);
-		for (var i = 0; i < 60; i++) {
-			var minuteLabel = i < 10 ? "0" + i : "" + i;
-			o.value(String(i), minuteLabel);
+		for (let i = 1; i <= 23; i++) {
+			o.value(String(i), String(i));
 		}
-		o.default = "0";
-		o.depends("auto_update_enabled", "1");
+		o.default = "6";
+		o.depends({ auto_update_enabled: "1", auto_update_mode: "every_n_hours" });
+		// Override to use cron data instead of UCI
+		o.cfgvalue = function (section_id) {
+			return cronConfig.auto_update_every_nhours;
+		};
 
 		o = s1.taboption(
-			"tab_advanced",
+			"tab_schedule",
 			form.ListValue,
 			"auto_update_weekday",
 			_("Day of Week"),
@@ -425,45 +594,79 @@ return view.extend({
 		o.value("6", _("Saturday"));
 		o.default = "0";
 		o.depends({ auto_update_enabled: "1", auto_update_mode: "weekly" });
+		// Override to use cron data instead of UCI
+		o.cfgvalue = function (section_id) {
+			return cronConfig.auto_update_weekday;
+		};
 
 		o = s1.taboption(
-			"tab_advanced",
+			"tab_schedule",
 			form.ListValue,
 			"auto_update_monthday",
 			_("Day of Month"),
 			_("Run on the selected day of month."),
 		);
-		for (var i = 1; i <= 31; i++) {
+		for (let i = 1; i <= 31; i++) {
 			o.value(String(i), String(i));
 		}
 		o.default = "1";
 		o.depends({ auto_update_enabled: "1", auto_update_mode: "monthly" });
+		// Override to use cron data instead of UCI
+		o.cfgvalue = function (section_id) {
+			return cronConfig.auto_update_monthday;
+		};
 
 		o = s1.taboption(
-			"tab_advanced",
+			"tab_schedule",
 			form.ListValue,
-			"auto_update_every_ndays",
-			_("Every N days"),
-			_("Run once every N days."),
+			"auto_update_hour",
+			_("Update Hour"),
+			_("Hour of day to run the update (0-23)."),
 		);
-		for (var i = 1; i <= 31; i++) {
-			o.value(String(i), String(i));
+		for (let i = 0; i < 24; i++) {
+			var hourLabel = i < 10 ? "0" + i : "" + i;
+			o.value(String(i), hourLabel);
 		}
-		o.default = "3";
+		o.default = "4";
+		o.depends({ auto_update_enabled: "1", auto_update_mode: "daily" });
+		o.depends({ auto_update_enabled: "1", auto_update_mode: "weekly" });
+		o.depends({ auto_update_enabled: "1", auto_update_mode: "monthly" });
 		o.depends({ auto_update_enabled: "1", auto_update_mode: "every_n_days" });
+		// Override to use cron data instead of UCI
+		o.cfgvalue = function (section_id) {
+			return cronConfig.auto_update_hour;
+		};
+
+		o = s1.taboption(
+			"tab_schedule",
+			form.ListValue,
+			"auto_update_minute",
+			_("Update Minute"),
+			_(
+				"Minute of hour to run the update (0-59). In 'Every N hours' mode, updates run at the selected minute within each interval.",
+			),
+		);
+		for (let i = 0; i < 60; i++) {
+			var minuteLabel = i < 10 ? "0" + i : "" + i;
+			o.value(String(i), minuteLabel);
+		}
+		o.default = "0";
+		o.depends("auto_update_enabled", "1");
+		// Override to use cron data instead of UCI
+		o.cfgvalue = function (section_id) {
+			return cronConfig.auto_update_minute;
+		};
 
 		o = s1.taboption(
 			"tab_advanced",
 			form.ListValue,
-			"auto_update_every_nhours",
-			_("Every N hours"),
-			_("Run once every N hours."),
+			"config_update_enabled",
+			_("Automatic Config Update"),
+			_("Perform config update before downloading the block/allow-lists."),
 		);
-		for (var i = 1; i <= 23; i++) {
-			o.value(String(i), String(i));
-		}
-		o.default = "6";
-		o.depends({ auto_update_enabled: "1", auto_update_mode: "every_n_hours" });
+		o.value("0", _("Disable"));
+		o.value("1", _("Enable"));
+		o.default = "0";
 
 		o = s1.taboption(
 			"tab_advanced",
@@ -489,6 +692,18 @@ return view.extend({
 		);
 		o.default = "20";
 		o.datatype = "range(1,60)";
+
+		o = s1.taboption(
+			"tab_advanced",
+			form.Value,
+			"pause_timeout",
+			_("Pause time-out (in seconds)"),
+			_(
+				"Pause ad-blocking for the specified number of seconds when the Pause button is pressed.",
+			),
+		);
+		o.default = "20";
+		o.datatype = "range(1,600)";
 
 		o = s1.taboption(
 			"tab_advanced",
@@ -593,6 +808,129 @@ return view.extend({
 		o.value("1", _("Enable Debugging"));
 		o.default = "0";
 
+		o = s1.taboption(
+			"tab_advanced",
+			form.Value,
+			"rpcd_token",
+			_("Remote Access Token"),
+			_(
+				"Token for <a href=\"" + pkg.URL + "#chrome-extension\" target=\"_blank\">Google Chrome extension</a> or other remote API access. " +
+				"Copy this value into the extension settings as the password. " +
+				"Changing it here will update the API user password on save.",
+			),
+		);
+		o.default = "";
+		o.rmempty = true;
+		o.write = function (section_id, formvalue) {
+			var currentValue = L.uci.get(pkg.Name, section_id, "rpcd_token");
+			if (formvalue && formvalue !== currentValue) {
+				RPC.setRpcdToken(pkg.Name, formvalue);
+			}
+			return L.uci.set(pkg.Name, section_id, "rpcd_token", formvalue);
+		};
+
+		o = s1.taboption("tab_log", form.DummyValue, "_log_viewer");
+		o.rawhtml = true;
+		o.cfgvalue = function () {
+			return "";
+		};
+		o.renderWidget = function () {
+			var resolver = queryLogData.resolver || "dnsmasq";
+			var isLogging = queryLogData.logging_enabled || false;
+
+			var logTag;
+			switch (resolver) {
+				case "smartdns":
+					logTag = "smartdns";
+					break;
+				case "unbound":
+					logTag = "unbound";
+					break;
+				default:
+					logTag = "dnsmasq";
+					break;
+			}
+
+			var statusLabel = E(
+				"span",
+				{
+					id: "query-log-status",
+					style: "font-weight: bold; color: " + (isLogging ? "green" : "inherit"),
+				},
+				isLogging ? _("Enabled") : _("Disabled"),
+			);
+
+			var btn_enable_log = E(
+				"button",
+				{
+					class: "btn cbi-button cbi-button-apply",
+					disabled: isLogging ? true : null,
+					click: function (ev) {
+						ev.target.disabled = true;
+						ev.target.classList.add("spinning");
+						return adb
+							.setQueryLog(pkg.Name, "enable")
+							.then(function () {
+								location.reload();
+							});
+					},
+				},
+				_("Enable Logging"),
+			);
+
+			var btn_disable_log = E(
+				"button",
+				{
+					class: "btn cbi-button cbi-button-reset",
+					disabled: !isLogging ? true : null,
+					click: function (ev) {
+						ev.target.disabled = true;
+						ev.target.classList.add("spinning");
+						return adb
+							.setQueryLog(pkg.Name, "disable")
+							.then(function () {
+								location.reload();
+							});
+					},
+				},
+				_("Disable Logging"),
+			);
+
+			var logTextarea = E("textarea", {
+				id: "dns-query-log",
+				style:
+					"min-height: 800px; max-height: 85vh; width: 100%; padding: 5px;" +
+					" font-family: monospace; font-size: 12px; resize: vertical;",
+				readonly: "readonly",
+				wrap: "off",
+			});
+
+			return E("div", { id: "adblock-fast-log-container" }, [
+				E("div", { style: "margin-bottom: 10px;" }, [
+					E("span", {}, [
+						_("Query logging for %s: ").format(resolver),
+						statusLabel,
+					]),
+				]),
+				E("div", { style: "margin-bottom: 10px;" }, [
+					btn_enable_log,
+					E("span", {}, "\u00a0\u00a0"),
+					btn_disable_log,
+				]),
+				E(
+					"div",
+					{
+						class: "cbi-section-descr",
+						style: "margin-bottom: 5px;",
+					},
+					_(
+						"Showing syslog entries for %s. Log refreshes automatically.",
+					).format(logTag),
+				),
+				logTextarea,
+			]);
+		};
+
 		s2 = m.section(
 			form.NamedSection,
 			"config",
@@ -672,29 +1010,133 @@ return view.extend({
 		o.modalonly = true;
 		o.optional = false;
 
-		return Promise.all([status.render(), m.render()]);
+		return Promise.all([status.render(), m.render()]).then(function (nodes) {
+			var mapNode = nodes[1];
+
+			// Defer DOM modifications until after browser inserts nodes
+			requestAnimationFrame(function () {
+				var dns = queryLogData.resolver || "dnsmasq";
+				var logTag = dns === "smartdns" ? "smartdns" : dns === "unbound" ? "unbound" : "dnsmasq";
+
+				// Log fetcher
+				var fetchLog = function () {
+					var el = document.getElementById("dns-query-log");
+					if (!el) return;
+					adb.callLogRead(1000, false, true).then(function (logEntries) {
+						var filtered = (logEntries || [])
+							.filter(function (e) { return e.msg && e.msg.indexOf(logTag) >= 0; })
+							.map(function (e) {
+								var d = new Date(e.time);
+								return "[" + d.toLocaleDateString([], { year: "numeric", month: "2-digit", day: "2-digit" })
+									+ "-" + d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false })
+									+ "] " + e.msg;
+							});
+						el.value = filtered.length > 0 ? filtered.join("\n")
+							: _("No %s query log entries found.").format(dns);
+						el.scrollTop = el.scrollHeight;
+					});
+				};
+				L.Poll.add(fetchLog, 5);
+				L.Poll.start();
+
+				// Make the log viewer full-width
+				var style = document.createElement("style");
+				style.textContent =
+					"#cbi-adblock-fast-config-_log_viewer { display: block !important; }";
+				document.head.appendChild(style);
+
+				// Hide s2/s3 sections when the log tab is active
+				var logContainer = document.getElementById("adblock-fast-log-container");
+				var cbiMap = logContainer && logContainer.closest(".cbi-map");
+				if (cbiMap) {
+					var sections = cbiMap.querySelectorAll(":scope > .cbi-section");
+					var extraSections = [];
+					for (var i = 1; i < sections.length; i++)
+						extraSections.push(sections[i]);
+
+					var updateSections = function () {
+						var activeTab = cbiMap.querySelector(".cbi-tabmenu li.cbi-tab");
+						var isLogTab = activeTab && activeTab.getAttribute("data-tab") === "tab_log";
+						extraSections.forEach(function (s) {
+							s.style.display = isLogTab ? "none" : "";
+						});
+					};
+
+					// Handle tab clicks and initial state
+					cbiMap.querySelectorAll(".cbi-tabmenu li[data-tab] a").forEach(function (link) {
+						link.addEventListener("click", function () {
+							requestAnimationFrame(updateSections);
+						});
+					});
+					updateSections();
+				}
+			});
+
+			return nodes;
+		});
 	},
 
 	handleSave: function (ev) {
-		return this.super("handleSave", [ev]);
+		var map = this._map;
+		if (!map) {
+			return this.super("handleSave", [ev]);
+		}
+
+		// Collect virtual scheduling values
+		var schedulingConfig = {};
+		var schedulingFields = [
+			"auto_update_enabled",
+			"auto_update_mode",
+			"auto_update_hour",
+			"auto_update_minute",
+			"auto_update_weekday",
+			"auto_update_monthday",
+			"auto_update_every_ndays",
+			"auto_update_every_nhours",
+		];
+
+		schedulingFields.forEach(function (fieldName) {
+			var match = map.lookupOption(fieldName, "config");
+			if (match && match[0].isValid("config")) {
+				schedulingConfig[fieldName] = match[0].formvalue("config");
+			}
+		});
+
+		// Generate cron entry from config
+		var cronEntry = this.generateCronEntry(schedulingConfig);
+
+		// Save cron entry directly
+		var savePromise = L.resolveDefault(adb.setCronEntry(pkg.Name, cronEntry), {
+			result: false,
+		}).then(function (result) {
+			if (!result || result.result === false) {
+				ui.addNotification(
+					null,
+					E("p", {}, _("Failed to update cron schedule.")),
+				);
+				return Promise.reject(new Error("Failed to update cron schedule"));
+			}
+
+			// Remove scheduling values from UCI before saving
+			schedulingFields.forEach(function (fieldName) {
+				var match = map.lookupOption(fieldName, "config");
+				if (match) {
+					match[0].remove("config");
+				}
+			});
+
+			// Save the rest of UCI config
+			return Promise.resolve();
+		});
+
+		return savePromise.then(() => {
+			return this.super("handleSave", [ev]);
+		});
 	},
 
 	handleSaveApply: function (ev, mode) {
-		return this.super("handleSave", [ev]).then(function () {
-			var onApplied = function () {
-				L.resolveDefault(adb.syncCron(pkg.Name, "apply"), {
-					result: false,
-				}).then(function (result) {
-					if (!result || result.result === false) {
-						ui.addNotification(
-							null,
-							E("p", {}, _("Failed to update cron schedule.")),
-						);
-					}
-				});
-			};
-			document.addEventListener("uci-applied", onApplied, { once: true });
-			ui.changes.apply(mode == "0");
+		return this.handleSave(ev).then(function () {
+			return ui.changes.apply(mode == "0");
 		});
 	},
 });

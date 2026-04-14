@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: luci-app-v 2raya\n"
-"PO-Revision-Date: 2026-02-11 22:44+0000\n"
+"PO-Revision-Date: 2026-04-04 03:09+0000\n"
 "Last-Translator: Franco Castillo <castillofrancodamian@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/openwrt/"
 "luciapplicationsv2raya/es/>\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16-dev\n"
+"X-Generator: Weblate 5.17-dev\n"
 
 #: applications/luci-app-v2raya/htdocs/luci-static/resources/view/v2raya/config.js:79
 #: applications/luci-app-v2raya/htdocs/luci-static/resources/view/v2raya/config.js:86
@@ -28,15 +28,15 @@ msgstr "Configuración"
 
 #: applications/luci-app-v2raya/htdocs/luci-static/resources/view/v2raya/config.js:93
 msgid "Debug"
-msgstr "Depurar"
+msgstr "Depuración"
 
 #: applications/luci-app-v2raya/htdocs/luci-static/resources/view/v2raya/config.js:104
 msgid "Disable log color output"
-msgstr "Deshabilitar salida de color de registro"
+msgstr "Desactivar salida de color de registro"
 
 #: applications/luci-app-v2raya/htdocs/luci-static/resources/view/v2raya/config.js:106
 msgid "Disable log timestamp"
-msgstr "Deshabilitar marca de tiempo del registro"
+msgstr "Desactivar marca de tiempo del registro"
 
 #: applications/luci-app-v2raya/htdocs/luci-static/resources/view/v2raya/config.js:70
 msgid "Enable"
@@ -56,7 +56,7 @@ msgstr "Soporte IPv6"
 
 #: applications/luci-app-v2raya/htdocs/luci-static/resources/view/v2raya/config.js:94
 msgid "Info"
-msgstr "Info"
+msgstr "Informe"
 
 #: applications/luci-app-v2raya/htdocs/luci-static/resources/view/v2raya/config.js:73
 msgid "Listening address"
@@ -126,7 +126,7 @@ msgstr "Requiere conectividad IPv6 funcional."
 
 #: applications/luci-app-v2raya/htdocs/luci-static/resources/view/v2raya/config.js:92
 msgid "Trace"
-msgstr "Rastro"
+msgstr "Traza"
 
 #: applications/luci-app-v2raya/htdocs/luci-static/resources/view/v2raya/config.js:100
 msgid "Unit: days."
