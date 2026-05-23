@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-01-18 08:51+0000\n"
-"Last-Translator: Максим Горпиніч <gorpinicmaksim0@gmail.com>\n"
+"PO-Revision-Date: 2026-05-19 09:15+0000\n"
+"Last-Translator: Dan <jonweblin2205@protonmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/openwrt/"
 "luciapplicationsbanip/uk/>\n"
 "Language: uk\n"
@@ -9,7 +9,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 2026.6.dev0\n"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:642
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:711
@@ -17,11 +17,11 @@ msgstr ""
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:751
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:787
 msgid "-- Please choose (optional) --"
-msgstr "-- Будь ласка, виберіть (необов'язково) --"
+msgstr "-- Виберіть (необовʼязково) --"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/setreport.js:78
 msgid "-- Set Selection --"
-msgstr "— Встановити Обране —"
+msgstr "— Вибір набору —"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:303
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:326
@@ -45,7 +45,7 @@ msgstr "— Встановити Обране —"
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:815
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:836
 msgid "-- default --"
-msgstr "-- за замовчуванням --"
+msgstr "-- типово --"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/feeds.js:238
 msgid "<DATE><IPv4><SPACE>"
@@ -105,11 +105,11 @@ msgstr "AFRINIC — обслуговує Африку та регіон Інді
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:747
 msgid "APNIC - serving the Asia Pacific region"
-msgstr "APNIC - обслуговує Азійсько-Тихоокеанський регіон"
+msgstr "APNIC — обслуговує Азійсько-Тихоокеанський регіон"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:748
 msgid "ARIN - serving Canada and the United States"
-msgstr "ARIN - обслуговує Канаду та США"
+msgstr "ARIN — обслуговує Канаду та США"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:760
 msgid "ASN Selection"
@@ -117,11 +117,11 @@ msgstr "Вибір ASN"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:762
 msgid "ASNs"
-msgstr "ASNs"
+msgstr "Номери ASN"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:181
 msgid "Active Devices"
-msgstr "Активні Пристрої"
+msgstr "Активні пристрої"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:177
 msgid "Active Feeds"
@@ -129,7 +129,7 @@ msgstr "Активні канали"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:185
 msgid "Active Uplink"
-msgstr "Активний Аплінк"
+msgstr "Активний висхідний канал"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:641
 msgid "AdGuardHome login error"
@@ -146,11 +146,11 @@ msgstr "Розширені налаштування"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:402
 msgid "Allow Protocol/Ports"
-msgstr "Дозволити Протоколи/Порти"
+msgstr "Дозволити протокол/порти"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:406
 msgid "Allow VLAN Forwards"
-msgstr "Дозволити переадресацію VLAN"
+msgstr "Дозволити переспрямування VLAN"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:775
 msgid "Allowlist Feed URLs"
@@ -173,20 +173,20 @@ msgid ""
 "Always allow a protocol (tcp/udp) with certain ports or port ranges in WAN-"
 "Input and WAN-Forward chain."
 msgstr ""
-"Завжди дозволяйте протокол (tcp/udp) із певними портами або діапазонами "
+"Завжди дозволяти протокол (tcp/udp) із певними портами або діапазонами "
 "портів у ланцюзі WAN-Input і WAN-Forward."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:406
 msgid "Always allow certain VLAN forwards."
-msgstr "Завжди дозволяти певну переадресацію VLAN."
+msgstr "Завжди дозволяти певні переспрямування VLAN."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:412
 msgid "Always block certain VLAN forwards."
-msgstr "Завжди блокуйте пересилання певних VLAN."
+msgstr "Завжди блокувати певні переспрямування VLAN."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:809
 msgid "Auto Allow Uplink"
-msgstr "Автоматичний дозвіл Uplink"
+msgstr "Автоматичний дозвіл висхідного каналу"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:805
 msgid "Auto Allowlist"
@@ -217,7 +217,7 @@ msgid ""
 "Automatically add resolved domains and suspicious IPs to the local banIP "
 "blocklist."
 msgstr ""
-"Автоматично додавайте дозволені домени та підозрілі IP-адреси до локального "
+"Автоматично додавати визначені домени та підозрілі IP-адреси до локального "
 "чорного списку banIP."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:805
@@ -225,12 +225,12 @@ msgid ""
 "Automatically add resolved domains and uplink IPs to the local banIP "
 "allowlist."
 msgstr ""
-"Автоматично додавайте дозволені домени та IP-адреси висхідних каналів до "
+"Автоматично додавати визначені домени та IP-адреси висхідних каналів до "
 "локального білого списку banIP."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:367
 msgid "Backup Directory"
-msgstr "Тека для резервних копій"
+msgstr "Каталог резервних копій"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:363
 msgid "Base Directory"
@@ -242,15 +242,15 @@ msgstr "Базовий робочий каталог під час обробк�
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:412
 msgid "Block VLAN Forwards"
-msgstr "Блокувати VLAN Forwards"
+msgstr "Блокувати переспрямування VLAN"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:704
 msgid "Blocklist Feed"
-msgstr "Стрічка чорного списку"
+msgstr "Канал чорного списку"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:829
 msgid "Blocklist Set Expiry"
-msgstr "Термін дії встановленого списку блокувань"
+msgstr "Термін дії елементів у наборі блокувань"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/blocklist.js:45
 msgid ""
@@ -318,7 +318,7 @@ msgstr ""
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/setreport.js:211
 msgid "Count"
-msgstr "Граф"
+msgstr "Кількість"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:724
 msgid "Countries"
@@ -337,12 +337,12 @@ msgid ""
 "Deduplicate IP addresses across all active Sets and tidy up the local "
 "blocklist."
 msgstr ""
-"Дедуплікуйте IP-адреси в усіх активних наборах і наведіть порядок у "
+"Дедуплікувати IP-адреси в усіх активних наборах і навести порядок у "
 "локальному списку блокувань."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:379
 msgid "Deduplicate IPs"
-msgstr "Дедуплікати IP-адреси"
+msgstr "Дедуплікувати IP-адреси"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/feeds.js:270
 msgid "Description"
@@ -353,7 +353,7 @@ msgid ""
 "Detect relevant network devices, interfaces, subnets, protocols and "
 "utilities automatically."
 msgstr ""
-"Визначайте відповідні мережеві пристрої, інтерфейси, підмережі, протоколи та "
+"Визначати відповідні мережеві пристрої, інтерфейси, підмережі, протоколи та "
 "утиліти автоматично."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:811
@@ -370,7 +370,7 @@ msgstr "Завантажити"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:308
 msgid "Download Insecure"
-msgstr "Завантажувати небезпечним шляхом"
+msgstr "Небезпечне завантаження"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:281
 msgid "Download Parameters"
@@ -386,7 +386,7 @@ msgstr "Утиліта для завантаження"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:496
 msgid "Drop packets silently or actively reject Inbound traffic."
-msgstr "Відкидайте пакети мовчки або активно відхиляйте вхідний трафік."
+msgstr "Відкидати пакети мовчки або активно відхиляти вхідний трафік."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:674
 msgid "E-Mail Notification"
@@ -394,15 +394,15 @@ msgstr "Сповіщення електронною поштою"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:689
 msgid "E-Mail Profile"
-msgstr "E-Mail профіль"
+msgstr "Профіль електронної пошти"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:677
 msgid "E-Mail Receiver Address"
-msgstr "E-Mail адреса отримувача"
+msgstr "Адреса отримувача електронної пошти"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:681
 msgid "E-Mail Sender Address"
-msgstr "E-Mail адреса відправника"
+msgstr "Адреса відправника електронної пошти"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:222
 msgid "E-Mail Settings"
@@ -410,7 +410,7 @@ msgstr "Налаштування електронної пошти"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:685
 msgid "E-Mail Topic"
-msgstr "Тема"
+msgstr "Тема листа"
 
 #: applications/luci-app-banip/root/usr/share/luci/menu.d/luci-app-banip.json:33
 msgid "Edit Allowlist"
@@ -440,14 +440,14 @@ msgstr "Увімкнути карту GeoIP"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:646
 msgid "Enable Remote Logging"
-msgstr "Увімкнути віддалене ведення журналу"
+msgstr "Увімкнути віддалене журналювання"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:491
 msgid ""
 "Enable a GeoIP Map with suspicious Set elements. This requires external "
 "requests to get the map tiles and geolocation data."
 msgstr ""
-"Увімкніть карту GeoIP із підозрілими елементами Set. Для цього потрібні "
+"Увімкнути карту GeoIP із підозрілими елементами набору. Для цього потрібні "
 "зовнішні запити для отримання фрагментів карти та даних геолокації."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:488
@@ -456,16 +456,15 @@ msgstr "Увімкнути лічильник nft для кожного елем
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:233
 msgid "Enable the banIP service."
-msgstr "Увімкніть службу banIP."
+msgstr "Увімкнути службу banIP."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:646
 msgid "Enable the cgi interface to receive remote logging events."
-msgstr "Увімкніть інтерфейс cgi для отримання подій віддаленого журналювання."
+msgstr "Увімкнути інтерфейс CGI для отримання подій віддаленого журналювання."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:236
 msgid "Enable verbose debug logging in case of processing errors."
-msgstr ""
-"Увімкнути детальне ведення журналу налагодження у разі помилок обробки."
+msgstr "Увімкнути докладне журналювання налагодження у разі помилок обробки."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:233
 msgid "Enabled"
@@ -497,7 +496,7 @@ msgstr "Канали зовнішніх чорних списків"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:567
 msgid "Feed Complete"
-msgstr "Подача завершена"
+msgstr "Канал повний"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:556
 msgid "Feed Flag Reset"
@@ -509,11 +508,11 @@ msgstr "Назва каналу"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:223
 msgid "Feed Selection"
-msgstr "Вибір корму"
+msgstr "Вибір каналу"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:220
 msgid "Feed/Set Settings"
-msgstr "Подача/Налаштування налаштувань"
+msgstr "Налаштування каналу/набору"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/feeds.js:320
 msgid "Fill"
@@ -525,11 +524,11 @@ msgstr "Журнал брандмауера"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/feeds.js:279
 msgid "Flag"
-msgstr "Прапор"
+msgstr "Прапорець"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/feeds.js:285
 msgid "Flag not supported"
-msgstr "Прапор не підтримується"
+msgstr "Прапорець не підтримується"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:217
 msgid "General Settings"
@@ -537,7 +536,7 @@ msgstr "Загальні налаштування"
 
 #: applications/luci-app-banip/root/usr/share/rpcd/acl.d/luci-app-banip.json:3
 msgid "Grant access to LuCI app banIP"
-msgstr "Надайте доступ до програми LuCI banIP"
+msgstr "Надати доступ до програми LuCI banIP"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:321
 msgid "High Priority"
@@ -569,7 +568,7 @@ msgstr "Пошук IP"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/setreport.js:324
 msgid "IP Search..."
-msgstr "Пошук IP..."
+msgstr "Пошук IP…"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:259
 msgid "IPv4 Network Interfaces"
@@ -585,7 +584,7 @@ msgstr "Мережеві інтерфейси IPv6"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:247
 msgid "IPv6 Support"
-msgstr "IPv6 підтримка"
+msgstr "Підтримка IPv6"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/feeds.js:265
 msgid "Inbound"
@@ -616,8 +615,8 @@ msgid ""
 "Increase the maximal number of open files, e.g. to handle the amount of "
 "temporary split files while loading the Sets."
 msgstr ""
-"Збільште максимальну кількість відкритих файлів, напр. для обробки кількості "
-"тимчасових розділених файлів під час завантаження наборів."
+"Збільшити максимальну кількість відкритих файлів, наприклад для обробки "
+"кількості тимчасових розділених файлів під час завантаження наборів."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:163
 msgid "Information"
@@ -634,7 +633,7 @@ msgstr "Недійсні введені значення, неможливо з�
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:749
 msgid "LACNIC - serving the Latin American and Caribbean region"
-msgstr "LACNIC - обслуговує країни Латинської Америки та Карибського басейну"
+msgstr "LACNIC — обслуговує країни Латинської Америки та Карибського басейну"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:201
 msgid "Last Run"
@@ -652,11 +651,11 @@ msgstr "Менший пріоритет"
 msgid "Limit the cpu cores used by banIP to save RAM, autodetected by default."
 msgstr ""
 "Обмежує кількість ядер процесора, що використовуються banIP, для економії "
-"оперативної пам'яті, автоматично визначається за замовчуванням."
+"оперативної памʼяті; автоматично визначається типово."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:809
 msgid "Limit the uplink autoallow function."
-msgstr "Обмежте функцію автоматичного дозволу висхідного зв’язку."
+msgstr "Обмежити функцію автоматичного дозволу висхідного каналу."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:286
 msgid "List of available network interfaces to trigger the banIP start."
@@ -664,27 +663,27 @@ msgstr "Список доступних мережевих інтерфейсі�
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/setreport.js:86
 msgid "List the elements of a specific banIP-related Set."
-msgstr "Перелічіть елементи певного набору, пов’язаного з banIP."
+msgstr "Перелічити елементи певного набору, повʼязаного з banIP."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:803
 msgid "Local Feed Settings"
-msgstr "Налаштування локальної стрічки"
+msgstr "Налаштування локального каналу"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:611
 msgid ""
 "Location for parsing the log file, e.g. via syslog-ng, to deactivate the "
 "standard parsing via logread."
 msgstr ""
-"Розташування для аналізу файлу журналу, напр. через syslog-ng, щоб "
-"дезактивувати стандартний аналіз через logread."
+"Розташування для аналізу файлу журналу, наприклад через syslog-ng, щоб "
+"вимкнути стандартний аналіз через logread."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:628
 msgid "Log Count"
-msgstr "Підрахунок журналу"
+msgstr "Кількість записів журналу"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:605
 msgid "Log Inbound"
-msgstr "Вхідний журнал"
+msgstr "Журналювати вхідні"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:615
 msgid "Log Limit"
@@ -692,11 +691,11 @@ msgstr "Ліміт журналу"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:608
 msgid "Log Outbound"
-msgstr "Журнал вихідних"
+msgstr "Журналювати вихідні"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:602
 msgid "Log Prerouting"
-msgstr "Попередня маршрутизація журналу"
+msgstr "Журналювати Prerouting"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:221
 msgid "Log Settings"
@@ -704,19 +703,19 @@ msgstr "Налаштування журналу"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:633
 msgid "Log Terms"
-msgstr "Умови реєстрації"
+msgstr "Терміни журналу"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:608
 msgid "Log suspicious packets in the LAN-Forward chain."
-msgstr "Реєстрація підозрілих пакетів у ланцюжку LAN-Forward."
+msgstr "Журналювати підозрілі пакети у ланцюжку LAN-Forward."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:602
 msgid "Log suspicious packets in the Prerouting chain."
-msgstr "Реєструвати підозрілі пакети в ланцюжку попередньої маршрутизації."
+msgstr "Журналювати підозрілі пакети у ланцюжку Prerouting."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:605
 msgid "Log suspicious packets in the WAN-Input and WAN-Forward chain."
-msgstr "Реєстрація підозрілих пакетів у ланцюзі WAN-Input і WAN-Forward."
+msgstr "Журналювати підозрілі пакети у ланцюжку WAN-Input і WAN-Forward."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:611
 msgid "Logfile Location"
@@ -724,7 +723,7 @@ msgstr "Розташування файлу журналу"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:635
 msgid "LuCI failed login"
-msgstr "LuCI не вдалося ввійти"
+msgstr "Невдалий вхід у LuCI"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/setreport.js:178
 msgid "Map Reset"
@@ -732,7 +731,7 @@ msgstr "Скидання карти"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/setreport.js:310
 msgid "Map..."
-msgstr "Карта..."
+msgstr "Карта…"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:331
 msgid "Max Open Files"
@@ -752,11 +751,11 @@ msgstr "Мережеві пристрої"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:319
 msgid "Nice Level"
-msgstr "Гарний рівень"
+msgstr "Рівень nice"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/logtemplate.js:23
 msgid "No %s related logs yet!"
-msgstr "Поки що немає %s пов’язаних журналів!"
+msgstr "Поки що немає журналів, повʼязаних з %s!"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/setreport.js:306
 msgid "No GeoIP Map data!"
@@ -786,7 +785,7 @@ msgstr ""
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:567
 msgid "Opt out specific feeds from the deduplication process."
-msgstr "Вимкніть певні канали з процесу дедуплікації."
+msgstr "Виключити певні канали з процесу дедуплікації."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/feeds.js:266
 msgid "Outbound"
@@ -805,39 +804,39 @@ msgid ""
 "Override the default feed configuration and apply the feed to the inbound "
 "and outbound chain."
 msgstr ""
-"Замініть конфігурацію каналу за замовчуванням і застосуйте канал до вхідного "
-"та вихідного ланцюжка."
+"Замінити типову конфігурацію каналу й застосувати канал до вхідного та "
+"вихідного ланцюжка."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:523
 msgid ""
 "Override the default feed configuration and apply the feed to the inbound "
 "chain only."
 msgstr ""
-"Замініть конфігурацію каналу за замовчуванням і застосовуйте канал лише до "
-"вхідного ланцюжка."
+"Замінити типову конфігурацію каналу й застосовувати канал лише до вхідного "
+"ланцюжка."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:534
 msgid ""
 "Override the default feed configuration and apply the feed to the outbound "
 "chain only."
 msgstr ""
-"Замініть конфігурацію каналу за замовчуванням і застосовуйте канал лише до "
-"вихідного ланцюжка."
+"Замінити типову конфігурацію каналу й застосовувати канал лише до вихідного "
+"ланцюжка."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:556
 msgid ""
 "Override the default feed configuration and remove existing port/protocol "
 "limitations."
 msgstr ""
-"Перевизначте конфігурацію каналу за замовчуванням і видаліть існуючі "
-"обмеження порту/протоколу."
+"Перевизначити типову конфігурацію каналу й видалити наявні обмеження порту/"
+"протоколу."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:281
 msgid ""
 "Override the pre-configured download options for the selected download "
 "utility."
 msgstr ""
-"Перевизначте попередньо налаштовані параметри завантаження для вибраної "
+"Перевизначити попередньо налаштовані параметри завантаження для вибраної "
 "утиліти завантаження."
 
 #: applications/luci-app-banip/root/usr/share/luci/menu.d/luci-app-banip.json:25
@@ -849,7 +848,7 @@ msgid ""
 "Parse only the last stated number of log entries for suspicious events. To "
 "disable the log monitor at all set it to '0'."
 msgstr ""
-"Проаналізуйте лише останню зазначену кількість записів журналу на наявність "
+"Аналізувати лише останню зазначену кількість записів журналу на наявність "
 "підозрілих подій. Щоб взагалі вимкнути монітор журналу, встановіть для нього "
 "значення «0»."
 
@@ -864,7 +863,7 @@ msgstr "Журнал обробки"
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:689
 msgid "Profile used by 'msmtp' for banIP notification E-Mails."
 msgstr ""
-"Профіль, який використовується 'msmtp' для електронних повідомлень про "
+"Профіль, який використовується «msmtp» для електронних повідомлень про "
 "заборону IP."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/feeds.js:227
@@ -875,11 +874,11 @@ msgstr "Формат протоколу/URL не підтримується"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:750
 msgid "RIPE - serving Europe, Middle East and Central Asia"
-msgstr "RIPE - обслуговує Європу, Близький Схід і Центральну Азію"
+msgstr "RIPE — обслуговує Європу, Близький Схід і Центральну Азію"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:674
 msgid "Receive E-Mail notifications with every banIP run."
-msgstr "Отримувати сповіщення електронною поштою з кожним запуском banIP."
+msgstr "Отримувати сповіщення електронною поштою щоразу під час запуску banIP."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:677
 msgid ""
@@ -908,12 +907,12 @@ msgstr "Віддалений маркер"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:371
 msgid "Report Directory"
-msgstr "Тека для звітів"
+msgstr "Каталог звітів"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:840
 msgid "Restrict the internet access from/to a small number of secure IPs."
 msgstr ""
-"Обмежте доступ до Інтернету з/до невеликої кількості безпечних IP-адрес."
+"Обмежити доступ до Інтернету з/до невеликої кількості безпечних IP-адрес."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/setreport.js:26
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/setreport.js:109
@@ -966,23 +965,23 @@ msgstr "Пошук IP"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/setreport.js:13
 msgid "Search the banIP-related Sets for a specific IP."
-msgstr "Шукайте певну IP-адресу в наборах, пов’язаних із banIP."
+msgstr "Шукати певну IP-адресу в наборах, повʼязаних із banIP."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:273
 msgid "Select one of the pre-configured download utilities."
-msgstr "Виберіть одну з попередньо налаштованих утиліт для завантаження."
+msgstr "Вибрати одну з попередньо налаштованих утиліт завантаження."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:252
 msgid "Select the WAN network device(s)."
-msgstr "Виберіть пристрій(-и) мережі WAN."
+msgstr "Вибрати пристрій(-ї) мережі WAN."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:259
 msgid "Select the logical WAN IPv4 network interface(s)."
-msgstr "Виберіть логічні мережеві інтерфейси WAN IPv4)."
+msgstr "Вибрати логічні мережеві інтерфейси WAN IPv4."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:266
 msgid "Select the logical WAN IPv6 network interface(s)."
-msgstr "Виберіть логічні мережеві інтерфейси WAN IPv6."
+msgstr "Вибрати логічні мережеві інтерфейси WAN IPv6."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:681
 msgid "Sender address for banIP notification E-Mails."
@@ -991,15 +990,15 @@ msgstr "Адреса відправника для електронних пов
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/setreport.js:89
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/setreport.js:210
 msgid "Set"
-msgstr "Встановити"
+msgstr "Набір"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/setreport.js:85
 msgid "Set Content"
-msgstr "Встановити вміст"
+msgstr "Вміст набору"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/setreport.js:317
 msgid "Set Content..."
-msgstr "Встановити вміст..."
+msgstr "Вміст набору…"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:488
 msgid "Set Element Counter"
@@ -1007,19 +1006,19 @@ msgstr "Встановити лічильник елементів"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:477
 msgid "Set Load Retries"
-msgstr "Установити повторні спроби завантаження"
+msgstr "Повторні спроби завантаження набору"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:468
 msgid "Set Policy"
-msgstr "Встановити політику"
+msgstr "Політика набору"
 
 #: applications/luci-app-banip/root/usr/share/luci/menu.d/luci-app-banip.json:57
 msgid "Set Reporting"
-msgstr "Встановити звітність"
+msgstr "Звітність по наборах"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:352
 msgid "Set Split Size"
-msgstr "Встановіть розділений розмір"
+msgstr "Розмір розділення набору"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/setreport.js:288
 msgid "Set details"
@@ -1039,7 +1038,7 @@ msgstr "Налаштуйте політику nft для наборів, пов�
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:587
 msgid "Set the syslog level for NFT logging."
-msgstr "Встановіть рівень системного журналу для журналювання NFT."
+msgstr "Задати рівень системного журналу для журналювання NFT."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:215
 msgid "Settings"
@@ -1059,15 +1058,15 @@ msgstr "Розділений набір ASN"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:755
 msgid "Split Country Set"
-msgstr "Спліт країна набір"
+msgstr "Розділений набір країн"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:352
 msgid ""
 "Split external Set loading after every n members to save RAM, disabled by "
 "default."
 msgstr ""
-"Розділити зовнішні елементи. Встановити завантаження після кожних n членів "
-"для економії оперативної пам'яті, за замовчуванням вимкнено."
+"Розділяти завантаження зовнішнього набору після кожних n елементів для "
+"економії оперативної памʼяті; типово вимкнено."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:286
 msgid "Startup Trigger Interface"
@@ -1075,11 +1074,11 @@ msgstr "Інтерфейс тригера запуску"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:165
 msgid "Status"
-msgstr "Статус"
+msgstr "Стан"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:852
 msgid "Stop"
-msgstr "Стій"
+msgstr "Зупинити"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:812
 msgid "Subnet"
@@ -1101,11 +1100,11 @@ msgstr "Налаштування таблиці/ланцюга"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:375
 msgid "Target directory for banIP-related error files."
-msgstr "Цільовий каталог для файлів помилок, пов’язаних із banIP."
+msgstr "Цільовий каталог для файлів помилок, повʼязаних із banIP."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:371
 msgid "Target directory for banIP-related report files."
-msgstr "Цільовий каталог для файлів звітів, пов’язаних із banIP."
+msgstr "Цільовий каталог для файлів звітів, повʼязаних із banIP."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:367
 msgid "Target directory for compressed feed backups."
@@ -1113,7 +1112,7 @@ msgstr "Цільовий каталог для резервних копій с�
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/allowlist.js:25
 msgid "The allowlist is too big, unable to save modifications."
-msgstr "Білий список завеликий, неможливо зберегти зміни."
+msgstr "Список дозволених завеликий, неможливо зберегти зміни."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/blocklist.js:25
 msgid "The blocklist is too big, unable to save modifications."
@@ -1135,7 +1134,7 @@ msgstr "Вибраний пріоритет буде використано дл
 msgid "The syslog output, pre-filtered for messages related to: %s"
 msgstr ""
 "Вивід системного журналу, попередньо відфільтрований на наявність "
-"повідомлень, пов'язаних з: %s"
+"повідомлень, повʼязаних з: %s"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/allowlist.js:28
 msgid ""
@@ -1144,10 +1143,10 @@ msgid ""
 "exactly one MAC/IPv4/IPv6 address or domain name per line. Ranges in CIDR "
 "notation and MAC/IP-bindings are allowed."
 msgstr ""
-"Це локальний список дозволених IP-адрес, які дозволять певні MAC-, IP-адреси "
-"або доменні імена.<br /> <em><b>Зверніть увагу:</b></em> додайте лише один "
-"MAC/IPv4/IPv6 адреси або доменного імені на рядок. Дозволені діапазони в "
-"нотації CIDR і прив’язки MAC/IP."
+"Це локальний список дозволених IP-адрес, який дозволятиме певні MAC-, IP-"
+"адреси або доменні імена.<br /> <em><b>Зверніть увагу:</b></em> додайте лише "
+"одну MAC/IPv4/IPv6-адресу або доменне імʼя в рядок. Дозволено діапазони в "
+"нотації CIDR і привʼязки MAC/IP."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/blocklist.js:28
 msgid ""
@@ -1158,8 +1157,8 @@ msgid ""
 msgstr ""
 "Це локальний список заборонених IP-адрес, який забороняє певні MAC-, IP-"
 "адреси чи доменні імена.<br /> <em><b>Зверніть увагу:</b></em> додайте лише "
-"один MAC/IPv4/IPv6 адреси або доменного імені на рядок. Дозволені діапазони "
-"в нотації CIDR і прив’язки MAC/IP."
+"одну MAC/IPv4/IPv6-адресу або доменне імʼя в рядок. Дозволено діапазони в "
+"нотації CIDR і привʼязки MAC/IP."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/setreport.js:248
 msgid ""
@@ -1167,10 +1166,9 @@ msgid ""
 "to get a new one. You can also display the specific content of Sets, search "
 "for suspicious IPs and finally, these IPs can also be displayed on a map."
 msgstr ""
-"Цей звіт показує останню статистику наборів NFT, натисніть кнопку "
-"\"Оновити\", щоб отримати нову. Ви також можете відобразити конкретний вміст "
-"наборів, шукати підозрілі IP-адреси і, нарешті, ці IP-адреси можуть бути "
-"відображені на карті."
+"Цей звіт показує останню статистику наборів NFT; натисніть кнопку «Оновити», "
+"щоб отримати нову. Також можна відобразити конкретний вміст наборів, шукати "
+"підозрілі IP-адреси і, нарешті, відобразити їх на карті."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/setreport.js:251
 msgid "Timestamp"
@@ -1186,7 +1184,7 @@ msgstr ""
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:651
 msgid "Token to communicate with the cgi interface."
-msgstr "Маркер для зв’язку з інтерфейсом cgi."
+msgstr "Маркер для звʼязку з інтерфейсом cgi."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:685
 msgid "Topic for banIP notification E-Mails."
@@ -1222,11 +1220,11 @@ msgstr "Неможливо проаналізувати файл країн!"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:511
 msgid "Unable to parse the custom feed file!"
-msgstr "Неможливо проаналізувати файл спеціального каналу!"
+msgstr "Неможливо проаналізувати файл користувацького каналу!"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:518
 msgid "Unable to parse the default feed file!"
-msgstr "Неможливо проаналізувати файл каналу за замовчуванням!"
+msgstr "Неможливо проаналізувати файл типового каналу!"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/setreport.js:72
 msgid "Unable to parse the ruleset file!"
@@ -1239,17 +1237,17 @@ msgstr "Не вдалося зберегти зміни: %s"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/feeds.js:311
 msgid "Upload"
-msgstr "Завантажити"
+msgstr "Вивантажити"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/feeds.js:72
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/feeds.js:78
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/feeds.js:85
 msgid "Upload of the custom feed file failed."
-msgstr "Не вдалося завантажити файл спеціального каналу."
+msgstr "Не вдалося вивантажити файл користувацького каналу."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:236
 msgid "Verbose Debug Logging"
-msgstr "Докладний журнал відлагодження"
+msgstr "Докладне журналювання налагодження"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:169
 msgid "Version"
@@ -1263,16 +1261,16 @@ msgid ""
 "delete entries, add new ones or make a local backup. To go back to the "
 "maintainers version just clear the custom feed file."
 msgstr ""
-"За допомогою цього редактора ви можете завантажити свій локальний власний "
-"файл каналу або заповнити початковий файл (копія 1:1 версії, яка "
-"постачається з пакетом). Файл знаходиться за адресою '/etc/banip/"
-"banip.custom.feeds'. Потім ви можете редагувати цей файл, видаляти записи, "
-"додавати нові або створювати локальну резервну копію. Щоб повернутися до "
-"версії для супроводжувачів, просто очистіть файл спеціального каналу."
+"За допомогою цього редактора можна передати свій локальний користувацький "
+"файл каналу або заповнити початковий файл (копія 1:1 версії, що постачається "
+"з пакетом). Файл розташовано за адресою «/etc/banip/banip.custom.feeds». "
+"Потім можна редагувати цей файл, видаляти записи, додавати нові або "
+"створювати локальну резервну копію. Щоб повернутися до версії від "
+"супроводжувачів, просто очистіть файл користувацького каналу."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:589
 msgid "alert"
-msgstr "агент"
+msgstr "тривога"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:638
 msgid "asterisk invalid account"
@@ -1312,23 +1310,23 @@ msgstr "заблоковані пакети udp-flood"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:590
 msgid "crit"
-msgstr "крит"
+msgstr "критичний"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:595
 msgid "debug"
-msgstr "налагоджувати"
+msgstr "налагодження"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:497
 msgid "drop"
-msgstr "падіння"
+msgstr "відкинути"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:634
 msgid "dropbear failed login"
-msgstr "dropbear не вдалося ввійти"
+msgstr "невдалий вхід через dropbear"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:588
 msgid "emerg"
-msgstr "з'являється"
+msgstr "аварія"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:591
 msgid "err"
@@ -1360,7 +1358,7 @@ msgstr "Зчитування журналу не знайдено в систе�
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:469
 msgid "memory"
-msgstr "пам'ять"
+msgstr "памʼять"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:639
 msgid "nginx suspicious IP"
@@ -1368,11 +1366,11 @@ msgstr "nginx підозрілий IP"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:593
 msgid "notice"
-msgstr "повідомлення"
+msgstr "сповіщення"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:640
 msgid "openvpn TLS error"
-msgstr "Помилка openvpn TLS"
+msgstr "помилка TLS у openvpn"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:470
 msgid "performance"
@@ -1384,12 +1382,12 @@ msgstr "відхилити"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:637
 msgid "sshd closed connection"
-msgstr "sshd закрите з'єднання"
+msgstr "sshd: закрите зʼєднання"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:636
 msgid "sshd failed login"
-msgstr "sshd не вдалося ввійти"
+msgstr "невдалий вхід через sshd"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:592
 msgid "warn"
-msgstr "попередити"
+msgstr "попередження"
