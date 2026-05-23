@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: LuCI: base\n"
 "POT-Creation-Date: 2010-05-09 01:01+0300\n"
-"PO-Revision-Date: 2026-04-25 03:12+0000\n"
+"PO-Revision-Date: 2026-05-03 18:06+0000\n"
 "Last-Translator: SnIPeRSnIPeR "
 "<snipersniper@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/openwrt/luci/ru/"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.17.1-dev\n"
+"X-Generator: Weblate 5.17.1\n"
 "Project-Info: Это технический перевод, не дословный. Главное-удобный русский "
 "интерфейс, все проверялось в графическом режиме, совместим с другими apps\n"
 
@@ -781,6 +781,10 @@ msgstr "ADSL2+ (стандарт G.992.5) Приложение M"
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/interfaces.js:1830
 msgid "ANSI T1.413"
 msgstr "ANSI T1.413"
+
+#: protocols/luci-proto-batman-adv/htdocs/luci-static/resources/protocol/batadv_vlan.js:66
+msgid "AP Isolation"
+msgstr ""
 
 #: protocols/luci-proto-3g/htdocs/luci-static/resources/protocol/3g.js:95
 #: protocols/luci-proto-mbim/htdocs/luci-static/resources/protocol/mbim.js:65
@@ -1832,6 +1836,10 @@ msgstr "Устройство Batman"
 msgid "Batman Interface"
 msgstr "Интерфейс Batman"
 
+#: protocols/luci-proto-batman-adv/htdocs/luci-static/resources/protocol/batadv_vlan.js:11
+msgid "Batman VLAN Interface"
+msgstr ""
+
 #: protocols/luci-proto-batman-adv/htdocs/luci-static/resources/protocol/batadv.js:81
 msgid ""
 "Batman-adv has a built-in layer 2 fragmentation for unicast data flowing "
@@ -2301,7 +2309,7 @@ msgstr ""
 
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js:1304
 msgid "Cipher"
-msgstr "Алгоритм шифрования"
+msgstr "Шифр"
 
 #: protocols/luci-proto-vpnc/htdocs/luci-static/resources/protocol/vpnc.js:91
 msgid "Cisco UDP encapsulation"
@@ -3137,6 +3145,7 @@ msgstr "Зона назначения"
 #: modules/luci-mod-system/htdocs/luci-static/resources/view/system/mounts.js:260
 #: modules/luci-mod-system/htdocs/luci-static/resources/view/system/mounts.js:334
 #: modules/luci-mod-system/htdocs/luci-static/resources/view/system/mounts.js:369
+#: protocols/luci-proto-batman-adv/htdocs/luci-static/resources/protocol/batadv_vlan.js:48
 #: protocols/luci-proto-external/htdocs/luci-static/resources/protocol/external.js:29
 msgid "Device"
 msgstr "Устройство"
@@ -3836,6 +3845,16 @@ msgstr "Включить <abbr title=\"Spanning Tree Protocol\">STP</abbr>"
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/interfaces.js:892
 msgid "Enable <abbr title=\"Stateless Address Auto Config\">SLAAC</abbr>"
 msgstr "Включить <abbr title=\"Stateless Address Auto Config\">SLAAC</abbr>"
+
+#: protocols/luci-proto-batman-adv/htdocs/luci-static/resources/protocol/batadv_vlan.js:67
+msgid ""
+"Enable AP Isolation to isolate wireless clients connected to this Batman "
+"VLAN on this AP from wireless clients connected to this Batman VLAN on "
+"different APs. To isolate all wireless clients connected to this Batman VLAN "
+"on all APs from each other, be sure to enable this option on all APs, and be "
+"sure to enable additional wireless client isolation options ('isolate' and "
+"'bridge_isolate') for all associated wireless interfaces on all APs."
+msgstr ""
 
 #: modules/luci-mod-status/htdocs/luci-static/resources/view/status/connections.js:279
 #: modules/luci-mod-status/htdocs/luci-static/resources/view/status/connections.js:495
@@ -4937,7 +4956,7 @@ msgstr "Метрика шлюза"
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/dhcp.js:819
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/dns.js:195
 msgid "General"
-msgstr "Общие"
+msgstr "Основные"
 
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/interfaces.js:496
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/routes.js:41
@@ -5848,6 +5867,12 @@ msgstr ""
 "title=\"Domain Name System\">DNS</abbr>-сервера, если не отключена опция "
 "<em>Локальный <abbr title=\"Internet Protocol Version 6\">IPv6</abbr> <abbr "
 "title=\"Domain Name System\">DNS</abbr>-сервер</em>."
+
+#: protocols/luci-proto-batman-adv/htdocs/luci-static/resources/protocol/batadv_vlan.js:49
+msgid ""
+"If not listed, please open the drop-down list and type in the name of the "
+"Batman VLAN device in the 'custom' field."
+msgstr ""
 
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/interfaces.js:1270
 msgid ""
@@ -7303,7 +7328,7 @@ msgstr "Производитель"
 
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/interfaces.js:1225
 msgid "Master"
-msgstr "Основной"
+msgstr "Ведущий"
 
 #: modules/luci-base/htdocs/luci-static/resources/network.js:3985
 msgid "Master (VLAN)"
@@ -7554,15 +7579,15 @@ msgstr "Mesh ID"
 
 #: modules/luci-base/htdocs/luci-static/resources/network.js:3987
 msgid "Mesh Point"
-msgstr "Точка Mesh"
+msgstr "Mesh-точка"
 
 #: protocols/luci-proto-batman-adv/htdocs/luci-static/resources/protocol/batadv.js:41
 msgid "Mesh Routing"
-msgstr "Маршрутизация Mesh"
+msgstr "Mesh-маршрутизация"
 
 #: protocols/luci-proto-batman-adv/htdocs/luci-static/resources/protocol/batadv.js:41
 msgid "Mesh and routing related options"
-msgstr "Опции, связанные с Mesh и маршрутизацией"
+msgstr "Опции, связанные с mesh и маршрутизацией"
 
 #: modules/luci-base/htdocs/luci-static/resources/rpc.js:411
 msgid "Method not found"
@@ -9380,6 +9405,12 @@ msgstr "Пакетов."
 msgid "Please enter your username and password."
 msgstr "Пожалуйста, введите имя пользователя и пароль."
 
+#: protocols/luci-proto-batman-adv/htdocs/luci-static/resources/protocol/batadv_vlan.js:63
+msgid ""
+"Please open the drop-down list and select or type in the name of the Batman "
+"VLAN device."
+msgstr ""
+
 #: modules/luci-base/htdocs/luci-static/resources/ui.js:4935
 msgid "Please select the file to upload."
 msgstr "Пожалуйста, выберите файл для загрузки."
@@ -10864,6 +10895,10 @@ msgstr ""
 "формата завершается с ошибкой. Используйте эту опцию только если уверены, "
 "что файл образа корректный и предназначен именно для данного устройства!"
 
+#: protocols/luci-proto-batman-adv/htdocs/luci-static/resources/protocol/batadv_vlan.js:52
+msgid "Select Batman VLAN device…"
+msgstr ""
+
 #: modules/luci-base/htdocs/luci-static/resources/ui.js:3158
 #: modules/luci-base/htdocs/luci-static/resources/ui.js:3389
 #: modules/luci-base/htdocs/luci-static/resources/ui.js:3581
@@ -11573,7 +11608,7 @@ msgstr "Автозапуск"
 #: protocols/luci-proto-modemmanager/htdocs/luci-static/resources/view/modemmanager/status.js:90
 #: protocols/luci-proto-yggdrasil/htdocs/luci-static/resources/protocol/yggdrasil.js:139
 msgid "State"
-msgstr "Область / регион"
+msgstr "Состояние"
 
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/routes.js:34
 msgid "Static IPv4 Routes"
@@ -12104,7 +12139,7 @@ msgstr "Адрес, через который можно связаться с �
 
 #: protocols/luci-proto-batman-adv/htdocs/luci-static/resources/protocol/batadv.js:45
 msgid "The algorithm that is used to discover mesh routes"
-msgstr "Алгоритм, который используется для обнаружения маршрутов mesh"
+msgstr "Алгоритм, который используется для обнаружения mesh-маршрутов"
 
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js:2468
 msgid ""
