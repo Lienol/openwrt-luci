@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-11-24 10:29+0000\n"
+"PO-Revision-Date: 2026-06-15 13:34+0000\n"
 "Last-Translator: Marko Mäkelä <marko.makela@mariadb.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/openwrt/luci/fi/"
 ">\n"
@@ -8,7 +8,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15-dev\n"
+"X-Generator: Weblate 2026.7.dev0\n"
 
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/dhcp.js:212
 msgid "!known (not known)"
@@ -136,8 +136,8 @@ msgid "-- Additional Field --"
 msgstr "-- Lisäkenttä --"
 
 #: modules/luci-base/htdocs/luci-static/resources/cbi.js:360
-#: modules/luci-base/htdocs/luci-static/resources/form.js:4510
-#: modules/luci-base/htdocs/luci-static/resources/form.js:5195
+#: modules/luci-base/htdocs/luci-static/resources/form.js:4520
+#: modules/luci-base/htdocs/luci-static/resources/form.js:5205
 #: modules/luci-base/htdocs/luci-static/resources/ui.js:830
 #: modules/luci-base/htdocs/luci-static/resources/ui.js:1075
 #: modules/luci-base/htdocs/luci-static/resources/ui.js:2183
@@ -178,7 +178,7 @@ msgstr "0"
 msgid "0 = not using RSSI threshold, 1 = do not change driver default"
 msgstr "0 = ei käytetä RSSI-rajaa, 1 = ei muuteta ajurin vakiota"
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:2971
+#: modules/luci-base/htdocs/luci-static/resources/form.js:2981
 msgid "0/1"
 msgstr ""
 
@@ -936,11 +936,11 @@ msgstr ""
 msgid "Adaptive transmit load balancing"
 msgstr ""
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:2413
-#: modules/luci-base/htdocs/luci-static/resources/form.js:2416
-#: modules/luci-base/htdocs/luci-static/resources/form.js:2429
-#: modules/luci-base/htdocs/luci-static/resources/form.js:2437
-#: modules/luci-base/htdocs/luci-static/resources/form.js:4284
+#: modules/luci-base/htdocs/luci-static/resources/form.js:2423
+#: modules/luci-base/htdocs/luci-static/resources/form.js:2426
+#: modules/luci-base/htdocs/luci-static/resources/form.js:2439
+#: modules/luci-base/htdocs/luci-static/resources/form.js:2447
+#: modules/luci-base/htdocs/luci-static/resources/form.js:4294
 #: modules/luci-compat/luasrc/view/cbi/nsection.htm:25
 #: modules/luci-compat/luasrc/view/cbi/tblsection.htm:189
 #: modules/luci-compat/luasrc/view/cbi/tblsection.htm:197
@@ -2191,8 +2191,8 @@ msgstr "Asiakas"
 msgid "Client ID to send when requesting DHCP"
 msgstr "Asiakastunnus, joka lähetetään DHCP: tä pyydettäessä"
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:3242
-#: modules/luci-base/htdocs/luci-static/resources/form.js:3246
+#: modules/luci-base/htdocs/luci-static/resources/form.js:3252
+#: modules/luci-base/htdocs/luci-static/resources/form.js:3256
 msgid "Clone"
 msgstr ""
 
@@ -2828,10 +2828,10 @@ msgstr ""
 msgid "Delegate IPv6 prefixes"
 msgstr ""
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:2500
-#: modules/luci-base/htdocs/luci-static/resources/form.js:3255
-#: modules/luci-base/htdocs/luci-static/resources/form.js:3259
-#: modules/luci-base/htdocs/luci-static/resources/form.js:4267
+#: modules/luci-base/htdocs/luci-static/resources/form.js:2510
+#: modules/luci-base/htdocs/luci-static/resources/form.js:3265
+#: modules/luci-base/htdocs/luci-static/resources/form.js:3269
+#: modules/luci-base/htdocs/luci-static/resources/form.js:4277
 #: modules/luci-base/htdocs/luci-static/resources/ui.js:3515
 #: modules/luci-compat/luasrc/view/cbi/nsection.htm:11
 #: modules/luci-compat/luasrc/view/cbi/tblsection.htm:162
@@ -3149,9 +3149,9 @@ msgid "Disk space"
 msgstr "Levytila"
 
 #: modules/luci-base/htdocs/luci-static/resources/form.js:633
-#: modules/luci-base/htdocs/luci-static/resources/form.js:3601
-#: modules/luci-base/htdocs/luci-static/resources/form.js:3883
-#: modules/luci-base/htdocs/luci-static/resources/form.js:3897
+#: modules/luci-base/htdocs/luci-static/resources/form.js:3611
+#: modules/luci-base/htdocs/luci-static/resources/form.js:3893
+#: modules/luci-base/htdocs/luci-static/resources/form.js:3907
 #: modules/luci-base/htdocs/luci-static/resources/ui.js:4388
 #: modules/luci-base/htdocs/luci-static/resources/ui.js:5340
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js:2204
@@ -3313,7 +3313,7 @@ msgid ""
 "WireGuard interface."
 msgstr ""
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:3187
+#: modules/luci-base/htdocs/luci-static/resources/form.js:3197
 msgid "Drag to reorder"
 msgstr "Järjestä raahaten"
 
@@ -3451,9 +3451,9 @@ msgid ""
 "package manager."
 msgstr ""
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:3220
-#: modules/luci-base/htdocs/luci-static/resources/form.js:3223
-#: modules/luci-base/htdocs/luci-static/resources/form.js:4101
+#: modules/luci-base/htdocs/luci-static/resources/form.js:3230
+#: modules/luci-base/htdocs/luci-static/resources/form.js:3233
+#: modules/luci-base/htdocs/luci-static/resources/form.js:4111
 #: modules/luci-compat/luasrc/view/cbi/tblsection.htm:154
 #: modules/luci-compat/luasrc/view/cbi/tblsection.htm:160
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/interfaces.js:514
@@ -4002,7 +4002,7 @@ msgstr ""
 msgid "Expecting two priority values separated by a colon"
 msgstr ""
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:2449
+#: modules/luci-base/htdocs/luci-static/resources/form.js:2459
 #: modules/luci-base/htdocs/luci-static/resources/validation.js:215
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/dhcp.js:156
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/dhcp.js:162
@@ -4241,8 +4241,8 @@ msgstr ""
 msgid "Filesystem"
 msgstr "Tiedostojärjestelmä"
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:2958
-#: modules/luci-base/htdocs/luci-static/resources/form.js:2971
+#: modules/luci-base/htdocs/luci-static/resources/form.js:2968
+#: modules/luci-base/htdocs/luci-static/resources/form.js:2981
 #: modules/luci-mod-network/htdocs/luci-static/resources/tools/network.js:910
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/dns.js:200
 msgid "Filter"
@@ -4716,8 +4716,8 @@ msgstr "Siirry laiteohjelmiston päivitykseen..."
 msgid "Go to password configuration..."
 msgstr "Siirry salasanan määritykseen ..."
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:2933
-#: modules/luci-base/htdocs/luci-static/resources/form.js:4465
+#: modules/luci-base/htdocs/luci-static/resources/form.js:2943
+#: modules/luci-base/htdocs/luci-static/resources/form.js:4475
 #: modules/luci-compat/luasrc/view/cbi/full_valueheader.htm:4
 #: modules/luci-compat/luasrc/view/cbi/tblsection.htm:58
 msgid "Go to relevant configuration page"
@@ -7277,7 +7277,7 @@ msgstr ""
 msgid "More Characters"
 msgstr "Lisää merkkejä"
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:2853
+#: modules/luci-base/htdocs/luci-static/resources/form.js:2863
 msgid "More…"
 msgstr "Lisää…"
 
@@ -7434,7 +7434,7 @@ msgstr "NTP-palvelinehdokkaat"
 msgid "NUD"
 msgstr ""
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:2911
+#: modules/luci-base/htdocs/luci-static/resources/form.js:2921
 #: modules/luci-base/htdocs/luci-static/resources/ui.js:4952
 #: modules/luci-compat/luasrc/view/cbi/tblsection.htm:27
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/dhcp.js:117
@@ -7623,7 +7623,7 @@ msgstr ""
 msgid "Next »"
 msgstr "Seuraava »"
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:5131
+#: modules/luci-base/htdocs/luci-static/resources/form.js:5141
 msgid "No"
 msgstr "Ei"
 
@@ -8139,12 +8139,12 @@ msgstr ""
 msgid "Operator Name"
 msgstr ""
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:2139
-#: modules/luci-base/htdocs/luci-static/resources/form.js:5144
+#: modules/luci-base/htdocs/luci-static/resources/form.js:2145
+#: modules/luci-base/htdocs/luci-static/resources/form.js:5154
 msgid "Option \"%s\" contains an invalid input value."
 msgstr "Vaihtoehto \"%s\" sisältää virheellisen arvon."
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:2154
+#: modules/luci-base/htdocs/luci-static/resources/form.js:2160
 msgid "Option \"%s\" must not be empty."
 msgstr "Vaihtoehto %s ei saa olla tyhjä."
 
@@ -9754,7 +9754,7 @@ msgstr ""
 msgid "Reserved tag"
 msgstr ""
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:2996
+#: modules/luci-base/htdocs/luci-static/resources/form.js:3006
 #: modules/luci-base/htdocs/luci-static/resources/luci.js:2220
 #: modules/luci-compat/luasrc/view/cbi/delegator.htm:17
 #: modules/luci-compat/luasrc/view/cbi/footer.htm:30
@@ -9766,7 +9766,7 @@ msgstr "Palauta"
 msgid "Reset Counters"
 msgstr "Nollaa laskurit"
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:2986
+#: modules/luci-base/htdocs/luci-static/resources/form.js:2996
 msgid "Reset filters"
 msgstr ""
 
@@ -10126,7 +10126,7 @@ msgstr "SSTP-palvelin"
 msgid "SWAP"
 msgstr "Välimuisti"
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:3902
+#: modules/luci-base/htdocs/luci-static/resources/form.js:3912
 #: modules/luci-base/htdocs/luci-static/resources/luci.js:2215
 #: modules/luci-compat/luasrc/view/cbi/error.htm:17
 #: modules/luci-compat/luasrc/view/cbi/footer.htm:26
@@ -11921,7 +11921,7 @@ msgstr ""
 msgid "This prevents unreachable IPs in subnets not accessible to you."
 msgstr ""
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:2463
+#: modules/luci-base/htdocs/luci-static/resources/form.js:2473
 #: modules/luci-compat/luasrc/view/cbi/tblsection.htm:172
 #: modules/luci-compat/luasrc/view/cbi/tsection.htm:32
 msgid "This section contains no values yet"
@@ -12755,7 +12755,7 @@ msgstr "VPN-palvelin"
 
 #: protocols/luci-proto-openconnect/htdocs/luci-static/resources/protocol/openconnect.js:141
 msgid "VPN Server's certificate SHA1 hash"
-msgstr "VPN-palvelimen sertifikaatin SHA1-tarkiste"
+msgstr "VPN-palvelimen varmenteen SHA1-tiiviste"
 
 #: modules/luci-compat/luasrc/model/network/proto_vpnc.lua:9
 #: protocols/luci-proto-vpnc/htdocs/luci-static/resources/protocol/vpnc.js:9
@@ -12764,15 +12764,15 @@ msgstr "VPNC (CISCO 3000 (ja muut) VPN)"
 
 #: modules/luci-mod-status/htdocs/luci-static/resources/view/status/routesj.js:116
 msgid "VRF"
-msgstr ""
+msgstr "VRF"
 
 #: modules/luci-mod-network/htdocs/luci-static/resources/tools/network.js:459
 msgid "VRF device"
-msgstr ""
+msgstr "VRF-laite"
 
 #: protocols/luci-proto-vti/htdocs/luci-static/resources/protocol/vti.js:10
 msgid "VTI"
-msgstr ""
+msgstr "VTI"
 
 #: protocols/luci-proto-vxlan/htdocs/luci-static/resources/protocol/vxlan.js:11
 msgid "VXLAN (RFC7348)"
@@ -12841,12 +12841,12 @@ msgstr ""
 #: modules/luci-mod-network/htdocs/luci-static/resources/tools/network.js:457
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/interfaces.js:1708
 msgid "Virtual Ethernet"
-msgstr ""
+msgstr "Virtuaalinen Ethernet"
 
 #: modules/luci-base/htdocs/luci-static/resources/network.js:3057
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/interfaces.js:1711
 msgid "Virtual Routing and Forwarding (VRF)"
-msgstr ""
+msgstr "Virtuaalinen reititys ja välitys (VRF)"
 
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/interfaces.js:68
 msgid "Virtual dynamic interface"
@@ -12874,7 +12874,7 @@ msgstr "WEP-tunnuslause"
 
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js:1052
 msgid "WLAN roaming"
-msgstr ""
+msgstr "WLAN-verkkovierailu"
 
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/wireless.js:1211
 msgid "WMM Mode"
@@ -12931,7 +12931,7 @@ msgstr "Heikko"
 
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/dns.js:370
 msgid "Weight"
-msgstr ""
+msgstr "Painokerroin"
 
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/dhcp.js:1092
 msgid ""
@@ -13106,7 +13106,7 @@ msgstr "Kirjoita vastaanotetut DNS-pyynnöt syslogiin."
 msgid "Write system log to file"
 msgstr "Kirjoita järjestelmäloki tiedostoon"
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:5131
+#: modules/luci-base/htdocs/luci-static/resources/form.js:5141
 msgid "Yes"
 msgstr "Kyllä"
 
@@ -13526,12 +13526,12 @@ msgstr "ei linkkiä"
 msgid "no override"
 msgstr ""
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:2449
+#: modules/luci-base/htdocs/luci-static/resources/form.js:2459
 #: modules/luci-base/htdocs/luci-static/resources/validation.js:210
 msgid "non-empty value"
 msgstr "ei-tyhjä arvo"
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:4083
+#: modules/luci-base/htdocs/luci-static/resources/form.js:4093
 #: modules/luci-mod-network/htdocs/luci-static/resources/tools/network.js:841
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/interfaces.js:916
 #: modules/luci-mod-network/htdocs/luci-static/resources/view/network/interfaces.js:960
@@ -13738,7 +13738,7 @@ msgstr "tuntematon versio"
 msgid "unlimited"
 msgstr "rajoittamaton"
 
-#: modules/luci-base/htdocs/luci-static/resources/form.js:4510
+#: modules/luci-base/htdocs/luci-static/resources/form.js:4520
 #: modules/luci-base/htdocs/luci-static/resources/tools/widgets.js:106
 #: modules/luci-base/htdocs/luci-static/resources/tools/widgets.js:167
 #: modules/luci-base/htdocs/luci-static/resources/tools/widgets.js:397
