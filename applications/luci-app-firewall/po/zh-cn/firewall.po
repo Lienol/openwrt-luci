@@ -630,3 +630,13 @@ msgstr "使用外部 IP 地址"
 
 msgid "Limit to %s"
 msgstr "限制到 %s"
+
+msgid "Use ipset"
+msgstr "使用 IP 集"
+
+msgid "Enable logging"
+msgstr "启用日志"
+
+msgid "Log matched packets to syslog."
+msgstr "在系统日志中记录匹配的数据包。"
+

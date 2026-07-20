@@ -3,17 +3,12 @@
 
 local sys = require "luci.sys"
 local dsp = require "luci.dispatcher"
-local ft  = require "luci.tools.firewall"
 
 local m, s, o
 
 arg[1] = arg[1] or ""
 
-m = Map("firewall",
-	translate("Firewall - Port Forwards"),
-	translate("This page allows you to change advanced properties of the port \
-	           forwarding entry. In most cases there is no need to modify \
-			   those settings."))
+m = Map("firewall", translate("Firewall - Port Forwards"))
 
 m.redirect = dsp.build_url("admin/network/firewall/forwards")
 
@@ -32,11 +27,16 @@ s = m:section(NamedSection, arg[1], "redirect", "")
 s.anonymous = true
 s.addremove = false
 
-ft.opt_enabled(s, Button)
-ft.opt_name(s, Value, translate("Name"))
+s:tab("general",  translate("General Settings"))
+s:tab("advanced", translate("Advanced Settings"))
 
+o = s:taboption("general", Flag, "enabled", translate("Enable"))
+o.default = o.enabled
 
-o = s:option(Value, "proto", translate("Protocol"))
+o = s:taboption("general", Value, "name", translate("Name"))
+o.rmempty = false
+
+o = s:taboption("general", Value, "proto", translate("Protocol"))
 o:value("tcp udp", "TCP+UDP")
 o:value("tcp", "TCP")
 o:value("udp", "UDP")
@@ -51,13 +51,15 @@ function o.cfgvalue(...)
 end
 
 
-o = s:option(Value, "src", translate("Source zone"))
+o = s:taboption("advanced", Value, "ipset", translate("Use ipset"))
+
+o = s:taboption("general", Value, "src", translate("Source zone"))
 o.nocreate = true
 o.default = "wan"
 o.template = "cbi/firewall_zonelist"
 
 
-o = s:option(DynamicList, "src_mac",
+o = s:taboption("advanced", DynamicList, "src_mac",
 	translate("Source MAC address"),
 	translate("Only match incoming traffic from these MACs."))
 o.rmempty = true
@@ -67,13 +69,12 @@ o.placeholder = translate("any")
 luci.sys.net.mac_hints(function(mac, name)
 	o:value(mac, "%s (%s)" %{ mac, name })
 end)
-
 o:depends("proto", "tcp")
 o:depends("proto", "udp")
 o:depends("proto", "tcp udp")
 
 
-o = s:option(Value, "src_ip",
+o = s:taboption("advanced", Value, "src_ip",
 	translate("Source IP address"),
 	translate("Only match incoming traffic from this IP or range."))
 o.rmempty = true
@@ -85,47 +86,44 @@ luci.sys.net.ipv4_hints(function(ip, name)
 end)
 
 
-o = s:option(Value, "src_port",
+o = s:taboption("advanced", Value, "src_port",
 	translate("Source port"),
 	translate("Only match incoming traffic originating from the given source port or port range on the client host"))
 o.rmempty = true
 o.datatype = "neg(portrange)"
 o.placeholder = translate("any")
-
 o:depends("proto", "tcp")
 o:depends("proto", "udp")
 o:depends("proto", "tcp udp")
 
-o = s:option(Value, "src_dip",
+o = s:taboption("advanced", Value, "src_dip",
 	translate("External IP address"),
 	translate("Only match incoming traffic directed at the given IP address."))
 
 luci.sys.net.ipv4_hints(function(ip, name)
 	o:value(ip, "%s (%s)" %{ ip, name })
 end)
-
-
 o.rmempty = true
 o.datatype = "neg(ipmask4)"
 o.placeholder = translate("any")
 
 
-o = s:option(Value, "src_dport", translate("External port"),
+o = s:taboption("general", Value, "src_dport", translate("External port"),
 	translate("Match incoming traffic directed at the given " ..
 		"destination port or port range on this host"))
 o.datatype = "neg(portrange)"
-
+o.rmempty = false
 o:depends("proto", "tcp")
 o:depends("proto", "udp")
 o:depends("proto", "tcp udp")
 
-o = s:option(Value, "dest", translate("Internal zone"))
+o = s:taboption("general", Value, "dest", translate("Internal zone"))
 o.nocreate = true
 o.default = "lan"
 o.template = "cbi/firewall_zonelist"
 
 
-o = s:option(Value, "dest_ip", translate("Internal IP address"),
+o = s:taboption("general", Value, "dest_ip", translate("Internal IP address"),
 	translate("Redirect matched incoming traffic to the specified \
 		internal host"))
 o.datatype = "ipmask4"
@@ -135,22 +133,21 @@ luci.sys.net.ipv4_hints(function(ip, name)
 end)
 
 
-o = s:option(Value, "dest_port",
+o = s:taboption("general", Value, "dest_port",
 	translate("Internal port"),
 	translate("Redirect matched incoming traffic to the given port on \
 		the internal host"))
 o.placeholder = translate("any")
 o.datatype = "portrange"
-
 o:depends("proto", "tcp")
 o:depends("proto", "udp")
 o:depends("proto", "tcp udp")
 
-o = s:option(Flag, "reflection", translate("Enable NAT Loopback"))
+o = s:taboption("advanced", Flag, "reflection", translate("Enable NAT Loopback"))
 o.rmempty = true
 o.default = o.enabled
 
-o = s:option(ListValue, "reflection_src", translate("Loopback source IP"), translate("Specifies whether to use the external or the internal IP address for reflected traffic."))
+o = s:taboption("advanced", ListValue, "reflection_src", translate("Loopback source IP"), translate("Specifies whether to use the external or the internal IP address for reflected traffic."))
 o:depends("reflection", "1")
 o:value("internal", translate("Use internal IP address"))
 o:value("external", translate("Use external IP address"))
@@ -163,7 +160,13 @@ function o.write(self, section, value)
 end
 
 
-s:option(Value, "extra",
+o = s:taboption("advanced", Flag, "log", translate("Enable logging"), translate("Log matched packets to syslog."))
+
+o = s:taboption("advanced", Value, "log_limit", translate("Limit log messages"))
+o.placeholder = "10/minute"
+o:depends("log", true)
+
+s:taboption("advanced", Value, "extra",
 	translate("Extra arguments"),
 	translate("Passes additional arguments to iptables. Use with care!"))
 
