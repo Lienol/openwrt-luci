@@ -315,6 +315,17 @@ o = s:taboption("advanced", Value, "metric", translate("Use gateway metric"))
 o.datatype = "uinteger"
 o.placeholder = "0"
 
+local mptcp = fs.access("/proc/sys/net/mptcp/enabled")
+if mptcp then
+	o = s:taboption("advanced", ListValue, "multipath", translate('Multi-Path TCP'),
+		translate('Multi-Path TCP') .. string.format(' <a href="%s" target="_blank">RFC8684</a>', 'https://www.rfc-editor.org/rfc/rfc8684.html') .. "<br/>" .. translate('For packets originating from this device, e.g. VPN.'))
+	o:value("",  translate("Off"))
+	o:value("on",  translate("On"))
+	o:value("master",  translate("Master"))
+	o:value("backup",  translate("Backup"))
+	o:value("handover",  translate("Handover"))
+end
+
 o = s:taboption("advanced", Value, "ip4table", translate("Override IPv4 routing table"))
 o.datatype = "or(uinteger, string)"
 
