@@ -627,3 +627,6 @@ msgstr "使用内部 IP 地址"
 
 msgid "Use external IP address"
 msgstr "使用外部 IP 地址"
+
+msgid "Limit to %s"
+msgstr "限制到 %s"
