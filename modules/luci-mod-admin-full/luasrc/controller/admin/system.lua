@@ -10,6 +10,7 @@ function index()
 	entry({"admin", "system"}, alias("admin", "system", "system"), _("System"), 30).index = true
 	entry({"admin", "system", "system"}, cbi("admin_system/system"), _("System"), 1)
 	entry({"admin", "system", "clock_status"}, post_on({ set = true }, "action_clock_status"))
+	entry({"admin", "system", "clock_ntp_status"}, post("action_clock_ntp"))
 
 	entry({"admin", "system", "admin"}, cbi("admin_system/admin"), _("Administration"), 2)
 
@@ -58,6 +59,12 @@ function action_clock_status()
 		end
 	end
 
+	luci.http.prepare_content("application/json")
+	luci.http.write_json({ timestring = os.date("%Y-%m-%d") .. " " .. os.date("%X") .. " " .. luci.i18n.translate(os.date("%A")) })
+end
+
+function action_clock_ntp()
+	luci.sys.call("/etc/init.d/sysntpd restart")
 	luci.http.prepare_content("application/json")
 	luci.http.write_json({ timestring = os.date("%Y-%m-%d") .. " " .. os.date("%X") .. " " .. luci.i18n.translate(os.date("%A")) })
 end
