@@ -28,9 +28,27 @@
 
 		return false;
 	}
+	
+	function sync_ntp_clock(btn)
+	{
+		btn.disabled = true;
+		btn.value    = '<%:Synchronizing...%>';
+
+		(new XHR()).post('<%=url('admin/system/clock_ntp_status')%>',
+			{ token: '<%=token%>' },
+			function()
+			{
+				btn.disabled = false;
+				btn.value    = '<%:Sync with NTP-Server%>';
+			}
+		);
+
+		return false;
+	}
 //]]></script>
 
 <span id="<%=self.option%>-clock-status"><em><%:Collecting data...%></em></span>
 <input type="button" class="cbi-button cbi-button-apply" value="<%:Sync with browser%>" onclick="return sync_clock(this)" />
+<input type="button" class="cbi-button cbi-button-apply" value="<%:Sync with NTP-Server%>" onclick="return sync_ntp_clock(this)" />
 
 <%+cbi/valuefooter%>

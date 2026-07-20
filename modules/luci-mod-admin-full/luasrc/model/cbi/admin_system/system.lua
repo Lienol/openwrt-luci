@@ -21,6 +21,7 @@ s.addremove = false
 
 s:tab("general",  translate("General Settings"))
 s:tab("logging",  translate("Logging"))
+s:tab("timesync",  translate("Time Synchronization"))
 s:tab("language", translate("Language and Style"))
 
 if has_zram then s:tab("zram", translate("ZRam Settings")) end
@@ -114,6 +115,68 @@ o:value(9, translate("Warning"))
 
 
 --
+-- NTP
+--
+if has_ntpd then
+	local default_servers = {
+		'0.openwrt.pool.ntp.org', '1.openwrt.pool.ntp.org',
+		'2.openwrt.pool.ntp.org', '3.openwrt.pool.ntp.org'
+	}
+
+	if not m.uci:get("system", "ntp") then
+		m.uci:section("system", "timeserver", "ntp")
+		m.uci:set("system", "ntp", "enabled", "1")
+		m.uci:set("system", "ntp", "server", default_servers)
+	end
+
+	o = s:taboption("timesync", Flag, "ntp_enabled", translate("Enable NTP client"))
+	o.rmempty = false
+	function o.cfgvalue(self)
+		return m.uci:get("system", "ntp", "enabled")
+	end
+	function o.write(self, section, value)
+		m.uci:set("system", "ntp", "enabled", value)
+		if value == "1" then
+			sys.init.enable("sysntpd")
+			sys.call("env -i /etc/init.d/sysntpd start >/dev/null")
+		else
+			sys.call("env -i /etc/init.d/sysntpd stop >/dev/null")
+			sys.init.disable("sysntpd")
+		end
+	end
+
+	o = s:taboption("timesync", Flag, "ntp_enable_server", translate("Provide NTP server"))
+	o:depends("ntp_enabled", "1")
+	o.rmempty = false
+	function o.cfgvalue(...)
+		return m.uci:get("system", "ntp", "enable_server")
+	end
+	function o.write(self, section, value)
+		m.uci:set("system", "ntp", "enable_server", value)
+	end
+
+	o = s:taboption("timesync", Flag, "ntp_use_dhcp", translate("Use DHCP advertised servers"))
+	o:depends("ntp_enabled", "1")
+	o.rmempty = false
+	function o.cfgvalue(...)
+		return m.uci:get("system", "ntp", "use_dhcp")
+	end
+	function o.write(self, section, value)
+		m.uci:set("system", "ntp", "use_dhcp", value)
+	end
+
+	o = s:taboption("timesync", DynamicList, "ntp_server", translate("NTP server candidates"))
+	o.datatype = "host(0)"
+	o:depends("ntp_enabled", "1")
+	function o.cfgvalue(...)
+		return m.uci:get("system", "ntp", "server")
+	end
+	function o.write(self, section, value)
+		m.uci:set("system", "ntp", "server", value)
+	end
+end
+
+--
 -- Zram Properties
 --
 if has_zram then
@@ -174,83 +237,6 @@ end
 
 function o.write(self, section, value)
 	m.uci:set("luci", "main", "mediaurlbase", value)
-end
-
-
---
--- NTP
---
-
-if has_ntpd then
-
-	-- timeserver setup was requested, create section and reload page
-	if m:formvalue("cbid.system._timeserver._enable") then
-		m.uci:section("system", "timeserver", "ntp",
-			{
-                	server = { "0.openwrt.pool.ntp.org", "1.openwrt.pool.ntp.org", "2.openwrt.pool.ntp.org", "3.openwrt.pool.ntp.org" }
-			}
-		)
-
-		m.uci:save("system")
-		luci.http.redirect(luci.dispatcher.build_url("admin/system", arg[1]))
-		return
-	end
-
-	local has_section = false
-	m.uci:foreach("system", "timeserver", 
-		function(s) 
-			has_section = true 
-			return false
-	end)
-
-	if not has_section then
-
-		s = m:section(TypedSection, "timeserver", translate("Time Synchronization"))
-		s.anonymous   = true
-		s.cfgsections = function() return { "_timeserver" } end
-
-		x = s:option(Button, "_enable")
-		x.title      = translate("Time Synchronization is not configured yet.")
-		x.inputtitle = translate("Set up Time Synchronization")
-		x.inputstyle = "apply"
-
-	else
-		
-		s = m:section(TypedSection, "timeserver", translate("Time Synchronization"))
-		s.anonymous = true
-		s.addremove = false
-
-		o = s:option(Flag, "enable", translate("Enable NTP client"))
-		o.rmempty = false
-
-		function o.cfgvalue(self)
-			return sys.init.enabled("sysntpd")
-				and self.enabled or self.disabled
-		end
-
-		function o.write(self, section, value)
-			if value == self.enabled then
-				sys.init.enable("sysntpd")
-				sys.call("env -i /etc/init.d/sysntpd start >/dev/null")
-			else
-				sys.call("env -i /etc/init.d/sysntpd stop >/dev/null")
-				sys.init.disable("sysntpd")
-			end
-		end
-
-
-		o = s:option(Flag, "enable_server", translate("Provide NTP server"))
-		o:depends("enable", "1")
-
-
-		o = s:option(DynamicList, "server", translate("NTP server candidates"))
-		o.datatype = "host(0)"
-		o:depends("enable", "1")
-
-		-- retain server list even if disabled
-		function o.remove() end
-
-	end
 end
 
 return m
