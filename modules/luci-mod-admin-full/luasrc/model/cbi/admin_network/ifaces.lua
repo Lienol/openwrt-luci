@@ -589,6 +589,7 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 		s:tab("general",  translate("General Setup"))
 		s:tab("ipv4", translate("IPv4 Settings"))
 		s:tab("ipv6", translate("IPv6 Settings"))
+		s:tab("dhcpv6", translate("DHCPv6 Settings"))
 		s:tab("ipv6-ra", translate("IPv6 RA Settings"))
 
 		function s.filter(self, section)
@@ -700,11 +701,14 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 		o:value("relay", translate("relay mode"))
 		o:value("hybrid", translate("hybrid mode"))
 
-		o = s:taboption('ipv6', Value, 'dhcpv6_pd_min_len', translate('<abbr title="Prefix Delegation">PD</abbr> minimum length'),
+		o = s:taboption("dhcpv6", Flag, "dhcpv6_pd", translate('DHCPv6-<abbr title="Prefix Delegation">PD</abbr>'), translate('Toggle IPv6 PD via DHCPv6.'))
+		o:depends({ dhcpv6 = "server" })
+
+		o = s:taboption('dhcpv6', Value, 'dhcpv6_pd_min_len', translate('<abbr title="Prefix Delegation">PD</abbr> minimum length'),
 				translate('Configures the minimum delegated prefix length assigned to a requesting downstream router, potentially overriding a requested prefix length. If left unspecified, the device will assign the smallest available prefix greater than or equal to the requested prefix.'))
 		o.placeholder = '62'
 		o.datatype = 'range(1,64)'
-		o:depends({ dhcpv6 = "server" })
+		o:depends({ dhcpv6 = "server", dhcpv6_pd = true })
 
 		-- This option is used by odhcpd. It can take IPv4/6 entries, although IPv4 DNS servers don't
 		--	always make sense in an IPv6 environment, they might in a dual stack environment.
@@ -745,7 +749,7 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 		o:depends("dhcpv6", "server")
 		o:depends({ dhcpv6 = "hybrid", master = false })
 
-		o = s:taboption("ipv6", DynamicList, "ntp", translate('NTP Servers'), translate('DHCPv6 option 56.') .. " " .. string.format('<a href="%s" target="_blank">RFC5908</a>', 'https://www.rfc-editor.org/rfc/rfc5908#section-4'))
+		o = s:taboption("dhcpv6", DynamicList, "ntp", translate('NTP Servers'), translate('DHCPv6 option 56.') .. " " .. string.format('<a href="%s" target="_blank">RFC5908</a>', 'https://www.rfc-editor.org/rfc/rfc5908#section-4'))
 		local ntp_servers = m.uci:get("system", "ntp", "server")
 		for i, v in ipairs(ntp_servers) do
 			o:value(v)
@@ -819,6 +823,29 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 
 		function o.remove(self, section)
 			m2.uci:delete("dhcp", section, "ra_flags")
+		end
+
+		o = s:taboption("ipv6-ra", MultiValue, "_ra_pio_flags", translate('RA <abbr title="Prefix Information Option">PIO</abbr> Flags'),
+				translate('Allow <abbr title="Prefix Information Option">PIO</abbr> flags sent in RA messages, globally for all prefixes.'))
+		o:value("pd", translate('prefix delegation (PD) preferred (P)')) --The PD <em>preferred</em> (P) flag indicates that the network prefers clients use PD instead of individual addresses via DHCPv6 or SLAAC. Requires DHCPv6 and DHCPv6-PD.
+		o:depends("ra", "server")
+		o:depends({ ra = "hybrid", master = false })
+		function o.cfgvalue(self, section)
+			local v = ""
+			for index, value in ipairs(m2.uci:get("dhcp", section, "dhcpv6_pd_preferred") or {}) do
+				v = v .. " " .. value
+			end
+			return v
+		end
+
+		function o.write(self, section, value)
+			if value == "pd" then
+				m2.uci:set("dhcp", section, "dhcpv6_pd_preferred", "1")
+			end
+		end
+
+		function o.remove(self, section)
+			m2.uci:delete("dhcp", section, "dhcpv6_pd_preferred")
 		end
 
 		o = s:taboption('ipv6-ra', Value, 'ra_pref64', translate('NAT64 prefix'), translate('Announce NAT64 prefix in <abbr title="Router Advertisement">RA</abbr> messages.'))
