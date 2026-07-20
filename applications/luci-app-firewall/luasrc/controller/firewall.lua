@@ -17,7 +17,11 @@ function index()
 		arcombine(cbi("firewall/rules"), cbi("firewall/rule-details")),
 		_("Traffic Rules"), 30).leaf = true
 
+	entry({"admin", "network", "firewall", "snats"},
+		arcombine(cbi("firewall/snats"), cbi("firewall/snat-details")),
+		_("NAT Rules"), 40).leaf = true
+
 	entry({"admin", "network", "firewall", "custom"},
 		form("firewall/custom"),
-		_("Custom Rules"), 40).leaf = true
+		_("Custom Rules"), 99).leaf = true
 end
