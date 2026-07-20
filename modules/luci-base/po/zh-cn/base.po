@@ -5972,3 +5972,31 @@ msgstr "移交"
 
 msgid "For packets originating from this device, e.g. VPN."
 msgstr "针对源自此设备的数据包，如 VPN。"
+
+msgid "DHCPv6 Settings"
+msgstr "DHCPv6 设置"
+
+msgid "Toggle IPv6 PD via DHCPv6."
+msgstr "开/关 DHCPv6 IPv6 PD。"
+
+msgid "RA <abbr title=\"Prefix Information Option\">PIO</abbr> Flags"
+msgstr "RA <abbr title=\"Prefix Information Option\">PIO</abbr> 标记"
+
+msgid ""
+"Allow <abbr title=\"Prefix Information Option\">PIO</abbr> flags sent in RA "
+"messages, globally for all prefixes."
+msgstr ""
+"允许在 RA 消息中发送 <abbr title=\"Prefix Information Option\">PIO</abbr> 标"
+"记，此设置对所有前缀生效。"
+
+msgid "prefix delegation (PD) preferred (P)"
+msgstr "前缀委派（PD）首选 (P)"
+
+msgid ""
+"The PD <em>preferred</em> (P) flag indicates that the network prefers "
+"clients use PD instead of individual addresses via DHCPv6 or SLAAC. Requires "
+"DHCPv6 and DHCPv6-PD."
+msgstr ""
+"PD <em>首选</em> (P) 标记表明网络偏好客户端使用 PD 而非单独的 DHCPv6 或 "
+"SLAAC 地址。 需要DHCPv6 和 DHCPv6-PD。"
+
