@@ -105,41 +105,44 @@ end
 
 local packet_steering = fs.access("/usr/libexec/network/packet-steering.sh") or fs.access("/usr/libexec/network/packet-steering.uc")
 local network = require "luci.model.network"
-if network:has_ipv6() or packet_steering then
-	local s = m:section(NamedSection, "globals", "globals", translate("Global network options"))
 
-	if network:has_ipv6() then
-		local o = s:option(Value, "ula_prefix", translate("IPv6 ULA-Prefix"),
-			translate('ULA for IPv6 is analogous to IPv4 private network addressing.') ..
-			translate('This prefix is randomly generated at first install.'))
-		o.datatype = "ip6addr"
-		o.rmempty = true
-		m.pageaction = true
+s = m:section(NamedSection, "globals", "globals", translate("Global network options"))
+if network:has_ipv6() then
+	o = s:option(Value, "ula_prefix", translate("IPv6 ULA-Prefix"),
+		translate('ULA for IPv6 is analogous to IPv4 private network addressing.') ..
+		translate('This prefix is randomly generated at first install.'))
+	o.datatype = "ip6addr"
+	o.rmempty = true
+	m.pageaction = true
 
-		local o = s:option(Value, "dhcp_default_duid", translate("Default DUID"),
-			translate('The default <abbr title="DHCP Unique Identifier">DUID</abbr> for this device, used when acting as a DHCP server or client. The client identifier can be overridden on a per-interface basis.') .. '<br/>' ..
-			translate('This identifier is randomly generated the first time the device is booted.'))
-		o.datatype = "and(rangelength(6,260),hexstring)"
-		o.rmempty = true
-		m.pageaction = true
-	end
+	o = s:option(Value, "dhcp_default_duid", translate("Default DUID"),
+		translate('The default <abbr title="DHCP Unique Identifier">DUID</abbr> for this device, used when acting as a DHCP server or client. The client identifier can be overridden on a per-interface basis.') .. '<br/>' ..
+		translate('This identifier is randomly generated the first time the device is booted.'))
+	o.datatype = "and(rangelength(6,260),hexstring)"
+	o.rmempty = true
+	m.pageaction = true
+end
 
-	if packet_steering then
-		local o = s:option(ListValue, "packet_steering", translate("Packet Steering"), translate("Enable packet steering across CPUs. May help or hinder network speed."))
-		o:value('', translate('Disabled'))
-		o:value('1', translate('Enabled'))
-		o:value('2', translate('Enabled (all CPUs)'))
+local l3mdevhelp1 = '%s services running on this device in the default VRF context (ie., not bound to any VRF device) shall work across all VRF domains.'
+local l3mdevhelp2 = 'Off means VRF traffic will be handled exclusively by sockets bound to VRFs.'
+o = s:option(Flag, 'tcp_l3mdev', translate('TCP Layer 3 Master Device (tcp_l3mdev) accept'), translatef(l3mdevhelp1, 'TCP') .. '<br/>' .. translate(l3mdevhelp2))
+o = s:option(Flag, 'udp_l3mdev', translate('UDP Layer 3 Master Device (udp_l3mdev) accept'), translatef(l3mdevhelp1, 'UDP') .. '<br/>' .. translate(l3mdevhelp2))
 
-		local o = s:option(ListValue, "steering_flows", translate('Steering flows (<abbr title="Receive Packet Steering">RPS</abbr>)'),
-			translate('Directs packet flows to specific CPUs where the local socket owner listens (the local service).') .. 
-			translate('Note: this setting is for local services on the device only (not for forwarding).'))
-		o:value('', translate('Standard: none'))
-		o:value('128', translate('Suggested: 128'))
-		o:value('256', translate('256'))
-		o:depends("packet_steering", "1")
-		o:depends("packet_steering", "2")
-		o.datatype = "uinteger"
-	end
+if packet_steering then
+	o = s:option(ListValue, "packet_steering", translate("Packet Steering"), translate("Enable packet steering across CPUs. May help or hinder network speed."))
+	o:value('', translate('Disabled'))
+	o:value('1', translate('Enabled'))
+	o:value('2', translate('Enabled (all CPUs)'))
+
+	o = s:option(ListValue, "steering_flows", translate('Steering flows (<abbr title="Receive Packet Steering">RPS</abbr>)'),
+		translate('Directs packet flows to specific CPUs where the local socket owner listens (the local service).') .. 
+		translate('Note: this setting is for local services on the device only (not for forwarding).'))
+	o:value('', translate('Standard: none'))
+	o:value('128', translate('Suggested: 128'))
+	o:value('256', translate('256'))
+	o:depends("packet_steering", "1")
+	o:depends("packet_steering", "2")
+	o.datatype = "uinteger"
 end
 
 if network.new_netifd then
