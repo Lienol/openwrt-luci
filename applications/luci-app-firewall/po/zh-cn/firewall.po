@@ -662,3 +662,51 @@ msgstr "指定是否将此流量规则绑定到特定的入站或出站网络设
 
 msgid "Time Restrictions"
 msgstr "时间限制"
+
+msgid "NAT Rules"
+msgstr "NAT 规则"
+
+msgid "Firewall - NAT Rules"
+msgstr "防火墙 - NAT 规则"
+
+msgid ""
+"NAT rules allow fine grained control over the source IP to use for outbound "
+"or forwarded traffic."
+msgstr "NAT 规则允许对源 IP 进行精细控制，以用于出站或转发流量。"
+
+msgid "<var data-tooltip=\"SNAT\">Statically rewrite</var> to source IP <var>%s</var> port <var>%s</var>"
+msgstr "<var data-tooltip=\"SNAT\">静态重写</var> 到源 IP <var>%s</var> 端口 <var>%s</var>"
+
+msgid "<var data-tooltip=\"MASQUERADE\">Automatically rewrite</var> source IP"
+msgstr "<var data-tooltip=\"MASQUERADE\">自动重写</var> 源 IP"
+
+msgid "<var data-tooltip=\"ACCEPT\">Prevent source rewrite</var>"
+msgstr "<var data-tooltip=\"ACCEPT\">防止重写源</var>"
+
+msgid "SNAT - Rewrite to specific source IP or port"
+msgstr "SNAT - 重写为特定的源 IP 或端口"
+
+msgid "MASQUERADE - Automatically rewrite to outbound interface IP"
+msgstr "MASQUERADE - 自动重写源地址为出站接口 IP"
+
+msgid "ACCEPT - Disable address rewriting"
+msgstr "转发 - 禁用地址重写"
+
+msgid "Rewrite IP address"
+msgstr "重写 IP 地址"
+
+msgid "Rewrite matched traffic to the specified source IP address."
+msgstr "将匹配的流量源地址重写为指定的源 IP 地址。"
+
+msgid "Rewrite port"
+msgstr "重写端口"
+
+msgid "Rewrite matched traffic to the specified source port or port range."
+msgstr "将匹配的流量重写到指定的源端口或端口范围。"
+
+msgid "Outbound device"
+msgstr "出站设备"
+
+msgid "Matches forwarded traffic using the specified outbound network device."
+msgstr "匹配使用指定的出站网络设备转发的流量。"
+
