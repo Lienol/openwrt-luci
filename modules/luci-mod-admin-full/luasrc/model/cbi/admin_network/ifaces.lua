@@ -137,9 +137,10 @@ end
 if m:formvalue("cbid.dhcp._enable._enable") then
 	m.uci:section("dhcp", "dhcp", arg[1], {
 		interface = arg[1],
-		start     = "100",
+		start     = "101",
 		limit     = "150",
-		leasetime = "12h"
+		leasetime = "12h",
+		dhcpv4    = "server",
 	})
 
 	m.uci:save("dhcp")
@@ -449,11 +450,16 @@ if has_dnsmasq and (net:proto() == "static" or net:proto() == "dhcpv6" or net:pr
 			ignore.rmempty = false
 		end
 
+		o = s:taboption("general", ListValue, "dhcpv4", translate("DHCPv4 Service"),
+				translate("Enable or disable DHCPv4 services on this interface."))
+		o:value("", translate('Disable'))
+		o:value("server", translate('Enable'))
+
 		local start = s:taboption("general", Value, "start", translate("Start"),
 			translate("Lowest leased address as offset from the network address."))
 		start.optional = true
 		start.datatype = "or(uinteger,ip4addr)"
-		start.default = "100"
+		start.default = "101"
 
 		local limit = s:taboption("general", Value, "limit", translate("Limit"),
 			translate("Maximum number of leased addresses."))
