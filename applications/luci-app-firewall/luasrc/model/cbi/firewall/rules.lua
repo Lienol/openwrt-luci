@@ -147,19 +147,6 @@ local function rule_limit_txt(self, s)
 	return ""
 end
 
-local function snat_dest_txt(self, s)
-	local z = ft.fmt_zone(self.map:get(s, "dest"), translate("any zone"))
-	local a = ft.fmt_ip(self.map:get(s, "dest_ip"), translate("any host"))
-	local p = ft.fmt_port(self.map:get(s, "dest_port")) or
-		ft.fmt_port(self.map:get(s, "src_dport"))
-
-	if p then
-		return translatef("To %s, %s in %s", a, p, z)
-	else
-		return translatef("To %s in %s", a, z)
-	end
-end
-
 
 match = s:option(DummyValue, "match", translate("Match"))
 match.rawhtml = true
@@ -179,107 +166,6 @@ target.width   = "15%"
 function target.cfgvalue(self, s)
 	local t = ft.fmt_target(self.map:get(s, "target"), self.map:get(s, "dest"))
 	return "<var>%s</var>" % t
-end
-
-ft.opt_enabled(s, Flag, translate("Enable")).width = "5%"
-
-
---
--- SNAT
---
-
-s = m:section(TypedSection, "redirect",
-	translate("Source NAT"),
-	translate("Source NAT is a specific form of masquerading which allows \
-		fine grained control over the source IP used for outgoing traffic, \
-		for example to map multiple WAN addresses to internal subnets."))
-s.template  = "cbi/tblsection"
-s.addremove = true
-s.anonymous = true
-s.sortable  = true
-s.extedit   = ds.build_url("admin/network/firewall/rules/%s")
---[[
-s.template_addremove = "firewall/cbi_addsnat"
-
-
-function s.create(self, section)
-	created = TypedSection.create(self, section)
-end
-
-function s.parse(self, ...)
-	TypedSection.parse(self, ...)
-
-	local n = m:formvalue("_newsnat.name")
-	local s = m:formvalue("_newsnat.src")
-	local d = m:formvalue("_newsnat.dest")
-	local a = m:formvalue("_newsnat.dip")
-	local p = m:formvalue("_newsnat.dport")
-	local x = m:formvalue("_newsnat.submit")
-
-	if x and a and #a > 0 then
-		created = TypedSection.create(self, section)
-
-		self.map:set(created, "target",    "SNAT")
-		self.map:set(created, "src",       s)
-		self.map:set(created, "dest",      d)
-		self.map:set(created, "proto",     "all")
-		self.map:set(created, "src_dip",   a)
-		self.map:set(created, "src_dport", p)
-		self.map:set(created, "name",      n)
-	end
-
-	if created then
-		m.uci:save("firewall")
-		luci.http.redirect(ds.build_url(
-			"admin/network/firewall/rules", created
-		))
-	end
-end
-]]--
-
-function s.create(self, section)
-	local id = TypedSection.create(self, section)
-	if id then
-		self.map:set(id, "target", "SNAT")
-		luci.http.redirect(string.format(self.extedit, id))
-	end
-end
-
-function s.filter(self, sid)
-	return (self.map:get(sid, "target") == "SNAT")
-end
-
-local o = ft.opt_name(s, DummyValue, translate("Name"))
-o.width = "25%"
-
-match = s:option(DummyValue, "match", translate("Match"))
-match.rawhtml = true
-match.width   = "25%"
-function match.cfgvalue(self, s)
-	return "<small>%s<br />%s<br />%s</small>" % {
-		rule_proto_txt(self, s),
-		rule_src_txt(self, s),
-		snat_dest_txt(self, s)
-	}
-end
-
-snat = s:option(DummyValue, "via", translate("Action"))
-snat.rawhtml = true
-snat.width   = "25%"
-function snat.cfgvalue(self, s)
-	local src_dip = self.map:get(s, "src_dip")
-	local src_dport = self.map:get(s, "src_dport")
-	if not src_dip or not src_dport then
-		return
-	end
-	local a = ft.fmt_ip(src_dip)
-	local p = ft.fmt_port(src_dport)
-
-	if a and p then
-		return translatef("Rewrite to source %s, %s", a, p)
-	else
-		return translatef("Rewrite to source %s", a or p)
-	end
 end
 
 ft.opt_enabled(s, Flag, translate("Enable")).width = "5%"
