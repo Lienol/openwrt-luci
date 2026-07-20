@@ -640,3 +640,25 @@ msgstr "启用日志"
 msgid "Log matched packets to syslog."
 msgstr "在系统日志中记录匹配的数据包。"
 
+msgid "Match device"
+msgstr "匹配设备"
+
+msgid "unspecified"
+msgstr "未指定"
+
+msgid "Inbound device"
+msgstr "入站设备"
+
+msgid "Outbound device"
+msgstr "出站设备"
+
+msgid "Device name"
+msgstr "设备名"
+
+msgid ""
+"Specifies whether to tie this traffic rule to a specific inbound or outbound "
+"network device."
+msgstr "指定是否将此流量规则绑定到特定的入站或出站网络设备。"
+
+msgid "Time Restrictions"
+msgstr "时间限制"

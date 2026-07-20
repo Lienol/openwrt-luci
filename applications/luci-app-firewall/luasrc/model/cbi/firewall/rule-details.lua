@@ -13,11 +13,7 @@ local m, s, o, k, v
 
 arg[1] = arg[1] or ""
 
-m = Map("firewall",
-	translate("Firewall - Traffic Rules"),
-	translate("This page allows you to change advanced properties of the \
-	           traffic rule entry, such as matched source and destination \
-			   hosts."))
+m = Map("firewall", translate("Firewall - Traffic Rules"))
 
 m.redirect = dsp.build_url("admin/network/firewall/rules")
 
@@ -66,22 +62,22 @@ elseif rule_type == "redirect" then
 	s.anonymous = true
 	s.addremove = false
 
+	s:tab("general",  translate("General Settings"))
+	s:tab("advanced", translate("Advanced Settings"))
+	s:tab("timed", translate("Time Restrictions"))
 
-	ft.opt_enabled(s, Button)
-	ft.opt_name(s, Value, translate("Name"))
+	o = s:taboption("general", Flag, "enabled", translate("Enable"))
+	o.default = o.enabled
 
+	o = s:taboption("general", Value, "name", translate("Name"))
+	o.rmempty = false
 
-	o = s:option(Value, "proto",
-		translate("Protocol"),
-		translate("You may specify multiple by selecting \"-- custom --\" and \
-		           then entering protocols separated by space."))
-
+	o = s:taboption("general", Value, "proto", translate("Protocol"))
 	o:value("all", "All protocols")
 	o:value("tcp udp", "TCP+UDP")
 	o:value("tcp", "TCP")
 	o:value("udp", "UDP")
 	o:value("icmp", "ICMP")
-
 	function o.cfgvalue(...)
 		local v = Value.cfgvalue(...)
 		if not v or v == "tcpudp" then
@@ -91,71 +87,63 @@ elseif rule_type == "redirect" then
 	end
 
 
-	o = s:option(Value, "src", translate("Source zone"))
+	o = s:taboption("general", Value, "src", translate("Source zone"))
 	o.nocreate = true
 	o.default = "wan"
 	o.template = "cbi/firewall_zonelist"
 
 
-	o = s:option(Value, "src_ip", translate("Source IP address"))
+	o = s:taboption("general", Value, "src_ip", translate("Source IP address"))
 	o.rmempty = true
 	o.datatype = "neg(ipmask4)"
 	o.placeholder = translate("any")
-
 	luci.sys.net.ipv4_hints(function(ip, name)
 		o:value(ip, "%s (%s)" %{ ip, name })
 	end)
 
 
-	o = s:option(Value, "src_port",
+	o = s:taboption("general", Value, "src_port",
 		translate("Source port"),
 		translate("Match incoming traffic originating from the given source \
 			port or port range on the client host."))
 	o.rmempty = true
 	o.datatype = "neg(portrange)"
 	o.placeholder = translate("any")
-
 	o:depends("proto", "tcp")
 	o:depends("proto", "udp")
 	o:depends("proto", "tcp udp")
 	o:depends("proto", "tcpudp")
 
 
-	o = s:option(Value, "dest", translate("Destination zone"))
+	o = s:taboption("general", Value, "dest", translate("Destination zone"))
 	o.nocreate = true
 	o.default = "lan"
 	o.template = "cbi/firewall_zonelist"
 
 
-	o = s:option(Value, "dest_ip", translate("Destination IP address"))
+	o = s:taboption("general", Value, "dest_ip", translate("Destination IP address"))
 	o.datatype = "neg(ipmask4)"
-
 	luci.sys.net.ipv4_hints(function(ip, name)
 		o:value(ip, "%s (%s)" %{ ip, name })
 	end)
 
 
-	o = s:option(Value, "dest_port",
-		translate("Destination port"),
+	o = s:taboption("general", Value, "dest_port", translate("Destination port"),
 		translate("Match forwarded traffic to the given destination port or \
 			port range."))
-
 	o.rmempty = true
 	o.placeholder = translate("any")
 	o.datatype = "neg(portrange)"
-
 	o:depends("proto", "tcp")
 	o:depends("proto", "udp")
 	o:depends("proto", "tcp udp")
 	o:depends("proto", "tcpudp")
 
 
-	o = s:option(Value, "src_dip",
-		translate("SNAT IP address"),
+	o = s:taboption("general", Value, "src_dip", translate("SNAT IP address"),
 		translate("Rewrite matched traffic to the given address."))
 	o.rmempty = false
 	o.datatype = "ip4addr"
-
 	for k, v in ipairs(nw:get_interfaces()) do
 		local a
 		for k, a in ipairs(v:ipaddrs()) do
@@ -166,24 +154,20 @@ elseif rule_type == "redirect" then
 	end
 
 
-	o = s:option(Value, "src_dport", translate("SNAT port"),
+	o = s:taboption("general", Value, "src_dport", translate("SNAT port"),
 		translate("Rewrite matched traffic to the given source port. May be \
 			left empty to only rewrite the IP address."))
 	o.datatype = "portrange"
 	o.rmempty = true
 	o.placeholder = translate('Do not rewrite')
-
 	o:depends("proto", "tcp")
 	o:depends("proto", "udp")
 	o:depends("proto", "tcp udp")
 	o:depends("proto", "tcpudp")
 
 
-	s:option(Value, "extra",
-		translate("Extra arguments"),
+	o = s:taboption("advanced", Value, "extra", translate("Extra arguments"),
 		translate("Passes additional arguments to iptables. Use with care!"))
-
-
 --
 -- Rule
 --
@@ -200,24 +184,57 @@ else
 	s.anonymous = true
 	s.addremove = false
 
-	ft.opt_enabled(s, Button)
-	ft.opt_name(s, Value, translate("Name"))
+	s:tab("general",  translate("General Settings"))
+	s:tab("advanced", translate("Advanced Settings"))
+	s:tab("timed", translate("Time Restrictions"))
 
+	o = s:taboption("general", Flag, "enabled", translate("Enable"))
+	o.default = o.enabled
 
-	o = s:option(ListValue, "family", translate("Restrict to address family"))
+	o = s:taboption("general", Value, "name", translate("Name"))
+	o.rmempty = false
+
+	o = s:taboption("advanced", ListValue, "direction", translate("Match device"))
+	o:value("", translate("unspecified"))
+	o:value("in", translate("Inbound device"))
+	o:value("out", translate("Outbound device"))
+	function o.cfgvalue(...)
+		local v = Value.cfgvalue(...)
+		if v == "in" or v == "ingress" then
+			return "in"
+		end
+		if v == "out" or v == "egress" then
+			return "out"
+		end
+		return nil
+	end
+
+	o = s:taboption("advanced", Value, "device", translate("Device name"), translate("Specifies whether to tie this traffic rule to a specific inbound or outbound network device."))
+	m.uci:foreach("network", "device", function(e)
+		o:value(e.name)
+	end)
+	for _, iface in ipairs(nw:get_interfaces()) do
+		o:value(iface:name(), iface:get_i18n())
+	end
+	if #o.keylist > 0 then
+		o.default = o.keylist[1]
+	end
+	o:depends("direction", "in")
+	o:depends("direction", "out")
+
+	o = s:taboption("advanced", ListValue, "family", translate("Restrict to address family"))
 	o.rmempty = true
 	o:value("", translate("IPv4 and IPv6"))
 	o:value("ipv4", translate("IPv4 only"))
 	o:value("ipv6", translate("IPv6 only"))
 
 
-	o = s:option(Value, "proto", translate("Protocol"))
+	o = s:taboption("general", Value, "proto", translate("Protocol"))
 	o:value("all", translate("Any"))
 	o:value("tcp udp", "TCP+UDP")
 	o:value("tcp", "TCP")
 	o:value("udp", "UDP")
 	o:value("icmp", "ICMP")
-
 	function o.cfgvalue(...)
 		local v = Value.cfgvalue(...)
 		if not v or v == "tcpudp" then
@@ -227,7 +244,7 @@ else
 	end
 
 
-	o = s:option(DynamicList, "icmp_type", translate("Match ICMP type"))
+	o = s:taboption("advanced", DynamicList, "icmp_type", translate("Match ICMP type"))
 	o:value("", "any")
 	o:value("echo-reply")
 	o:value("destination-unreachable")
@@ -269,68 +286,66 @@ else
 	o:depends("proto", "icmp")
 
 
-	o = s:option(Value, "src", translate("Source zone"))
+	o = s:taboption("general", Value, "src", translate("Source zone"))
 	o.nocreate = true
 	o.allowany = true
 	o.default = "wan"
 	o.template = "cbi/firewall_zonelist"
 
 
-	o = s:option(Value, "src_mac", translate("Source MAC address"))
+	o = s:taboption("advanced", Value, "ipset", translate("Use ipset"))
+
+
+	o = s:taboption("advanced", Value, "src_mac", translate("Source MAC address"))
 	o.datatype = "list(macaddr)"
 	o.placeholder = translate("any")
-
 	luci.sys.net.mac_hints(function(mac, name)
 		o:value(mac, "%s (%s)" %{ mac, name })
 	end)
 
 
-	o = s:option(Value, "src_ip", translate("Source address"))
+	o = s:taboption("general", Value, "src_ip", translate("Source address"))
 	o.datatype = "neg(ipmask)"
 	o.placeholder = translate("any")
-
 	luci.sys.net.ipv4_hints(function(ip, name)
 		o:value(ip, "%s (%s)" %{ ip, name })
 	end)
 
 
-	o = s:option(Value, "src_port", translate("Source port"))
+	o = s:taboption("general", Value, "src_port", translate("Source port"))
 	o.datatype = "list(neg(portrange))"
 	o.placeholder = translate("any")
-
 	o:depends("proto", "tcp")
 	o:depends("proto", "udp")
 	o:depends("proto", "tcp udp")
 	o:depends("proto", "tcpudp")
 
 
-	o = s:option(Value, "dest", translate("Destination zone"))
+	o = s:taboption("general", Value, "dest", translate("Destination zone"))
 	o.nocreate = true
 	o.allowany = true
 	o.allowlocal = true
 	o.template = "cbi/firewall_zonelist"
 
 
-	o = s:option(Value, "dest_ip", translate("Destination address"))
+	o = s:taboption("general", Value, "dest_ip", translate("Destination address"))
 	o.datatype = "neg(ipmask)"
 	o.placeholder = translate("any")
-
 	luci.sys.net.ipv4_hints(function(ip, name)
 		o:value(ip, "%s (%s)" %{ ip, name })
 	end)
 
 
-	o = s:option(Value, "dest_port", translate("Destination port"))
+	o = s:taboption("general", Value, "dest_port", translate("Destination port"))
 	o.datatype = "list(neg(portrange))"
 	o.placeholder = translate("any")
-
 	o:depends("proto", "tcp")
 	o:depends("proto", "udp")
 	o:depends("proto", "tcp udp")
 	o:depends("proto", "tcpudp")
 
 
-	o = s:option(ListValue, "target", translate("Action"))
+	o = s:taboption("general", ListValue, "target", translate("Action"))
 	o.default = "ACCEPT"
 	o:value("DROP", translate("drop"))
 	o:value("ACCEPT", translate("accept"))
@@ -338,12 +353,20 @@ else
 	o:value("NOTRACK", translate("don't track"))
 
 
-	s:option(Value, "extra",
+	o = s:taboption("advanced", Flag, "log", translate("Enable logging"), translate("Log matched packets to syslog."))
+
+
+	o = s:taboption("advanced", Value, "log_limit", translate("Limit log messages"))
+	o.placeholder = "10/minute"
+	o:depends("log", true)
+
+
+	s:taboption("advanced", Value, "extra",
 		translate("Extra arguments"),
 		translate("Passes additional arguments to iptables. Use with care!"))
 end
 
-o = s:option(MultiValue, "weekdays", translate("Week Days"))
+o = s:taboption("timed", MultiValue, "weekdays", translate("Week Days"))
 o.oneline = true
 o.widget = "checkbox"
 o:value("Sun", translate("Sunday"))
@@ -354,23 +377,23 @@ o:value("Thu", translate("Thursday"))
 o:value("Fri", translate("Friday"))
 o:value("Sat", translate("Saturday"))
 
-o = s:option(MultiValue, "monthdays", translate("Month Days"))
+o = s:taboption("timed", MultiValue, "monthdays", translate("Month Days"))
 o.oneline = true
 o.widget = "checkbox"
 for i = 1,31 do
 	o:value(translate(i))
 end
 
-o = s:option(Value, "start_time", translate("Start Time (hh:mm:ss)"))
+o = s:taboption("timed", Value, "start_time", translate("Start Time (hh:mm:ss)"))
 o.datatype = "timehhmmss"
-o = s:option(Value, "stop_time", translate("Stop Time (hh:mm:ss)"))
+o = s:taboption("timed", Value, "stop_time", translate("Stop Time (hh:mm:ss)"))
 o.datatype = "timehhmmss"
-o = s:option(Value, "start_date", translate("Start Date (yyyy-mm-dd)"))
+o = s:taboption("timed", Value, "start_date", translate("Start Date (yyyy-mm-dd)"))
 o.datatype = "dateyyyymmdd"
-o = s:option(Value, "stop_date", translate("Stop Date (yyyy-mm-dd)"))
+o = s:taboption("timed", Value, "stop_date", translate("Stop Date (yyyy-mm-dd)"))
 o.datatype = "dateyyyymmdd"
 
-o = s:option(Flag, "utc_time", translate("Time in UTC"))
+o = s:taboption("timed", Flag, "utc_time", translate("Time in UTC"))
 o.default = o.disabled
 
 return m
