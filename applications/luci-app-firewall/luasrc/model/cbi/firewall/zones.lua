@@ -40,21 +40,26 @@ s:option(Flag, "fullcone", translate("Enable FullCone-NAT"))
 local offload = fs.access("/sys/module/xt_FLOWOFFLOAD/refcnt")
 
 if offload then
-	o = s:option(DummyValue, "offload_advice",
-		translate("Routing/NAT Offloading"),
-		translate("Experimental feature. Not fully compatible with QoS/SQM."))
-	o.notbr = true
-
-	o = s:option(Flag, "flow_offloading",
-		translate("Software flow offloading"),
-		translate("Software based offloading for routing/NAT"))
-	o.optional = true
-
-	o = s:option(Flag, "flow_offloading_hw",
-		translate("Hardware flow offloading"),
-		translate("Requires hardware NAT support. Implemented at least for mt7621"))
-	o.optional = true
-	o:depends( "flow_offloading", 1)
+	o = s:option(ListValue, "offloading_type", translate("Flow offloading type"),
+		translate("Experimental feature. Not fully compatible with QoS/SQM.") .. 
+		"<br/>" .. translate("Software flow offloading") .. ": " .. translate("Software based offloading for routing/NAT.") ..
+		"<br/>" .. translate("Hardware flow offloading") .. ": " .. translate("Hardware based offloading for routing with/without NAT.") .. " " .. translate(" Requires hardware NAT support."))
+	o:value("0", translate("None"))
+	o:value("1", translate("Software flow offloading"))
+	o:value("2", translate("Hardware flow offloading"))
+	o.cfgvalue = function(self, section)
+		local flow_offloading = self.map:get(section, "flow_offloading")
+		local flow_offloading_hw = self.map:get(section, "flow_offloading_hw")
+		if flow_offloading == "1" then
+			return flow_offloading_hw == "1" and "2" or "1"
+		else
+			return "0"
+		end
+	end
+	o.write = function(self, section, value)
+		self.map:set(section, "flow_offloading", value == "0" and "" or "1")
+		self.map:set(section, "flow_offloading_hw", value == "2" and "1" or "")
+	end
 end
 
 
