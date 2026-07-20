@@ -681,3 +681,17 @@ msgstr "出站设备"
 msgid "Matches forwarded traffic using the specified outbound network device."
 msgstr "匹配使用指定的出站网络设备转发的流量。"
 
+msgid "Flow offloading type"
+msgstr "流量卸载类型"
+
+msgid "Not fully compatible with QoS/SQM."
+msgstr "与 QoS/SQM 不完全兼容。"
+
+msgid "Software based offloading for routing/NAT."
+msgstr "基于软件的路由/NAT卸载。"
+
+msgid "Hardware based offloading for routing with/without NAT."
+msgstr "基于硬件的流量卸载，可能支持 NAT。"
+
+msgid "Requires hardware NAT support."
+msgstr "需要硬件 NAT 支持。"
