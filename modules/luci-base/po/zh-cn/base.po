@@ -5946,3 +5946,20 @@ msgstr "已传输字节数"
 
 msgid "Transmitted packets"
 msgstr "已传输的数据包"
+
+msgid "TCP Layer 3 Master Device (tcp_l3mdev) accept"
+msgstr "TCP 第三层主设备（tcp_l3mdev_accept）"
+
+msgid "UDP Layer 3 Master Device (udp_l3mdev) accept"
+msgstr "UDP 第三层主设备（udp_l3mdev_accept）"
+
+msgid ""
+"%s services running on this device in the default VRF context (ie., not "
+"bound to any VRF device) shall work across all VRF domains."
+msgstr ""
+"在默认VRF环境下运行于该设备上的%s服务（即不绑定在任何VRF设备）应在所有VRF域间"
+"工作。"
+
+msgid ""
+"Off means VRF traffic will be handled exclusively by sockets bound to VRFs."
+msgstr "未开启时， VRF 内的流量只能由绑定到该 VRF 的套接字处理。"
