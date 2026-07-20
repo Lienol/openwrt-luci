@@ -13,14 +13,12 @@
 		},
 		"read": {
 			"cgi-io": [
+				"download",
 				"exec"
 			],
 			"file": {
 				"/etc/travelmate/*.login": [
 					"list"
-				],
-				"/var/run/travelmate/travelmate.pid": [
-					"read"
 				],
 				"/var/run/travelmate/travelmate.scan": [
 					"read"

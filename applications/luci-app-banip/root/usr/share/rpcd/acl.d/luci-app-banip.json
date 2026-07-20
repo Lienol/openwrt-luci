@@ -2,41 +2,46 @@
 	"luci-app-banip": {
 		"description": "Grant access to LuCI app banIP",
 		"write": {
+			"cgi-io": [
+				"upload"
+			],
 			"uci": [
 				"banip"
 			],
 			"file": {
-				"/etc/banip/*": [
-					"read"
-				],
 				"/etc/banip/banip.allowlist": [
-					"read",
 					"write"
 				],
 				"/etc/banip/banip.blocklist": [
-					"read",
 					"write"
 				],
 				"/etc/banip/banip.custom.feeds": [
-					"read",
 					"write"
 				],
 				"/var/run/banIP/banIP.search": [
-					"read",
 					"write"
 				],
 				"/var/run/banIP/banIP.report": [
-					"read",
 					"write"
 				]
 			}
 		},
 		"read": {
 			"cgi-io": [
+				"download",
 				"exec"
 			],
 			"file": {
+				"/etc/banip/*": [
+					"read"
+				],
 				"/var/run/banIP/banIP.runtime.json": [
+					"read"
+				],
+				"/var/run/banIP/banIP.search": [
+					"read"
+				],
+				"/var/run/banIP/banIP.report": [
 					"read"
 				],
 				"/usr/sbin/nft -tj list sets": [
