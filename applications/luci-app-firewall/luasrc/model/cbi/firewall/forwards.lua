@@ -20,6 +20,7 @@ s.addremove = true
 s.anonymous = true
 s.sortable  = true
 s.extedit   = ds.build_url("admin/network/firewall/forwards/%s")
+--[[
 s.template_addremove = "firewall/cbi_addforward"
 
 function s.create(self, section)
@@ -58,13 +59,22 @@ function s.parse(self, ...)
 		))
 	end
 end
+]]--
+
+function s.create(self, section)
+	local id = TypedSection.create(self, section)
+	if id then
+		luci.http.redirect(string.format(self.extedit, id))
+	end
+end
 
 function s.filter(self, sid)
 	return (self.map:get(sid, "target") ~= "SNAT")
 end
 
 
-ft.opt_name(s, DummyValue, translate("Name"))
+local o = ft.opt_name(s, DummyValue, translate("Name"))
+o.width = "25%"
 
 
 local function forward_proto_txt(self, s)
@@ -103,7 +113,7 @@ end
 
 match = s:option(DummyValue, "match", translate("Match"))
 match.rawhtml = true
-match.width   = "50%"
+match.width   = "25%"
 function match.cfgvalue(self, s)
 	return "<small>%s<br />%s<br />%s</small>" % {
 		forward_proto_txt(self, s),
@@ -115,7 +125,7 @@ end
 
 dest = s:option(DummyValue, "dest", translate("Forward to"))
 dest.rawhtml = true
-dest.width   = "40%"
+dest.width   = "25%"
 function dest.cfgvalue(self, s)
 	local z = ft.fmt_zone(self.map:get(s, "dest"), translate("any zone"))
 	local a = ft.fmt_ip(self.map:get(s, "dest_ip"), translate("any host"))
@@ -129,6 +139,6 @@ function dest.cfgvalue(self, s)
 	end
 end
 
-ft.opt_enabled(s, Flag, translate("Enable")).width = "1%"
+ft.opt_enabled(s, Flag, translate("Enable")).width = "5%"
 
 return m
