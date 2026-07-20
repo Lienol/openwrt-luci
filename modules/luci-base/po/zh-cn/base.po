@@ -5963,3 +5963,12 @@ msgstr ""
 msgid ""
 "Off means VRF traffic will be handled exclusively by sockets bound to VRFs."
 msgstr "未开启时， VRF 内的流量只能由绑定到该 VRF 的套接字处理。"
+
+msgid "Multi-Path TCP"
+msgstr "多路 TCP（MPTCP）"
+
+msgid "Handover"
+msgstr "移交"
+
+msgid "For packets originating from this device, e.g. VPN."
+msgstr "针对源自此设备的数据包，如 VPN。"

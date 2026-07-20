@@ -123,6 +123,11 @@ if network:has_ipv6() then
 	m.pageaction = true
 end
 
+local mptcp = fs.access("/proc/sys/net/mptcp/enabled")
+if mptcp then
+	o = s:option(Flag, "multipath", translate("Multi-Path TCP"), translate("For packets originating from this device, e.g. VPN."))
+end
+
 local l3mdevhelp1 = '%s services running on this device in the default VRF context (ie., not bound to any VRF device) shall work across all VRF domains.'
 local l3mdevhelp2 = 'Off means VRF traffic will be handled exclusively by sockets bound to VRFs.'
 o = s:option(Flag, 'tcp_l3mdev', translate('TCP Layer 3 Master Device (tcp_l3mdev) accept'), translatef(l3mdevhelp1, 'TCP') .. '<br/>' .. translate(l3mdevhelp2))
