@@ -26,9 +26,6 @@ msgstr "（未命名条目）"
 msgid "(Unnamed Rule)"
 msgstr "（未命名规则）"
 
-msgid "(Unnamed SNAT)"
-msgstr "（未命名 SNAT）"
-
 msgid "<var>%d</var> pkts. per <var>%s</var>"
 msgstr "<var>%d</var> 数据包/<var>%s</var>"
 
@@ -284,9 +281,6 @@ msgstr "日期"
 msgid "Name"
 msgstr "名字"
 
-msgid "New SNAT rule"
-msgstr "新建 SNAT 规则"
-
 msgid "New forward rule"
 msgstr "新建转发规则"
 
@@ -295,9 +289,6 @@ msgstr "新建进入规则"
 
 msgid "New port forward"
 msgstr "新建端口转发"
-
-msgid "New source NAT"
-msgstr "新建 Source NAT"
 
 msgid "Only match incoming traffic directed at the given IP address."
 msgstr "仅匹配指定目的 IP 地址的入站流量。"
@@ -394,12 +385,6 @@ msgstr "规则已禁用"
 msgid "Rule is enabled"
 msgstr "规则已启用"
 
-msgid "SNAT IP address"
-msgstr "SNAT IP 地址"
-
-msgid "SNAT port"
-msgstr "SNAT 端口"
-
 msgid "Saturday"
 msgstr "星期六"
 
@@ -414,17 +399,6 @@ msgstr "源 IP 地址"
 
 msgid "Source MAC address"
 msgstr "源 MAC 地址"
-
-msgid "Source NAT"
-msgstr "Source NAT"
-
-msgid ""
-"Source NAT is a specific form of masquerading which allows fine grained "
-"control over the source IP used for outgoing traffic, for example to map "
-"multiple WAN addresses to internal subnets."
-msgstr ""
-"Source NAT 是一种特殊形式的封包伪装，它允许精细的控制传出流量的源 IP，例如："
-"将多个 WAN 地址映射到内部子网。"
 
 msgid "Source address"
 msgstr "源地址"
@@ -526,9 +500,6 @@ msgstr ""
 
 msgid "Tuesday"
 msgstr "星期二"
-
-msgid "Unnamed SNAT"
-msgstr "未命名的 SNAT"
 
 msgid "Unnamed forward"
 msgstr "未命名的转发"
