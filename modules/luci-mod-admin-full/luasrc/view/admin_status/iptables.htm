@@ -1,62 +1,14 @@
 <%#
- Copyright 2008-2009 Steven Barth <steven@midlink.org>
- Copyright 2008-2015 Jo-Philipp Wich <jow@openwrt.org>
- Licensed to the public under the Apache License 2.0.
+	Copyright 2026 Lienol
 -%>
-
 <%-
-
-	require "luci.sys.iptparser"
-	local wba = require "luci.tools.webadmin"
 	local fs = require "nixio.fs"
-	local io = require "io"
-
 	local has_ip6tables = fs.access("/usr/sbin/ip6tables")
 	local mode = 4
 
 	if has_ip6tables then
 		mode = luci.dispatcher.context.requestpath
 	    mode = tonumber(mode[#mode] ~= "iptables" and mode[#mode]) or 4
-	end
-
-	local ipt = luci.sys.iptparser.IptParser(mode)
-
-	local rowcnt = 1
-	function rowstyle()
-		rowcnt = rowcnt + 1
-		return (rowcnt % 2) + 1
-	end
-
-	function link_target(t,c)
-		if ipt:is_custom_target(c) then
-			return '<a href="#rule_%s_%s">%s</a>' %{ t:lower(), c, c }
-		end
-		return c
-	end
-
-	function link_iface(i)
-		local net = wba.iface_get_network(i)
-		if net and i ~= "lo" then
-			return '<a href="%s">%s</a>' %{
-				url("admin/network/network", net), i
-			}
-
-		end
-		return i
-	end
-
-	local tables = { "Filter", "NAT", "Mangle", "Raw" }
-	if mode == 6 then
-		tables = { "Filter", "Mangle", "Raw" }
-		local ok, lines = pcall(io.lines, "/proc/net/ip6_tables_names")
-		if ok and lines then
-			local line
-			for line in lines do
-				if line == "nat" then
-					tables = { "Filter", "NAT", "Mangle", "Raw" }
-				end
-			end
-		end
 	end
 -%>
 
@@ -69,88 +21,146 @@
 	}
 </style>
 
-<h2 name="content"><%:Firewall Status%></h2>
-<br />
+<div id="app">
+	<h2 name="content"><%:Firewall Status%></h2>
+	<br />
 
-<% if has_ip6tables then %>
-<ul class="cbi-tabmenu">
-	<li class="cbi-tab<%= mode ~= 4 and "-disabled" %>"><a href="<%=url("admin/status/iptables/4")%>"><%:IPv4 Firewall%></a></li>
-	<li class="cbi-tab<%= mode ~= 6 and "-disabled" %>"><a href="<%=url("admin/status/iptables/6")%>"><%:IPv6 Firewall%></a></li>
-</ul>
-<% end %>
+	<% if has_ip6tables then %>
+	<ul class="cbi-tabmenu">
+		<li class="cbi-tab<%= mode ~= 4 and "-disabled" %>"><a href="<%=url("admin/status/iptables/4")%>"><%:IPv4 Firewall%></a></li>
+		<li class="cbi-tab<%= mode ~= 6 and "-disabled" %>"><a href="<%=url("admin/status/iptables/6")%>"><%:IPv6 Firewall%></a></li>
+	</ul>
+	<% end %>
 
-<div class="cbi-map" style="position: relative">
+	<div class="cbi-map" style="position: relative">
 
-	<form method="post" action="<%=url("admin/status/iptables_action")%>" style="position: absolute; right: 0">
-		<input type="hidden" name="token" value="<%=token%>" />
-		<input type="hidden" name="family" value="<%=mode%>" />
-		<input type="submit" class="cbi-button" name="zero" value="<%:Reset Counters%>" />
-		<input type="submit" class="cbi-button" name="restart" value="<%:Restart Firewall%>" />
-	</form>
+		<form method="post" action="<%=url("admin/status/iptables_action")%>" style="position: absolute; right: 0">
+			<input type="hidden" name="token" value="<%=token%>" />
+			<input type="hidden" name="family" value="<%=mode%>" />
+			<input type="submit" class="cbi-button" name="zero" value="<%:Reset Counters%>" />
+			<input type="submit" class="cbi-button" name="restart" value="<%:Restart Firewall%>" />
+		</form>
 
-	<fieldset class="cbi-section">
+		<fieldset class="cbi-section">
+			<template v-if="tables_order.length > 0">
+				<ul class="cbi-tabmenu">
+					<li v-for="tbl in tables_order" :id="`tab.<%=mode%>.${tbl}`" class="cbi-tab-disabled">
+						<a :onclick="`this.blur();return cbi_t_switch('<%=mode%>', '${tbl}')`" :href="`<%=REQUEST_URI%>?tab.<%=mode%>=${tbl}`">{{tbl}}</a>
+						{{cbi_t_add('<%=mode%>', tbl)}}
+					</li>
+				</ul>
+				<div class="cbi-tabcontainer" v-for="tbl in tables_order" :id="`container.<%=mode%>.${tbl}`">
+					<h3><%:Table%>: {{tbl}}</h3>
+					<table class="cbi-section-table" style="font-size:90%">
+						<template v-if="tables[tbl] && tables[tbl].length > 0">
+							<tbody v-for="(chain, index) in tables[tbl]">
+								<tr class="cbi-section-table-titles" :class="{ 'cbi-rowstyle-1': index % 2 == 1, 'cbi-rowstyle-2': index % 2 == 0 }">
+									<th class="cbi-section-table-cell" style="text-align:left" colspan="11">
+										<br />
+										<span :id="`rule_${tbl.toLowerCase()}_${chain.chain}`">
+										<%:Chain%> <em>{{chain.chain}}</em>
+										<template v-if="chain.chaininfo.policy">
+											(<%:Policy%>: <em>{{chain.chaininfo.policy}}</em>, <%:Packets%>: {{chain.chaininfo.packets}}, <%:Traffic%>: {{byte_format(chain.chaininfo.bytes)}})
+										</template>
+										<template v-else>
+											(<%:References%>: {{chain.chaininfo.references}})
+										</template>
+										</span>
+									</th>
+								</tr>
+								<tr class="cbi-section-table-descr">
+									<th class="cbi-section-table-cell"><%:Pkts.%></th>
+									<th class="cbi-section-table-cell"><%:Traffic%></th>
+									<th class="cbi-section-table-cell"><%:Target%></th>
+									<th class="cbi-section-table-cell"><%:Prot.%></th>
+									<th class="cbi-section-table-cell"><%:In%></th>
+									<th class="cbi-section-table-cell"><%:Out%></th>
+									<th class="cbi-section-table-cell"><%:Source%></th>
+									<th class="cbi-section-table-cell"><%:Destination%></th>
+									<th class="cbi-section-table-cell" style="width:30%"><%:Options%></th>
+								</tr>
 
-		<% for _, tbl in ipairs(tables) do chaincnt = 0 %>
-			<h3><%:Table%>: <%=tbl%></h3>
-			<table class="cbi-section-table" style="font-size:90%">
-				<% for _, chain in ipairs(ipt:chains(tbl)) do
-					rowcnt    = 0
-					chaincnt  = chaincnt + 1
-					chaininfo = ipt:chain(tbl, chain)
-				%>
-					<tr class="cbi-section-table-titles cbi-rowstyle-<%=rowstyle()%>">
-						<th class="cbi-section-table-cell" style="text-align:left" colspan="11">
-							<br /><span id="rule_<%=tbl:lower()%>_<%=chain%>">
-							<%:Chain%> <em><%=chain%></em>
-							(<%- if chaininfo.policy then -%>
-								<%:Policy%>: <em><%=chaininfo.policy%></em>, <%:Packets%>: <%=chaininfo.packets%>, <%:Traffic%>: <%=wba.byte_format(chaininfo.bytes)-%>
-							<%- else -%>
-								<%:References%>: <%=chaininfo.references-%>
-							<%- end -%>)</span>
-						</th>
-					</tr>
-					<tr class="cbi-section-table-descr">
-						<th class="cbi-section-table-cell"><%:Pkts.%></th>
-						<th class="cbi-section-table-cell"><%:Traffic%></th>
-						<th class="cbi-section-table-cell"><%:Target%></th>
-						<th class="cbi-section-table-cell"><%:Prot.%></th>
-						<th class="cbi-section-table-cell"><%:In%></th>
-						<th class="cbi-section-table-cell"><%:Out%></th>
-						<th class="cbi-section-table-cell"><%:Source%></th>
-						<th class="cbi-section-table-cell"><%:Destination%></th>
-						<th class="cbi-section-table-cell" style="width:30%"><%:Options%></th>
-					</tr>
-
-					<% for _, rule in ipairs(ipt:find({table=tbl, chain=chain})) do %>
-						<tr class="cbi-section-table-row cbi-rowstyle-<%=rowstyle()%>">
-							<td><%=rule.packets%></td>
-							<td style="white-space: nowrap"><%=wba.byte_format(rule.bytes)%></td>
-							<td><%=rule.target and link_target(tbl, rule.target) or "-"%></td>
-							<td><%=rule.protocol%></td>
-							<td><%=link_iface(rule.inputif)%></td>
-							<td><%=link_iface(rule.outputif)%></td>
-							<td><%=rule.source%></td>
-							<td><%=rule.destination%></td>
-							<td style="width:30%"><small><%=#rule.options > 0 and luci.util.pcdata(table.concat(rule.options, " ")) or "-"%></small></td>
-						</tr>
-					<% end %>
-
-					<% if rowcnt == 1 then %>
-						<tr class="cbi-section-table-titles cbi-rowstyle-<%=rowstyle()%>">
-							<td colspan="9"><em><%:No rules in this chain%></em></td>
-						</tr>
-					<% end %>
-				<% end %>
-
-				<% if chaincnt == 0 then %>
-					<tr class="cbi-section-table-titles cbi-rowstyle-<%=rowstyle()%>">
-						<td colspan="9"><em><%:No chains in this table%></em></td>
-					</tr>
-				<% end %>
-			</table>
-			<br /><br />
-		<% end %>
-	</fieldset>
+								<template v-for="(rule,index) in chain.chaininfo.rules">
+									<tr class="cbi-section-table-row" :class="{ 'cbi-rowstyle-1': index % 2 == 0, 'cbi-rowstyle-2': index % 2 == 1 }">
+										<td>{{rule.packets}}</td>
+										<td style="white-space: nowrap">{{byte_format(rule.bytes)}}</td>
+										<td>
+											<template v-if="rule.target">
+												<a v-if="is_custom_target(tbl, rule.target)" :href="`#rule_${tbl.toLowerCase()}_${rule.target}`" v-html="rule.target"></a>
+												<template v-else>{{rule.target}}</template>
+											</template>
+											<template v-else>-</template>
+										</td>
+										<td>{{rule.protocol}}</td>
+										<td>{{rule.inputif}}</td>
+										<td>{{rule.outputif}}</td>
+										<td>{{rule.source}}</td>
+										<td>{{rule.destination}}</td>
+										<td style="width:30%"><small>{{rule.options.join(" ")}}</small></td>
+									</tr>
+								</template>
+								<tr v-if="chain.chaininfo.rules.length == 0" class="cbi-section-table-titles cbi-rowstyle-1">
+									<td colspan="9"><em><%:No rules in this chain%></em></td>
+								</tr>
+							</tbody>
+						</template>
+						<template v-else>
+							<tr class="cbi-section-table-titles cbi-rowstyle-1">
+								<td colspan="9"><em><%:No chains in this table%></em></td>
+							</tr>
+						</template>
+					</table>
+				</div>
+				<template v-if="cbi_t_switch('<%=mode%>', tables_order[0])"></template>
+			</template>
+		</fieldset>
+	</div>
 </div>
+<script src="<%=resource%>/vue.min.js"></script>
+<script type="text/javascript">
+	//<![CDATA[
+	var vue = new Vue({
+		el: '#app',
+		data: {
+			tables_order: ["Filter", "NAT", "Mangle", "Raw"],
+			tables: {}
+		},
+		mounted() {
+			this.list(<%=mode%>);
+		},
+		methods: {
+			byte_format: function(b) {
+				const suff = ["B", "KB", "MB", "GB", "TB"];
+				for (let i = 0; i < suff.length - 1; i++) {
+					if (b > 1024 && i < suff.length - 1) {
+						b = b / 1024;
+					} else {
+						return `${b.toFixed(2)} ${suff[i]}`;
+					}
+				}
+			},
+			is_custom_target: function(table, target) {
+				if (this.tables[table] && this.tables[table].length > 0) {
+					for (const item of this.tables[table]) {
+						if (item.chain == target) {
+							return true;
+						}
+					}
+				}
+				return false;
+			},
+			list: function(family) {
+				XHR.get('<%=luci.dispatcher.build_url("admin/status/iptables_list")%>', { family: family },
+					function(x, result) {
+						if(x && x.status == 200) {
+							vue.tables = result;
+						}
+					}
+				);
+			},
+		},
+	})
+	//]]>
+</script>
 
 <%+footer%>

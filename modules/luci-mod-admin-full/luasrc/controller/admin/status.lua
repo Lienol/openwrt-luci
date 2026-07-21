@@ -11,6 +11,7 @@ function index()
 	entry({"admin", "status", "iptables"}, template("admin_status/iptables"), _("Firewall"), 2).leaf = true
 	entry({"admin", "status", "iptables_action"}, post("action_iptables")).leaf = true
 	entry({"admin", "status", "free_memory_action"}, post("action_free_memory")).leaf = true
+	entry({"admin", "status", "iptables_list"}, call("list_iptables")).leaf = true
 	
 	entry({"admin", "status", "routes"}, template("admin_status/routes"), _("Routes"), 3)
 	entry({"admin", "status", "syslog"}, call("action_syslog"), _("System Log"), 4)
@@ -157,4 +158,37 @@ function action_nameinfo(...)
 		timeout = 5000,
 		limit = 1000
 	}) or { })
+end
+
+function list_iptables()
+	local family = "4"
+	if luci.http.formvalue("family") == "6" then
+		family = "6"
+	end
+	local iptparser = require "luci.sys.iptparser"
+	local jsonc = require "luci.jsonc"
+	local ipt = iptparser.IptParser(family)
+	local tables = { "Filter", "NAT", "Mangle", "Raw" }
+	if family == "6" then
+		tables = { "Filter", "Mangle", "Raw" }
+		local has_nat = luci.sys.call('grep "nat" /proc/net/ip6_tables_names >/dev/null') == 0
+		if has_nat then
+			tables = { "Filter", "NAT", "Mangle", "Raw" }
+		end
+	end
+	local tab = {}
+	for _, tbl in ipairs(tables) do
+		tab[tbl] = {}
+		chaincnt = 0
+		for _, chain in ipairs(ipt:chains_order(tbl)) do
+			chaincnt = chaincnt + 1
+			table.insert(tab[tbl], {
+				chain = chain,
+				chaincnt = chaincnt,
+				chaininfo = ipt:chain(tbl, chain),
+			})
+		end
+	end
+	luci.http.prepare_content("application/json")
+	luci.http.write_json(tab)
 end

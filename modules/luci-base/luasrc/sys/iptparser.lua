@@ -21,7 +21,7 @@ luci.ip     = require "luci.ip"
 
 local pcall = pcall
 local io = require "io"
-local tonumber, ipairs, table = tonumber, ipairs, table
+local tonumber, ipairs, pairs, table = tonumber, ipairs, pairs, table
 
 module("luci.sys.iptparser")
 
@@ -31,6 +31,7 @@ function IptParser.__init__( self, family )
 	self._family = (tonumber(family) == 6) and 6 or 4
 	self._rules  = { }
 	self._chains = { }
+	self._chains_order = { }
 	self._tables = { }
 
 	local t = self._tables
@@ -245,6 +246,10 @@ function IptParser.chains( self, table )
 	return chains
 end
 
+function IptParser.chains_order( self, table )
+	return self._chains_order[table:lower()] or {}
+end
+
 
 --				and "rules". The "rules" field is a table of rule tables.
 function IptParser.chain( self, table, chain )
@@ -277,6 +282,7 @@ function IptParser._parse_rules( self )
 	for i, tbl in ipairs(self._tables) do
 
 		self._chains[tbl] = { }
+		self._chains_order[tbl] = { }
 
 		for i, rule in ipairs(luci.util.execl(self._command % tbl)) do
 
@@ -302,6 +308,7 @@ function IptParser._parse_rules( self )
 					references = tonumber(crefs or 0),
 					rules      = { }
 				}
+				self._chains_order[tbl][#self._chains_order[tbl] + 1] = cname
 
 			else
 				if rule:find("%d") == 1 then
