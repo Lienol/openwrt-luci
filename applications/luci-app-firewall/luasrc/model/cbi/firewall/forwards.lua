@@ -19,6 +19,7 @@ s.template  = "cbi/tblsection"
 s.addremove = true
 s.anonymous = true
 s.sortable  = true
+s.clonebtn = true
 s.extedit   = ds.build_url("admin/network/firewall/forwards/%s")
 --[[
 s.template_addremove = "firewall/cbi_addforward"
