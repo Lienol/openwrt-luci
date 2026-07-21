@@ -8,6 +8,7 @@ s = m:section(TypedSection, "nat", translate("NAT Rules"))
 s.addremove = true
 s.anonymous = true
 s.sortable  = true
+s.clonebtn = true
 s.template = "cbi/tblsection"
 s.extedit   = ds.build_url("admin/network/firewall/snats/%s")
 
