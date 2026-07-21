@@ -696,6 +696,9 @@ msgstr "客户端 Client"
 msgid "Client ID to send when requesting DHCP"
 msgstr "请求 DHCP 时发送的客户端 ID"
 
+msgid "Clone"
+msgstr "克隆"
+
 msgid ""
 "Close inactive connection after the given amount of seconds, use 0 to "
 "persist connection"

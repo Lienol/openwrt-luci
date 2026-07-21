@@ -40,6 +40,8 @@ for i, k in pairs(self.children) do
 		has_descriptions = true
 	end
 end
+
+local uid = luci.sys.exec("echo -n $(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 8)")
 -%>
 
 <!-- tblsection -->
@@ -132,6 +134,8 @@ end
 							%> onclick="location.href='<%=self:extedit(section)%>'"
 							<%- end
 							%> alt="<%:Edit%>" title="<%:Edit%>" />
+						<%- end; if self.clonebtn then %>
+							<input class="cbi-button cbi-button-add" type="button" value="<%:Clone%>"  onclick="clone_<%=uid%>('<%=k%>')" alt="<%:Clone%>" title="<%:Clone%>" />
 						<%- end; if self.addremove then %>
 							<input class="cbi-button cbi-button-remove" type="submit" value="<%:Delete%>"  onclick="this.form.cbi_state='del-section'; return true" name="cbi.rts.<%=self.config%>.<%=k%>" alt="<%:Delete%>" title="<%:Delete%>" />
 						<%- end -%>
@@ -172,5 +176,28 @@ end
 			<%- end %>
 		<%- end -%>
 	</div>
+<script type="text/javascript">
+	//<![CDATA[
+<% if self.clonebtn then %>
+	function clone_<%=uid%>(cfgid) {
+		XHR.get('<%=luci.dispatcher.build_url("admin/uci/clone")%>', { config: "<%=self.config%>", cfgid: cfgid },
+			function(x, result) {
+				if(x && x.status == 200) {
+					if(result.code == 0 && result.data) {
+						let to_url = window.location.origin + window.location.pathname;
+						<%- if self.extedit then -%>
+							<%- if type(self.extedit) == "string" then %>
+								to_url = "<%=self.extedit%>".replace('%s', result.data);;
+							<%- end %>
+						<%- end %>
+						window.location.href = to_url;
+					}
+				}
+			}
+		);
+	}
+<% end %>
+	//]]>
+</script>
 </fieldset>
 <!-- /tblsection -->
