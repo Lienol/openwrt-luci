@@ -1120,7 +1120,7 @@ header .dropdown-menu a.hover,
 }
 
 .cbi-tabcontainer > fieldset.cbi-section[id] > legend {
-	display: none;
+	/* display: none; */
 }
 
 .tabs > li > a,
