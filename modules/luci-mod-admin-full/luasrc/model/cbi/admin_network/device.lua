@@ -340,6 +340,8 @@ if isEdit and _type == 'bridge' and _name ~= '' then
     ss.addremove = true
     ss.anonymous = true
     ss.template = 'cbi/tblsection'
+    ss.parent = s
+    ss.taboption = "bridgevlan"
     function ss.create(e, t)
         local o = m:get(sid)
         if o.type == "bridge" then
@@ -389,12 +391,6 @@ if isEdit and _type == 'bridge' and _name ~= '' then
             return
         end
     end
-
-    o = s:taboption('bridgevlan', DummyValue, '_')
-    o:depends('type', 'bridge')
-    o.sid = sid
-    o.template = '/admin_network/device'
-
 end
 
 function m.on_parse()
