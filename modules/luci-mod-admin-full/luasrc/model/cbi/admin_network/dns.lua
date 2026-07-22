@@ -43,6 +43,7 @@ s.addremove = false
 s:tab("general", translate("General Settings"))
 s:tab("cache", translate("Cache"))
 s:tab("devices", translate("Devices &amp; Ports"))
+s:tab("dnsrecords", translate("DNS Records"))
 s:tab("dnssecopt", translate("DNSSEC"))
 s:tab("filteropts", translate("Filter"))
 s:tab("forward", translate("Forwards"))
@@ -365,6 +366,8 @@ d.addremove = true
 d.anonymous = true
 d.sortable = true
 d.template = "cbi/tblsection"
+d.parent = s
+d.taboption = "dnsrecords"
 
 o = d:option(Value, "name", translate("Hostname"))
 o.datatype = "hostname"
@@ -384,6 +387,8 @@ mx.addremove = true
 mx.anonymous = true
 mx.sortable = true
 mx.template = "cbi/tblsection"
+mx.parent = s
+mx.taboption = "dnsrecords"
 
 o = mx:option(Value, "domain", translate("Domain"))
 o.rmempty  = false
@@ -406,6 +411,8 @@ cname.addremove = true
 cname.anonymous = true
 cname.sortable = true
 cname.template = "cbi/tblsection"
+cname.parent = s
+cname.taboption = "dnsrecords"
 
 o = cname:option(Value, "cname", translate("Domain"))
 o.rmempty  = false
@@ -427,6 +434,8 @@ srv.addremove = true
 srv.anonymous = true
 srv.sortable = true
 srv.template = "cbi/tblsection"
+srv.parent = s
+srv.taboption = "dnsrecords"
 
 o = srv:option(Value, "srv", translate("SRV"), translate('Syntax:') .. ' ' .. '<code>_service._proto.example.com.</code>')
 o.rmempty  = false
@@ -461,6 +470,8 @@ dnsrr.addremove = true
 dnsrr.anonymous = true
 dnsrr.sortable = true
 dnsrr.template = "cbi/tblsection"
+dnsrr.parent = s
+dnsrr.taboption = "dnsrecords"
 
 o = dnsrr:option(Value, "rrname", translate("Resource Record Name"))
 o.rmempty  = false
