@@ -178,6 +178,12 @@ local uid = luci.sys.exec("echo -n $(head /dev/urandom | tr -dc A-Za-z0-9 | head
 	</div>
 <script type="text/javascript">
 	//<![CDATA[
+<% if self.parent and self.taboption then %>
+	const taboption_<%=uid%> = "<%=self.taboption%>";
+	const dom_tabsection_<%=uid%> = document.getElementById("container.<%=self.config%>.<%=self.parent:cfgsections()[1]%>.<%=self.taboption%>");
+	const self_dom_<%=uid%> = document.getElementById("cbi-<%=self.config%>-<%=self.sectiontype%>");
+	dom_tabsection_<%=uid%>.appendChild(self_dom_<%=uid%>);
+<% end %>
 <% if self.clonebtn then %>
 	function clone_<%=uid%>(cfgid) {
 		XHR.get('<%=luci.dispatcher.build_url("admin/uci/clone")%>', { config: "<%=self.config%>", cfgid: cfgid },
