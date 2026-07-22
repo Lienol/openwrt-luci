@@ -844,6 +844,9 @@ msgstr "DNS 转发"
 msgid "DNS-Label / FQDN"
 msgstr "DNS-Label / FQDN"
 
+msgid "DNS Records"
+msgstr "DNS 记录"
+
 msgid "DNSSEC"
 msgstr "DNSSEC"
 
