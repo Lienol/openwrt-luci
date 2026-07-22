@@ -17,6 +17,8 @@ s:tab("devices", translate("Devices &amp; Ports"))
 s:tab("logging", translate("Log"))
 s:tab("files", translate("File"))
 s:tab("tftp", translate("TFTP Settings"))
+s:tab("tag", translate("Tag"))
+s:tab("__leases__", translate("Leases"))
 
 s:taboption("general", Flag, "authoritative",
 	translate("Authoritative"),
@@ -144,6 +146,8 @@ tag_s.anonymous = false
 tag_s.addremove = true
 tag_s.sortable = true
 tag_s.extedit = "dhcp_tag_config/%s"
+tag_s.parent = s
+tag_s.taboption = "tag"
 function tag_s.create(e, t)
 	TypedSection.create(e, t)
 	luci.http.redirect(e.extedit:format(t))
@@ -169,7 +173,7 @@ o.default = 0
 o.rmempty  = false
 
 
-s = m:section(TypedSection, "host", translate("Static Leases"),
+host_s = m:section(TypedSection, "host", translate("Static Leases"),
 	translate("Static leases are used to assign fixed IP addresses and symbolic hostnames to " ..
 		"DHCP clients. They are also required for non-dynamic interface configurations where " ..
 		"only hosts with a corresponding lease are served.") .. "<br />" ..
@@ -179,34 +183,36 @@ s = m:section(TypedSection, "host", translate("Static Leases"),
 		"The optional <em>Lease time</em> can be used to set non-standard host-specific " ..
 		"lease time, e.g. 12h, 3d or infinite."))
 
-s.addremove = true
-s.anonymous = true
-s.template = "cbi/tblsection"
-s.extedit = "dhcp_static_leases_config/%s"
+host_s.addremove = true
+host_s.anonymous = true
+host_s.template = "cbi/tblsection"
+host_s.extedit = "dhcp_static_leases_config/%s"
+host_s.parent = s
+host_s.taboption = "__leases__"
 
-name = s:option(Value, "name", translate("Hostname"))
+name = host_s:option(Value, "name", translate("Hostname"))
 name.datatype = "hostname"
 name.rmempty  = true
 
-mac = s:option(Value, "mac", translate("<abbr title=\"Media Access Control\">MAC</abbr>-Address"))
+mac = host_s:option(Value, "mac", translate("<abbr title=\"Media Access Control\">MAC</abbr>-Address"))
 mac.datatype = "list(macaddr)"
 mac.rmempty  = true
 
-ip = s:option(Value, "ip", translate("<abbr title=\"Internet Protocol Version 4\">IPv4</abbr>-Address"))
+ip = host_s:option(Value, "ip", translate("<abbr title=\"Internet Protocol Version 4\">IPv4</abbr>-Address"))
 ip.datatype = "or(ip4addr,'ignore')"
 
---time = s:option(Value, "leasetime", translate("Lease time"))
+--time = host_s:option(Value, "leasetime", translate("Lease time"))
 --time.rmempty = true
 
-tag = s:option(DynamicList, 'tag', translate('Tag'))
+tag = host_s:option(DynamicList, 'tag', translate('Tag'))
 m.uci:foreach("dhcp", "tag", function(s)
 	tag:value(s[".name"])
 end)
 
-duid = s:option(Value, "duid", translate("DUID"))
+duid = host_s:option(Value, "duid", translate("DUID"))
 duid.datatype = "and(rangelength(20,36),hexstring)"
 
-hostid = s:option(Value, "hostid", translate("<abbr title=\"Internet Protocol Version 6\">IPv6</abbr>-Suffix (hex)"))
+hostid = host_s:option(Value, "hostid", translate("<abbr title=\"Internet Protocol Version 6\">IPv6</abbr>-Suffix (hex)"))
 
 ipc.neighbors({ family = 4 }, function(n)
 	if n.mac and n.dest then
@@ -224,6 +230,7 @@ function ip.validate(self, value, section)
 	return Value.validate(self, value, section)
 end
 
-m:section(SimpleSection).template = "admin_network/lease_status"
+o = s:taboption("__leases__", DummyValue, "_lease_status")
+o.template = "admin_network/lease_status"
 
 return m
