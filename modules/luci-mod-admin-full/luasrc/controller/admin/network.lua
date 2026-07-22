@@ -136,11 +136,6 @@ function index()
 			page.target = cbi("admin_network/dns")
 			page.title  = _("DNS")
 			page.order  = 31
-
-			page = node("admin", "network", "hosts")
-			page.target = cbi("admin_network/hosts")
-			page.title  = _("Hostnames")
-			page.order  = 32
 		end
 
 		page  = node("admin", "network", "routes")
