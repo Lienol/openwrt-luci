@@ -1554,7 +1554,7 @@ msgid "IPv6 Firewall"
 msgstr "IPv6 防火墙"
 
 msgid "IPv6 Neighbours"
-msgstr "IPv6 网上邻居"
+msgstr "IPv6 邻居"
 
 msgid "IPv6 Settings"
 msgstr "IPv6 设置"
@@ -2187,6 +2187,9 @@ msgstr "新网络的名称"
 
 msgid "Navigation"
 msgstr "导航"
+
+msgid "Neighbours"
+msgstr "邻居"
 
 msgid "Netmask"
 msgstr "子网掩码"
