@@ -1,3 +1,6 @@
+<%-
+local uid = luci.sys.exec("echo -n $(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 8)")
+-%>
 <fieldset class="cbi-section" id="cbi-<%=self.config%>-<%=self.sectiontype%>">
 	<% if self.title and #self.title > 0 then -%>
 		<legend><%=self.title%></legend>
@@ -46,4 +49,14 @@
 		</div>
 		<%- end %>
 	<%- end %>
+<script type="text/javascript">
+	//<![CDATA[
+<% if self.parent and self.taboption then %>
+	const taboption_<%=uid%> = "<%=self.taboption%>";
+	const dom_tabsection_<%=uid%> = document.getElementById("container.<%=self.config%>.<%=self.parent:cfgsections()[1]%>.<%=self.taboption%>");
+	const self_dom_<%=uid%> = document.getElementById("cbi-<%=self.config%>-<%=self.sectiontype%>");
+	dom_tabsection_<%=uid%>.appendChild(self_dom_<%=uid%>);
+<% end %>
+	//]]>
+</script>
 </fieldset>

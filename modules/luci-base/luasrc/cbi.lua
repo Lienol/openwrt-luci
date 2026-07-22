@@ -1119,6 +1119,10 @@ function NamedSection.parse(self, novld)
 	end
 end
 
+function NamedSection.cfgsections(self)
+	return { self.section }
+end
+
 
 --[[
 TypedSection - A (set of) configuration section(s) defined by the type
