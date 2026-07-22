@@ -9,11 +9,18 @@ m = Map("network",
 	translate("Routes specify over which interface and gateway a certain host or network " ..
 		"can be reached."))
 
+s0 = m:section(TypedSection, "globals", "")
+s0.anonymous = true
+s0.addremove = false
+s0:tab("v4route", translate("Static IPv4 Routes"))
+s0:tab("v6route", translate("Static IPv6 Routes"))
+
 s = m:section(TypedSection, "route", translate("Static IPv4 Routes"))
 s.addremove = true
 s.anonymous = true
-
 s.template  = "cbi/tblsection"
+s.parent = s0
+s.taboption = "v4route"
 
 iface = s:option(ListValue, "interface", translate("Interface"))
 wa.cbi_add_networks(iface)
@@ -59,8 +66,9 @@ if fs.access("/proc/net/ipv6_route") then
 	s = m:section(TypedSection, "route6", translate("Static IPv6 Routes"))
 	s.addremove = true
 	s.anonymous = true
-
 	s.template  = "cbi/tblsection"
+	s.parent = s0
+	s.taboption = "v6route"
 
 	iface = s:option(ListValue, "interface", translate("Interface"))
 	wa.cbi_add_networks(iface)
