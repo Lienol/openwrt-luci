@@ -30,7 +30,7 @@ uci:foreach("network", "interface",
 <script type="text/javascript">//<![CDATA[
 	var stxhr = new XHR();
 
-	function update_status(network, field, proto)
+	function update_status(network, field, proto, I)
 	{
 		var tool = field.name;
 		var addr = field.value;
@@ -39,6 +39,11 @@ uci:foreach("network", "interface",
 		if (network && network != 0) {
 			var dom = document.getElementsByName(tool + '_network')[0];
 			network = dom.options[network].value;
+		}
+		
+		if (I && I != 0) {
+			var dom = document.getElementsByName(tool + '_I')[0];
+			I = dom.options[I].value;
 		}
 
 		var legend = document.getElementById('diag-rc-legend');
@@ -53,8 +58,16 @@ uci:foreach("network", "interface",
 
 			legend.parentNode.style.display = 'block';
 			legend.style.display = 'inline';
+			
+			let post_param = { token: '<%=token%>', addr: addr };
+			if (network && network != 0) {
+				post_param["network"] = network
+			}
+			if (I) {
+				post_param["I"] = I
+			}
 
-			stxhr.post('<%=url('admin/network')%>/diag_' + tool + protocol + '/' + addr + (network ? '/' + network : ''), { token: '<%=token%>' },
+			stxhr.post('<%=url('admin/network')%>/diag_' + tool + protocol, post_param,
 				function(x)
 				{
 					if (x.responseText)
@@ -90,15 +103,17 @@ uci:foreach("network", "interface",
 						<option value="<%=v%>"><%=v%></option>
 					<% end %>
 				</select>
-				<% if has_ping6 then %>
+				<select name="ping_I" style="width:auto">
+					<option value="IFACE"><%:Interface%></option>
+					<option value="IP" selected="selected"><%:IP%></option>
+				</select>
 				<select name="ping_proto" style="width:auto">
 					<option value="" selected="selected"><%:IPv4%></option>
+					<% if has_ping6 then %>
 					<option value="6"><%:IPv6%></option>
+					<% end %>
 				</select>
-				<input type="button" value="<%:Ping%>" class="cbi-button cbi-button-apply" onclick="update_status(this.form.ping_network.selectedIndex, this.form.ping, this.form.ping_proto.selectedIndex)" />
-				<% else %>
-				<input type="button" value="<%:Ping%>" class="cbi-button cbi-button-apply" onclick="update_status(this.form.ping_network.selectedIndex, this.form.ping)" />
-				<% end %>
+				<input type="button" value="<%:Ping%>" class="cbi-button cbi-button-apply" onclick="update_status(this.form.ping_network.selectedIndex, this.form.ping, this.form.ping_proto.selectedIndex, this.form.ping_I.selectedIndex)" />
 			</div>
 
 			<div style="width:33%; float:left">
@@ -109,15 +124,17 @@ uci:foreach("network", "interface",
 						<option value="<%=v%>"><%=v%></option>
 					<% end %>
 				</select>
-				<% if has_traceroute6 then %>
+				<select name="traceroute_I" style="width:auto">
+					<option value="IFACE"><%:Interface%></option>
+					<option value="IP" selected="selected"><%:IP%></option>
+				</select>
 				<select name="traceroute_proto" style="width:auto">
 					<option value="" selected="selected"><%:IPv4%></option>
+					<% if has_traceroute6 then %>
 					<option value="6"><%:IPv6%></option>
+					<% end %>
 				</select>
-				<input type="button" value="<%:Traceroute%>" class="cbi-button cbi-button-apply" onclick="update_status(this.form.traceroute_network.selectedIndex, this.form.traceroute, this.form.traceroute_proto.selectedIndex)" />
-				<% else %>
-				<input type="button" value="<%:Traceroute%>" class="cbi-button cbi-button-apply" onclick="update_status(this.form.traceroute_network.selectedIndex, this.form.traceroute)" />
-				<% end %>
+				<input type="button" value="<%:Traceroute%>" class="cbi-button cbi-button-apply" onclick="update_status(this.form.traceroute_network.selectedIndex, this.form.traceroute, this.form.traceroute_proto.selectedIndex, this.form.traceroute_I.selectedIndex)" />
 				<% if not has_traceroute6 then %>
 					<p>&#160;</p>
 					<p><%:Install iputils-traceroute6 for IPv6 traceroute%></p>
