@@ -445,37 +445,65 @@ function diag_command(cmd, addr)
 	luci.http.status(500, "Bad address")
 end
 
-function get_l3_device_by_network(network)
+function get_interface_by_network(network)
 	local util = require "luci.util"
 	local dump = util.ubus("network.interface", "dump", { })
 	if dump then
 		local _, net
 		for _, net in ipairs(dump.interface) do
 			if net.interface == network then
-				return net.l3_device
+				return net
 			end
 		end
 	end
 	return nil
 end
 
-function diag_ping(addr, network)
+function diag_ping()
+	local addr = luci.http.formvalue("addr")
+	local network = luci.http.formvalue("network")
 	if network then
-		local device = get_l3_device_by_network(network)
-		if device then
-			diag_command("ping -4 -c 5 -W 1 -I " .. device .. " %q 2>&1", addr)
-			return
+		local interface = get_interface_by_network(network)
+		if interface then
+			local I = luci.http.formvalue("I")
+			if I == "IP" then
+				local source_addrs = interface["ipv4-address"] or {}
+				if #source_addrs > 0 then
+					local source_addr = source_addrs[1].address
+					diag_command("ping -4 -c 5 -W 1 -I " .. source_addr .. " %q 2>&1", addr)
+					return
+				end
+			end
+			local device = interface.l3_device
+			if device then
+				diag_command("ping -4 -c 5 -W 1 -I " .. device .. " %q 2>&1", addr)
+				return
+			end
 		end
 	end
 	diag_command("ping -4 -c 5 -W 1 %q 2>&1", addr)
 end
 
-function diag_traceroute(addr, network)
+function diag_traceroute()
+	local addr = luci.http.formvalue("addr")
+	local network = luci.http.formvalue("network")
 	if network then
-		local device = get_l3_device_by_network(network)
-		if device then
-			diag_command("traceroute -4 -q 1 -w 1 -n -i " .. device .. " %q 2>&1", addr)
-			return
+		local interface = get_interface_by_network(network)
+		if interface then
+			local I = luci.http.formvalue("I")
+			if I == "IP" then
+				local source_addrs = interface["ipv4-address"] or {}
+				if #source_addrs > 0 then
+					local source_addr = source_addrs[1].address
+					diag_command("traceroute -4 -q 1 -w 1 -n -s " .. source_addr .. " %q 2>&1", addr)
+					return
+				end
+			end
+			local device = interface.l3_device
+			if device then
+				diag_command("traceroute -4 -q 1 -w 1 -n -i " .. device .. " %q 2>&1", addr)
+				return
+			end
 		end
 	end
 	diag_command("traceroute -4 -q 1 -w 1 -n %q 2>&1", addr)
@@ -485,23 +513,51 @@ function diag_nslookup(addr)
 	diag_command("nslookup %q 2>&1", addr)
 end
 
-function diag_ping6(addr, network)
+function diag_ping6()
+	local addr = luci.http.formvalue("addr")
+	local network = luci.http.formvalue("network")
 	if network then
-		local device = get_l3_device_by_network(network)
-		if device then
-			diag_command("ping6 -c 5 -I " .. device .. " %q 2>&1", addr)
-			return
+		local interface = get_interface_by_network(network)
+		if interface then
+			local I = luci.http.formvalue("I")
+			if I == "IP" then
+				local source_addrs = interface["ipv6-address"] or {}
+				if #source_addrs > 0 then
+					local source_addr = source_addrs[1].address
+					diag_command("ping6 -c 5 -I " .. source_addr .. " %q 2>&1", addr)
+					return
+				end
+			end
+			local device = interface.l3_device
+			if device then
+				diag_command("ping6 -c 5 -I " .. device .. " %q 2>&1", addr)
+				return
+			end
 		end
 	end
 	diag_command("ping6 -c 5 %q 2>&1", addr)
 end
 
-function diag_traceroute6(addr, network)
+function diag_traceroute6()
+	local addr = luci.http.formvalue("addr")
+	local network = luci.http.formvalue("network")
 	if network then
-		local device = get_l3_device_by_network(network)
-		if device then
-			diag_command("traceroute6 -q 1 -w 2 -n -i " .. device .. " %q 2>&1", addr)
-			return
+		local interface = get_interface_by_network(network)
+		if interface then
+			local I = luci.http.formvalue("I")
+			if I == "IP" then
+				local source_addrs = interface["ipv6-address"] or {}
+				if #source_addrs > 0 then
+					local source_addr = source_addrs[1].address
+					diag_command("traceroute6 -q 1 -w 2 -n -s " .. source_addr .. " %q 2>&1", addr)
+					return
+				end
+			end
+			local device = interface.l3_device
+			if device then
+				diag_command("traceroute6 -q 1 -w 2 -n -i " .. device .. " %q 2>&1", addr)
+				return
+			end
 		end
 	end
 	diag_command("traceroute6 -q 1 -w 2 -n %q 2>&1", addr)
