@@ -3,6 +3,54 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Last-Translator: Hsing-Wang Liao <kuoruan@gmail.com>\n"
 
+msgid "Rule"
+msgstr "规则"
+
+msgid "Ingress"
+msgstr "入口"
+
+msgid "Src Port"
+msgstr "源端口"
+
+msgid "IP Protocol"
+msgstr "IP 协议"
+
+msgid "Egress"
+msgstr "出口"
+
+msgid "Dest Port"
+msgstr "目标端口"
+
+msgid "Fwmark"
+msgstr "防火墙标记"
+
+msgid "From"
+msgstr "来自"
+
+msgid "To"
+msgstr "到"
+
+msgid "ToS"
+msgstr "ToS"
+
+msgid "DSCP"
+msgstr "差分服务代码点（DSCP）"
+
+msgid "UID-range"
+msgstr "UID 范围"
+
+msgid "goto"
+msgstr "指向"
+
+msgid "NAT"
+msgstr "NAT"
+
+msgid "Active IPv4 Rules"
+msgstr "活跃的 IPv4 规则"
+
+msgid "Active IPv6 Rules"
+msgstr "活跃的 IPv6 规则"
+
 msgid "%.1f dB"
 msgstr ""
 
