@@ -28,6 +28,40 @@
 			end
 		end
 	end
+
+	local jsonc = require "luci.jsonc"
+	local ipv4_rules = jsonc.parse(luci.sys.exec("ip -4 -j rule show")) or {}
+	local ipv6_rules = jsonc.parse(luci.sys.exec("ip -6 -j rule show")) or {}
+	
+	function parseRule(rl)
+		local t = {}
+		t[#t + 1] = "#"
+		if rl.fwmark then
+			t[#t + 1] = translate("Fwmark") .. ":" .. rl.fwmark
+		end
+		if rl.from then
+			t[#t + 1] = translate("From") .. ":" .. rl.from
+		end
+		if rl.to then
+			t[#t + 1] = translate("To") .. ":" .. rl.to
+		end
+		if rl.tos then
+			t[#t + 1] = translate("Tos") .. ":" .. rl.tos
+		end
+		if rl.dsfield then
+			t[#t + 1] = translate("DSCP") .. ":" .. rl.dsfield
+		end
+		if rl.uidrange then
+			t[#t + 1] = translate("UID-range") .. ":" .. rl.uidrange
+		end
+		if rl.goto then
+			t[#t + 1] = translate("goto") .. ":" .. rl.goto
+		end
+		if rl.nat then
+			t[#t + 1] = translate("NAT") .. ":" .. rl.nat
+		end
+		return t
+	end
 -%>
 
 <%+header%>
@@ -99,6 +133,44 @@
 			</div>
 		</fieldset>
 		<br />
+
+		<fieldset class="cbi-section">
+			<legend><%:Active IPv4 Rules%></legend>
+
+			<div class="cbi-section-node">
+				<table class="cbi-section-table">
+					<tr class="cbi-section-table-titles">
+						<th class="cbi-section-table-cell"><%:Rule%></th>
+						<th class="cbi-section-table-cell"><%:Priority%></th>
+						<th class="cbi-section-table-cell"><%:Ingress%></th>
+						<th class="cbi-section-table-cell"><%:Source%></th>
+						<th class="cbi-section-table-cell"><%:Src Port%></th>
+						<th class="cbi-section-table-cell"><%:Action%></th>
+						<th class="cbi-section-table-cell"><%:IP Protocol%></th>
+						<th class="cbi-section-table-cell"><%:Egress%></th>
+						<th class="cbi-section-table-cell"><%:Destination%></th>
+						<th class="cbi-section-table-cell"><%:Dest Port%></th>
+						<th class="cbi-section-table-cell"><%:Table%></th>
+					</tr>
+					<% for _, v in ipairs(ipv4_rules) do %>
+					<tr class="cbi-section-table-row cbi-rowstyle-<%=(style and 1 or 2)%>">
+						<td class="cbi-value-field"><%=table.concat(parseRule(v) or {}, ";")%></td>
+						<td class="cbi-value-field"><%=v.priority%></td>
+						<td class="cbi-value-field"><%=v.iif and "<span class='ifacebadge'>%s</span>" % v.iif or "-"%></td>
+						<td class="cbi-value-field"><%=v.src and (v.srclen and v.src .. "/" .. v.srclen or v.src) or translate("any")%></td>
+						<td class="cbi-value-field"><%=v.sport or "-"%></td>
+						<td class="cbi-value-field"><%=v.action or "-"%></td>
+						<td class="cbi-value-field"><%=v.ipproto%></td>
+						<td class="cbi-value-field"><%=v.oif and "<span class='ifacebadge'>%s</span>" % v.oif or "-"%></td>
+						<td class="cbi-value-field"><%=v.dst and (v.dstlen and v.dst .. "/" .. v.dstlen or v.dst) or translate("any")%></td>
+						<td class="cbi-value-field"><%=v.dport or "-"%></td>
+						<td class="cbi-value-field"><%=v.table or "-"%></td>
+					</tr>
+					<% style = not style end %>
+				</table>
+			</div>
+		</fieldset>
+		<br />
 	</div>
 
 	<%
@@ -163,6 +235,44 @@
 							end
 						end
 					%>
+				</table>
+			</div>
+		</fieldset>
+		<br />
+
+		<fieldset class="cbi-section">
+			<legend><%:Active IPv6 Rules%></legend>
+
+			<div class="cbi-section-node">
+				<table class="cbi-section-table">
+					<tr class="cbi-section-table-titles">
+						<th class="cbi-section-table-cell"><%:Rule%></th>
+						<th class="cbi-section-table-cell"><%:Priority%></th>
+						<th class="cbi-section-table-cell"><%:Ingress%></th>
+						<th class="cbi-section-table-cell"><%:Source%></th>
+						<th class="cbi-section-table-cell"><%:Src Port%></th>
+						<th class="cbi-section-table-cell"><%:Action%></th>
+						<th class="cbi-section-table-cell"><%:IP Protocol%></th>
+						<th class="cbi-section-table-cell"><%:Egress%></th>
+						<th class="cbi-section-table-cell"><%:Destination%></th>
+						<th class="cbi-section-table-cell"><%:Dest Port%></th>
+						<th class="cbi-section-table-cell"><%:Table%></th>
+					</tr>
+					<% for _, v in ipairs(ipv6_rules) do %>
+					<tr class="cbi-section-table-row cbi-rowstyle-<%=(style and 1 or 2)%>">
+						<td class="cbi-value-field"><%=table.concat(parseRule(v) or {}, ";")%></td>
+						<td class="cbi-value-field"><%=v.priority%></td>
+						<td class="cbi-value-field"><%=v.iif and "<span class='ifacebadge'>%s</span>" % v.iif or "-"%></td>
+						<td class="cbi-value-field"><%=v.src and (v.srclen and v.src .. "/" .. v.srclen or v.src) or translate("any")%></td>
+						<td class="cbi-value-field"><%=v.sport or "-"%></td>
+						<td class="cbi-value-field"><%=v.action or "-"%></td>
+						<td class="cbi-value-field"><%=v.ipproto%></td>
+						<td class="cbi-value-field"><%=v.oif and "<span class='ifacebadge'>%s</span>" % v.oif or "-"%></td>
+						<td class="cbi-value-field"><%=v.dst and (v.dstlen and v.dst .. "/" .. v.dstlen or v.dst) or translate("any")%></td>
+						<td class="cbi-value-field"><%=v.dport or "-"%></td>
+						<td class="cbi-value-field"><%=v.table or "-"%></td>
+					</tr>
+					<% style = not style end %>
 				</table>
 			</div>
 		</fieldset>
