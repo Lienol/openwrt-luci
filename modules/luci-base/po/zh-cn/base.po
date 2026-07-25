@@ -51,6 +51,9 @@ msgstr "活跃的 IPv4 规则"
 msgid "Active IPv6 Rules"
 msgstr "活跃的 IPv6 规则"
 
+msgid "No entries available"
+msgstr "没有可用的条目"
+
 msgid "%.1f dB"
 msgstr ""
 
