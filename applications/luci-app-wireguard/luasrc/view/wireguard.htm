@@ -163,43 +163,43 @@
 for ikey, iface in pairs(data) do
   -%>
   <legend><%:Interface%> <%=ikey%></legend>
-  <div class="table" width="100%" cellspacing="10">
-    <div class="tr">
-      <div class="td" width="33%" style="vertical-align:top"><%:Configuration%></div>
-      <div class="td">
-        <div class="table">
-          <div class="tr">
-            <div class="td" id="<%=ikey%>_icon" style="width:16px; text-align:center; padding:3px">
+  <table class="table" width="100%" cellspacing="10">
+    <tr class="tr">
+      <td class="td" width="33%" style="vertical-align:top"><%:Configuration%></td>
+      <td class="td">
+        <table class="table">
+          <tr class="tr">
+            <td class="td" id="<%=ikey%>_icon" style="width:16px; text-align:center; padding:3px">
               &nbsp;
-            </div>
-            <div class="td" id="<%=ikey%>_info" style="vertical-align:middle; padding: 3px">
+            </td>
+            <td class="td" id="<%=ikey%>_info" style="vertical-align:middle; padding: 3px">
               <em><%:Collecting data...%></em>
-            </div>
-        </div></div>
-      </div>
-    </div>
+            </td>
+        </tr></table>
+      </td>
+    </tr>
   <%-
   for pkey, peer in pairs(iface.peers) do
     -%>
-    <div class="tr">
-      <div class="td" width="33%" style="vertical-align:top"><%:Peer%></div>
-      <div class="td">
-        <div class="table">
-          <div class="tr">
-            <div class="td" id="<%=ikey%>_<%=peer.public_key%>_icon" style="width:16px; text-align:center; padding:3px">
+    <tr class="tr">
+      <td class="td" width="33%" style="vertical-align:top"><%:Peer%></td>
+      <td class="td">
+        <table class="table">
+          <tr class="tr">
+            <td class="td" id="<%=ikey%>_<%=peer.public_key%>_icon" style="width:16px; text-align:center; padding:3px">
               <img src="<%=resource%>/icons/tunnel_disabled.png" /><br />
               <small>?</small>
-            </div>
-            <div class="td" id="<%=ikey%>_<%=peer.public_key%>_info" style="vertical-align:middle; padding: 3px">
+            </td>
+            <td class="td" id="<%=ikey%>_<%=peer.public_key%>_info" style="vertical-align:middle; padding: 3px">
               <em><%:Collecting data...%></em>
-            </div>
-        </div></div>
-      </div>
-    </div>
+            </td>
+        </tr></table>
+      </td>
+    </tr>
     <%-
   end
   -%>
-  </div>
+  </table>
   <%-
 end
 -%>
