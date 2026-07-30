@@ -8,7 +8,8 @@
 				]
 			},
 			"uci": [
-				"travelmate"
+				"travelmate",
+				"wireless"
 			]
 		},
 		"read": {
@@ -46,6 +47,12 @@
 				],
 				"/etc/init.d/travelmate scan *": [
 					"exec"
+				]
+			},
+			"ubus": {
+				"file": [
+					"exec",
+					"stat"
 				]
 			},
 			"uci": [

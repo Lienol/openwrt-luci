@@ -5,6 +5,11 @@
 			"cgi-io": [
 				"upload"
 			],
+			"ubus": {
+				"file": [
+					"write"
+				]
+			},
 			"uci": [
 				"banip"
 			],
@@ -70,6 +75,12 @@
 				],
 				"/etc/init.d/banip content *": [
 					"exec"
+				]
+			},
+			"ubus": {
+				"file": [
+					"read",
+					"stat"
 				]
 			},
 			"uci": [

@@ -5,6 +5,11 @@
 			"cgi-io": [
 				"upload"
 			],
+			"ubus": {
+				"file": [
+					"write"
+				]
+			},
 			"uci": [
 				"adblock"
 			],
@@ -64,6 +69,12 @@
 				],
 				"/etc/init.d/adblock search *": [
 					"exec"
+				]
+			},
+			"ubus": {
+				"file": [
+					"read",
+					"stat"
 				]
 			},
 			"uci": [
