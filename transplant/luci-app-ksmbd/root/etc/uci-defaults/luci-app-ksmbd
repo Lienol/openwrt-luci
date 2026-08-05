@@ -1,0 +1,11 @@
+#!/bin/sh
+
+uci -q batch <<-EOF >/dev/null
+	delete ucitrack.@ksmbd[-1]
+	add ucitrack ksmbd
+	set ucitrack.@ksmbd[-1].init=ksmbd
+	commit ucitrack
+EOF
+
+rm -rf /tmp/luci-*cache
+exit 0
