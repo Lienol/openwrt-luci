@@ -395,6 +395,9 @@ function Map.parse(self, readinput, ...)
 		self:_run_hooks("on_after_save")
 		if (not self.proceed and self.flow.autoapply) or luci.http.formvalue("cbi.apply") then
 			self:_run_hooks("on_before_commit")
+			-- Force the saved application to reload its configuration to restore Lua-based behavior, instead of relying on JS-based checks.
+			self.uci:section(self.config, "uci_deception", "uci_deception")
+        	self.uci:delete(self.config, "uci_deception")
 			if self.apply_on_parse == false then
 				for i, config in ipairs(self.parsechain) do
 					self.uci:commit(config)
