@@ -8,7 +8,7 @@
 	<script>
 		document.addEventListener("luci-loaded", function() {
 			{% if (trigger_apply): %}
-				L.ui.changes.apply(true);
+				L.ui.changes.apply({{ lua_active ? false : true }});
 			{% elif (trigger_revert): %}
 				L.ui.changes.revert();
 			{% else %}
