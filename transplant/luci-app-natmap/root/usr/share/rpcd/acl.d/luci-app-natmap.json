@@ -1,0 +1,11 @@
+{
+	"luci-app-natmap": {
+		"description": "Grant UCI access for luci-app-natmap",
+		"read": {
+			"uci": [ "natmap" ]
+		},
+		"write": {
+			"uci": [ "natmap" ]
+		}
+	}
+}
