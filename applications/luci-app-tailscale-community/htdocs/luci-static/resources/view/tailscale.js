@@ -12,6 +12,7 @@ const callDoLogin = rpc.declare({ object: 'tailscale', method: 'do_login', param
 const callDoLogout = rpc.declare({ object: 'tailscale', method: 'do_logout' });
 const callGetSubroutes = rpc.declare({ object: 'tailscale', method: 'get_subroutes' });
 const callSetupFirewall = rpc.declare({ object: 'tailscale', method: 'setup_firewall' });
+const callGetLogs = rpc.declare({ object: 'tailscale', method: 'get_logs' });
 let map;
 
 const tailscaleSettingsConf = [
@@ -25,6 +26,7 @@ const tailscaleSettingsConf = [
 	[form.Flag, 'shields_up', _('Shields Up'), _('When enabled, blocks all inbound connections from the Tailscale network.'), { rmempty: false }],
 	[form.Flag, 'ssh', _('Enable Tailscale SSH'), _('Allow connecting to this device through the SSH function of Tailscale.'), { rmempty: false }],
 	[form.ListValue, 'dns_mode', _('DNS Mode'), _('Controls how Tailscale DNS is handled.')+'<br>'+_('Disabled: system DNS only.')+'<br>'+_('MagicDNS: Tailscale overrides resolv.conf.')+'<br>'+_('OpenWrt Forward: MagicDNS via dnsmasq forwarding.(Only support ts.net)'), { values: [['disabled', _('Disabled')], ['magicdns', 'MagicDNS'], ['openwrt_forward', _('OpenWrt Forward')]], rmempty: false }],
+	[form.Flag, 'disable_fw_config', _('Disable Firewall Configuration'), _('Disable Tailscale netfilter auto-configuration (--netfilter-mode=off).'), { rmempty: false }],
 	[form.Flag, 'enable_relay', _('Enable Peer Relay'), _('Enable this device as a Peer Relay server. Requires a public IP and an UDP port open on the router.'), { rmempty: false }]
 ];
 
@@ -70,7 +72,7 @@ function defTabOpts(s, t, opts, params) {
 }
 
 function getRunningStatus() {
-	return L.resolveDefault(callGetStatus(), { running: false }).then(function (res) {
+	return L.resolveDefault(callGetStatus(), { status: 'stopped', peers: {} }).then(function (res) {
 		return res;
 	});
 }
@@ -239,6 +241,20 @@ function renderStatus(status) {
 	return statusTable;
 }
 
+function renderLogs(logs_data) {
+	if (!logs_data || !logs_data.logs || logs_data.logs.length === 0) {
+		return E('em', {}, _('No tailscale-related logs found.'));
+	}
+
+	const lines = logs_data.logs.map(function(line) {
+		return E('div', { 'style': 'white-space: pre; font-family: monospace; font-size: 13px; line-height: 1.5;' }, line);
+	});
+
+	return E('div', {
+		'style': 'max-height: 500px; overflow-y: auto; background: #f5f5f5; border: 1px solid #ccc; padding: 8px; border-radius: 3px;'
+	}, lines);
+}
+
 function renderDevices(status) {
 	if (!status || !status.hasOwnProperty('status')) {
 		return E('em', {}, _('Collecting data ...'));
@@ -268,41 +284,104 @@ function renderDevices(status) {
 		{ text: _('Last Seen') }
 	];
 
-	return E('table', { 'class': 'cbi-table' }, [
+	const existingFilter = document.getElementById('tailscale_devices_filter');
+	const currentQuery = existingFilter ? existingFilter.value : '';
+
+	const searchInput = E('input', {
+		'id': 'tailscale_devices_filter',
+		'class': 'cbi-input-text',
+		'type': 'text',
+		'placeholder': _('Filter by hostname, IP, OS...'),
+		'style': 'margin-bottom: 8px; width: 100%; max-width: 320px;'
+	});
+	if (currentQuery) {
+		searchInput.value = currentQuery;
+	}
+
+	const rows = Object.entries(peers).map(([peerid, peer]) => {
+		const td_style = 'padding-right: 20px;';
+		const hostname = peer.hostname || '';
+		const ip = peer.ip || '';
+		const ostype = peer.ostype || '';
+		const searchText = `${hostname} ${ip} ${ostype}`.toLowerCase();
+
+		const tr = E('tr', {
+			'class': 'cbi-rowstyle-1',
+			'data-search-text': searchText
+		}, [
+			E('td', { 'class': 'cbi-value-field', 'style': td_style },
+				E('span', {
+					'style': `color:${peer.exit_node ? 'blue' : (peer.online ? 'green' : 'gray')};`,
+					'title': (peer.exit_node ? _('Exit Node') + ' ' : '') + (peer.online ? _('Online') : _('Offline'))
+				}, peer.online ? '●' : '○')
+			),
+			E('td', { 'class': 'cbi-value-field', 'style': td_style }, E('strong', {}, hostname + (peer.exit_node_option ? ' (ExNode)' : ''))),
+			E('td', { 'class': 'cbi-value-field', 'style': td_style }, ip || 'N/A'),
+			E('td', { 'class': 'cbi-value-field', 'style': td_style }, ostype || 'N/A'),
+			E('td', { 'class': 'cbi-value-field', 'style': td_style }, formatConnectionInfo(peer.linkadress || '-')),
+			E('td', { 'class': 'cbi-value-field', 'style': td_style }, formatBytes(peer.rx)),
+			E('td', { 'class': 'cbi-value-field', 'style': td_style }, formatBytes(peer.tx)),
+			E('td', { 'class': 'cbi-value-field', 'style': td_style }, formatLastSeen(peer.lastseen))
+		]);
+
+		if (currentQuery && !searchText.includes(currentQuery.toLowerCase().trim())) {
+			tr.style.display = 'none';
+		}
+
+		return tr;
+	});
+
+	searchInput.addEventListener('input', function(ev) {
+		const q = (ev.target.value || '').toLowerCase().trim();
+		for (const tr of rows) {
+			const text = tr.getAttribute('data-search-text') || '';
+			tr.style.display = (!q || text.includes(q)) ? '' : 'none';
+		}
+	});
+
+	if (existingFilter && document.activeElement === existingFilter) {
+		requestAnimationFrame(() => {
+			searchInput.focus();
+			const valLen = searchInput.value.length;
+			searchInput.setSelectionRange(valLen, valLen);
+		});
+	}
+
+	const existingContainer = document.getElementById('tailscale_devices_table_container');
+	const scrollPos = existingContainer ? existingContainer.scrollTop : 0;
+
+	const table = E('table', { 'class': 'cbi-table' }, [
 		E('tr', { 'class': 'cbi-table-header' }, peerTableHeaders.map(header => {
-			let th_style = 'padding-right: 20px; text-align: left;';
+			let th_style = 'padding-right: 20px; text-align: left; position: sticky; top: 0; background: inherit; z-index: 1;';
 			if (header.style) {
 				th_style += header.style;
 			}
 			return E('th', { 'class': 'cbi-table-cell', 'style': th_style }, header.text);
 		})),
+		...rows
+	]);
 
-		...Object.entries(peers).map(([peerid, peer]) => {
-			const td_style = 'padding-right: 20px;';
+	const tableContainer = E('div', {
+		'id': 'tailscale_devices_table_container',
+		'style': 'max-height: 480px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; border-radius: 3px;'
+	}, [table]);
 
-			return E('tr', { 'class': 'cbi-rowstyle-1' }, [
-				E('td', { 'class': 'cbi-value-field', 'style': td_style },
-					E('span', {
-						'style': `color:${peer.exit_node ? 'blue' : (peer.online ? 'green' : 'gray')};`,
-						'title': (peer.exit_node ? _('Exit Node') + ' ' : '') + (peer.online ? _('Online') : _('Offline'))
-					}, peer.online ? '●' : '○')
-				),
-				E('td', { 'class': 'cbi-value-field', 'style': td_style }, E('strong', {}, peer.hostname + (peer.exit_node_option ? ' (ExNode)' : ''))),
-				E('td', { 'class': 'cbi-value-field', 'style': td_style }, peer.ip || 'N/A'),
-				E('td', { 'class': 'cbi-value-field', 'style': td_style }, peer.ostype || 'N/A'),
-				E('td', { 'class': 'cbi-value-field', 'style': td_style }, formatConnectionInfo(peer.linkadress || '-')),
-				E('td', { 'class': 'cbi-value-field', 'style': td_style }, formatBytes(peer.rx)),
-				E('td', { 'class': 'cbi-value-field', 'style': td_style }, formatBytes(peer.tx)),
-				E('td', { 'class': 'cbi-value-field', 'style': td_style }, formatLastSeen(peer.lastseen))
-			]);
-		})
+	if (scrollPos > 0) {
+		requestAnimationFrame(() => {
+			tableContainer.scrollTop = scrollPos;
+		});
+	}
+
+	return E('div', { 'style': 'width: 100%;' }, [
+		searchInput,
+		tableContainer
 	]);
 }
 
 return view.extend({
 	load() {
 		return Promise.all([
-			L.resolveDefault(callGetStatus(), { running: '', peers: [] }),
+			L.resolveDefault(callGetStatus(), { status: 'stopped', peers: {} }),
 			L.resolveDefault(callGetSettings(), { accept_routes: false }),
 			L.resolveDefault(callGetSubroutes(), { routes: [] })
 		])
@@ -323,6 +402,7 @@ return view.extend({
 					uci.set('tailscale', 'settings', 'runwebclient', ((settings_from_rpc.runwebclient || false) ? '1' : '0'));
 					uci.set('tailscale', 'settings', 'nosnat', ((settings_from_rpc.nosnat || false) ? '1' : '0'));
 					uci.set('tailscale', 'settings', 'dns_mode', 'disabled');
+					uci.set('tailscale', 'settings', 'disable_fw_config', '0');
 
 					uci.set('tailscale', 'settings', 'daemon_reduce_memory', '0');
 					uci.set('tailscale', 'settings', 'daemon_mtu', '');
@@ -565,6 +645,33 @@ return view.extend({
 		const devicesSection = s.taboption('devices', form.DummyValue, '_devices');
 		devicesSection.render = function () {
 			return E('div', { 'id': 'tailscale_devices_display', 'class': 'cbi-value' }, renderDevices(status));
+		};
+
+		s.tab('logs', _('Logs'));
+		const logsSection = s.taboption('logs', form.DummyValue, '_logs');
+		logsSection.render = function () {
+			const container = E('div', { 'id': 'tailscale_logs_display', 'class': 'cbi-value' },
+				_('No tailscale-related logs found.')
+			);
+			return container;
+		};
+
+		const refreshLogsBtn = s.taboption('logs', form.Button, '_refresh_logs', _('Refresh'));
+		refreshLogsBtn.inputstyle = 'action';
+		refreshLogsBtn.onclick = function() {
+			const display = document.getElementById('tailscale_logs_display');
+			if (display) {
+				display.replaceChildren(E('em', {}, _('Collecting data ...')));
+			}
+			return callGetLogs().then(function(res) {
+				if (display) {
+					display.replaceChildren(renderLogs(res));
+				}
+			}).catch(function(err) {
+				if (display) {
+					display.replaceChildren(E('em', {}, _('Failed to load logs: %s').format(err.message || _('Unknown error'))));
+				}
+			});
 		};
 
 		// Create the "Daemon Settings" tab and apply daemonConf
