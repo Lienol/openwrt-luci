@@ -8,14 +8,15 @@
 
 const callGetStatus = rpc.declare({ object: 'tailscale', method: 'get_status' });
 const callGetSettings = rpc.declare({ object: 'tailscale', method: 'get_settings' });
-const callSetSettings = rpc.declare({ object: 'tailscale', method: 'set_settings', params: ['form_data'] });
 const callDoLogin = rpc.declare({ object: 'tailscale', method: 'do_login', params: ['form_data'] });
 const callDoLogout = rpc.declare({ object: 'tailscale', method: 'do_logout' });
 const callGetSubroutes = rpc.declare({ object: 'tailscale', method: 'get_subroutes' });
 const callSetupFirewall = rpc.declare({ object: 'tailscale', method: 'setup_firewall' });
+const callGetLogs = rpc.declare({ object: 'tailscale', method: 'get_logs' });
 let map;
 
 const tailscaleSettingsConf = [
+	[form.Flag, 'service_enabled', _('Enable Tailscale Service'), _('Enable or disable the Tailscale service. When disabled, the service will be stopped and the process will be killed.'), { rmempty: false }],
 	[form.ListValue, 'fw_mode', _('Firewall Mode'), _('Select the firewall backend for Tailscale to use. Requires service restart to take effect.'), {values: ['nftables','iptables'],rmempty: false}],
 	[form.Flag, 'accept_routes', _('Accept Routes'), _('Allow accepting routes announced by other nodes.'), { rmempty: false }],
 	[form.Flag, 'advertise_exit_node', _('Advertise Exit Node'), _('Declare this device as an Exit Node.'), { rmempty: false }],
@@ -24,7 +25,9 @@ const tailscaleSettingsConf = [
 	[form.Flag, 'nosnat', _('Disable SNAT'), _('Disable Source NAT (SNAT) for traffic to advertised routes. Most users should leave this unchecked.'), { rmempty: false }],
 	[form.Flag, 'shields_up', _('Shields Up'), _('When enabled, blocks all inbound connections from the Tailscale network.'), { rmempty: false }],
 	[form.Flag, 'ssh', _('Enable Tailscale SSH'), _('Allow connecting to this device through the SSH function of Tailscale.'), { rmempty: false }],
-	[form.Flag, 'disable_magic_dns', _('Disable MagicDNS'), _('Use system DNS instead of MagicDNS.'), { rmempty: false }]
+	[form.ListValue, 'dns_mode', _('DNS Mode'), _('Controls how Tailscale DNS is handled.')+'<br>'+_('Disabled: system DNS only.')+'<br>'+_('MagicDNS: Tailscale overrides resolv.conf.')+'<br>'+_('OpenWrt Forward: MagicDNS via dnsmasq forwarding.(Only support ts.net)'), { values: [['disabled', _('Disabled')], ['magicdns', 'MagicDNS'], ['openwrt_forward', _('OpenWrt Forward')]], rmempty: false }],
+	[form.Flag, 'disable_fw_config', _('Disable Firewall Configuration'), _('Disable Tailscale netfilter auto-configuration (--netfilter-mode=off).'), { rmempty: false }],
+	[form.Flag, 'enable_relay', _('Enable Peer Relay'), _('Enable this device as a Peer Relay server. Requires a public IP and an UDP port open on the router.'), { rmempty: false }]
 ];
 
 const accountConf = [];	// dynamic created in render function
@@ -69,7 +72,7 @@ function defTabOpts(s, t, opts, params) {
 }
 
 function getRunningStatus() {
-	return L.resolveDefault(callGetStatus(), { running: false }).then(function (res) {
+	return L.resolveDefault(callGetStatus(), { status: 'stopped', peers: {} }).then(function (res) {
 		return res;
 	});
 }
@@ -235,76 +238,150 @@ function renderStatus(status) {
 		E('tr', {}, statusData.map(item => E('td', { 'style': 'padding-right: 20px;' }, item.value)))
 	]);
 
-	// --- Part 3: Render the Peers/Network Devices table ---
+	return statusTable;
+}
 
-	const peers = status.peers;
-	let peersContent;
-
-	if (!peers || Object.keys(peers).length === 0) {
-		// Display a message if no peers are found.
-		peersContent = E('p', {}, _('No peer devices found.'));
-	} else {
-		// Define headers for the peers table.
-		const peerTableHeaders = [
-			{ text: _('Status'), style: 'width: 80px;' },
-			{ text: _('Hostname') },
-			{ text: _('Tailscale IP') },
-			{ text: _('OS') },
-			{ text: _('Connection Info') },
-			{ text: _('RX') },
-			{ text: _('TX') },
-			{ text: _('Last Seen') }
-		];
-
-		// Build the peers table.
-		peersContent = E('table', { 'class': 'cbi-table' }, [
-			// Table Header Row
-			E('tr', { 'class': 'cbi-table-header' }, peerTableHeaders.map(header => {
-				let th_style = 'padding-right: 20px; text-align: left;';
-				if (header.style) {
-					th_style += header.style;
-				}
-				return E('th', { 'class': 'cbi-table-cell', 'style': th_style }, header.text);
-			})),
-
-			// Table Body Rows (one for each peer)
-			...Object.entries(peers).map(([peerid, peer]) => {
-				const td_style = 'padding-right: 20px;';
-
-				return E('tr', { 'class': 'cbi-rowstyle-1' }, [
-					E('td', { 'class': 'cbi-value-field', 'style': td_style },
-						E('span', {
-							'style': `color:${peer.exit_node ? 'blue' : (peer.online ? 'green' : 'gray')};`,
-							'title': (peer.exit_node ? _('Exit Node') + ' ' : '') + (peer.online ? _('Online') : _('Offline'))
-						}, peer.online ? '●' : '○')
-					),
-					E('td', { 'class': 'cbi-value-field', 'style': td_style }, E('strong', {}, peer.hostname + (peer.exit_node_option ? ' (ExNode)' : ''))),
-					E('td', { 'class': 'cbi-value-field', 'style': td_style }, peer.ip || 'N/A'),
-					E('td', { 'class': 'cbi-value-field', 'style': td_style }, peer.ostype || 'N/A'),
-					E('td', { 'class': 'cbi-value-field', 'style': td_style }, formatConnectionInfo(peer.linkadress || '-')),
-					E('td', { 'class': 'cbi-value-field', 'style': td_style }, formatBytes(peer.rx)),
-					E('td', { 'class': 'cbi-value-field', 'style': td_style }, formatBytes(peer.tx)),
-					E('td', { 'class': 'cbi-value-field', 'style': td_style }, formatLastSeen(peer.lastseen))
-				]);
-			})
-		]);
+function renderLogs(logs_data) {
+	if (!logs_data || !logs_data.logs || logs_data.logs.length === 0) {
+		return E('em', {}, _('No tailscale-related logs found.'));
 	}
 
-	// Combine all parts into a single DocumentFragment.
-	// Using E() without a tag name creates a fragment, which is perfect for grouping elements.
-	return E([
-		statusTable,
-		E('div', { 'style': 'margin-top: 25px;' }, [
-			E('h4', {}, _('Network Devices')),
-			peersContent
-		])
+	const lines = logs_data.logs.map(function(line) {
+		return E('div', { 'style': 'white-space: pre; font-family: monospace; font-size: 13px; line-height: 1.5;' }, line);
+	});
+
+	return E('div', {
+		'style': 'max-height: 500px; overflow-y: auto; background: #f5f5f5; border: 1px solid #ccc; padding: 8px; border-radius: 3px;'
+	}, lines);
+}
+
+function renderDevices(status) {
+	if (!status || !status.hasOwnProperty('status')) {
+		return E('em', {}, _('Collecting data ...'));
+	}
+
+	if (status.status != 'running') {
+		return E('em', {}, _('Tailscale status error'));
+	}
+
+	if (Object.keys(regionCodeMap).length === 0) {
+		initializeRegionMap();
+	}
+
+	const peers = status.peers;
+	if (!peers || Object.keys(peers).length === 0) {
+		return E('p', {}, _('No peer devices found.'));
+	}
+
+	const peerTableHeaders = [
+		{ text: _('Status'), style: 'width: 80px;' },
+		{ text: _('Hostname') },
+		{ text: _('Tailscale IP') },
+		{ text: _('OS') },
+		{ text: _('Connection Info') },
+		{ text: _('RX') },
+		{ text: _('TX') },
+		{ text: _('Last Seen') }
+	];
+
+	const existingFilter = document.getElementById('tailscale_devices_filter');
+	const currentQuery = existingFilter ? existingFilter.value : '';
+
+	const searchInput = E('input', {
+		'id': 'tailscale_devices_filter',
+		'class': 'cbi-input-text',
+		'type': 'text',
+		'placeholder': _('Filter by hostname, IP, OS...'),
+		'style': 'margin-bottom: 8px; width: 100%; max-width: 320px;'
+	});
+	if (currentQuery) {
+		searchInput.value = currentQuery;
+	}
+
+	const rows = Object.entries(peers).map(([peerid, peer]) => {
+		const td_style = 'padding-right: 20px;';
+		const hostname = peer.hostname || '';
+		const ip = peer.ip || '';
+		const ostype = peer.ostype || '';
+		const searchText = `${hostname} ${ip} ${ostype}`.toLowerCase();
+
+		const tr = E('tr', {
+			'class': 'cbi-rowstyle-1',
+			'data-search-text': searchText
+		}, [
+			E('td', { 'class': 'cbi-value-field', 'style': td_style },
+				E('span', {
+					'style': `color:${peer.exit_node ? 'blue' : (peer.online ? 'green' : 'gray')};`,
+					'title': (peer.exit_node ? _('Exit Node') + ' ' : '') + (peer.online ? _('Online') : _('Offline'))
+				}, peer.online ? '●' : '○')
+			),
+			E('td', { 'class': 'cbi-value-field', 'style': td_style }, E('strong', {}, hostname + (peer.exit_node_option ? ' (ExNode)' : ''))),
+			E('td', { 'class': 'cbi-value-field', 'style': td_style }, ip || 'N/A'),
+			E('td', { 'class': 'cbi-value-field', 'style': td_style }, ostype || 'N/A'),
+			E('td', { 'class': 'cbi-value-field', 'style': td_style }, formatConnectionInfo(peer.linkadress || '-')),
+			E('td', { 'class': 'cbi-value-field', 'style': td_style }, formatBytes(peer.rx)),
+			E('td', { 'class': 'cbi-value-field', 'style': td_style }, formatBytes(peer.tx)),
+			E('td', { 'class': 'cbi-value-field', 'style': td_style }, formatLastSeen(peer.lastseen))
+		]);
+
+		if (currentQuery && !searchText.includes(currentQuery.toLowerCase().trim())) {
+			tr.style.display = 'none';
+		}
+
+		return tr;
+	});
+
+	searchInput.addEventListener('input', function(ev) {
+		const q = (ev.target.value || '').toLowerCase().trim();
+		for (const tr of rows) {
+			const text = tr.getAttribute('data-search-text') || '';
+			tr.style.display = (!q || text.includes(q)) ? '' : 'none';
+		}
+	});
+
+	if (existingFilter && document.activeElement === existingFilter) {
+		requestAnimationFrame(() => {
+			searchInput.focus();
+			const valLen = searchInput.value.length;
+			searchInput.setSelectionRange(valLen, valLen);
+		});
+	}
+
+	const existingContainer = document.getElementById('tailscale_devices_table_container');
+	const scrollPos = existingContainer ? existingContainer.scrollTop : 0;
+
+	const table = E('table', { 'class': 'cbi-table' }, [
+		E('tr', { 'class': 'cbi-table-header' }, peerTableHeaders.map(header => {
+			let th_style = 'padding-right: 20px; text-align: left; position: sticky; top: 0; background: inherit; z-index: 1;';
+			if (header.style) {
+				th_style += header.style;
+			}
+			return E('th', { 'class': 'cbi-table-cell', 'style': th_style }, header.text);
+		})),
+		...rows
+	]);
+
+	const tableContainer = E('div', {
+		'id': 'tailscale_devices_table_container',
+		'style': 'max-height: 480px; overflow-y: auto; overflow-x: auto; border: 1px solid #ddd; border-radius: 3px;'
+	}, [table]);
+
+	if (scrollPos > 0) {
+		requestAnimationFrame(() => {
+			tableContainer.scrollTop = scrollPos;
+		});
+	}
+
+	return E('div', { 'style': 'width: 100%;' }, [
+		searchInput,
+		tableContainer
 	]);
 }
 
 return view.extend({
 	load() {
 		return Promise.all([
-			L.resolveDefault(callGetStatus(), { running: '', peers: [] }),
+			L.resolveDefault(callGetStatus(), { status: 'stopped', peers: {} }),
 			L.resolveDefault(callGetSettings(), { accept_routes: false }),
 			L.resolveDefault(callGetSubroutes(), { routes: [] })
 		])
@@ -313,6 +390,7 @@ return view.extend({
 				if (uci.get('tailscale', 'settings') === null) {
 					// No existing settings found; initialize UCI with RPC settings
 					uci.add('tailscale', 'settings', 'settings');
+					uci.set('tailscale', 'settings', 'service_enabled', '1');
 					uci.set('tailscale', 'settings', 'fw_mode', 'nftables');
 					uci.set('tailscale', 'settings', 'accept_routes', (settings_from_rpc.accept_routes ? '1' : '0'));
 					uci.set('tailscale', 'settings', 'advertise_exit_node', ((settings_from_rpc.advertise_exit_node || false) ? '1' : '0'));
@@ -323,10 +401,19 @@ return view.extend({
 					uci.set('tailscale', 'settings', 'shields_up', ((settings_from_rpc.shields_up || false) ? '1' : '0'));
 					uci.set('tailscale', 'settings', 'runwebclient', ((settings_from_rpc.runwebclient || false) ? '1' : '0'));
 					uci.set('tailscale', 'settings', 'nosnat', ((settings_from_rpc.nosnat || false) ? '1' : '0'));
-					uci.set('tailscale', 'settings', 'disable_magic_dns', ((settings_from_rpc.disable_magic_dns || false) ? '1' : '0'));
+					uci.set('tailscale', 'settings', 'dns_mode', 'disabled');
+					uci.set('tailscale', 'settings', 'disable_fw_config', '0');
 
 					uci.set('tailscale', 'settings', 'daemon_reduce_memory', '0');
 					uci.set('tailscale', 'settings', 'daemon_mtu', '');
+					return uci.save();
+				}
+			}).then(function() {
+				// Migrate from old disable_magic_dns to dns_mode if needed
+				if (uci.get('tailscale', 'settings', 'dns_mode') === null) {
+					var oldMagicDns = uci.get('tailscale', 'settings', 'disable_magic_dns');
+					uci.set('tailscale', 'settings', 'dns_mode', oldMagicDns === '1' ? 'disabled' : 'magicdns');
+					uci.unset('tailscale', 'settings', 'disable_magic_dns');
 					return uci.save();
 				}
 			}).then(function() {
@@ -353,6 +440,11 @@ return view.extend({
 							view.replaceChildren(content);
 						}
 
+						const devicesView = document.getElementById("tailscale_devices_display");
+						if (devicesView) {
+							devicesView.replaceChildren(renderDevices(res));
+						}
+
 						// login button only available when logged out
 						const login_btn=document.getElementsByClassName('cbi-button cbi-button-apply')[0];
 						if(login_btn) { login_btn.disabled=(res.status != 'logout'); }
@@ -365,13 +457,21 @@ return view.extend({
 		}
 
 		// Bind settings to the 'settings' section of uci
-		s = map.section(form.NamedSection, 'settings', 'settings', _('Settings'));
+		s = map.section(form.NamedSection, 'settings', 'settings', null);
 		s.dynamic = true;
 
 		// Create the "General Settings" tab and apply tailscaleSettingsConf
 		s.tab('general', _('General Settings'));
 
 		defTabOpts(s, 'general', tailscaleSettingsConf, { optional: false });
+
+		const relayPort = s.taboption('general', form.Value, 'relay_server_port', _('Peer Relay Port'),
+			_('UDP port for the Peer Relay service. Open this port on your router firewall/NAT.')
+		);
+		relayPort.datatype = 'port';
+		relayPort.placeholder = '40000';
+		relayPort.rmempty = false;
+		relayPort.depends('enable_relay', '1');
 
 		const en = s.taboption('general', form.ListValue, 'exit_node', _('Exit Node'), _('Select an exit node from the list. If enabled, Allow LAN Access is enabled implicitly.'));
 		en.value('', _('None'));
@@ -411,17 +511,17 @@ return view.extend({
 		+'<br>'+_('and enables Masquerading and MSS Clamping (MTU fix) to ensure stable connections.');
 		fwBtn.inputstyle = 'action';
 		fwBtn.onclick = function() {
-			const btn = this;
-			btn.disabled = true;
 			return callSetupFirewall().then(function(res) {
-				const msg = res?.message || _('Firewall configuration applied.');
-				ui.addNotification(null, E('p', {}, msg), 'info');
-			}).catch(function(err) {
-				ui.addNotification(null, E('p', {}, _('Failed to configure firewall: %s').format(err?.message || err || 'Unknown error')), 'error');
-			}).finally(function() {
-				btn.disabled = false;
+			const msg = res?.message || _('Firewall configuration applied.');
+			ui.addNotification(null, E('p', {}, msg), 'info');
+		}).catch(function(err) {
+			ui.addNotification(null, E('p', {}, _('Failed to configure firewall: %s').format(err?.message || err || 'Unknown error')), 'error');
+		}).then(function() {
+			return new Promise(function(resolve) {
+				window.setTimeout(resolve, 3000);
 			});
-		};
+		});
+	};
 
 		const helpTitle = s.taboption('general', form.DummyValue, '_help_title');
 		helpTitle.title = _('How to enable Site-to-Site?');
@@ -480,7 +580,7 @@ return view.extend({
 			}
 			// Display a prompt message in the new window
 			const doc = loginWindow.document;
-			doc.body.innerHTML = 
+			doc.body.innerHTML =
 				'<h2>' + _('Tailscale Login') + '</h2>' +
 				'<p>' + _('Requesting Tailscale login URL... Please wait.') + '</p>' +
 				'<p>' + _('This can take up to 30 seconds.') + '</p>';
@@ -499,7 +599,7 @@ return view.extend({
 					loginWindow.location.href = res.url;
 				} else {
 					// If it fails, inform the user and they can close the new tab
-					doc.body.innerHTML = 
+					doc.body.innerHTML =
 						'<h2>' + _('Error') + '</h2>' +
 						'<p>' + _('Failed to get login URL. You may close this tab.') + '</p>';
 					ui.addTimeLimitedNotification(null, [ E('p', _('Failed to get login URL: Invalid response from server.')) ], 7000, 'error');
@@ -514,13 +614,13 @@ return view.extend({
 			const confirmationContent = E([
 				E('p', {}, _('Are you sure you want to log out?')
 					+'<br>'+_('This will disconnect this device from your Tailnet and require you to re-authenticate.')),
-				
+
 				E('div', { 'style': 'text-align: right; margin-top: 1em;' }, [
 					E('button', {
 						'class': 'cbi-button',
 						'click': ui.hideModal
 					}, _('Cancel')),
-					' ', 
+					' ',
 					E('button', {
 						'class': 'cbi-button cbi-button-negative',
 						'click': function() {
@@ -541,6 +641,39 @@ return view.extend({
 			ui.showModal(_('Confirm Logout'), confirmationContent);
 		};
 
+		s.tab('devices', _('Devices List'));
+		const devicesSection = s.taboption('devices', form.DummyValue, '_devices');
+		devicesSection.render = function () {
+			return E('div', { 'id': 'tailscale_devices_display', 'class': 'cbi-value' }, renderDevices(status));
+		};
+
+		s.tab('logs', _('Logs'));
+		const logsSection = s.taboption('logs', form.DummyValue, '_logs');
+		logsSection.render = function () {
+			const container = E('div', { 'id': 'tailscale_logs_display', 'class': 'cbi-value' },
+				_('No tailscale-related logs found.')
+			);
+			return container;
+		};
+
+		const refreshLogsBtn = s.taboption('logs', form.Button, '_refresh_logs', _('Refresh'));
+		refreshLogsBtn.inputstyle = 'action';
+		refreshLogsBtn.onclick = function() {
+			const display = document.getElementById('tailscale_logs_display');
+			if (display) {
+				display.replaceChildren(E('em', {}, _('Collecting data ...')));
+			}
+			return callGetLogs().then(function(res) {
+				if (display) {
+					display.replaceChildren(renderLogs(res));
+				}
+			}).catch(function(err) {
+				if (display) {
+					display.replaceChildren(E('em', {}, _('Failed to load logs: %s').format(err.message || _('Unknown error'))));
+				}
+			});
+		};
+
 		// Create the "Daemon Settings" tab and apply daemonConf
 		//s.tab('daemon', _('Daemon Settings'));
 		//defTabOpts(s, 'daemon', daemonConf, { optional: false });
@@ -548,40 +681,12 @@ return view.extend({
 		return map.render();
 	},
 
-	// The handleSaveApply function is executed after clicking "Save & Apply"
-	handleSaveApply(ev) {
+	// The handleSaveApply function saves UCI changes then applies them via the
+	// standard OpenWrt apply mechanism, which triggers /etc/init.d/tailscale-settings
+	// and provides automatic rollback protection if the device becomes unreachable.
+	handleSaveApply(ev, mode) {
 		return map.save().then(function () {
-			const data = map.data.get('tailscale', 'settings');
-
-			// fix empty value issue
-			if(!data.advertise_exit_node) data.advertise_exit_node = '';
-			if(!data.advertise_routes) data.advertise_routes = '';
-			if(!data.exit_node) data.exit_node = '';
-			if(!data.custom_login_url) data.custom_login_url = '';
-			if(!data.custom_login_AuthKey) data.custom_login_AuthKey = '';
-
-			ui.showModal(_('Applying changes...'), E('em', {}, _('Please wait.')));
-
-			return callSetSettings(data).then(function (response) {
-				if (response.success) {
-					ui.hideModal();
-					setTimeout(function() {
-							ui.addTimeLimitedNotification(null, [ E('p', _('Tailscale settings applied successfully.')) ], 5000, 'info');
-					}, 1000);
-					try {
-						L.ui.changes.revert();
-					} catch (error) {
-						ui.addTimeLimitedNotification(null, [ E('p', _('Error saving settings: %s').format(error || _('Unknown error'))) ], 7000, 'error');
-					}
-				} else {
-					ui.hideModal();
-					ui.addTimeLimitedNotification(null, [ E('p', _('Error applying settings: %s').format(response.error || _('Unknown error'))) ], 7000, 'error');
-				}
-			});
-		}).catch(function(err) {
-			ui.hideModal();
-			//console.error('Save failed:', err);
-			ui.addTimeLimitedNotification(null, [ E('p', _('Failed to save settings: %s').format(err.message)) ], 7000, 'error');
+			return ui.changes.apply(mode == '0');
 		});
 	},
 

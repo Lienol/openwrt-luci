@@ -40,12 +40,12 @@ methods.get_status = {
 		let data = {
 			status: '',
 			version: '',
-			TUNMode: '',
+			TUNMode: false,
 			health: '',
 			ipv4: "Not running",
-			ipv6: null,
+			ipv6: "",
 			domain_name: '',
-			peers: []
+			peers: {}
 		};
 		if (access('/usr/sbin/tailscale')==true || access('/usr/bin/tailscale')==true){ }else{
 			data.status = 'not_installed';
@@ -56,32 +56,34 @@ methods.get_status = {
 		let peer_map = {};
 		if (status_json_output.code == 0 && length(status_json_output.stdout) > 0) {
 			try {
-				let status_data = json(join('',status_json_output.stdout));
+				let status_data = json(join('', status_json_output.stdout));
 				data.version = status_data?.Version || 'Unknown';
-				data.health = status_data?.Health || '';
-				data.TUNMode = status_data?.TUN || 'true';
-				if (status_data?.BackendState == 'Running') { data.status =  'running'; }
-				if (status_data?.BackendState == 'NeedsLogin') { data.status =  'logout'; }
+				data.health = (status_data?.Health && length(status_data.Health) > 0) ? status_data.Health[0] : '';
+				data.TUNMode = (status_data?.TUN == true);
+				if (status_data?.BackendState == 'Running') { data.status = 'running'; }
+				if (status_data?.BackendState == 'NeedsLogin') { data.status = 'logout'; }
 
 				data.ipv4 = status_data?.Self?.TailscaleIPs?.[0] || 'No IP assigned';
-				data.ipv6 = status_data?.Self?.TailscaleIPs?.[1] || null;
+				data.ipv6 = status_data?.Self?.TailscaleIPs?.[1] || '';
 				data.domain_name = status_data?.CurrentTailnet?.Name || '';
 
 				// peers list
-				for (let p in status_data?.Peer) {
-					p = status_data.Peer[p];
-					peer_map[p.ID] = {
-						ip: join('<br>', p?.TailscaleIPs) || '',
-						hostname: split(p?.DNSName || '','.')[0] || '',
-						ostype: p?.OS,
-						online: p?.Online,
-						linkadress: (!p?.CurAddr) ? p?.Relay : p?.CurAddr,
-						lastseen: p?.LastSeen,
-						exit_node: !!p?.ExitNode,
-						exit_node_option: !!p?.ExitNodeOption,
-						tx: p?.TxBytes || '',
-						rx: p?.RxBytes || ''
-					};
+				if (status_data?.Peer) {
+					for (let p in status_data.Peer) {
+						let peer = status_data.Peer[p];
+						peer_map[peer.ID] = {
+							ip: join('<br>', peer?.TailscaleIPs || []),
+							hostname: split(peer?.DNSName || '', '.')[0] || peer?.HostName || '',
+							ostype: peer?.OS || '',
+							online: !!peer?.Online,
+							linkadress: (!peer?.CurAddr) ? (peer?.Relay || '') : peer?.CurAddr,
+							lastseen: peer?.LastSeen || '',
+							exit_node: !!peer?.ExitNode,
+							exit_node_option: !!peer?.ExitNodeOption,
+							tx: peer?.TxBytes || 0,
+							rx: peer?.RxBytes || 0
+						};
+					}
 				}
 			} catch (e) { /* ignore */ }
 		}
@@ -123,7 +125,7 @@ methods.get_settings = {
 					settings.ssh = status_data?.RunSSH || false;
 					settings.runwebclient = status_data?.RunWebClient || false;
 					settings.nosnat = status_data?.NoSNAT || false;
-					settings.disable_magic_dns = !status_data?.CorpDNS || false;
+					settings.dns_mode = uci.get('tailscale', 'settings', 'dns_mode') || 'disabled';
 					settings.fw_mode = split(uci.get('tailscale', 'settings', 'fw_mode'),' ')[0] || 'nftables';
 				}
 				}
@@ -133,49 +135,6 @@ methods.get_settings = {
 	}
 };
 
-methods.set_settings = {
-	args: { form_data: {} },
-	call: function(request) {
-		const form_data = request.args.form_data;
-		if (form_data == null || length(form_data) == 0) {
-			return { error: 'Missing or invalid form_data parameter. Please provide settings data.' };
-		}
-		let args = ['set'];
-
-		push(args,'--accept-routes=' + (form_data.accept_routes == '1'));
-		push(args,'--advertise-exit-node=' + ((form_data.advertise_exit_node == '1')&&(form_data.exit_node == "")));
-		if (form_data.exit_node == "") push(args,'--exit-node-allow-lan-access=' + (form_data.exit_node_allow_lan_access == '1'));
-		push(args,'--ssh=' + (form_data.ssh == '1'));
-		push(args,'--accept-dns=' + (form_data.disable_magic_dns != '1'));
-		push(args,'--shields-up=' + (form_data.shields_up == '1'));
-		push(args,'--webclient=' + (form_data.runwebclient == '1'));
-		push(args,'--snat-subnet-routes=' + (form_data.nosnat != '1'));
-		push(args,'--advertise-routes ' + (shell_quote(join(',',form_data.advertise_routes)) || '\"\"'));
-		push(args,'--exit-node=' + (shell_quote(form_data.exit_node) || '\"\"'));
-		if (form_data.exit_node != "") push(args,' --exit-node-allow-lan-access=true');
-		push(args,'--hostname ' + (shell_quote(form_data.hostname) || '\"\"'));
-
-		let cmd_array = 'tailscale '+join(' ', args);
-		let set_result = exec(cmd_array);
-		if (set_result.code != 0) {
-			return { error: 'Failed to apply node settings: ' + set_result.stderr };
-		}
-
-		uci.load('tailscale');
-		for (let key in form_data) {
-			uci.set('tailscale', 'settings', key, form_data[key]);
-		}
-		uci.save('tailscale');
-		uci.commit('tailscale');
-
-		// process reduce memory https://github.com/GuNanOvO/openwrt-tailscale
-		// some new versions of Tailscale may not work well with this method
-		//if (form_data.daemon_mtu != "" || form_data.daemon_reduce_memory != "") {
-		//	popen('/bin/sh -c ". ' + env_script_path + ' && /etc/init.d/tailscale restart" &');
-		//}
-		return { success: true };
-	}
-};
 
 methods.do_login = {
 	args: { form_data: {} },
@@ -275,6 +234,8 @@ methods.get_subroutes = {
 methods.setup_firewall = {
 	call: function() {
 		try {
+			uci.load('tailscale');
+
 			uci.load('network');
 			uci.load('firewall');
 
@@ -297,21 +258,18 @@ methods.setup_firewall = {
 			}
 
 			// 2. config Firewall Zone
-			let fw_all = uci.get_all('firewall');
 			let ts_zone_section = null;
 			let fwd_lan_to_ts = false;
 			let fwd_ts_to_lan = false;
 
-			for (let sec_key in fw_all) {
-				let s = fw_all[sec_key];
-				if (s['.type'] == 'zone' && s['name'] == 'tailscale') {
-					ts_zone_section = sec_key;
-				}
-				if (s['.type'] == 'forwarding') {
-					if (s.src == 'lan' && s.dest == 'tailscale') fwd_lan_to_ts = true;
-					if (s.src == 'tailscale' && s.dest == 'lan') fwd_ts_to_lan = true;
-				}
-			}
+			uci.foreach('firewall', 'zone', function(s) {
+				if (s['name'] == 'tailscale')
+				ts_zone_section = s['.name'];
+				});
+				uci.foreach('firewall', 'forwarding', function(s) {
+					if (s['src'] == 'lan' && s['dest'] == 'tailscale') fwd_lan_to_ts = true;
+					if (s['src'] == 'tailscale' && s['dest'] == 'lan') fwd_ts_to_lan = true;
+				});
 
 			if (ts_zone_section == null) {
 				let zid = uci.add('firewall', 'zone');
@@ -336,7 +294,7 @@ methods.setup_firewall = {
 
 				// check if 'tailscale' is already in the list
 				for (let n in net_list) {
-					if (net_list[n] == 'tailscale') {
+					if (n == 'tailscale') {
 						has_ts_net = true;
 						break;
 					}
@@ -364,6 +322,19 @@ methods.setup_firewall = {
 				changed_firewall = true;
 			}
 
+			// Exit node requires WAN <- tailscale forwarding
+			let fwd_ts_to_wan = false;
+			uci.foreach('firewall', 'forwarding', function(s) {
+				if (s['src'] == 'tailscale' && s['dest'] == 'wan') fwd_ts_to_wan = true;
+			});
+
+			if (!fwd_ts_to_wan) {
+				let fid = uci.add('firewall', 'forwarding');
+				uci.set('firewall', fid, 'src', 'tailscale');
+				uci.set('firewall', fid, 'dest', 'wan');
+				changed_firewall = true;
+			}
+
 			// 4. save
 			if (changed_network) {
 				uci.save('network');
@@ -387,6 +358,19 @@ methods.setup_firewall = {
 		} catch (e) {
 			return { error: 'Exception in setup_firewall: ' + e + '\nStack: ' + (e.stacktrace || '') };
 		}
+	}
+};
+
+methods.get_logs = {
+	args: { lines: 200 },
+	call: function(request) {
+		let lines = int(request?.args?.lines) || 200;
+		let cmd = 'logread -l ' + lines + ' 2>/dev/null | grep -i -E "tailscale" || true';
+		let result = exec(cmd);
+		if (result.code == 0) {
+			return { logs: result.stdout };
+		}
+		return { logs: [], error: join(' ', result.stderr) };
 	}
 };
 
