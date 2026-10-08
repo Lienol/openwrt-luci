@@ -2925,6 +2925,21 @@ msgstr "请求 IPv6 地址"
 msgid "Request IPv6-prefix of length"
 msgstr "请求指定长度的 IPv6 前缀"
 
+msgid ""
+"Either a prefix length hint (e.g. 56) only, whereby the operator selects the "
+"prefix, or specify a prefix also (e.g. %s)"
+msgstr ""
+"可以只选择前缀长度（例如 56 ），此时将由运营商来选择分配的前缀，也可以指定"
+"<abbr title=\"运营商或上游不一定支持\">想要获取的前缀</abbr>（例如 %s ）"
+
+msgid "Extend prefix"
+msgstr "扩展前缀"
+
+msgid "Extend 3GPP WAN interface /64 prefix via PD to LAN (RFC 7278)"
+msgstr ""
+"通过<abbr title=\"Prefix Delegation，PD\">前缀委派</abbr>将 3GPP WAN 接口的全"
+"局 /64 前缀扩展到 LAN（RFC 7278）"
+
 msgid "Require TLS"
 msgstr "必须使用 TLS"
 
@@ -5537,6 +5552,38 @@ msgstr "重启时不要发送 Release"
 
 msgid "Enable to minimise the chance of prefix change after a restart"
 msgstr "启用后最大程度减少重启后前缀更改的可能性"
+
+msgid "Preferred client ID"
+msgstr "首选的客户端 ID"
+
+msgid ""
+"Selects the <abbr title=\"DHCP Unique Identifier\">DUID</abbr> to send when "
+"requesting DHCPv6."
+msgstr ""
+"选择请求 DHCPv6 时要发送的 <abbr title=\"DHCP Unique Identifier\">DUID</"
+"abbr>。"
+
+msgid ""
+"<em>Automatic</em> uses the client ID configured below, else the default "
+"DUID of this device, else a DUID-LL derived from the MAC address of this "
+"interface."
+msgstr ""
+"<em>自动</em> 使用下方配置的客户端 ID,或者此设备的默认 DUID,或者衍生自该接口 "
+"MAC 地址的 DUID−LL。"
+
+msgid ""
+"<em>Default DUID</em> always uses the default DUID of this device, even if a "
+"client ID is configured below."
+msgstr ""
+"即使在下方配置了客户端 ID, <em>默认 DUID</em> 也始终使用该设备的默认 DUID。"
+
+msgid ""
+"<em>Hardware address</em> always uses a DUID-LL derived from the MAC address "
+"of this interface."
+msgstr "<em>硬件地址</em> 始终使用衍生自该接口 MAC地址的 DUID−LL。"
+
+msgid "Hardware address"
+msgstr "硬件地址"
 
 msgid "Encapsulation limit"
 msgstr "封装限制"
