@@ -210,13 +210,14 @@ return baseclass.extend({
 
 	renderClientTable() {
 		return charts.table({
+			id: 'dashboard-wifi-table',
 			head: [
 				_('Hostname'),
 				_('IP Address'),
 				_('SSID'),
+				_('Band'),
 				'%s / %s'.format(_('Signal'), _('Noise floor')),
-				_('Up.'),
-				_('Down.'),
+				'%s / %s'.format(_('Up.'), _('Down.')),
 				_('Connected')
 			],
 			rows: this.params.wifi.devices.map(device => [
@@ -225,6 +226,7 @@ return baseclass.extend({
 					? E('div', { 'class': 'dashboard-client-addresses' }, device.addresses.value.map(address => E('div', {}, [ address ])))
 					: '-',
 				device.ssid.value,
+				device.band.value || '-',
 				E('span', {}, [
 					charts.badge((device.signal.value.rssi != null) ? '%d %s'.format(device.signal.value.rssi, _('dBm')) : _('No RX signal'), signalGrade(device.signal.value.rssi).kind),
 					' ',
@@ -232,8 +234,11 @@ return baseclass.extend({
 						? E('small', {}, [ '/ %d %s'.format(device.signal.value.noise, _('dBm')) ])
 						: ''
 				]),
-				device.transferred.value.rx,
-				device.transferred.value.tx,
+				E('span', {}, [
+					E('span', { 'title': _('Up.') }, [ device.transferred.value.rx ]),
+					' / ',
+					E('span', { 'title': _('Down.') }, [ device.transferred.value.tx ])
+				]),
 				device.connected.value || '-'
 			]),
 			emptyText: _('No wireless clients connected'),
@@ -241,12 +246,50 @@ return baseclass.extend({
 		});
 	},
 
+	frequencyBand(frequency) {
+		const freq = Number(frequency);
+		let band = null;
+
+		// Wi-Fi frequency band boundaries (GHz):
+		// - Sub-1 GHz: < 1 GHz (NL80211_BAND_S1GHZ, covers 802.11ah HaLow / 802.11af)
+		// - 2.4 GHz: 2.312-2.484 GHz (down to ch -19 in ath9k/ath5k; ch 14 upper bound)
+		// - 5 GHz: 4.91-5.925 GHz (802.11j public safety through U-NII-4)
+		// - 6 GHz: 5.925-7.125 GHz (U-NII-5 through U-NII-8)
+		// - 60 GHz: 58.32-70.2 GHz (802.11ad/ay DMG band)
+		// 5/6/60 GHz and ch 14 follow Linux kernel ieee80211_freq_khz_to_channel():
+		// https://github.com/torvalds/linux/blob/165768bb70265b5c38cf0b73fafd75be235f8b14/net/wireless/util.c#L114-L132
+		if (freq > 0 && freq < 1)
+			band = 'Sub-1';
+		else if (freq >= 2.312 && freq <= 2.484)
+			band = '2.4';
+		else if (freq >= 4.91 && freq < 5.925)
+			band = '5';
+		else if (freq >= 5.925 && freq <= 7.125)
+			band = '6';
+		else if (freq >= 58.32 && freq <= 70.2)
+			band = '60';
+
+		return band ? '%s %s'.format(band, _('GHz')) : null;
+	},
+
 	renderTab() {
-		return E('div', {}, [
-			E('div', { 'class': 'dashboard-net-grid' }, this.params.wifi.radios.map(radio => this.renderNetworkCard(radio))),
+		const netGrid = E('div', { 'class': 'dashboard-net-grid' }, this.params.wifi.radios.map(radio => this.renderNetworkCard(radio)));
+		const clientTable = this.renderClientTable();
+
+		if (this.tabNode && this.tabNode.parentNode) {
+			const oldGrid = this.tabNode.querySelector('.dashboard-net-grid');
+			if (oldGrid)
+				this.tabNode.replaceChild(netGrid, oldGrid);
+			return this.tabNode;
+		}
+
+		this.tabNode = E('div', {}, [
+			netGrid,
 			E('h3', {}, [ _('Wireless clients') ]),
-			this.renderClientTable()
+			clientTable
 		]);
+
+		return this.tabNode;
 	},
 
 	clientAddresses(ipv4, hint) {
@@ -316,6 +359,8 @@ return baseclass.extend({
 		}
 
 		for (let i = 0; i < networks.length; i++) {
+			const band = this.frequencyBand(networks[i].getFrequency());
+
 			for (let k = 0; k < networks[i].assoclist.length; k++) {
 				const bss = networks[i].assoclist[k];
 				const mac = bss.mac.toUpperCase();
@@ -323,6 +368,12 @@ return baseclass.extend({
 
 				this.params.wifi.devices.push(
 					{
+						band : {
+							title: _('Band'),
+							visible: true,
+							value: band
+						},
+
 						hostname : {
 							title: _('Hostname'),
 							visible: true,
